@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Jab aap domain kharid lenge, tab yahan apna asli website link (domain) daal dijiye
+Sitemap: https://www.yourdomain.com/sitemap.xml

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Image to PDF Converter - Convert JPG, PNG to PDF Online</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Convert any image (JPG, PNG, WEBP) to PDF instantly for free. Fast, secure, and 100% offline client-side generation. No file upload required.">
+    <meta name="keywords"
+        content="photo ko pdf kaise banaye, jpg se pdf banane wala app, mobile se photo ki pdf kaise banaye, image to pdf, convert image to pdf, photo se pdf banane wala online converter, gallery ki photo se pdf kaise banaye, document ko pdf banane wala site, photo to pdf 100kb, compress pdf to 200kb online, aadhar card pdf maker, pan card pdf compress, hindi photo converter, free image to pdf india, india no 1 pdf tool, pdf banane ka sabse aasan tarika">
+    <meta name="author" content="Premium Tools India">
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph for Social Media Sharing -->
+    <meta property="og:title" content="Free Image to PDF Converter">
+    <meta property="og:description" content="Convert any JPG or PNG image to a high-quality PDF in seconds.">
+    <meta property="og:type" content="website">
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Fast Image to PDF Converter">
+    <meta name="twitter:description" content="Securely turn your images into PDF instantly without internet uploads.">
+
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Professional Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand">
+                <i class="fa-solid fa-file-pdf"></i>
+                Img2PDF<span>Pro</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#tool">Converter</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-to">How it Works</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">100% Free & Secure</div>
+            <h1>Convert Images to PDF <span class="highlight">Instantly</span></h1>
+            <p>Turn your JPG, PNG, and WEBP images into high-quality PDF documents. No software installation required,
+                and your files never leave your device.</p>
+        </div>
+    </section>
+
+    <!-- Main Tool Section -->
+    <section class="tool-section" id="tool">
+        <div class="container">
+            <main>
+                <div class="upload-area" id="upload-area">
+                    <input type="file" id="file-input" accept="image/*" multiple hidden>
+                    <div class="upload-content">
+                        <i class="fa-solid fa-cloud-arrow-up upload-icon-main"></i>
+                        <h3>Drag & Drop images here</h3>
+                        <p>or</p>
+                        <button class="btn browse-btn" onclick="document.getElementById('file-input').click()">Browse
+                            Files</button>
+                        <p class="file-limits">Supports JPG, PNG, WEBP. Select multiple files.</p>
+                    </div>
+                </div>
+
+                <div class="controls" id="controls" style="display: none;">
+                    <div class="settings-wrapper">
+                        <h4><i class="fa-solid fa-sliders"></i> PDF Settings</h4>
+                        <div class="settings">
+                            <label>
+                                Page Size:
+                                <select id="page-size">
+                                    <option value="a4">A4 Document</option>
+                                    <option value="letter">US Letter</option>
+                                    <option value="fit">Fit to Image Size</option>
+                                </select>
+                            </label>
+                            <label>
+                                Margin:
+                                <select id="margin">
+                                    <option value="0">No Margin (Seamless)</option>
+                                    <option value="10">Small (10mm)</option>
+                                    <option value="20">Large (20mm)</option>
+                                </select>
+                            </label>
+                            <label>
+                                Custom Target Size (Compress):
+                                <select id="compression">
+                                    <option value="1.0">Original (High Quality, Large Size)</option>
+                                    <option value="0.7" selected>Medium (Standard Quality, 500KB+)</option>
+                                    <option value="0.3">Low (For forms, ~300KB - 500KB)</option>
+                                    <option value="0.1">Super Compress (Govt Forms, 100KB - 200KB)</option>
+                                </select>
+                            </label>
+                            <label>
+                                Orientation:
+                                <select id="orientation">
+                                    <option value="auto">Auto (Best Fit)</option>
+                                    <option value="p">Portrait</option>
+                                    <option value="l">Landscape</option>
+                                </select>
+                            </label>
+                            <label>
+                                File Name:
+                                <input type="text" id="file-name" placeholder="my_document"
+                                    style="background-color: var(--surface-color); color: var(--text-color); border: 1px solid var(--border-color); padding: 0.85rem; border-radius: 10px; font-family: inherit; font-size: 1rem; outline: none; transition: all 0.2s;">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="preview-header">
+                        <div>
+                            <h3 class="preview-title">Selected Images (<span id="image-count">0</span>)</h3>
+                            <p class="sort-tip"><i class="fa-solid fa-arrows-up-down-left-right"></i> Drag images to
+                                reorder them exactly how you want your PDF.</p>
+                        </div>
+                    </div>
+
+                    <div class="image-preview" id="image-preview">
+                        <!-- Dynamic preview images appended here -->
+                    </div>
+
+                    <div class="actions">
+                        <button class="btn clear-btn" id="clear-btn"><i class="fa-solid fa-trash-can"></i> Clear
+                            All</button>
+                        <button class="btn primary-btn" id="generate-btn"><i class="fa-solid fa-file-export"></i>
+                            Generate PDF</button>
+                    </div>
+                </div>
+
+                <div class="loading-overlay" id="loading-overlay">
+                    <div class="spinner"></div>
+                    <p>Creating your perfect PDF...</p>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>Why Choose Img2PDF Pro?</h2>
+            <p>We offer the smartest, fastest, and most secure conversion process.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>100% Privacy</h3>
+                <p>We don't upload your images to any server. Everything is processed locally in your browser ensuring
+                    maximum security.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
+                <h3>Super Fast</h3>
+                <p>Because there is no uploading or downloading from servers, your PDF is generated instantly right on
+                    your device.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box"><i class="fa-solid fa-layer-group"></i></div>
+                <h3>Organize & Sort</h3>
+                <p>Drag and drop capability allows you to easily arrange your photos into the perfect sequence before
+                    creating the document.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-to" id="how-to">
+        <div class="section-title">
+            <h2>How to Convert Images to PDF</h2>
+        </div>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-num">1</div>
+                <h4>Upload Photos</h4>
+                <p>Drag and drop your JPG, PNG, or WEBP images into the box.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <h4>Adjust & Order</h4>
+                <p>Arrange your images and select margins, sizing, and quality.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <h4>Download PDF</h4>
+                <p>Click "Generate PDF" and your secure file will save instantly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specific SEO Section for India -->
+    <section class="seo-content"
+        style="max-width: 1000px; margin: 0 auto; padding: 2rem; color: var(--text-muted); font-size: 0.95rem; text-align: center; border-top: 1px solid var(--border-color); line-height: 1.8;">
+        <h2 style="font-size: 1.4rem; color: var(--text-color); margin-bottom: 0.8rem;">Mobile Se Photo Ki PDF Kaise
+            Banaye? (100KB - 200KB limit for India)</h2>
+        <p>Agar aap India se hain aur baar baar sochte hain ki <strong>"photo ko pdf kaise banaye"</strong> ya
+            <strong>"jpg se pdf banane wala app"</strong> kaunsa best hai, toh aap bilkul sahi jagah par hain. Apne
+            documents (Aadhar card, PAN card, ya Marksheet) ko sarkaari form (Govt forms) ya bank me upload karne ke
+            liye photo se PDF banana ab bahut aasan hai. <br><br>Ye India ki No.1 website hai jahan aap bina kisi app ko
+            download kiye, seedhe browser se apni <strong>gallery ki photo se pdf bana sakte hain</strong>. Aap yahan
+            par <strong>"Super Compress"</strong> option chun kar apne bade size (MBs) ke photos ko bina kharab kiye
+            asaani se <strong>100kb se 200kb</strong> ki PDF me badal sakte hain. <br><br>Bahut se log internet par
+            search karte hain: <em>"mobile se photo ki pdf kaise banaye"</em> ya <em>"image ko pdf me convert kaise
+                kare"</em>. Ye website un sabhi sawalon ka 100% free solution hai. Ek dam <strong>safe and
+                secure</strong>, kyunki aapki files aapke mobile ya computer se bahar kisi server par upload nahi hoti
+            hain!</p>
+
+        <div style="margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+            <span
+                style="background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--border-color);">Photo
+                ko PDF kaise banaye</span>
+            <span
+                style="background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--border-color);">Jpg
+                se PDF banane wala app</span>
+            <span
+                style="background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--border-color);">Mobile
+                se photo ki pdf kaise banaye</span>
+            <span
+                style="background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--border-color);">Gallery
+                ki photo ko pdf me convert</span>
+            <span
+                style="background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--border-color);">Aadhar
+                card 100kb pdf maker</span>
+            <span
+                style="background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--border-color);">Image
+                ko pdf banane ka tarika</span>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <i class="fa-solid fa-file-pdf"></i> Img2PDF<span>Pro</span>
+            </div>
+            <p>&copy; 2026 Img2PDF Pro. Built with privacy in mind.</p>
+            <div class="socials">
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
