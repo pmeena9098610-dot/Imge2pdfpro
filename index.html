@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Image to PDF Converter - Convert JPG, PNG to PDF Online</title>
+    <title>Photo Ko PDF Kaise Banaye | Best Image to PDF Converter (Free)</title>
     <!-- SEO Meta Tags -->
     <meta name="description"
-        content="Convert any image (JPG, PNG, WEBP) to PDF instantly for free. Fast, secure, and 100% offline client-side generation. No file upload required.">
+        content="Free tool to convert JPG, PNG to PDF instantly. Mobile se photo ki PDF banayein. 100% offline, secure, compress to 100kb/200kb easily. No upload needed!">
     <meta name="keywords"
-        content="photo ko pdf kaise banaye, jpg se pdf banane wala app, mobile se photo ki pdf kaise banaye, image to pdf, convert image to pdf, photo se pdf banane wala online converter, gallery ki photo se pdf kaise banaye, document ko pdf banane wala site, photo to pdf 100kb, compress pdf to 200kb online, aadhar card pdf maker, pan card pdf compress, hindi photo converter, free image to pdf india, india no 1 pdf tool, pdf banane ka sabse aasan tarika">
+        content="photo ko pdf kaise banaye, jpg se pdf banane wala app, mobile se photo ki pdf kaise banaye, image to pdf, convert image to pdf, photo se pdf banane wala online converter, gallery ki photo se pdf kaise banaye, document ko pdf banane wala site, photo to pdf 100kb, compress pdf to 200kb online, aadhar card pdf maker, pan card pdf compress, hindi photo converter, free image to pdf india, india no 1 pdf tool, pdf banane ka sabse aasan tarika, smallpdf alternative, ilovepdf alternative">
     <meta name="author" content="Premium Tools India">
     <meta name="robots" content="index, follow">
     <!-- Open Graph for Social Media Sharing -->
@@ -115,6 +115,43 @@
                                 </select>
                             </label>
                             <label>
+                                Page Layout (Merge):
+                                <select id="images-per-page">
+                                    <option value="1">1 Image / Page</option>
+                                    <option value="2">2 Images / Page</option>
+                                    <option value="4">4 Images / Page</option>
+                                    <option value="6">6 Images / Page</option>
+                                    <option value="9">9 Images / Page</option>
+                                </select>
+                            </label>
+                            <label>
+                                Page Numbers (PRO):
+                                <select id="page-numbers">
+                                    <option value="none">No Page Numbers</option>
+                                    <option value="bottom-center">Bottom Center</option>
+                                    <option value="bottom-right">Bottom Right</option>
+                                    <option value="top-right">Top Right</option>
+                                </select>
+                            </label>
+                            <label>
+                                PDF Password (PRO):
+                                <input type="text" id="pdf-password" placeholder="Lock with password..."
+                                    style="background-color: var(--surface-color); color: var(--text-color); border: 1px solid var(--border-color); padding: 0.85rem; border-radius: 10px; font-family: inherit; font-size: 1rem; outline: none; transition: all 0.2s;">
+                            </label>
+                            <label>
+                                Document Filter (PRO):
+                                <select id="doc-filter">
+                                    <option value="none">Original Color</option>
+                                    <option value="gray">Grayscale (Standard Scanner)</option>
+                                    <option value="bw">Black & White (High Contrast/Sharp Text)</option>
+                                </select>
+                            </label>
+                            <label>
+                                Add Watermark (PRO):
+                                <input type="text" id="watermark" placeholder="Confidential (Optional)"
+                                    style="background-color: var(--surface-color); color: var(--text-color); border: 1px solid var(--border-color); padding: 0.85rem; border-radius: 10px; font-family: inherit; font-size: 1rem; outline: none; transition: all 0.2s;">
+                            </label>
+                            <label>
                                 File Name:
                                 <input type="text" id="file-name" placeholder="my_document"
                                     style="background-color: var(--surface-color); color: var(--text-color); border: 1px solid var(--border-color); padding: 0.85rem; border-radius: 10px; font-family: inherit; font-size: 1rem; outline: none; transition: all 0.2s;">
@@ -123,10 +160,22 @@
                     </div>
 
                     <div class="preview-header">
-                        <div>
-                            <h3 class="preview-title">Selected Images (<span id="image-count">0</span>)</h3>
-                            <p class="sort-tip"><i class="fa-solid fa-arrows-up-down-left-right"></i> Drag images to
-                                reorder them exactly how you want your PDF.</p>
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem;">
+                            <div>
+                                <h3 class="preview-title">Selected Images (<span id="image-count">0</span>)</h3>
+                                <p class="sort-tip"><i class="fa-solid fa-arrows-up-down-left-right"></i> Drag images to
+                                    reorder them exactly how you want your PDF.</p>
+                            </div>
+                            <!-- PRO Tools: Quick Sort -->
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button id="sort-az-btn"
+                                    style="background: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-color); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; transition: 0.2s;"><i
+                                        class="fa-solid fa-arrow-down-a-z"></i> Sort A-Z</button>
+                                <button id="reverse-btn"
+                                    style="background: var(--surface-color); border: 1px solid var(--border-color); color: var(--text-color); padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; transition: 0.2s;"><i
+                                        class="fa-solid fa-arrow-right-arrow-left"></i> Reverse</button>
+                            </div>
                         </div>
                     </div>
 
@@ -217,7 +266,8 @@
             search karte hain: <em>"mobile se photo ki pdf kaise banaye"</em> ya <em>"image ko pdf me convert kaise
                 kare"</em>. Ye website un sabhi sawalon ka 100% free solution hai. Ek dam <strong>safe and
                 secure</strong>, kyunki aapki files aapke mobile ya computer se bahar kisi server par upload nahi hoti
-            hain!</p>
+            hain!
+        </p>
 
         <div style="margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
             <span
@@ -238,6 +288,57 @@
             <span
                 style="background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--border-color);">Image
                 ko pdf banane ka tarika</span>
+        </div>
+    </section>
+
+    <!-- FAQ Section for Long-Tail SEO Search Ranking -->
+    <section class="faq-section"
+        style="max-width: 1000px; margin: 0 auto; padding: 4rem 2rem; border-top: 1px solid var(--border-color);">
+        <div class="section-title" style="margin-bottom: 2rem;">
+            <h2>Frequently Asked Questions (FAQs)</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; text-align: center;">Sabhi zaroori sawalon ke jawaab
+                (Image to PDF)</p>
+        </div>
+
+        <div class="faq-container" style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div class="faq-item"
+                style="background: var(--surface-color); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                <h3 style="font-size: 1.2rem; color: var(--primary-color); margin-bottom: 0.5rem;">1. Mobile se photo ki
+                    PDF kaise banaye?</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Apne smartphone ki gallery open karein. Hamari
+                    website par 'Browse Files' button par click karein aur photo select karein. Dropdown me layout aur
+                    size setting chuniye aur "Generate PDF" dabate hi aapki high-quality PDF aapke mobile me save ho
+                    jayegi.</p>
+            </div>
+
+            <div class="faq-item"
+                style="background: var(--surface-color); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                <h3 style="font-size: 1.2rem; color: var(--primary-color); margin-bottom: 0.5rem;">2. Kya meri private
+                    photos (jaise Aadhar/PAN) secure rahengi?</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem;"><strong>Haan, 100% safe!</strong> ILovePDF ya
+                    Smallpdf jaisi badi sites par aapki file unke server par upload hoti hai. Lekin humari website aapke
+                    mobile/browser ke andar hi offline kaam karti hai. Aapki photo internet par kahin nahi jati!</p>
+            </div>
+
+            <div class="faq-item"
+                style="background: var(--surface-color); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                <h3 style="font-size: 1.2rem; color: var(--primary-color); margin-bottom: 0.5rem;">3. Govt Form ke liye
+                    PDF ka size 100kb/200kb kaise banaye?</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Agar apko online form bharna hai, toh PDF
+                    Settings me <strong style="color:var(--text-color);">"Custom Target Size (Compress)"</strong> wale
+                    dropdown se <strong style="color:var(--text-color);">"Super Compress (100KB - 200KB)"</strong>
+                    option chunein. Ye bade camera photos ko auto-compress kar dega.</p>
+            </div>
+
+            <div class="faq-item"
+                style="background: var(--surface-color); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                <h3 style="font-size: 1.2rem; color: var(--primary-color); margin-bottom: 0.5rem;">4. Pura ek page par
+                    multiple images merge kaise karein?</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">PDF Settings me ek naya option hai
+                    <strong>"Page Layout (Merge)"</strong>. Yahan aap select kar sakte hain ki ek akele A4 size page par
+                    aapko 2, 4, 6 ya 9 photos eksath jodni hain ya nahi.
+                </p>
+            </div>
         </div>
     </section>
 

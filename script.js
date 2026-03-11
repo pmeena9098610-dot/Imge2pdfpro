@@ -144,29 +144,46 @@ generateBtn.addEventListener('click', async () => {
         const marginStyle = parseInt(marginStr);
         const compressionQuality = parseFloat(document.getElementById('compression').value);
         const orientationPref = document.getElementById('orientation').value;
+        const imagesPerPage = parseInt(document.getElementById('images-per-page').value) || 1;
         const fileName = document.getElementById('file-name').value.trim() || 'Document_Converted';
+        const docFilter = document.getElementById('doc-filter').value;
+        const watermarkText = document.getElementById('watermark').value.trim();
+        const pageNumbers = document.getElementById('page-numbers').value;
+        const pdfPassword = document.getElementById('pdf-password').value.trim();
 
         let pdf;
 
-        for (let i = 0; i < selectedImages.length; i++) {
-            const imgObj = selectedImages[i];
+        let actualPageSize = pageSize;
+        // Turn off 'fit' to image size when merging multiple images on one page
+        if (imagesPerPage > 1 && pageSize === 'fit') actualPageSize = 'a4';
 
-            // Abstract load behavior over Promises for awaiting
-            const img = new Image();
-            img.src = imgObj.imgData;
-            await new Promise((resolve, reject) => {
-                img.onload = resolve;
-                img.onerror = reject;
-            });
+        let chunks = [];
+        for (let i = 0; i < selectedImages.length; i += imagesPerPage) {
+            chunks.push(selectedImages.slice(i, i + imagesPerPage));
+        }
+
+        for (let pageIndex = 0; pageIndex < chunks.length; pageIndex++) {
+            const chunk = chunks[pageIndex];
+
+            const loadedImages = [];
+            for (let imgObj of chunk) {
+                const img = new Image();
+                img.src = imgObj.imgData;
+                await new Promise((resolve, reject) => {
+                    img.onload = resolve;
+                    img.onerror = reject;
+                });
+                loadedImages.push({ img, imgObj });
+            }
 
             let pdfWidth = 210; // A4 default width (mm)
             let pdfHeight = 297; // A4 default height (mm)
 
-            if (pageSize === 'letter') {
+            if (actualPageSize === 'letter') {
                 pdfWidth = 215.9;
                 pdfHeight = 279.4;
-            } else if (pageSize === 'fit') {
-                // Convert pixels to robust mm approximation
+            } else if (actualPageSize === 'fit' && imagesPerPage === 1) {
+                const img = loadedImages[0].img;
                 const ptX = img.width * 0.264583;
                 const ptY = img.height * 0.264583;
                 pdfWidth = ptX + marginStyle * 2;
@@ -178,7 +195,6 @@ generateBtn.addEventListener('click', async () => {
                 currentOrientation = pdfWidth > pdfHeight ? 'l' : 'p';
             } else {
                 currentOrientation = orientationPref;
-                // Swap dimensions if they don't match the forced orientation (for standard sizes like A4)
                 if ((currentOrientation === 'p' && pdfWidth > pdfHeight) ||
                     (currentOrientation === 'l' && pdfHeight > pdfWidth)) {
                     const temp = pdfWidth;
@@ -187,72 +203,163 @@ generateBtn.addEventListener('click', async () => {
                 }
             }
 
-            if (i === 0) {
-                pdf = new jsPDF({
+            if (pageIndex === 0) {
+                let jsPdfOpts = {
                     orientation: currentOrientation,
                     unit: 'mm',
-                    format: pageSize === 'fit' ? [pdfWidth, pdfHeight] : pageSize
-                });
+                    format: actualPageSize === 'fit' ? [pdfWidth, pdfHeight] : actualPageSize
+                };
+
+                // Add optional PRO password protection
+                if (pdfPassword) {
+                    jsPdfOpts.encryption = {
+                        userPassword: pdfPassword,
+                        ownerPassword: pdfPassword,
+                        userPermissions: ["print", "modify", "copy", "annot-forms"]
+                    };
+                }
+
+                try {
+                    pdf = new jsPDF(jsPdfOpts);
+                } catch (e) {
+                    // Fallback if encryption is not supported by current cdnjs build
+                    delete jsPdfOpts.encryption;
+                    pdf = new jsPDF(jsPdfOpts);
+                    console.warn("PDF Encryption not supported by standard build, bypassing password.");
+                }
             } else {
-                pdf.addPage(pageSize === 'fit' ? [pdfWidth, pdfHeight] : pageSize, currentOrientation);
+                pdf.addPage(actualPageSize === 'fit' ? [pdfWidth, pdfHeight] : actualPageSize, currentOrientation);
             }
 
-            // Maintain Aspect Ratios securely bounded within pages
-            const imgRatio = img.width / img.height;
-            const pdfRatio = (pdfWidth - marginStyle * 2) / (pdfHeight - marginStyle * 2);
+            // Grid logic
+            let cols = 1, rows = 1;
+            if (imagesPerPage === 2) { rows = 2; cols = 1; }
+            if (imagesPerPage === 4) { rows = 2; cols = 2; }
+            if (imagesPerPage === 6) { rows = 3; cols = 2; }
+            if (imagesPerPage === 9) { rows = 3; cols = 3; }
 
-            let renderWidth = pdfWidth - marginStyle * 2;
-            let renderHeight = pdfHeight - marginStyle * 2;
-            let xIndex = marginStyle;
-            let yIndex = marginStyle;
+            const renderableWidth = pdfWidth - marginStyle * 2;
+            const renderableHeight = pdfHeight - marginStyle * 2;
+            const cellWidth = renderableWidth / cols;
+            const cellHeight = renderableHeight / rows;
 
-            if (pageSize !== 'fit') {
-                if (imgRatio > pdfRatio) {
-                    renderHeight = renderWidth / imgRatio;
-                    yIndex = marginStyle + ((pdfHeight - marginStyle * 2 - renderHeight) / 2);
-                } else {
-                    renderWidth = renderHeight * imgRatio;
-                    xIndex = marginStyle + ((pdfWidth - marginStyle * 2 - renderWidth) / 2);
-                }
-            }
+            for (let i = 0; i < loadedImages.length; i++) {
+                const { img, imgObj } = loadedImages[i];
+                let finalImgData = imgObj.imgData;
 
-            // Utilize jspdf image placement API
-            let finalImgData = imgObj.imgData;
+                // Apply Scanner Filter or Compress Image via canvas (Downscaling for 100-200kb)
+                if (compressionQuality < 1.0 || img.src.includes('image/png') || docFilter !== 'none') {
+                    const canvas = document.createElement('canvas');
+                    let targetWidth = img.width;
+                    let targetHeight = img.height;
 
-            // Compress Image via canvas (Downscaling for 100-200kb)
-            if (compressionQuality < 1.0 || img.src.includes('image/png')) {
-                const canvas = document.createElement('canvas');
-                let targetWidth = img.width;
-                let targetHeight = img.height;
-
-                // Aggressive downsizing for Super Compress (100kb - 200kb)
-                if (compressionQuality <= 0.15) {
-                    const maxDim = 700; // Force max 700px on longest side for tiny file size
-                    if (targetWidth > maxDim || targetHeight > maxDim) {
-                        const ratio = Math.min(maxDim / targetWidth, maxDim / targetHeight);
-                        targetWidth = targetWidth * ratio;
-                        targetHeight = targetHeight * ratio;
+                    if (compressionQuality <= 0.15) {
+                        const maxDim = 700;
+                        if (targetWidth > maxDim || targetHeight > maxDim) {
+                            const ratio = Math.min(maxDim / targetWidth, maxDim / targetHeight);
+                            targetWidth = targetWidth * ratio;
+                            targetHeight = targetHeight * ratio;
+                        }
+                    } else if (compressionQuality <= 0.3) {
+                        const maxDim = 1200;
+                        if (targetWidth > maxDim || targetHeight > maxDim) {
+                            const ratio = Math.min(maxDim / targetWidth, maxDim / targetHeight);
+                            targetWidth = targetWidth * ratio;
+                            targetHeight = targetHeight * ratio;
+                        }
                     }
-                } else if (compressionQuality <= 0.3) {
-                    const maxDim = 1200;
-                    if (targetWidth > maxDim || targetHeight > maxDim) {
-                        const ratio = Math.min(maxDim / targetWidth, maxDim / targetHeight);
-                        targetWidth = targetWidth * ratio;
-                        targetHeight = targetHeight * ratio;
+
+                    canvas.width = targetWidth;
+                    canvas.height = targetHeight;
+                    const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = "#FFFFFF";
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+
+                    // PRO: Apply Image Document Filters (B&W/Grayscale) over pixels
+                    if (docFilter !== 'none') {
+                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        const data = imageData.data;
+                        for (let j = 0; j < data.length; j += 4) {
+                            // RGB simple average
+                            const avg = (data[j] + data[j + 1] + data[j + 2]) / 3;
+                            if (docFilter === 'bw') {
+                                // Thresholding for sharp B&W text
+                                const bw = avg > 140 ? 255 : 0;
+                                data[j] = bw;
+                                data[j + 1] = bw;
+                                data[j + 2] = bw;
+                            } else if (docFilter === 'gray') {
+                                data[j] = avg;
+                                data[j + 1] = avg;
+                                data[j + 2] = avg;
+                            }
+                        }
+                        ctx.putImageData(imageData, 0, 0);
+                    }
+
+                    finalImgData = canvas.toDataURL('image/jpeg', compressionQuality);
+                }
+
+                const imgRatio = img.width / img.height;
+                // Add inner-padding so photos don't stick to each other
+                const cellPadding = imagesPerPage > 1 ? 5 : 0;
+                const maxDrawW = cellWidth - (cellPadding * 2);
+                const maxDrawH = cellHeight - (cellPadding * 2);
+
+                let drawW = maxDrawW, drawH = maxDrawH;
+
+                if (actualPageSize !== 'fit') {
+                    if (imgRatio > maxDrawW / maxDrawH) {
+                        drawH = maxDrawW / imgRatio;
+                        drawW = maxDrawW;
+                    } else {
+                        drawW = maxDrawH * imgRatio;
+                        drawH = maxDrawH;
                     }
                 }
 
-                canvas.width = targetWidth;
-                canvas.height = targetHeight;
-                const ctx = canvas.getContext('2d');
-                ctx.fillStyle = "#FFFFFF"; // Prevent transparent PNG black backgrounds
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
-                // Convert to JPEG with specified quality
-                finalImgData = canvas.toDataURL('image/jpeg', compressionQuality);
+                const c = i % cols;
+                const r = Math.floor(i / cols);
+
+                const cellX = marginStyle + (c * cellWidth);
+                const cellY = marginStyle + (r * cellHeight);
+
+                const drawX = cellX + ((cellWidth - drawW) / 2);
+                const drawY = cellY + ((cellHeight - drawH) / 2);
+
+                pdf.addImage(finalImgData, 'JPEG', drawX, drawY, drawW, drawH);
             }
 
-            pdf.addImage(finalImgData, 'JPEG', xIndex, yIndex, renderWidth, renderHeight);
+            // PRO: Add Watermark over the entire page layout
+            if (watermarkText) {
+                pdf.setTextColor(150, 150, 150); // Gray color
+                pdf.setFontSize(45);
+                // jsPDF text rotation handling requires angle in options
+                pdf.text(watermarkText, pdfWidth / 2, pdfHeight / 2, { angle: 45, align: 'center' });
+            }
+
+            // PRO: Add Page Numbers
+            if (pageNumbers !== 'none') {
+                pdf.setTextColor(100, 100, 100);
+                pdf.setFontSize(10);
+                const pageText = `Page ${pageIndex + 1} of ${chunks.length}`;
+
+                let px = pdfWidth / 2;
+                let py = pdfHeight - 10;
+                let textOpts = { align: 'center' };
+
+                if (pageNumbers === 'bottom-right') {
+                    px = pdfWidth - 10;
+                    textOpts.align = 'right';
+                } else if (pageNumbers === 'top-right') {
+                    px = pdfWidth - 10;
+                    py = 10;
+                    textOpts.align = 'right';
+                }
+
+                pdf.text(pageText, px, py, textOpts);
+            }
         }
 
         pdf.save(`${fileName}.pdf`);
@@ -287,4 +394,21 @@ generateBtn.addEventListener('click', async () => {
             confirmButtonColor: '#ef4444'
         });
     }
+});
+
+// Quick Sorting PRO Features
+document.getElementById('sort-az-btn').addEventListener('click', () => {
+    selectedImages.sort((a, b) => {
+        const nameA = a.file.name.toLowerCase();
+        const nameB = b.file.name.toLowerCase();
+        if (nameA < nameB) return -1;
+        if (nameA > nameB) return 1;
+        return 0;
+    });
+    renderPreview();
+});
+
+document.getElementById('reverse-btn').addEventListener('click', () => {
+    selectedImages.reverse();
+    renderPreview();
 });
