@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+Allow: /style.css
+Allow: /app.js
+Allow: /index.html
 
-# Jab aap domain kharid lenge, tab yahan apna asli website link (domain) daal dijiye
-Sitemap: https://www.yourdomain.com/sitemap.xml
+Sitemap: https://imag2pdfpro.netlify.app/sitemap.xml
