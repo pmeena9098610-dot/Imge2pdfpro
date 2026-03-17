@@ -27,6 +27,14 @@ document.addEventListener('DOMContentLoaded', () => {
         fileInput.click();
     });
 
+    // Make the entire dropzone box clickable
+    dropzone.addEventListener('click', (e) => {
+        // Prevent clicking twice if they specifically hit the browse button
+        if (e.target !== browseBtn && e.target !== fileInput) {
+            fileInput.click();
+        }
+    });
+
     // File input change
     fileInput.addEventListener('change', (e) => {
         handleFiles(e.target.files);
@@ -347,23 +355,20 @@ document.addEventListener('DOMContentLoaded', () => {
                         pdfHeight = defaultHeight;
                     }
                 }
-
-                // Delete the shell page on the first loop if we are dynamically sizing
-                if (i === 0) {
-                    pdf.deletePage(1);
-                }
                 
-                // Add the configured page
-                pdf.addPage([pdfWidth, pdfHeight], imgOrientation);
-            
                 const contentWidth = pdfWidth - (margin * 2);
                 const contentHeight = pdfHeight - (margin * 2);
-                
-                // Calculate dimensions based on layout mode
                 let imgX, imgY, targetW, targetH;
 
-                if (layoutMode === 1) {
-                    // 1 per page: Scale to fit content area while maintaining aspect ratio
+                // Handle Fit mode override - always 1 per page
+                let effectiveLayoutMode = layoutMode;
+                if (pageSizePref === 'fit') {
+                    effectiveLayoutMode = 1;
+                }
+
+                if (effectiveLayoutMode === 1) {
+                    pdf.addPage([pdfWidth, pdfHeight], imgOrientation);
+                    if (i === 0) pdf.deletePage(1); // Delete shell AFTER new page is added
                     const imgRatio = imgElement.width / imgElement.height;
                     const contentRatio = contentWidth / contentHeight;
 
@@ -371,103 +376,69 @@ document.addEventListener('DOMContentLoaded', () => {
                         targetW = contentWidth;
                         targetH = targetW / imgRatio;
                         imgX = margin;
-                        imgY = margin + (contentHeight - targetH) / 2; // Center vertically
+                        imgY = margin + (contentHeight - targetH) / 2;
                     } else {
                         targetH = contentHeight;
                         targetW = targetH * imgRatio;
                         imgY = margin;
-                        imgX = margin + (contentWidth - targetW) / 2; // Center horizontally
-                    }
-
-                    // Note: Multiple images per page (Layout 2 & 4) doesn't make sense if "Fit to Window" 
-                    // is selected. We default back to behavior 1 if so, otherwise continue.
-                    if (pageSizePref === 'fit') {
-                       // Skip layout logic and use Layout 1 fallback below
-                    } else {
-                        // 2 per page: Horizontal split (one top, one bottom)
-                        const slotHeight = contentHeight / 2 - (margin/2); // Gap between images
-                        
-                        const imgRatio = imgElement.width / imgElement.height;
-                        const slotRatio = contentWidth / slotHeight;
-
-                        if (imgRatio > slotRatio) {
-                            targetW = contentWidth;
-                            targetH = targetW / imgRatio;
-                        } else {
-                            targetH = slotHeight;
-                            targetW = targetH * imgRatio;
-                        }
-
-                        const isEven = i % 2 === 0;
-                        if (!isEven && i > 0 && pageIndex !== Math.floor(i / 2)) {
-                             // handled
-                        }
-                        if (isEven && i > 0) {
-                            pdf.addPage([pdfWidth, pdfHeight], imgOrientation);
-                            pageIndex++;
-                        }
-
                         imgX = margin + (contentWidth - targetW) / 2;
-                        imgY = isEven ? margin + (slotHeight - targetH) / 2 : margin + slotHeight + margin/2 + (slotHeight - targetH) / 2;
-
-                        pdf.addImage(compressedDataUrl, 'JPEG', imgX, imgY, targetW, targetH);
-                        continue;
                     }
+                    pdf.addImage(compressedDataUrl, 'JPEG', imgX, imgY, targetW, targetH);
+                } 
+                else if (effectiveLayoutMode === 2) {
+                    const slotHeight = contentHeight / 2 - (margin/2);
+                    const imgRatio = imgElement.width / imgElement.height;
+                    const slotRatio = contentWidth / slotHeight;
 
-                } else if (layoutMode === 4) {
-                    if (pageSizePref === 'fit') {
-                        // Skip layout logic
+                    if (imgRatio > slotRatio) {
+                        targetW = contentWidth;
+                        targetH = targetW / imgRatio;
                     } else {
-                        // 4 per page: 2x2 grid
-                        const slotWidth = contentWidth / 2 - (margin/2);
-                        const slotHeight = contentHeight / 2 - (margin/2);
-                        
-                        const imgRatio = imgElement.width / imgElement.height;
-                        const slotRatio = slotWidth / slotHeight;
-
-                        if (imgRatio > slotRatio) {
-                            targetW = slotWidth;
-                            targetH = targetW / imgRatio;
-                        } else {
-                            targetH = slotHeight;
-                            targetW = targetH * imgRatio;
-                        }
-
-                        const indexOnPage = i % 4;
-                        if (indexOnPage === 0 && i > 0) {
-                            pdf.addPage([pdfWidth, pdfHeight], imgOrientation);
-                        }
-
-                        // 0: top-left, 1: top-right, 2: bottom-left, 3: bottom-right
-                        const col = indexOnPage % 2;
-                        const row = Math.floor(indexOnPage / 2);
-
-                        imgX = margin + (col * (slotWidth + margin)) + (slotWidth - targetW) / 2;
-                        imgY = margin + (row * (slotHeight + margin)) + (slotHeight - targetH) / 2;
-
-                        pdf.addImage(compressedDataUrl, 'JPEG', imgX, imgY, targetW, targetH);
-                        continue;
+                        targetH = slotHeight;
+                        targetW = targetH * imgRatio;
                     }
-                }
-                
-                // Default Layout 1 (or fallback for Fit mode)
-                const imgRatio = imgElement.width / imgElement.height;
-                const contentRatio = contentWidth / contentHeight;
 
-                if (imgRatio > contentRatio) {
-                    targetW = contentWidth;
-                    targetH = targetW / imgRatio;
-                    imgX = margin;
-                    imgY = margin + (contentHeight - targetH) / 2; // Center vertically
-                } else {
-                    targetH = contentHeight;
-                    targetW = targetH * imgRatio;
-                    imgY = margin;
-                    imgX = margin + (contentWidth - targetW) / 2; // Center horizontally
-                }
+                    const isEven = i % 2 === 0;
+                    if (isEven) {
+                        pdf.addPage([pdfWidth, pdfHeight], imgOrientation);
+                        if (i === 0) pdf.deletePage(1); // Delete shell AFTER new page is added
+                        pageIndex++;
+                    }
 
-                pdf.addImage(compressedDataUrl, 'JPEG', imgX, imgY, targetW, targetH);
-            }
+                    imgX = margin + (contentWidth - targetW) / 2;
+                    imgY = isEven ? margin + (slotHeight - targetH) / 2 : margin + slotHeight + margin + (slotHeight - targetH) / 2;
+
+                    pdf.addImage(compressedDataUrl, 'JPEG', imgX, imgY, targetW, targetH);
+                }
+                else if (effectiveLayoutMode === 4) {
+                    const slotWidth = contentWidth / 2 - (margin/2);
+                    const slotHeight = contentHeight / 2 - (margin/2);
+                    const imgRatio = imgElement.width / imgElement.height;
+                    const slotRatio = slotWidth / slotHeight;
+
+                    if (imgRatio > slotRatio) {
+                        targetW = slotWidth;
+                        targetH = targetW / imgRatio;
+                    } else {
+                        targetH = slotHeight;
+                        targetW = targetH * imgRatio;
+                    }
+
+                    const indexOnPage = i % 4;
+                    if (indexOnPage === 0) {
+                        pdf.addPage([pdfWidth, pdfHeight], imgOrientation);
+                        if (i === 0) pdf.deletePage(1); // Delete shell AFTER new page is added
+                    }
+
+                    const col = indexOnPage % 2;
+                    const row = Math.floor(indexOnPage / 2);
+
+                    imgX = margin + (col * (slotWidth + margin)) + (slotWidth - targetW) / 2;
+                    imgY = margin + (row * (slotHeight + margin)) + (slotHeight - targetH) / 2;
+
+                    pdf.addImage(compressedDataUrl, 'JPEG', imgX, imgY, targetW, targetH);
+                }
+            } // Close for loop
 
             // Save and download with custom name
             pdf.save(`${customFileName}.pdf`);

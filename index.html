@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Ko PDF Kaise Banaye | Best Image to PDF Converter (Free)</title>
+    <title>Photo Ko PDF Kaise Banaye | Free Image to PDF Converter App</title>
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Convert any JPG, JPEG, PNG, WEBP, HEIC, GIF, or BMP image to a high-quality PDF in seconds. The smartest, fastest, and most secure conversion process. 100% offline, free ILovePDF alternative to merge and compress PDF.">
-    <meta name="keywords" content="photo ko pdf kaise banaye, jpg se pdf banane wala app, mobile se photo ki pdf kaise banaye, image to pdf, convert image to pdf, photo se pdf banane wala online converter, gallery ki photo se pdf kaise banaye, document ko pdf banane wala site, photo to pdf 100kb, compress pdf to 200kb online, aadhar card pdf maker, pan card pdf compress, hindi photo converter, free image to pdf india, india no 1 pdf tool, pdf banane ka sabse aasan tarika, jpeg to pdf, png to pdf, heic to pdf, bmp to pdf, gif to pdf, tiff to pdf, svg to pdf, ilovepdf alternative, smallpdf alternative, adobe acrobat alternative online free, merge pdf, compress pdf, reduce pdf size, photo ki pdf kaise banate hain, bina internet ke pdf banaye, sarkaari form ke liye pdf, convert image to pdf online, free jpg to pdf converter, best pdf converter, 100% free, no watermark, fast pdf maker, high quality pdf, secure pdf converter, offline pdf generator, adobe pdf, image to document, pic to pdf, photo to document, picture to pdf, photo ko document me kaise badle, jpg to pdf converter app, image to pdf pro, image to pdf pro netlify">
+    <meta name="description" content="Photo ko PDF kaise banaye? Use India's best free Image to PDF converter. Convert JPG, JPEG, PNG to PDF on mobile without internet. 100% Secure, Merge & Compress to 100kb.">
+    <meta name="keywords" content="photo ko pdf kaise banaye, mobile se photo ki pdf kaise banaye, jpg se pdf banane wala app, image to pdf, image to pdf converter, photo se pdf banane wala online converter, gallery ki photo se pdf kaise banaye, aadhar card pdf maker 100kb, pan card pdf compress, pdf banane ka tarika, ilovepdf alternative, free pdf maker, offline pdf generator, photo to document, picture to pdf, heic to pdf, smallpdf alternative, convert photo to pdf mobile">
     <meta name="author" content="Img2PDF Pro">
+    <link rel="canonical" href="https://photosepdf.in/">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph for Social Media Sharing -->
     <meta property="og:title" content="Photo Ko PDF Kaise Banaye | Free Image to PDF Converter">
     <meta property="og:description" content="Convert any JPG, PNG, WEBP or HEIC image to a high-quality PDF in seconds. The #1 free alternative to ILovePDF. Merge & Compress securely!">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://imag2pdfpro.netlify.app/">
+    <meta property="og:url" content="https://photosepdf.in/">
     
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
@@ -24,17 +25,37 @@
     <!-- Preload Critical Resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="style.css" as="style">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Premium UI Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
     
-    <!-- CSS -->
+    <!-- Deferred Icons (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Critical CSS for Instant FCP (First Contentful Paint) -->
+    <style>
+        :root { --primary: #6366F1; --secondary: #10B981; --dark: #0F172A; --bg-main: #F8FAFC; --bg-card: rgba(255, 255, 255, 0.9); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Outfit', sans-serif; background-color: var(--bg-main); color: #334155; line-height: 1.6; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .text-center { text-align: center; }
+        .navbar { background: var(--bg-card); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--dark); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+        .logo span { color: var(--primary); }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        @media (max-width: 768px) { .nav-links { display: none; } }
+        .nav-links a { text-decoration: none; color: #64748B; font-weight: 500; }
+        .hero { padding: 60px 0 40px; }
+        .badge { display: inline-block; background: #EEF2FF; color: var(--primary); padding: 6px 16px; border-radius: 30px; font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; }
+        .hero-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; color: var(--dark); line-height: 1.1; margin-bottom: 1.5rem; }
+        .text-gradient { background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .subtitle { font-size: 1.2rem; color: #64748B; max-width: 700px; margin: 0 auto; }
+        .app-container { background: var(--bg-card); border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); padding: 40px; margin: 0 auto; max-width: 900px; border: 1px solid rgba(255,255,255,0.4); }
+    </style>
+
+    <!-- Main CSS -->
     <link rel="stylesheet" href="style.css">
 
     <!-- JSON-LD WebApplication Schema -->
@@ -110,9 +131,9 @@
 
         <div class="hero">
             <div class="container text-center">
-                <span class="badge" aria-label="Pricing Status">100% Free & Secure</span>
-                <h1 class="hero-title">Convert Images to PDF <span class="text-gradient">Instantly</span></h1>
-                <p class="subtitle">Turn your JPG, PNG, and WEBP images into high-quality PDF documents. No software installation required, and your files never leave your device.</p>
+                <span class="badge" aria-label="Pricing Status">India's #1 Free PDF Tool (100% Secure)</span>
+                <h1 class="hero-title">Photo Ko PDF Kaise Banaye<br><span class="text-gradient">Image to PDF Converter</span></h1>
+                <p class="subtitle">Bina kisi app ke apne mobile gallery ki JPG, PNG, WEBP photos ko click mein PDF banayein. No internet needed, 100% Offline & Private.</p>
             </div>
         </div>
     </header>
@@ -254,38 +275,37 @@
 
         <section class="seo-content" aria-labelledby="seo-heading">
             <div class="content-box">
-                <h2 id="seo-heading">Mobile Se Photo Ki PDF Kaise Banaye? (100KB - 200KB limit for India)</h2>
-                <p>Agar aap India se hain aur baar baar sochte hain ki <strong>"photo ko pdf kaise banaye"</strong> ya <strong>"jpg se pdf banane wala app"</strong> kaunsa best hai, toh aap bilkul sahi jagah par hain. Apne documents (Aadhar card, PAN card, ya Marksheet) ko sarkaari form (Govt forms) ya bank me upload karne ke liye photo se PDF banana ab bahut aasan hai.</p>
-                <p>Ye India ki No.1 website hai jahan aap bina kisi app ko download kiye, seedhe browser se apni gallery ki <strong>photo se pdf bana sakte hain</strong>. Aap yahan par <strong>"Super Compress"</strong> option chun kar apne bade size (MBs) ke photos ko bina kharab kiye asaani se <strong>100kb se 200kb</strong> ki PDF me badal sakte hain.</p>
-                <p>Bahut se log internet par search karte hain: <em>"mobile se photo ki pdf kaise banaye"</em> ya <em>"image ko pdf me convert kaise kare"</em>. Ye website un sabhi sawalon ka 100% free solution hai. Ek dam <strong>safe and secure</strong>, kyunki aapki files aapke mobile ya computer se bahar kisi server par upload nahi hoti hain!</p>
+                <h2 id="seo-heading">Mobile Se Photo Ki PDF Kaise Banaye? (100KB - 200KB limit)</h2>
+                <p>Agar aap soch rahe hain ki <strong>"photo ko pdf kaise banaye"</strong> ya <strong>"mobile se photo ki pdf kaise banaye"</strong> bina kisi mehnge app ke, toh aap bilkul sahi vikalp par aaye hain. Apne zaroori documents (Aadhar card, PAN card, ya Marksheet) ko sarkaari form (Govt forms) mein upload karne ke liye gallery ki photo se PDF banana ab ek click ka kaam hai.</p>
+                
+                <h3>Jpg Se PDF Banane Wala App (Free & Offline)</h3>
+                <p>Humari website ek best <strong>image to pdf converter</strong> hai jo ki ILovePDF ya Smallpdf ka perfect alternative hai. Aap yahan par <strong>"Super Compress"</strong> option chun kar apne bade size wale phone camera photos ko bina quality kharab kiye asaani se <strong>100kb se 200kb</strong> ki PDF me ghata sakte hain.</p>
+                
+                <h3>Bina Internet Ke Photo Se PDF Banayein</h3>
+                <p>Log internet par khojte hain: <em>"image ko pdf banane ka tarika"</em> ya <em>"photo se pdf banane wala online converter"</em>. Lekin humari website 100% offline kaam karti hai! Iska matlab aapki <strong>photo internet par kahin upload nahi hoti</strong>. Ye ek dam safe aur secure tareeka hai.</p>
                 
                 <div class="keyword-pills">
                     <span class="pill">Photo ko PDF kaise banaye</span>
                     <span class="pill">Jpg se PDF banane wala app</span>
                     <span class="pill">Mobile se photo ki pdf kaise banaye</span>
+                    <span class="pill">Image to PDF Converter</span>
                     <span class="pill">Gallery ki photo ko pdf me convert</span>
                     <span class="pill">Aadhar card 100kb pdf maker</span>
                     <span class="pill">Image ko pdf banane ka tarika</span>
-                    <span class="pill">ILovePDF Alternative</span>
+                    <span class="pill">ILovePDF Alternative Free</span>
                     <span class="pill">SmallPDF Alternative</span>
-                    <span class="pill">Merge PDF</span>
-                    <span class="pill">Compress PDF to 200KB</span>
-                    <span class="pill">Reduce PDF Size</span>
-                    <span class="pill">JPEG to PDF</span>
-                    <span class="pill">PNG to PDF</span>
+                    <span class="pill">Merge Multiple Photos to PDF</span>
+                    <span class="pill">Compress PDF to 100KB</span>
+                    <span class="pill">Reduce PDF Size Online</span>
+                    <span class="pill">Convert JPG to PDF</span>
+                    <span class="pill">PNG to PDF App</span>
                     <span class="pill">WEBP to PDF</span>
-                    <span class="pill">HEIC to PDF</span>
-                    <span class="pill">GIF to PDF</span>
-                    <span class="pill">BMP to PDF</span>
-                    <span class="pill">TIFF to PDF</span>
-                    <span class="pill">Free PDF Maker</span>
+                    <span class="pill">HEIC to PDF iPhone</span>
+                    <span class="pill">Free PDF Maker India</span>
                     <span class="pill">Offline PDF Generator</span>
-                    <span class="pill">Picture to PDF Converter</span>
-                    <span class="pill">Sarkaari Form PDF</span>
-                    <span class="pill">Pan Card PDF 100kb</span>
-                    <span class="pill">Photo ki PDF kaise banate hain</span>
+                    <span class="pill">Sarkaari Form PDF Size</span>
+                    <span class="pill">Pan Card PDF 200kb</span>
                     <span class="pill">Bina internet ke PDF banaye</span>
-                    <span class="pill">No Watermark PDF</span>
                 </div>
             </div>
         </section>
@@ -339,6 +359,8 @@
     </div>
 
     <!-- Scripts (Defer for better Core Web Vitals) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" defer></script>
     <script src="app.js" defer></script>
