@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Service Worker for Premium PWA Offline Mode
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed:', err));
+    }
+
     // DOM Elements
     const dropzone = document.getElementById('dropzone');
     const fileInput = document.getElementById('file-input');
@@ -73,7 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
             showCancelButton: true,
             confirmButtonColor: '#EF4444',
             cancelButtonColor: '#64748B',
-            confirmButtonText: 'Yes, clear it!'
+            confirmButtonText: 'Yes, clear it!',
+            background: 'rgba(255, 255, 255, 0.95)',
+            backdrop: 'rgba(15, 23, 42, 0.4)'
         }).then((result) => {
             if (result.isConfirmed) {
                 clearAll();
@@ -96,7 +103,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 await navigator.share(shareData);
             } else {
                 navigator.clipboard.writeText(shareData.url);
-                Swal.fire('Copied!', 'Website link copied to clipboard.', 'success');
+                Swal.fire({
+                    title: 'Copied!',
+                    text: 'Website link copied to clipboard.',
+                    icon: 'success',
+                    background: 'rgba(255, 255, 255, 0.95)',
+                    confirmButtonColor: '#6366F1'
+                });
             }
         } catch(err) {
             console.error('Share failed', err);
@@ -120,7 +133,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             if (file.size > MAX_FILE_SIZE) {
-                Swal.fire('File Too Large', `The file ${file.name} exceeds the 50MB safety limit.`, 'error');
+                Swal.fire({
+                    title: 'File Too Large',
+                    text: `The file ${file.name} exceeds the 50MB safety limit.`,
+                    icon: 'error',
+                    background: 'rgba(255, 255, 255, 0.95)',
+                    confirmButtonColor: '#EF4444'
+                });
                 return;
             }
             
@@ -147,7 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
             Swal.fire({
                 icon: 'warning',
                 title: 'Some files were skipped',
-                text: `${rejectedCount} file(s) are not supported images.`
+                text: `${rejectedCount} file(s) are not supported images.`,
+                background: 'rgba(255, 255, 255, 0.95)'
             });
         }
 
@@ -289,7 +309,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const layoutMode = parseInt(layoutSelect.value); // 1, 2, or 4
             const pageSizePref = pageSizeSelect.value;
             const orientationPref = orientationSelect.value;
-            const customFileName = fileNameInput.value.trim() || 'Img2PDFPro_Document';
+            // Sanitize filename to prevent XSS or OS path traversal leaps
+            let customFileName = fileNameInput.value.trim() || 'Img2PDFPro_Document';
+            customFileName = customFileName.replace(/[^a-zA-Z0-9_\-\s]/g, '');
             
             // Initialize jsPDF
             const { jsPDF } = window.jspdf;
@@ -446,17 +468,29 @@ document.addEventListener('DOMContentLoaded', () => {
             // Success Feedback
             hideLoading();
             triggerConfetti();
+            
+            // Ultra-premium tactile haptic feedback for Mobile
+            if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+            
             Swal.fire({
                 title: 'Success!',
                 text: 'Your PDF has been generated securely.',
                 icon: 'success',
-                confirmButtonColor: '#10B981'
+                confirmButtonColor: '#6366F1',
+                background: 'rgba(255, 255, 255, 0.95)',
+                backdrop: 'rgba(15, 23, 42, 0.4)'
             });
             
         } catch (error) {
             console.error("Error generating PDF:", error);
             hideLoading();
-            Swal.fire('Oops...', 'An error occurred while generating the PDF. The image might be corrupted or too large.', 'error');
+            Swal.fire({
+                title: 'Oops...',
+                text: 'An error occurred while generating the PDF. The image might be corrupted or too large.',
+                icon: 'error',
+                background: 'rgba(255, 255, 255, 0.95)',
+                confirmButtonColor: '#EF4444'
+            });
         }
     }
 

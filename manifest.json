@@ -1,0 +1,22 @@
+{
+  "name": "Img2PDF Pro - Free Image to PDF Converter",
+  "short_name": "Img2PDF Pro",
+  "description": "Convert JPG, PNG, WEBP images to PDF offline and securely.",
+  "start_url": "/?source=pwa",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#6366F1",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    }
+  ]
+}

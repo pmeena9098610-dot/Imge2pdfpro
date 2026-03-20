@@ -1,7 +1,21 @@
 User-agent: *
 Allow: /
-Allow: /style.css
-Allow: /app.js
-Allow: /index.html
 
+# Block WordPress scanners and vulnerability bots
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/
+Disallow: /xmlrpc.php
+Disallow: /*?replytocom=
+
+# Optimize Crawl Budget
+Crawl-delay: 10
+
+# Explicitly allow Googlebot
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 2
+
+# Sitemap Locations
 Sitemap: https://photosepdf.in/sitemap.xml
+Sitemap: https://photosepdf.netlify.app/sitemap.xml

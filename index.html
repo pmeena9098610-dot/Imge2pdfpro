@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photo Ko PDF Kaise Banaye | Free Image to PDF Converter App</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6366F1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Military-Grade Security Policies -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' https://api.whatsapp.com; img-src 'self' data: blob:; worker-src 'self';">
     <!-- SEO Meta Tags -->
     <meta name="description" content="Photo ko PDF kaise banaye? Use India's best free Image to PDF converter. Convert JPG, JPEG, PNG to PDF on mobile without internet. 100% Secure, Merge & Compress to 100kb.">
     <meta name="keywords" content="photo ko pdf kaise banaye, mobile se photo ki pdf kaise banaye, jpg se pdf banane wala app, image to pdf, image to pdf converter, photo se pdf banane wala online converter, gallery ki photo se pdf kaise banaye, aadhar card pdf maker 100kb, pan card pdf compress, pdf banane ka tarika, ilovepdf alternative, free pdf maker, offline pdf generator, photo to document, picture to pdf, heic to pdf, smallpdf alternative, convert photo to pdf mobile">
@@ -26,6 +32,8 @@
     <!-- Preload Critical Resources -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preload" href="style.css" as="style">
     
     <!-- Fonts -->
@@ -115,6 +123,23 @@
     }
     </script>
     
+    <!-- JSON-LD WebApplication Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Img2PDF Pro",
+      "url": "https://photosepdf.in/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0"
+      },
+      "featureList": "Convert JPG and PNG to PDF offline without internet"
+    }
+    </script>
+    
     <!-- JSON-LD HowTo Schema -->
     <script type="application/ld+json">
     {
@@ -143,8 +168,8 @@
     </script>
 </head>
 <body>
-    <header>
-        <nav class="navbar" aria-label="Main Navigation">
+    <header role="banner">
+        <nav class="navbar" aria-label="Main Navigation" role="navigation">
             <div class="container nav-container">
                 <a href="#" class="logo" aria-label="Img2PDF Pro Home">
                     <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Img2PDF<span>Pro</span>
@@ -166,7 +191,7 @@
         </div>
     </header>
 
-    <main class="container">
+    <main class="container" role="main">
         <section id="tool" class="converter-section" aria-label="Image to PDF Converter Tool">
             <div class="app-container">
                 <div class="dropzone" id="dropzone" aria-label="Drag and Drop zone for files">
@@ -374,7 +399,7 @@
         </section>
     </main>
 
-    <footer>
+    <footer role="contentinfo">
         <div class="container text-center">
             <p>&copy; 2026 Img2PDF Pro. Built with privacy in mind.</p>
         </div>
@@ -391,9 +416,9 @@
         <div class="trust-badge" title="100% Offline Processing">
             <i class="fa-solid fa-lock"></i> Secure & Offline
         </div>
-        <button class="share-btn" id="share-website-btn" title="Share with friends">
-            <i class="fa-solid fa-share-nodes"></i> Share
-        </button>
+        <a href="https://api.whatsapp.com/send?text=Apni%20photo%20ko%201%20min%20me%20PDF%20banaye%2C%20bina%20kisi%20app%20ke.%20100%25%20Free%3A%20https%3A%2F%2Fphotosepdf.in" target="_blank" rel="noopener noreferrer" class="whatsapp-btn" aria-label="Share on WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i> Share
+        </a>
     </div>
 
     <!-- Scripts (Defer for better Core Web Vitals) -->
