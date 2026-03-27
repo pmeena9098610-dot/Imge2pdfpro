@@ -174,10 +174,15 @@
                 <a href="#" class="logo" aria-label="Img2PDF Pro Home">
                     <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Img2PDF<span>Pro</span>
                 </a>
-                <ul class="nav-links">
+                <ul class="nav-links" style="display:flex; align-items:center; gap:20px;">
                     <li><a href="#tool">Converter</a></li>
                     <li><a href="#features">Features</a></li>
-                    <li><a href="#how-to">How it Works</a></li>
+                    <li><a href="articles.html" style="color:var(--primary); font-weight:600;">Guides</a></li>
+                    <li>
+                        <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                            <i class="fa-solid fa-moon"></i>
+                        </button>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -185,31 +190,35 @@
         <div class="hero">
             <div class="container text-center">
                 <span class="badge" aria-label="Pricing Status">🇮🇳 India's #1 Free PDF Tool (100% Secure)</span>
-                <h1 class="hero-title">Photo Ko PDF Kaise Banaye<br><span class="text-gradient">Image to PDF Converter</span></h1>
-                <p class="subtitle">Bina kisi app ke apne mobile gallery ki JPG, PNG, WEBP photos ko click mein PDF banayein. No internet needed, 100% Offline & Private.</p>
+                <h1 class="hero-title fade-up">Photo Ko PDF Kaise Banaye<br><span class="text-gradient">Image to PDF Converter</span></h1>
+                <p class="subtitle fade-up delay-100">Bina kisi app ke apne mobile gallery ki JPG, PNG, WEBP photos ko click mein PDF banayein. No internet needed, 100% Offline & Private.</p>
             </div>
         </div>
     </header>
 
     <main class="container" role="main">
-        <section id="tool" class="converter-section" aria-label="Image to PDF Converter Tool">
+        <section id="tool" class="converter-section fade-up delay-200" aria-label="Image to PDF Converter Tool">
             <div class="app-container">
                 <div class="dropzone" id="dropzone" aria-label="Drag and Drop zone for files">
                     <input type="file" id="file-input" multiple accept="image/jpeg, image/png, image/webp" class="hidden-input" aria-label="Upload Images">
                     <div class="dropzone-content">
                         <div class="icon-blob" aria-hidden="true">
-                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <i class="fa-solid fa-folder-plus"></i>
                         </div>
-                        <h2>Drag & Drop images here</h2>
+                        <h2>Drag & Drop photos here</h2>
                         <p>or</p>
-                        <button class="btn btn-primary" id="browse-btn" aria-label="Browse your files to upload">Browse Files</button>
+                        <button class="btn btn-primary" id="browse-btn" aria-label="Browse your photos locally">Select Photos</button>
                         <p class="formats">Supports JPG, PNG, WEBP. Select multiple files.</p>
                     </div>
                 </div>
 
+                <div style="margin-top: 20px; padding: 12px 20px; background: rgba(16, 185, 129, 0.1); border: 2px dashed rgba(16, 185, 129, 0.4); border-radius: 12px; color: var(--secondary); font-weight: 600; text-align: center; font-size: 0.95rem; animation: pulse 2s infinite ease-in-out;">
+                    <i class="fa-solid fa-shield-halved" style="margin-right: 8px;"></i> 100% Safe: Photos never leave your phone. No internet needed.
+                </div>
+
                 <div class="controls-panel" id="controls-panel" aria-live="polite">
                     <article class="settings-card">
-                        <h3><i class="fa-solid fa-sliders" aria-hidden="true"></i> PDF Settings</h3>
+                        <h3><i class="fa-solid fa-sliders" aria-hidden="true"></i> Page Layout & Settings (Optional)</h3>
                         <div class="settings-grid">
                             <div class="setting-group">
                                 <label for="page-size"><i class="fa-regular fa-file"></i> Page Size</label>
@@ -277,6 +286,11 @@
                     </div>
                 </div>
             </div>
+
+            <!-- AdSense Monetization Slot 1 -->
+            <div class="ad-container text-center" style="display: none !important; margin: 40px auto; max-width: 728px; min-height: 90px; background: rgba(0,0,0,0.03); border: 2px dashed rgba(99, 102, 241, 0.2); align-items: center; justify-content: center; border-radius: 12px; backdrop-filter: blur(5px);">
+                <p style="color: var(--text-muted); font-size: 0.9rem; font-weight: 500;">[ Reserved slot for Google AdSense ]</p>
+            </div>
         </section>
 
         <section id="features" class="features-section" aria-labelledby="features-heading">
@@ -285,17 +299,17 @@
                 <p>We offer the smartest, fastest, and most secure conversion process.</p>
             </div>
             <div class="features-grid">
-                <article class="feature-card">
+                <article class="feature-card fade-up">
                     <div class="feature-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></div>
                     <h3>100% Privacy</h3>
                     <p>We don't upload your images to any server. Everything is processed locally in your browser ensuring maximum security.</p>
                 </article>
-                <article class="feature-card">
+                <article class="feature-card fade-up delay-100">
                     <div class="feature-icon"><i class="fa-solid fa-bolt" aria-hidden="true"></i></div>
                     <h3>Super Fast</h3>
                     <p>Because there is no uploading or downloading from servers, your PDF is generated instantly right on your device.</p>
                 </article>
-                <article class="feature-card">
+                <article class="feature-card fade-up delay-200">
                     <div class="feature-icon"><i class="fa-solid fa-arrow-down-up-across-line" aria-hidden="true"></i></div>
                     <h3>Organize & Sort</h3>
                     <p>Drag and drop capability allows you to easily arrange your photos into the perfect sequence before creating the document.</p>
@@ -404,7 +418,15 @@
             <p style="margin-bottom:15px; font-weight:500;">
                 <a href="aadhar-card-photo-to-pdf.html" style="color:var(--primary); margin:0 10px;">Aadhar PDF</a> | 
                 <a href="compress-pdf-100kb.html" style="color:var(--primary); margin:0 10px;">100KB Format</a> | 
-                <a href="jpg-to-pdf-converter-hindi.html" style="color:var(--primary); margin:0 10px;">Hindi Guide</a>
+                <a href="articles.html" style="color:var(--primary); margin:0 10px; font-weight:bold;">Blog Articles</a>
+            </p>
+            <p style="margin-bottom:15px; font-size:0.9rem; font-weight:500;">
+                Languages: 
+                <a href="jpg-to-pdf-converter-hindi.html" style="color:#64748B; margin:0 5px;">Hindi</a> | 
+                <a href="image-to-pdf-converter-bengali.html" style="color:#64748B; margin:0 5px;">Bengali</a> | 
+                <a href="image-to-pdf-converter-tamil.html" style="color:#64748B; margin:0 5px;">Tamil</a> | 
+                <a href="image-to-pdf-converter-telugu.html" style="color:#64748B; margin:0 5px;">Telugu</a> | 
+                <a href="image-to-pdf-converter-marathi.html" style="color:#64748B; margin:0 5px;">Marathi</a>
             </p>
             <p>&copy; 2026 Img2PDF Pro. Built with privacy in mind.</p>
         </div>

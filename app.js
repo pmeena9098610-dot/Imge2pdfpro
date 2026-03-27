@@ -4,6 +4,45 @@ document.addEventListener('DOMContentLoaded', () => {
         navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed:', err));
     }
 
+    // Theme Management
+    const themeToggle = document.getElementById('theme-toggle');
+    const toggleIcon = themeToggle ? themeToggle.querySelector('i') : null;
+    const currentTheme = localStorage.getItem('theme') || 'light';
+
+    if (currentTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        if (toggleIcon) toggleIcon.className = 'fa-solid fa-sun';
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                toggleIcon.className = 'fa-solid fa-moon';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                toggleIcon.className = 'fa-solid fa-sun';
+            }
+        });
+    }
+
+    // Scroll Animations Observer
+    const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                navObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+
+    setTimeout(() => {
+        document.querySelectorAll('.fade-up').forEach(el => navObserver.observe(el));
+    }, 100);
+
     // DOM Elements
     const dropzone = document.getElementById('dropzone');
     const fileInput = document.getElementById('file-input');
@@ -470,14 +509,15 @@ document.addEventListener('DOMContentLoaded', () => {
             triggerConfetti();
             
             // Ultra-premium tactile haptic feedback for Mobile
-            if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
+            if (navigator.vibrate) navigator.vibrate([10, 30, 10]);
             
             Swal.fire({
                 title: 'Success!',
                 text: 'Your PDF has been generated securely.',
                 icon: 'success',
                 confirmButtonColor: '#6366F1',
-                background: 'rgba(255, 255, 255, 0.95)',
+                background: document.documentElement.getAttribute('data-theme') === 'dark' ? '#1E293B' : 'rgba(255, 255, 255, 0.95)',
+                color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#F1F5F9' : '#334155',
                 backdrop: 'rgba(15, 23, 42, 0.4)'
             });
             
@@ -486,9 +526,10 @@ document.addEventListener('DOMContentLoaded', () => {
             hideLoading();
             Swal.fire({
                 title: 'Oops...',
-                text: 'An error occurred while generating the PDF. The image might be corrupted or too large.',
+                text: 'An error occurred while generating the PDF.',
                 icon: 'error',
-                background: 'rgba(255, 255, 255, 0.95)',
+                background: document.documentElement.getAttribute('data-theme') === 'dark' ? '#1E293B' : 'rgba(255, 255, 255, 0.95)',
+                color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#F1F5F9' : '#334155',
                 confirmButtonColor: '#EF4444'
             });
         }

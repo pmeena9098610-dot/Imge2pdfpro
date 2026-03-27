@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>புகைப்படங்களை PDF ஆக மாற்றுக | Image to PDF in Tamil</title>
+    
+    <meta name="description" content="இணையம் இல்லாமல் உங்கள் அலைபேசியில் உள்ள புகைப்படங்களை (JPG, PNG) PDF ஆக முற்றிலும் இலவசமாக மாற்றவும். Tamil photo to PDF converter offline.">
+    <link rel="canonical" href="https://photosepdf.in/image-to-pdf-converter-tamil.html">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6366F1">
+</head>
+<body class="pwa-mode">
+    <div class="background-mesh"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <header role="banner">
+        <nav class="navbar" aria-label="Main Navigation" role="navigation">
+            <div class="container nav-container">
+                <a href="index.html" class="logo" aria-label="Img2PDF Pro Home">
+                    <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Img2PDF<span>Pro</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="articles.html" style="color:var(--primary); font-weight:600;">Guides</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="hero">
+            <div class="container text-center">
+                <span class="badge" aria-label="Pricing Status">100% இலவசம் மற்றும் பாதுகாப்பானது</span>
+                <h1 class="hero-title">படங்களை PDF ஆக மாற்றவும்<br><span class="text-gradient">Image to PDF Converter</span></h1>
+                <p class="subtitle">எந்த செயலியும் இல்லாமல் ஒரே கிளிக்கில் ஆன்லைனில் படங்களை PDF ஆக மாற்றுக!</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" role="main">
+        <section id="tool" class="converter-section">
+            <div class="app-container">
+                <div class="dropzone" id="dropzone" aria-label="Drag and Drop zone for files">
+                    <input type="file" id="file-input" multiple accept="image/jpeg, image/png, image/webp" class="hidden-input" aria-label="Upload Images">
+                    <div class="dropzone-content">
+                        <div class="icon-blob" aria-hidden="true">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                        <h3>படங்களை பதிவேற்றவும் (Drag & Drop)</h3>
+                        <p class="format-text">JPG, PNG, WEBP ஐ ஆதரிக்கிறது. பல கோப்புகளை தேர்ந்தெடுக்கவும்.</p>
+                        <button class="action-btn bypass-btn" id="browse-btn" aria-label="Browse Files Button">கோப்புகளை தேர்ந்தெடுக்கவும்</button>
+                    </div>
+                </div>
+
+                <div class="settings-panel" id="settings-panel" style="display: none;">
+                    <div class="section-header">
+                        <h3 class="section-title"><i class="fa-solid fa-sliders"></i> PDF அமைப்புகள்</h3>
+                    </div>
+                    <div class="settings-grid">
+                        <div class="setting-group">
+                            <label><i class="fa-regular fa-square"></i> விளிம்பு (Margin)</label>
+                            <select id="margin-select" class="premium-select">
+                                <option value="0">விளிம்பு இல்லை</option>
+                                <option value="10">சிறிய</option>
+                                <option value="20" selected>சாதாரண</option>
+                            </select>
+                        </div>
+                        <div class="setting-group">
+                            <label><i class="fa-solid fa-compress"></i> அளவு (Compress)</label>
+                            <select id="size-select" class="premium-select">
+                                <option value="original">அசல் அளவு</option>
+                                <option value="standard" selected>நிலையான சுருக்கம்</option>
+                                <option value="super">100KB சுருக்கம்</option>
+                            </select>
+                        </div>
+                        <div class="setting-group">
+                            <label><i class="fa-solid fa-border-all"></i> தளவமைப்பு (Layout)</label>
+                            <select id="layout-select" class="premium-select">
+                                <option value="1" selected>பக்கத்திற்கு 1</option>
+                                <option value="2">பக்கத்திற்கு 2 (Aadhar)</option>
+                                <option value="4">பக்கத்திற்கு 4</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview-container" id="preview-container" style="display: none;">
+                    <div class="preview-header">
+                        <h3>தேர்ந்தெடுக்கப்பட்ட படங்கள் (<span class="selected-count" id="file-count">0</span>)</h3>
+                        <button class="clear-btn" id="clear-btn" aria-label="Clear All Selected Images">அனைத்தையும் அழி</button>
+                    </div>
+                    <div class="preview-grid" id="preview-grid" role="list" aria-label="Image Preview List"></div>
+                </div>
+
+                <div class="action-container" id="action-container" style="display: none;">
+                    <button class="generate-btn glow-effect" id="generate-btn" aria-label="Generate PDF Button">
+                        <i class="fa-solid fa-file-pdf"></i> PDF ஐ உருவாக்கு
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer role="contentinfo" style="margin-top:40px;">
+        <div class="container text-center">
+            <p style="margin-bottom:15px; font-weight:500;">
+                <a href="image-to-pdf-converter-bengali.html" style="color:var(--primary); margin:0 10px;">Bengali</a> | 
+                <a href="image-to-pdf-converter-telugu.html" style="color:var(--primary); margin:0 10px;">Telugu</a> | 
+                <a href="image-to-pdf-converter-marathi.html" style="color:var(--primary); margin:0 10px;">Marathi</a> | 
+                <a href="index.html" style="color:var(--primary); margin:0 10px; font-weight:bold;">English Converter</a>
+            </p>
+            <p>&copy; 2026 Img2PDF Pro. Built with privacy in mind.</p>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
