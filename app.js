@@ -501,6 +501,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } // Close for loop
 
+            // Master Encryption (Password Protection) Protocol
+            const pdfPasswordEl = document.getElementById('pdf-password');
+            if (pdfPasswordEl && pdfPasswordEl.value.trim() !== '') {
+                const pass = pdfPasswordEl.value.trim();
+                if (typeof pdf.setEncryption === 'function') {
+                    pdf.setEncryption({
+                        userPassword: pass,
+                        ownerPassword: pass,
+                        userPermissions: ["print", "copy"]
+                    });
+                } else {
+                    console.warn("Encryption module not active in this jsPDF build. PDF will be generated without password.");
+                }
+            }
+
             // Save and download with custom name
             pdf.save(`${customFileName}.pdf`);
             

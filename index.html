@@ -64,6 +64,38 @@
         .app-container { background: var(--bg-card); border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); padding: 40px; margin: 0 auto; max-width: 900px; border: 1px solid rgba(255,255,255,0.4); }
     </style>
 
+    <!-- Smart International Language Router -->
+    <script>
+        (function() {
+            try {
+                if (window.location.search.includes('lang_override=true')) {
+                    localStorage.setItem('disable_auto_lang', 'true');
+                    return;
+                }
+                if (localStorage.getItem('disable_auto_lang') === 'true') return;
+                
+                const langPair = (navigator.language || navigator.userLanguage).toLowerCase();
+                const langMap = {
+                    'es': 'image-to-pdf-espanol.html',
+                    'fr': 'image-to-pdf-francais.html',
+                    'de': 'image-to-pdf-deutsch.html',
+                    'pt': 'image-to-pdf-portugues.html',
+                    'bn': 'image-to-pdf-converter-bengali.html',
+                    'ta': 'image-to-pdf-converter-tamil.html',
+                    'te': 'image-to-pdf-converter-telugu.html',
+                    'mr': 'image-to-pdf-converter-marathi.html',
+                    'hi': 'jpg-to-pdf-converter-hindi.html'
+                };
+                
+                const primaryCode = langPair.split('-')[0];
+                if (langMap[primaryCode]) {
+                    localStorage.setItem('disable_auto_lang', 'true');
+                    window.location.replace(langMap[primaryCode]);
+                }
+            } catch(e) {}
+        })();
+    </script>
+
     <!-- Main CSS -->
     <link rel="stylesheet" href="style.css">
 
@@ -262,8 +294,14 @@
                                 </select>
                             </div>
                             <div class="setting-group full-width" style="grid-column: 1 / -1;">
+                            <div class="setting-group" style="grid-column: 1 / -1;">
                                 <label for="file-name"><i class="fa-solid fa-pen-to-square"></i> File Name</label>
                                 <input type="text" id="file-name" placeholder="Img2PDFPro_Document" aria-label="Custom File Name" />
+                            </div>
+                            <div class="setting-group" style="grid-column: 1 / -1; background: rgba(99, 102, 241, 0.05); padding: 15px; border-radius: 8px; border: 1px dashed var(--primary);">
+                                <label for="pdf-password"><i class="fa-solid fa-lock"></i> PDF Password Protection (Premium Free)</label>
+                                <input type="password" id="pdf-password" placeholder="Leave empty for no password" aria-label="PDF Password" style="margin-top: 10px;" />
+                                <small style="display:block; margin-top:5px; color:var(--text-muted);"><i class="fa-solid fa-triangle-exclamation"></i> Warning: Keep this safe. If you lose the password, the PDF cannot be recovered!</small>
                             </div>
                         </div>
                     </article>
@@ -421,12 +459,19 @@
                 <a href="articles.html" style="color:var(--primary); margin:0 10px; font-weight:bold;">Blog Articles</a>
             </p>
             <p style="margin-bottom:15px; font-size:0.9rem; font-weight:500;">
-                Languages: 
+                Indian Languages: 
                 <a href="jpg-to-pdf-converter-hindi.html" style="color:#64748B; margin:0 5px;">Hindi</a> | 
                 <a href="image-to-pdf-converter-bengali.html" style="color:#64748B; margin:0 5px;">Bengali</a> | 
                 <a href="image-to-pdf-converter-tamil.html" style="color:#64748B; margin:0 5px;">Tamil</a> | 
                 <a href="image-to-pdf-converter-telugu.html" style="color:#64748B; margin:0 5px;">Telugu</a> | 
                 <a href="image-to-pdf-converter-marathi.html" style="color:#64748B; margin:0 5px;">Marathi</a>
+            </p>
+            <p style="margin-bottom:15px; font-size:0.9rem; font-weight:500;">
+                Global Languages: 
+                <a href="image-to-pdf-espanol.html" style="color:#64748B; margin:0 5px;" hreflang="es">Español</a> | 
+                <a href="image-to-pdf-francais.html" style="color:#64748B; margin:0 5px;" hreflang="fr">Français</a> | 
+                <a href="image-to-pdf-deutsch.html" style="color:#64748B; margin:0 5px;" hreflang="de">Deutsch</a> | 
+                <a href="image-to-pdf-portugues.html" style="color:#64748B; margin:0 5px;" hreflang="pt">Português</a>
             </p>
             <p>&copy; 2026 Img2PDF Pro. Built with privacy in mind.</p>
         </div>
