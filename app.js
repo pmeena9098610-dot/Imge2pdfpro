@@ -4,6 +4,44 @@ document.addEventListener('DOMContentLoaded', () => {
         navigator.serviceWorker.register('sw.js').catch(err => console.log('SW registration failed:', err));
     }
 
+    // PWA Install Prompt Logic (Phase 6.1 Ultra Growth)
+    let deferredPrompt;
+    const installBanner = document.getElementById('pwa-install-banner');
+    const installBtn = document.getElementById('pwa-install-btn');
+    const dismissBtn = document.getElementById('pwa-dismiss-btn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent Chrome 67+ from automatically showing the prompt
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = e;
+        // Check if user already dismissed it recently
+        if(localStorage.getItem('pwa_dismissed') !== 'true') {
+            installBanner.style.display = 'flex';
+        }
+    });
+
+    if(installBtn) {
+        installBtn.addEventListener('click', async () => {
+            installBanner.style.display = 'none';
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                }
+                deferredPrompt = null;
+            }
+        });
+    }
+
+    if(dismissBtn) {
+        dismissBtn.addEventListener('click', () => {
+            installBanner.style.display = 'none';
+            localStorage.setItem('pwa_dismissed', 'true');
+        });
+    }
+
     // Theme Management
     const themeToggle = document.getElementById('theme-toggle');
     const toggleIcon = themeToggle ? themeToggle.querySelector('i') : null;
@@ -387,6 +425,15 @@ document.addEventListener('DOMContentLoaded', () => {
             let pageIndex = 0;
 
             for (let i = 0; i < files.length; i++) {
+                // Yield main thread to unblock UI animations (Phase 7.1)
+                await new Promise(resolve => setTimeout(resolve, 0));
+                
+                // Real-time processing progress
+                const loadingTextEl = document.getElementById('loading-text');
+                if (loadingTextEl) {
+                    loadingTextEl.innerText = `Processing Image ${i + 1} of ${files.length}...`;
+                }
+
                 const imgElement = await loadImageFromDataUrl(files[i].dataUrl);
                 const compressedDataUrl = await compressImage(imgElement, qualitySetting);
                 
@@ -516,6 +563,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
+            // Viral Document Metadata Injection (Phase 6.2)
+            pdf.setProperties({
+                title: `${customFileName}`,
+                subject: 'Generated completely offline without cloud servers.',
+                author: 'Img2PDF Pro',
+                keywords: 'photosepdf.in, offline converter, privacy',
+                creator: 'Img2PDF Pro (https://photosepdf.in)'
+            });
+
             // Save and download with custom name
             pdf.save(`${customFileName}.pdf`);
             
@@ -526,11 +582,23 @@ document.addEventListener('DOMContentLoaded', () => {
             // Ultra-premium tactile haptic feedback for Mobile
             if (navigator.vibrate) navigator.vibrate([10, 30, 10]);
             
+            const shareMsg = encodeURIComponent("Bhai maine is website se apni photo ko PDF me banaya bina net use kiye! Sabse fast aur secure hai, ek baar try karo: https://photosepdf.in");
+            const waUrl = `https://wa.me/?text=${shareMsg}`;
+
             Swal.fire({
-                title: 'Success!',
-                text: 'Your PDF has been generated securely.',
-                icon: 'success',
-                confirmButtonColor: '#6366F1',
+                title: 'PDF Generated! 🎉',
+                html: `
+                    <p style="margin-bottom:20px; font-size:1.1rem;">Your newly created PDF has been saved securely to your device.</p>
+                    <div style="background:rgba(37,211,102,0.1); padding:20px; border-radius:15px; border:2px dashed #25D366; margin-top:10px;">
+                        <h4 style="margin-bottom:10px; color:#128C7E;">Love this free tool?</h4>
+                        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px;">Help us keep it 100% free by sharing it with 1 friend!</p>
+                        <a href="${waUrl}" target="_blank" style="display:inline-flex; align-items:center; justify-content:center; gap:10px; background-color:#25D366; color:white; padding:14px 28px; border-radius:30px; text-decoration:none; font-weight:bold; box-shadow:0 10px 20px -5px rgba(37,211,102,0.4); font-size:1.1rem; width:100%; transition:all 0.3s ease;">
+                            <i class="fa-brands fa-whatsapp" style="font-size:1.4rem;"></i> Share on WhatsApp
+                        </a>
+                    </div>
+                `,
+                showConfirmButton: false,
+                showCloseButton: true,
                 background: document.documentElement.getAttribute('data-theme') === 'dark' ? '#1E293B' : 'rgba(255, 255, 255, 0.95)',
                 color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#F1F5F9' : '#334155',
                 backdrop: 'rgba(15, 23, 42, 0.4)'

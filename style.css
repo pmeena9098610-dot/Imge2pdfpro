@@ -408,7 +408,8 @@ p { margin-bottom: 1rem; }
     color: var(--text-main);
 }
 .setting-group select,
-.setting-group input[type="text"] {
+.setting-group input[type="text"],
+.setting-group input[type="password"] {
     padding: 14px 16px;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
@@ -426,7 +427,8 @@ p { margin-bottom: 1rem; }
     background-position: calc(100% - 15px) center;
     padding-right: 45px;
 }
-.setting-group input[type="text"] {
+.setting-group input[type="text"],
+.setting-group input[type="password"] {
     color: var(--text-main);
     cursor: text;
     outline: none;
@@ -762,15 +764,15 @@ footer {
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .container { padding: 0 15px; }
-    .hero { padding: 40px 0 30px; }
-    .app-container { padding: 25px 15px; border-radius: var(--radius-md); }
-    .dropzone { padding: 40px 10px; }
-    .icon-blob { width: 60px; height: 60px; font-size: 1.5rem; }
-    .btn-large { padding: 14px 24px; font-size: 1rem; }
+    .hero { padding: 30px 0 20px; }
+    .app-container { padding: 18px 12px; border-radius: var(--radius-md); }
+    .dropzone { padding: 25px 10px; border-radius: 12px; }
+    .icon-blob { width: 50px; height: 50px; font-size: 1.2rem; }
+    .btn-large { padding: 14px 20px; font-size: 1rem; }
     .nav-links { display: none; }
     .seo-content .content-box { padding: 0 20px; }
-    .floating-trust { bottom: 20px; right: 20px; gap: 8px; }
-    .trust-badge, .share-btn, .whatsapp-btn { padding: 10px 15px; font-size: 0.8rem; }
+    .floating-trust { bottom: 15px; right: 15px; gap: 8px; }
+    .trust-badge, .share-btn, .whatsapp-btn { padding: 8px 12px; font-size: 0.8rem; }
     
     .image-list {
         grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -779,10 +781,25 @@ footer {
 }
 
 @media (max-width: 480px) {
-    .hero-title { margin-bottom: 1rem; }
-    .subtitle { font-size: 1rem; }
-    .settings-card, .image-list-card { padding: 18px; }
+    .hero-title { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .subtitle { font-size: 0.95rem; }
+    .settings-card, .image-list-card { padding: 15px; }
+    .settings-grid {
+        grid-template-columns: 1fr 1fr; /* 2 side by side on mobile for compact view */
+        gap: 10px;
+        margin-top: 15px;
+    }
+    .setting-group label {
+        font-size: 0.85rem;
+    }
+    .setting-group select, 
+    .setting-group input[type="text"], 
+    .setting-group input[type="password"] {
+        padding: 10px 12px;
+        font-size: 15px;
+    }
+    .setting-group.full-width { grid-column: 1 / -1; }
     .image-list {
-        grid-template-columns: repeat(2, 1fr); /* 2 per row even on tiny screens */
+        grid-template-columns: repeat(2, 1fr); 
     }
 }

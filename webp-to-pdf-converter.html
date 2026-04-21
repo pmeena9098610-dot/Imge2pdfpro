@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEBP to PDF Converter | Fast & Secure WebP Format Tool</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    
+    <meta name="description" content="Convert your downloaded WEBP images into standard, shareable PDF documents completely offline. High-quality WebP to PDF converter with 100% privacy.">
+    <meta name="keywords" content="webp to pdf, convert webp image to pdf, bulk webp converter, offline webp to pdf, save webp as pdf chrome, next-gen image to pdf">
+    <link rel="canonical" href="https://photosepdf.in/webp-to-pdf-converter.html">
+    <meta name="robots" content="index, follow">
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header role="banner">
+        <nav class="navbar">
+            <div class="container nav-container">
+                <a href="index.html" class="logo"><i class="fa-solid fa-file-pdf"></i> Img2PDF<span>Pro</span></a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Main Converter</a></li>
+                    <li><a href="articles.html" style="color:var(--primary); font-weight:600;">Blog</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="hero">
+            <div class="container text-center">
+                <span class="badge" style="background:#E0F2FE; color:#0284C7;">🌐 Optimized for Chrome & Next-Gen Formats</span>
+                <h1 class="hero-title fade-up">Convert <span class="text-gradient">WEBP to PDF</span> Instantly</h1>
+                <p class="subtitle fade-up delay-100">Stop struggling with downloaded Google Chrome images. Turn any modern WebP snapshot into a universally readable PDF instantly.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" role="main">
+        <section class="converter-section fade-up delay-200">
+            <div class="app-container">
+                <div class="dropzone" id="dropzone">
+                    <input type="file" id="file-input" multiple accept="image/webp, image/jpeg, image/png, image/heic" class="hidden-input">
+                    <div class="dropzone-content">
+                        <div class="icon-blob" style="color:#0284C7; background:rgba(2, 132, 199, 0.1);"><i class="fa-solid fa-globe"></i></div>
+                        <h2>Drop WEBP Images here</h2>
+                        <button class="btn btn-primary" id="browse-btn" style="background:#0284C7;">Select WebP Files</button>
+                    </div>
+                </div>
+
+                <div class="controls-panel" id="controls-panel" aria-live="polite">
+                    <article class="settings-card">
+                        <h3><i class="fa-solid fa-sliders"></i> PDF Settings</h3>
+                        <div class="settings-grid">
+                            <div class="setting-group">
+                                <label>Page Size</label>
+                                <select id="page-size">
+                                    <option value="a4" selected>A4 Document</option>
+                                    <option value="fit">Fit to Image</option>
+                                    <option value="letter">US Letter</option>
+                                </select>
+                            </div>
+                            <div class="setting-group">
+                                <label>Compression</label>
+                                <select id="size-select">
+                                    <option value="high" selected>Retain WEBP Quality</option>
+                                    <option value="super">Maximum Compress (100kb)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="image-list-card">
+                        <div class="card-header">
+                            <h3>Selected WEBP Files (<span id="image-count">0</span>)</h3>
+                            <button class="btn btn-sm btn-outline-danger" id="clear-all-btn">Clear All</button>
+                        </div>
+                        <ul class="image-list" id="image-list"></ul>
+                    </article>
+                    <div class="actions">
+                        <button class="btn btn-primary btn-large btn-block" id="generate-btn" style="background:#0284C7; border-color:#0284C7; box-shadow: 0 10px 20px rgba(2, 132, 199, 0.3);">
+                            Compile into PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="seo-content" style="margin-top: 50px;">
+            <div class="content-box">
+                <h2>Why convert WEBP to PDF?</h2>
+                <p>WebP is a modern image format developed by Google that provides superior lossless and lossy compression for images on the web. It is fantastic for making websites load faster, but it is <strong>extremely frustrating</strong> when you need to send that image in an email, upload it as a document, or print it, because many older printers and government portals do not recognize <code>.webp</code> extensions.</p>
+                <p>By converting your <strong>WebP images to PDF</strong> via our offline JavaScript engine, you bypass the painful process of trying to "save as JPG." We package the WebP natively into a secure, standard PDF wrapper.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2026 Img2PDF Pro. Not affiliated with Google LLC.</p>
+        </div>
+    </footer>
+    
+    <div class="loading-overlay" id="loading-overlay"><div class="spinner" style="border-bottom-color:#0284C7;"></div></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" defer></script>
+    <script src="app.js" defer></script>
+</body>
+</html>
