@@ -195,49 +195,76 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ----- Functions -----
 
-    function handleFiles(selectedFiles) {
+    // --- Phase 10: Apple Native Interception Engine ---
+    async function loadHeicDecoder() {
+        return new Promise((resolve, reject) => {
+            if (typeof heic2any !== "undefined") return resolve();
+            let s = document.createElement('script');
+            s.src = "https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js";
+            s.onload = resolve;
+            s.onerror = reject;
+            document.head.appendChild(s);
+        });
+    }
+
+    async function handleFiles(selectedFiles) {
         if (!selectedFiles || selectedFiles.length === 0) return;
 
         const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/gif', 'image/bmp'];
         const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB crash prevention limit
 
-        let addedCount = 0;
         let rejectedCount = 0;
+        let addedCount = 0;
 
-        Array.from(selectedFiles).forEach(file => {
+        for (let file of Array.from(selectedFiles)) {
             if (!validTypes.includes(file.type) && !file.name.match(/\.(jpg|jpeg|png|webp|heic|gif|bmp)$/i)) {
                 rejectedCount++;
-                return;
+                continue;
             }
             if (file.size > MAX_FILE_SIZE) {
-                Swal.fire({
-                    title: 'File Too Large',
-                    text: `The file ${file.name} exceeds the 50MB safety limit.`,
-                    icon: 'error',
-                    background: 'rgba(255, 255, 255, 0.95)',
-                    confirmButtonColor: '#EF4444'
-                });
-                return;
+                Swal.fire('File Too Large', `The file ${file.name} exceeds the 50MB safety limit.`, 'error');
+                continue;
             }
-            
-            // Add unique ID
-            const fileObj = {
-                    id: 'img_' + Math.random().toString(36).substr(2, 9),
-                    file: file,
-                    dataUrl: null
-                };
-                
-                // Read file to get data URL for thumbnail
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    fileObj.dataUrl = e.target.result;
-                    renderImageItem(fileObj);
-                };
-                reader.readAsDataURL(file);
 
-                files.push(fileObj);
-                addedCount++;
-        });
+            let processBlob = file;
+            
+            // Ultra-Pro Action: Native Apple HEIC Decryption
+            if (file.type === 'image/heic' || file.name.match(/\.heic$/i)) {
+                showLoading();
+                const loadTxt = document.getElementById('loading-text');
+                if(loadTxt) loadTxt.innerText = "Decoding Apple HEIC Engine...";
+                
+                try {
+                    await loadHeicDecoder();
+                    const conversionResult = await heic2any({ blob: file, toType: "image/jpeg", quality: 0.9 });
+                    processBlob = Array.isArray(conversionResult) ? conversionResult[0] : conversionResult;
+                    // Preserve original name but change extension
+                    processBlob.name = file.name.replace(/\.heic$/i, ".jpg");
+                } catch (err) {
+                    console.error("HEIC Decode Failed", err);
+                    Swal.fire('Apple Engine Error', 'Failed to decode HEIC format locally.', 'error');
+                }
+                hideLoading();
+            }
+
+            // Standard Processing Pipeline
+            const fileObj = {
+                id: 'img_' + Math.random().toString(36).substr(2, 9),
+                file: processBlob,
+                dataUrl: null
+            };
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                fileObj.dataUrl = e.target.result;
+                renderImageItem(fileObj);
+                updateUI();
+            };
+            reader.readAsDataURL(processBlob);
+            
+            files.push(fileObj);
+            addedCount++;
+        }
 
         if (rejectedCount > 0) {
             Swal.fire({
@@ -246,10 +273,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 text: `${rejectedCount} file(s) are not supported images.`,
                 background: 'rgba(255, 255, 255, 0.95)'
             });
-        }
-
-        if (addedCount > 0) {
-            updateUI();
         }
     }
 
