@@ -785,8 +785,8 @@ footer {
     .subtitle { font-size: 0.95rem; }
     .settings-card, .image-list-card { padding: 15px; }
     .settings-grid {
-        grid-template-columns: 1fr 1fr; /* 2 side by side on mobile for compact view */
-        gap: 10px;
+        grid-template-columns: 1fr; /* Stack vertically to prevent horizontal overflow on Android */
+        gap: 12px;
         margin-top: 15px;
     }
     .setting-group label {

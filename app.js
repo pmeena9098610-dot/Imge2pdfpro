@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Image compression utility
-    function compressImage(img, targetQuality) {
+    function compressImage(img, targetQuality, colorMode = 'original', passName = '', passDate = '') {
         return new Promise((resolve) => {
             const canvas = document.createElement('canvas');
             let width = img.width;
@@ -377,6 +377,53 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.fillRect(0, 0, width, height);
             
             ctx.drawImage(img, 0, 0, width, height);
+
+            // Phase 11: Apply B&W Photocopy Filter
+            if (colorMode === 'bw') {
+                const imgData = ctx.getImageData(0, 0, width, height);
+                const data = imgData.data;
+                for (let i = 0; i < data.length; i += 4) {
+                    // Grayscale standard luminosity method
+                    const avg = data[i] * 0.3 + data[i+1] * 0.59 + data[i+2] * 0.11;
+                    data[i] = avg;     // R
+                    data[i+1] = avg;   // G
+                    data[i+2] = avg;   // B
+                }
+                ctx.putImageData(imgData, 0, 0);
+            }
+            
+            // Phase 13: Passport Name and Date Stamp
+            if (passName || passDate) {
+                // Determine strip height (approx 15% of image height, max 80px)
+                const stripHeight = Math.min(height * 0.15, 80);
+                
+                // Draw white background block at the bottom
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(0, height - stripHeight, width, stripHeight);
+                
+                // Draw black border line at the top of the white block
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(0, height - stripHeight, width, Math.max(1, height*0.005));
+                
+                // Configure Text
+                ctx.fillStyle = '#000000';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                // Calculate font size (dynamically scale to fit)
+                const fontSize = Math.min(stripHeight * 0.35, width * 0.08);
+                ctx.font = `bold ${fontSize}px sans-serif`;
+                
+                // If both exist, stack them. If one exists, center it.
+                if (passName && passDate) {
+                    ctx.fillText(passName, width / 2, height - stripHeight + (stripHeight * 0.35));
+                    ctx.fillText(passDate, width / 2, height - stripHeight + (stripHeight * 0.75));
+                } else if (passName) {
+                    ctx.fillText(passName, width / 2, height - stripHeight / 2);
+                } else if (passDate) {
+                    ctx.fillText(passDate, width / 2, height - stripHeight / 2);
+                }
+            }
             
             let quality = 0.9; // Default 'high'
             if (targetQuality === 'medium') quality = 0.6;
@@ -409,6 +456,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const layoutMode = parseInt(layoutSelect.value); // 1, 2, or 4
             const pageSizePref = pageSizeSelect.value;
             const orientationPref = orientationSelect.value;
+            
+            // Phase 11: Get Pro Settings if available
+            const colorModeEl = document.getElementById('color-mode');
+            const colorModePref = colorModeEl ? colorModeEl.value : 'original';
+            const imageFitEl = document.getElementById('image-fit');
+            const imageFitPref = imageFitEl ? imageFitEl.value : 'preserve';
+            
+            // Phase 13: Passport Stamp Engine UI grab
+            const passportNameEl = document.getElementById('passport-name');
+            const passportName = passportNameEl ? passportNameEl.value.trim() : '';
+            const passportDateEl = document.getElementById('passport-date');
+            const passportDate = passportDateEl ? passportDateEl.value.trim() : '';
+            const passportCopiesEl = document.getElementById('passport-copies');
+            const customCopies = passportCopiesEl && passportCopiesEl.value ? parseInt(passportCopiesEl.value) : 0;
+
             // Sanitize filename to prevent XSS or OS path traversal leaps
             let customFileName = fileNameInput.value.trim() || 'Img2PDFPro_Document';
             customFileName = customFileName.replace(/[^a-zA-Z0-9_\-\s]/g, '');
@@ -458,7 +520,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 const imgElement = await loadImageFromDataUrl(files[i].dataUrl);
-                const compressedDataUrl = await compressImage(imgElement, qualitySetting);
+                const compressedDataUrl = await compressImage(imgElement, qualitySetting, colorModePref, passportName, passportDate);
                 
                 // --- Dynamic Layout Calculation ---
                 let pdfWidth = defaultWidth;
@@ -514,6 +576,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         imgY = margin;
                         imgX = margin + (contentWidth - targetW) / 2;
                     }
+                    
+                    if (imageFitPref === 'stretch') {
+                        targetW = contentWidth;
+                        targetH = contentHeight;
+                        imgX = margin;
+                        imgY = margin;
+                    }
+                    
                     pdf.addImage(compressedDataUrl, 'JPEG', imgX, imgY, targetW, targetH);
                 } 
                 else if (effectiveLayoutMode === 2) {
@@ -538,6 +608,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     imgX = margin + (contentWidth - targetW) / 2;
                     imgY = isEven ? margin + (slotHeight - targetH) / 2 : margin + slotHeight + margin + (slotHeight - targetH) / 2;
+
+                    if (imageFitPref === 'stretch') {
+                        targetW = contentWidth;
+                        targetH = slotHeight;
+                        imgX = margin;
+                        imgY = isEven ? margin : margin + slotHeight + margin;
+                    }
 
                     pdf.addImage(compressedDataUrl, 'JPEG', imgX, imgY, targetW, targetH);
                 }
@@ -567,7 +644,66 @@ document.addEventListener('DOMContentLoaded', () => {
                     imgX = margin + (col * (slotWidth + margin)) + (slotWidth - targetW) / 2;
                     imgY = margin + (row * (slotHeight + margin)) + (slotHeight - targetH) / 2;
 
+                    if (imageFitPref === 'stretch') {
+                        targetW = slotWidth;
+                        targetH = slotHeight;
+                        imgX = margin + (col * (slotWidth + margin));
+                        imgY = margin + (row * (slotHeight + margin));
+                    }
+
                     pdf.addImage(compressedDataUrl, 'JPEG', imgX, imgY, targetW, targetH);
+                }
+                else if (effectiveLayoutMode === 30 || effectiveLayoutMode === 8) {
+                    // Studio Passport Maker Mode
+                    const is30 = effectiveLayoutMode === 30;
+                    const cols = is30 ? 5 : 4;
+                    const rows = is30 ? 6 : 2;
+                    let totalPhotos = cols * rows;
+
+                    // Phase 13: Allow custom copy override
+                    if (customCopies > 0) {
+                        totalPhotos = customCopies;
+                    }
+
+                    // Standard Indian Passport Dimensions (approx 3.5cm x 4.5cm)
+                    const passW = 132;
+                    const passH = 170;
+                    
+                    // Fixed safe margins for cut-lines
+                    const gapX = is30 ? 25 : 35;
+                    const gapY = is30 ? 25 : 35;
+                    
+                    // Calculate starting offset to center the grid
+                    const gridTotalW = (cols * passW) + ((cols - 1) * gapX);
+                    const gridTotalH = (rows * passH) + ((rows - 1) * gapY);
+                    
+                    const startX = (pdfWidth - gridTotalW) / 2;
+                    const startY = is30 ? (pdfHeight - gridTotalH) / 2 : 40; // Top-align for 8-pack
+
+                    // Handle massive quantities across multiple pages
+                    const photosPerPage = cols * rows;
+                    let remainingPhotos = totalPhotos;
+
+                    while (remainingPhotos > 0) {
+                        pdf.addPage([pdfWidth, pdfHeight], imgOrientation);
+                        // Delete shell only on the absolute first page
+                        if (i === 0 && remainingPhotos === totalPhotos) pdf.deletePage(1); 
+                        pageIndex++;
+
+                        const photosOnThisPage = Math.min(remainingPhotos, photosPerPage);
+
+                        for (let p = 0; p < photosOnThisPage; p++) {
+                            const col = p % cols;
+                            const row = Math.floor(p / cols);
+
+                            const x = startX + (col * (passW + gapX));
+                            const y = startY + (row * (passH + gapY));
+
+                            // Always crop/stretch slightly to fill exactly 3.5x4.5cm without white bars
+                            pdf.addImage(compressedDataUrl, 'JPEG', x, y, passW, passH);
+                        }
+                        remainingPhotos -= photosOnThisPage;
+                    }
                 }
             } // Close for loop
 

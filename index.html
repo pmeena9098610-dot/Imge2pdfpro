@@ -340,9 +340,37 @@
                                     <option value="1" selected>1 Image per Page</option>
                                     <option value="2">2 Images per Page</option>
                                     <option value="4">4 Images per Page</option>
+                                    <option value="8" style="color:var(--primary); font-weight:bold;">8 Passport Photos</option>
+                                    <option value="30" style="color:var(--primary); font-weight:bold;">30 Passport Photos (Studio A4)</option>
                                 </select>
                             </div>
-                            <div class="setting-group full-width" style="grid-column: 1 / -1;">
+                            <div class="setting-group">
+                                <label for="image-fit">Image Fit</label>
+                                <select id="image-fit" aria-label="Select Image Fit Type">
+                                    <option value="preserve" selected>Preserve Ratio (Best)</option>
+                                    <option value="stretch">Stretch to Fill Page</option>
+                                </select>
+                            </div>
+                            <div class="setting-group">
+                                <label for="color-mode">Color Mode</label>
+                                <select id="color-mode" aria-label="Select Color Format">
+                                    <option value="original" selected>Original Color</option>
+                                    <option value="bw">Photocopy (B&W)</option>
+                                </select>
+                            </div>
+                            <!-- Passport Studio Features -->
+                            <div class="setting-group">
+                                <label for="passport-copies">Studio Copies (1-30)</label>
+                                <input type="number" id="passport-copies" min="1" max="30" placeholder="e.g. 12" title="Leave empty for full page">
+                            </div>
+                            <div class="setting-group">
+                                <label for="passport-name">Photo Stamp Name</label>
+                                <input type="text" id="passport-name" placeholder="SSC Name (Optional)">
+                            </div>
+                            <div class="setting-group">
+                                <label for="passport-date">Photo Stamp Date</label>
+                                <input type="text" id="passport-date" placeholder="DD/MM/YYYY (Optional)">
+                            </div>
                             <div class="setting-group" style="grid-column: 1 / -1;">
                                 <label for="file-name"><i class="fa-solid fa-pen-to-square"></i> File Name</label>
                                 <input type="text" id="file-name" placeholder="Img2PDFPro_Document" aria-label="Custom File Name" />
