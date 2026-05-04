@@ -1,4 +1,9 @@
 {
-  "buildCommand": "echo 'Bypassing Angular Build for Static HTML'",
-  "outputDirectory": "."
+  "version": 2,
+  "builds": [
+    {
+      "src": "**/*",
+      "use": "@vercel/static"
+    }
+  ]
 }
