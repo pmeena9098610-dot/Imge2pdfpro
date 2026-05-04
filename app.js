@@ -98,6 +98,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileNameInput = document.getElementById('file-name');
     const loadingOverlay = document.getElementById('loading-overlay');
 
+    // Phase 14: App Mode Switcher (Normal vs Passport)
+    let currentAppMode = 'normal';
+    const tabNormal = document.getElementById('tab-normal');
+    const tabPassport = document.getElementById('tab-passport');
+    const normalSettings = document.getElementById('normal-settings');
+    const passportSettings = document.getElementById('passport-settings');
+
+    if (tabNormal && tabPassport) {
+        tabNormal.addEventListener('click', () => {
+            currentAppMode = 'normal';
+            tabNormal.classList.add('active');
+            tabPassport.classList.remove('active');
+            normalSettings.style.display = 'grid';
+            passportSettings.style.display = 'none';
+        });
+        tabPassport.addEventListener('click', () => {
+            currentAppMode = 'passport';
+            tabPassport.classList.add('active');
+            tabNormal.classList.remove('active');
+            normalSettings.style.display = 'none';
+            passportSettings.style.display = 'grid';
+        });
+    }
+
     // State
     let files = [];
     let sortableInstance = null;
@@ -450,30 +474,51 @@ document.addEventListener('DOMContentLoaded', () => {
         showLoading();
 
         try {
-            // Get settings
-            const margin = parseInt(marginSelect.value);
+            // Get common settings
             const qualitySetting = sizeSelect.value;
-            const layoutMode = parseInt(layoutSelect.value); // 1, 2, or 4
-            const pageSizePref = pageSizeSelect.value;
-            const orientationPref = orientationSelect.value;
-            
-            // Phase 11: Get Pro Settings if available
-            const colorModeEl = document.getElementById('color-mode');
-            const colorModePref = colorModeEl ? colorModeEl.value : 'original';
-            const imageFitEl = document.getElementById('image-fit');
-            const imageFitPref = imageFitEl ? imageFitEl.value : 'preserve';
-            
-            // Phase 13: Passport Stamp Engine UI grab
-            const passportNameEl = document.getElementById('passport-name');
-            const passportName = passportNameEl ? passportNameEl.value.trim() : '';
-            const passportDateEl = document.getElementById('passport-date');
-            const passportDate = passportDateEl ? passportDateEl.value.trim() : '';
-            const passportCopiesEl = document.getElementById('passport-copies');
-            const customCopies = passportCopiesEl && passportCopiesEl.value ? parseInt(passportCopiesEl.value) : 0;
-
-            // Sanitize filename to prevent XSS or OS path traversal leaps
             let customFileName = fileNameInput.value.trim() || 'Img2PDFPro_Document';
             customFileName = customFileName.replace(/[^a-zA-Z0-9_\-\s]/g, '');
+            
+            // App Mode Routing Variables
+            let margin = 0;
+            let layoutMode = 1;
+            let pageSizePref = 'a4';
+            let orientationPref = 'auto';
+            let colorModePref = 'original';
+            let imageFitPref = 'preserve';
+            let passportName = '';
+            let passportDate = '';
+            let customCopies = 0;
+
+            if (currentAppMode === 'passport') {
+                // Lock strictly to Passport specifications
+                margin = 20;
+                pageSizePref = 'a4';
+                orientationPref = 'p';
+                
+                const pColorEl = document.getElementById('passport-color');
+                colorModePref = pColorEl ? pColorEl.value : 'original';
+                
+                const pNameEl = document.getElementById('passport-name');
+                passportName = pNameEl ? pNameEl.value.trim() : '';
+                
+                const pDateEl = document.getElementById('passport-date');
+                passportDate = pDateEl ? pDateEl.value.trim() : '';
+                
+                const pCopiesEl = document.getElementById('passport-copies');
+                customCopies = pCopiesEl && pCopiesEl.value ? parseInt(pCopiesEl.value) : 30; // Default 30 copies
+            } else {
+                // Normal mode settings
+                margin = parseInt(marginSelect.value);
+                layoutMode = parseInt(layoutSelect.value); // 1, 2, or 4
+                pageSizePref = pageSizeSelect.value;
+                orientationPref = orientationSelect.value;
+                
+                const colorModeEl = document.getElementById('color-mode');
+                colorModePref = colorModeEl ? colorModeEl.value : 'original';
+                const imageFitEl = document.getElementById('image-fit');
+                imageFitPref = imageFitEl ? imageFitEl.value : 'preserve';
+            }
             
             // Initialize jsPDF
             const { jsPDF } = window.jspdf;
@@ -653,32 +698,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     pdf.addImage(compressedDataUrl, 'JPEG', imgX, imgY, targetW, targetH);
                 }
-                else if (effectiveLayoutMode === 30 || effectiveLayoutMode === 8) {
-                    // Studio Passport Maker Mode
-                    const is30 = effectiveLayoutMode === 30;
-                    const cols = is30 ? 5 : 4;
-                    const rows = is30 ? 6 : 2;
-                    let totalPhotos = cols * rows;
+                else if (currentAppMode === 'passport') {
+                    // Ultra-Level Dedicated Studio Passport Maker Mode
+                    const cols = 5;
+                    const rows = 6;
+                    let totalPhotos = customCopies > 0 ? customCopies : 30; // 30 is default full page
 
-                    // Phase 13: Allow custom copy override
-                    if (customCopies > 0) {
-                        totalPhotos = customCopies;
-                    }
+                    // Determine grid structure based on total quantity to center small quantities
+                    const isSmallGrid = totalPhotos <= 8;
+                    const actualCols = isSmallGrid ? 4 : cols;
+                    const actualRows = isSmallGrid ? Math.ceil(totalPhotos / actualCols) : rows;
 
                     // Standard Indian Passport Dimensions (approx 3.5cm x 4.5cm)
                     const passW = 132;
                     const passH = 170;
                     
                     // Fixed safe margins for cut-lines
-                    const gapX = is30 ? 25 : 35;
-                    const gapY = is30 ? 25 : 35;
+                    const gapX = isSmallGrid ? 35 : 25;
+                    const gapY = isSmallGrid ? 35 : 25;
                     
                     // Calculate starting offset to center the grid
-                    const gridTotalW = (cols * passW) + ((cols - 1) * gapX);
-                    const gridTotalH = (rows * passH) + ((rows - 1) * gapY);
+                    const gridTotalW = (actualCols * passW) + ((actualCols - 1) * gapX);
+                    const gridTotalH = (actualRows * passH) + ((actualRows - 1) * gapY);
                     
                     const startX = (pdfWidth - gridTotalW) / 2;
-                    const startY = is30 ? (pdfHeight - gridTotalH) / 2 : 40; // Top-align for 8-pack
+                    const startY = (pdfHeight - gridTotalH) / 2; // Always perfectly centered
 
                     // Handle massive quantities across multiple pages
                     const photosPerPage = cols * rows;
@@ -691,13 +735,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         pageIndex++;
 
                         const photosOnThisPage = Math.min(remainingPhotos, photosPerPage);
+                        
+                        // Recalculate centering for the LAST page if it has fewer photos
+                        const localCols = photosOnThisPage <= 8 ? 4 : cols;
+                        const localRows = Math.ceil(photosOnThisPage / localCols);
+                        const localGridW = (localCols * passW) + ((localCols - 1) * gapX);
+                        const localGridH = (localRows * passH) + ((localRows - 1) * gapY);
+                        const localStartX = (pdfWidth - localGridW) / 2;
+                        const localStartY = (pdfHeight - localGridH) / 2;
 
                         for (let p = 0; p < photosOnThisPage; p++) {
-                            const col = p % cols;
-                            const row = Math.floor(p / cols);
+                            const col = p % localCols;
+                            const row = Math.floor(p / localCols);
 
-                            const x = startX + (col * (passW + gapX));
-                            const y = startY + (row * (passH + gapY));
+                            const x = localStartX + (col * (passW + gapX));
+                            const y = localStartY + (row * (passH + gapY));
 
                             // Always crop/stretch slightly to fill exactly 3.5x4.5cm without white bars
                             pdf.addImage(compressedDataUrl, 'JPEG', x, y, passW, passH);

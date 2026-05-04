@@ -300,7 +300,12 @@
                 <div class="controls-panel" id="controls-panel" aria-live="polite">
                     <article class="settings-card">
                         <h3><i class="fa-solid fa-sliders" aria-hidden="true"></i> Page Layout & Settings (Optional)</h3>
-                        <div class="settings-grid">
+                        <div class="mode-switcher">
+                            <button class="mode-tab active" id="tab-normal" type="button"><i class="fa-solid fa-file-pdf"></i> Normal PDF</button>
+                            <button class="mode-tab" id="tab-passport" type="button"><i class="fa-solid fa-id-badge"></i> Passport Studio</button>
+                        </div>
+                        
+                        <div class="settings-grid" id="normal-settings">
                             <div class="setting-group">
                                 <label for="page-size"><i class="fa-regular fa-file"></i> Page Size</label>
                                 <select id="page-size" aria-label="Select PDF Page Size">
@@ -340,8 +345,6 @@
                                     <option value="1" selected>1 Image per Page</option>
                                     <option value="2">2 Images per Page</option>
                                     <option value="4">4 Images per Page</option>
-                                    <option value="8" style="color:var(--primary); font-weight:bold;">8 Passport Photos</option>
-                                    <option value="30" style="color:var(--primary); font-weight:bold;">30 Passport Photos (Studio A4)</option>
                                 </select>
                             </div>
                             <div class="setting-group">
@@ -358,19 +361,36 @@
                                     <option value="bw">Photocopy (B&W)</option>
                                 </select>
                             </div>
-                            <!-- Passport Studio Features -->
-                            <div class="setting-group">
-                                <label for="passport-copies">Studio Copies (1-30)</label>
-                                <input type="number" id="passport-copies" min="1" max="30" placeholder="e.g. 12" title="Leave empty for full page">
+                        </div>
+
+                        <!-- PASSPORT STUDIO SETTINGS (Isolated Mode) -->
+                        <div class="settings-grid" id="passport-settings" style="display: none; background: rgba(99, 102, 241, 0.05); border: 1px solid rgba(99, 102, 241, 0.2); padding: 15px; border-radius: 8px;">
+                            <div class="setting-group" style="grid-column: 1 / -1;">
+                                <p style="font-size: 0.85rem; color: #475569; margin-bottom: 5px;"><i class="fa-solid fa-circle-check" style="color:var(--success)"></i> Auto-forces A4 size, standard 3.5x4.5cm dimensions, and grid margins.</p>
                             </div>
                             <div class="setting-group">
-                                <label for="passport-name">Photo Stamp Name</label>
-                                <input type="text" id="passport-name" placeholder="SSC Name (Optional)">
+                                <label for="passport-copies">Number of Photos</label>
+                                <input type="number" id="passport-copies" min="1" max="100" placeholder="e.g. 30" title="Total copies to generate">
                             </div>
                             <div class="setting-group">
-                                <label for="passport-date">Photo Stamp Date</label>
+                                <label for="passport-color">Color Filter</label>
+                                <select id="passport-color" aria-label="Select Color Format">
+                                    <option value="original" selected>Original Studio Color</option>
+                                    <option value="bw">Photocopy (B&W)</option>
+                                </select>
+                            </div>
+                            <div class="setting-group">
+                                <label for="passport-name">Photo Stamp Name (SSC)</label>
+                                <input type="text" id="passport-name" placeholder="Applicant Name (Optional)">
+                            </div>
+                            <div class="setting-group">
+                                <label for="passport-date">Photo Stamp Date (SSC)</label>
                                 <input type="text" id="passport-date" placeholder="DD/MM/YYYY (Optional)">
                             </div>
+                        </div>
+
+                        <!-- COMMON SETTINGS (Bottom) -->
+                        <div class="settings-grid" style="margin-top: 15px;">
                             <div class="setting-group" style="grid-column: 1 / -1;">
                                 <label for="file-name"><i class="fa-solid fa-pen-to-square"></i> File Name</label>
                                 <input type="text" id="file-name" placeholder="Img2PDFPro_Document" aria-label="Custom File Name" />
