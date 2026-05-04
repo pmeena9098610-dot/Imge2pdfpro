@@ -1,0 +1,4 @@
+{
+  "buildCommand": "echo 'Bypassing Angular Build for Static HTML'",
+  "outputDirectory": "."
+}
