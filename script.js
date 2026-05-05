@@ -17,14 +17,11 @@ let sortable = Sortable.create(imagePreview, {
     animation: 200,
     ghostClass: 'sortable-ghost',
     onEnd: () => {
-        // Update logic map selectedImages after drag using data-index
-        const newOrder = [];
         const items = imagePreview.querySelectorAll('.preview-item');
-        items.forEach(item => {
+        const newOrder = Array.from(items).map(item => {
             const index = parseInt(item.dataset.index);
-            const found = selectedImages.find(img => img.id === index);
-            if (found) newOrder.push(found);
-        });
+            return selectedImages.find(img => img.id === index);
+        }).filter(Boolean);
         selectedImages = newOrder;
     }
 });
@@ -397,6 +394,13 @@ generateBtn.addEventListener('click', async () => {
 });
 
 // Quick Sorting PRO Features
+function rebuildPreview() {
+    imagePreview.innerHTML = '';
+    selectedImages.forEach(img => {
+        renderPreview(img.id, img.imgData, img.file.name);
+    });
+}
+
 document.getElementById('sort-az-btn').addEventListener('click', () => {
     selectedImages.sort((a, b) => {
         const nameA = a.file.name.toLowerCase();
@@ -405,10 +409,10 @@ document.getElementById('sort-az-btn').addEventListener('click', () => {
         if (nameA > nameB) return 1;
         return 0;
     });
-    renderPreview();
+    rebuildPreview();
 });
 
 document.getElementById('reverse-btn').addEventListener('click', () => {
     selectedImages.reverse();
-    renderPreview();
+    rebuildPreview();
 });

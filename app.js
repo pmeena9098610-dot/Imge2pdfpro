@@ -272,12 +272,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Standard Processing Pipeline
+            const fileName = file.type === 'image/heic' || file.name.match(/\.heic$/i)
+                ? file.name.replace(/\.heic$/i, ".jpg")
+                : file.name;
+
             const fileObj = {
                 id: 'img_' + Math.random().toString(36).substr(2, 9),
                 file: processBlob,
+                fileName: fileName,
                 dataUrl: null
             };
-            
+
             const reader = new FileReader();
             reader.onload = (e) => {
                 fileObj.dataUrl = e.target.result;
@@ -285,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateUI();
             };
             reader.readAsDataURL(processBlob);
-            
+
             files.push(fileObj);
             addedCount++;
         }
@@ -316,9 +321,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         li.innerHTML = `
             <div class="image-thumb-container">
-                <img src="${fileObj.dataUrl}" class="image-thumb" alt="${fileObj.file.name}">
+                <img src="${fileObj.dataUrl}" class="image-thumb" alt="${fileObj.fileName}">
             </div>
-            <div class="image-name" title="${fileObj.file.name}">${fileObj.file.name}</div>
+            <div class="image-name" title="${fileObj.fileName}">${fileObj.fileName}</div>
             <div class="image-size">${formatBytes(fileObj.file.size)}</div>
             <button class="remove-btn" title="Remove image" onclick="removeImage('${fileObj.id}')">
                 <i class="fa-solid fa-xmark"></i>
