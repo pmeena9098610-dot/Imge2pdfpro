@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume & CV to PDF Compressor | Compress Job Documents</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    
+    <meta name="description" content="Compress your photo-heavy Resume or CV into a lightweight 100KB PDF so it easily uploads to Workday, LinkedIn, and corporate career portals.">
+    <meta name="keywords" content="resume compress pdf, cv photo to pdf, reduce resume size online, compress cv 100kb, professional resume pdf maker">
+    <link rel="canonical" href="https://photosepdf.in/resume-cv-to-pdf-compressor.html">
+    <meta name="robots" content="index, follow">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header role="banner">
+        <nav class="navbar">
+            <div class="container nav-container">
+                <a href="index.html" class="logo"><i class="fa-solid fa-file-pdf"></i> Img2PDF<span>Pro</span></a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Main Tool</a></li>
+                    <li><a href="articles.html" style="color:var(--primary); font-weight:600;">Blog</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="hero">
+            <div class="container text-center">
+                <span class="badge">👔 Professional Career Tool</span>
+                <h1 class="hero-title fade-up">Resume & CV <span class="text-gradient">PDF Compressor</span></h1>
+                <p class="subtitle fade-up delay-100">Turn multi-page JPG resumes into a single, perfectly sized PDF for corporate job application portals.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" role="main">
+        <section class="converter-section">
+            <div class="app-container">
+                <div class="dropzone" id="dropzone">
+                    <input type="file" id="file-input" multiple accept="image/jpeg, image/png, image/webp" class="hidden-input">
+                    <div class="dropzone-content">
+                        <div class="icon-blob"><i class="fa-solid fa-briefcase"></i></div>
+                        <h2>Upload Resume Pages (JPG/PNG)</h2>
+                        <button class="btn btn-primary" id="browse-btn">Select Resume Files</button>
+                    </div>
+                </div>
+
+                <div class="controls-panel" id="controls-panel" aria-live="polite">
+                    <article class="settings-card">
+                        <h3><i class="fa-solid fa-sliders"></i> CV Settings</h3>
+                        <div class="settings-grid">
+                            <div class="setting-group">
+                                <label>Page Size</label>
+                                <select id="page-size">
+                                    <option value="a4" selected>A4 Document</option>
+                                    <option value="letter">US Letter</option>
+                                </select>
+                            </div>
+                            <div class="setting-group">
+                                <label>Compression Level</label>
+                                <select id="size-select">
+                                    <option value="high">High Quality</option>
+                                    <option value="super" selected>Career Portal (1MB Max)</option>
+                                    <option value="extreme">Under 200KB limit</option>
+                                </select>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="image-list-card">
+                        <div class="card-header">
+                            <h3>Resume Pages (<span id="image-count">0</span>)</h3>
+                            <button class="btn btn-sm btn-outline-danger" id="clear-all-btn">Reset</button>
+                        </div>
+                        <ul class="image-list" id="image-list"></ul>
+                    </article>
+                    <div class="actions">
+                        <button class="btn btn-primary btn-large btn-block" id="generate-btn">
+                            Generate Professional PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="seo-content" style="margin-top: 50px;">
+            <div class="content-box">
+                <h2>Why compress your Resume for Job Applications?</h2>
+                <p>When applying for jobs on systems like Workday, Taleo, or LinkedIn, recruiters often impose strict file size limits (usually under 2MB, sometimes under 500KB). If your resume was built as high-res imagery, combining those images without compression will exceed portals' quotas.</p>
+                <p>Our tool runs a specialized <strong>compression algorithm</strong> directly in your browser. It resamples the resume images to ensure the text remains pin-sharp for the recruiter, while drastically reducing the footprint of the resulting PDF to bypass any upload restrictions.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2026 Img2PDF Pro. Local & Secure.</p>
+        </div>
+    </footer>
+    
+    <div class="loading-overlay" id="loading-overlay"><div class="spinner"></div></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" defer></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

@@ -98,30 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileNameInput = document.getElementById('file-name');
     const loadingOverlay = document.getElementById('loading-overlay');
 
-    // Phase 14: App Mode Switcher (Normal vs Passport)
-    let currentAppMode = 'normal';
-    const tabNormal = document.getElementById('tab-normal');
-    const tabPassport = document.getElementById('tab-passport');
-    const normalSettings = document.getElementById('normal-settings');
-    const passportSettings = document.getElementById('passport-settings');
-
-    if (tabNormal && tabPassport) {
-        tabNormal.addEventListener('click', () => {
-            currentAppMode = 'normal';
-            tabNormal.classList.add('active');
-            tabPassport.classList.remove('active');
-            normalSettings.style.display = 'grid';
-            passportSettings.style.display = 'none';
-        });
-        tabPassport.addEventListener('click', () => {
-            currentAppMode = 'passport';
-            tabPassport.classList.add('active');
-            tabNormal.classList.remove('active');
-            normalSettings.style.display = 'none';
-            passportSettings.style.display = 'grid';
-        });
-    }
-
     // State
     let files = [];
     let sortableInstance = null;
@@ -193,29 +169,32 @@ document.addEventListener('DOMContentLoaded', () => {
     generateBtn.addEventListener('click', generatePDF);
 
     // Share Button Native API fallback
-    document.getElementById('share-website-btn').addEventListener('click', async () => {
-        const shareData = {
-            title: 'Img2PDF Pro - Free Image to PDF Converter',
-            text: 'I just used this amazing, 100% free and secure offline Image to PDF converter!',
-            url: window.location.href
-        }
-        try {
-            if (navigator.share) {
-                await navigator.share(shareData);
-            } else {
-                navigator.clipboard.writeText(shareData.url);
-                Swal.fire({
-                    title: 'Copied!',
-                    text: 'Website link copied to clipboard.',
-                    icon: 'success',
-                    background: 'rgba(255, 255, 255, 0.95)',
-                    confirmButtonColor: '#6366F1'
-                });
+    const shareBtn = document.getElementById('share-website-btn');
+    if (shareBtn) {
+        shareBtn.addEventListener('click', async () => {
+            const shareData = {
+                title: 'Img2PDF Pro - Free Image to PDF Converter',
+                text: 'I just used this amazing, 100% free and secure offline Image to PDF converter!',
+                url: window.location.href
+            };
+            try {
+                if (navigator.share) {
+                    await navigator.share(shareData);
+                } else {
+                    await navigator.clipboard.writeText(shareData.url);
+                    Swal.fire({
+                        title: 'Copied!',
+                        text: 'Website link copied to clipboard.',
+                        icon: 'success',
+                        background: 'rgba(255, 255, 255, 0.95)',
+                        confirmButtonColor: '#6366F1'
+                    });
+                }
+            } catch (err) {
+                console.warn('Share failed:', err);
             }
-        } catch(err) {
-            console.error('Share failed', err);
-        }
-    });
+        });
+    }
 
     // ----- Functions -----
 
@@ -272,17 +251,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Standard Processing Pipeline
-            const fileName = file.type === 'image/heic' || file.name.match(/\.heic$/i)
-                ? file.name.replace(/\.heic$/i, ".jpg")
-                : file.name;
-
             const fileObj = {
                 id: 'img_' + Math.random().toString(36).substr(2, 9),
                 file: processBlob,
-                fileName: fileName,
                 dataUrl: null
             };
-
+            
             const reader = new FileReader();
             reader.onload = (e) => {
                 fileObj.dataUrl = e.target.result;
@@ -290,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateUI();
             };
             reader.readAsDataURL(processBlob);
-
+            
             files.push(fileObj);
             addedCount++;
         }
@@ -321,9 +295,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         li.innerHTML = `
             <div class="image-thumb-container">
-                <img src="${fileObj.dataUrl}" class="image-thumb" alt="${fileObj.fileName}">
+                <img src="${fileObj.dataUrl}" class="image-thumb" alt="${fileObj.file.name}">
             </div>
-            <div class="image-name" title="${fileObj.fileName}">${fileObj.fileName}</div>
+            <div class="image-name" title="${fileObj.file.name}">${fileObj.file.name}</div>
             <div class="image-size">${formatBytes(fileObj.file.size)}</div>
             <button class="remove-btn" title="Remove image" onclick="removeImage('${fileObj.id}')">
                 <i class="fa-solid fa-xmark"></i>
@@ -351,6 +325,9 @@ document.addEventListener('DOMContentLoaded', () => {
         imageCount.textContent = files.length;
         
         if (files.length > 0) {
+            // Show controls panel when images are present (Bug 6 fix)
+            controlsPanel.style.display = 'block';
+
             // Initialize or update Sortable
             if (!sortableInstance) {
                 sortableInstance = new Sortable(imageList, {
@@ -369,6 +346,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             }
+        } else {
+            // Hide controls panel when no images (Bug 6 fix)
+            controlsPanel.style.display = 'none';
         }
     }
 
@@ -474,56 +454,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function generatePDF() {
-        if (files.length === 0) return;
+        if (files.length === 0) {
+            Swal.fire({
+                title: 'No Images Selected',
+                text: 'Please select at least one photo before generating a PDF.',
+                icon: 'warning',
+                background: document.documentElement.getAttribute('data-theme') === 'dark' ? '#1E293B' : 'rgba(255, 255, 255, 0.95)',
+                color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#F1F5F9' : '#334155'
+            });
+            return;
+        }
         
         showLoading();
 
         try {
-            // Get common settings
+            // Get settings
+            const margin = parseInt(marginSelect.value);
             const qualitySetting = sizeSelect.value;
+            const layoutMode = parseInt(layoutSelect.value); // 1, 2, or 4
+            const pageSizePref = pageSizeSelect.value;
+            const orientationPref = orientationSelect.value;
+            
+            // Phase 11: Get Pro Settings if available
+            const colorModeEl = document.getElementById('color-mode');
+            const colorModePref = colorModeEl ? colorModeEl.value : 'original';
+            const imageFitEl = document.getElementById('image-fit');
+            const imageFitPref = imageFitEl ? imageFitEl.value : 'preserve';
+            
+            // Phase 13: Passport Stamp Engine UI grab
+            const passportNameEl = document.getElementById('passport-name');
+            const passportName = passportNameEl ? passportNameEl.value.trim() : '';
+            const passportDateEl = document.getElementById('passport-date');
+            const passportDate = passportDateEl ? passportDateEl.value.trim() : '';
+            const passportCopiesEl = document.getElementById('passport-copies');
+            const customCopies = passportCopiesEl && passportCopiesEl.value ? parseInt(passportCopiesEl.value) : 0;
+
+            // Sanitize filename to prevent XSS or OS path traversal leaps
             let customFileName = fileNameInput.value.trim() || 'Img2PDFPro_Document';
             customFileName = customFileName.replace(/[^a-zA-Z0-9_\-\s]/g, '');
-            
-            // App Mode Routing Variables
-            let margin = 0;
-            let layoutMode = 1;
-            let pageSizePref = 'a4';
-            let orientationPref = 'auto';
-            let colorModePref = 'original';
-            let imageFitPref = 'preserve';
-            let passportName = '';
-            let passportDate = '';
-            let customCopies = 0;
-
-            if (currentAppMode === 'passport') {
-                // Lock strictly to Passport specifications
-                margin = 20;
-                pageSizePref = 'a4';
-                orientationPref = 'p';
-                
-                const pColorEl = document.getElementById('passport-color');
-                colorModePref = pColorEl ? pColorEl.value : 'original';
-                
-                const pNameEl = document.getElementById('passport-name');
-                passportName = pNameEl ? pNameEl.value.trim() : '';
-                
-                const pDateEl = document.getElementById('passport-date');
-                passportDate = pDateEl ? pDateEl.value.trim() : '';
-                
-                const pCopiesEl = document.getElementById('passport-copies');
-                customCopies = pCopiesEl && pCopiesEl.value ? parseInt(pCopiesEl.value) : 30; // Default 30 copies
-            } else {
-                // Normal mode settings
-                margin = parseInt(marginSelect.value);
-                layoutMode = parseInt(layoutSelect.value); // 1, 2, or 4
-                pageSizePref = pageSizeSelect.value;
-                orientationPref = orientationSelect.value;
-                
-                const colorModeEl = document.getElementById('color-mode');
-                colorModePref = colorModeEl ? colorModeEl.value : 'original';
-                const imageFitEl = document.getElementById('image-fit');
-                imageFitPref = imageFitEl ? imageFitEl.value : 'preserve';
-            }
             
             // Initialize jsPDF
             const { jsPDF } = window.jspdf;
@@ -703,31 +671,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     pdf.addImage(compressedDataUrl, 'JPEG', imgX, imgY, targetW, targetH);
                 }
-                else if (currentAppMode === 'passport') {
-                    // Ultra-Level Dedicated Studio Passport Maker Mode
-                    const cols = 5;
-                    const rows = 6;
-                    let totalPhotos = customCopies > 0 ? customCopies : 30; // 30 is default full page
+                else if (effectiveLayoutMode === 30 || effectiveLayoutMode === 8) {
+                    // Studio Passport Maker Mode
+                    const is30 = effectiveLayoutMode === 30;
+                    const cols = is30 ? 5 : 4;
+                    const rows = is30 ? 6 : 2;
+                    let totalPhotos = cols * rows;
 
-                    // Determine grid structure based on total quantity to center small quantities
-                    const isSmallGrid = totalPhotos <= 8;
-                    const actualCols = isSmallGrid ? 4 : cols;
-                    const actualRows = isSmallGrid ? Math.ceil(totalPhotos / actualCols) : rows;
+                    // Phase 13: Allow custom copy override
+                    if (customCopies > 0) {
+                        totalPhotos = customCopies;
+                    }
 
                     // Standard Indian Passport Dimensions (approx 3.5cm x 4.5cm)
                     const passW = 132;
                     const passH = 170;
                     
                     // Fixed safe margins for cut-lines
-                    const gapX = isSmallGrid ? 35 : 25;
-                    const gapY = isSmallGrid ? 35 : 25;
+                    const gapX = is30 ? 25 : 35;
+                    const gapY = is30 ? 25 : 35;
                     
                     // Calculate starting offset to center the grid
-                    const gridTotalW = (actualCols * passW) + ((actualCols - 1) * gapX);
-                    const gridTotalH = (actualRows * passH) + ((actualRows - 1) * gapY);
+                    const gridTotalW = (cols * passW) + ((cols - 1) * gapX);
+                    const gridTotalH = (rows * passH) + ((rows - 1) * gapY);
                     
                     const startX = (pdfWidth - gridTotalW) / 2;
-                    const startY = (pdfHeight - gridTotalH) / 2; // Always perfectly centered
+                    const startY = is30 ? (pdfHeight - gridTotalH) / 2 : 40; // Top-align for 8-pack
 
                     // Handle massive quantities across multiple pages
                     const photosPerPage = cols * rows;
@@ -740,21 +709,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         pageIndex++;
 
                         const photosOnThisPage = Math.min(remainingPhotos, photosPerPage);
-                        
-                        // Recalculate centering for the LAST page if it has fewer photos
-                        const localCols = photosOnThisPage <= 8 ? 4 : cols;
-                        const localRows = Math.ceil(photosOnThisPage / localCols);
-                        const localGridW = (localCols * passW) + ((localCols - 1) * gapX);
-                        const localGridH = (localRows * passH) + ((localRows - 1) * gapY);
-                        const localStartX = (pdfWidth - localGridW) / 2;
-                        const localStartY = (pdfHeight - localGridH) / 2;
 
                         for (let p = 0; p < photosOnThisPage; p++) {
-                            const col = p % localCols;
-                            const row = Math.floor(p / localCols);
+                            const col = p % cols;
+                            const row = Math.floor(p / cols);
 
-                            const x = localStartX + (col * (passW + gapX));
-                            const y = localStartY + (row * (passH + gapY));
+                            const x = startX + (col * (passW + gapX));
+                            const y = startY + (row * (passH + gapY));
 
                             // Always crop/stretch slightly to fill exactly 3.5x4.5cm without white bars
                             pdf.addImage(compressedDataUrl, 'JPEG', x, y, passW, passH);
@@ -775,7 +736,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         userPermissions: ["print", "copy"]
                     });
                 } else {
-                    console.warn("Encryption module not active in this jsPDF build. PDF will be generated without password.");
+                    // PDF will be generated without password — inform user after download
+                    console.warn('PDF Encryption: jsPDF free CDN build does not include encryption. PDF generated without password.');
+                    // Show a one-time notification after PDF saves
+                    setTimeout(() => {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Password Not Applied',
+                            text: 'Your PDF was created, but password protection could not be applied. This feature requires a Pro build of jsPDF.',
+                            confirmButtonColor: '#6366F1',
+                            background: document.documentElement.getAttribute('data-theme') === 'dark' ? '#1E293B' : 'rgba(255, 255, 255, 0.95)',
+                            color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#F1F5F9' : '#334155'
+                        });
+                    }, 2500);
                 }
             }
 

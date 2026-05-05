@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEIC to PDF Converter | Turn iPhone Photos to PDF Free</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6366F1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' https://api.whatsapp.com; img-src 'self' data: blob:; worker-src 'self';">
+    
+    <meta name="description" content="Convert your iPhone HEIC photos to PDF instantly in your browser. Highest quality Apple HEIC to PDF converter online. 100% Private, no servers used.">
+    <meta name="keywords" content="heic to pdf, iphone photo to pdf, heic to pdf mac, convert apple live photo to pdf, heic converter free online">
+    <meta name="author" content="Img2PDF Pro">
+    <link rel="canonical" href="https://photosepdf.in/heic-to-pdf-converter.html">
+    <meta name="robots" content="index, follow">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header role="banner">
+        <nav class="navbar" aria-label="Main Navigation">
+            <div class="container nav-container">
+                <a href="index.html" class="logo">
+                    <i class="fa-solid fa-file-pdf"></i> Img2PDF<span>Pro</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Main Converter</a></li>
+                    <li><a href="articles.html" style="color:var(--primary); font-weight:600;">Blog</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="hero">
+            <div class="container text-center">
+                <span class="badge">🍎 Optimized for iPhone & Mac</span>
+                <h1 class="hero-title fade-up">Convert <span class="text-gradient">HEIC to PDF</span> Instantly</h1>
+                <p class="subtitle fade-up delay-100">Easily combine multiple Apple iPhone HEIC/HEIF photos into a single PDF document. No software installation required.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" role="main">
+        <section id="tool" class="converter-section fade-up delay-200">
+            <div class="app-container">
+                <div class="dropzone" id="dropzone">
+                    <input type="file" id="file-input" multiple accept="image/heic, image/jpeg, image/png, image/webp" class="hidden-input">
+                    <div class="dropzone-content">
+                        <div class="icon-blob"><i class="fa-solid fa-folder-plus"></i></div>
+                        <h2>Drop iPhone Photos here</h2>
+                        <p>or</p>
+                        <button class="btn btn-primary" id="browse-btn">Select HEIC Photos</button>
+                        <p class="formats">Supports HEIC (on Safari), JPG, PNG.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px; padding: 12px 20px; background: rgba(16, 185, 129, 0.1); border: 2px dashed rgba(16, 185, 129, 0.4); border-radius: 12px; color: var(--secondary); font-weight: 600; text-align: center; font-size: 0.95rem;">
+                    <i class="fa-solid fa-shield-halved"></i> 100% Safe: Apple photos never leave your device.
+                </div>
+
+                <div class="controls-panel" id="controls-panel" aria-live="polite">
+                    <article class="settings-card">
+                        <h3><i class="fa-solid fa-sliders"></i> PDF Settings</h3>
+                        <div class="settings-grid">
+                            <div class="setting-group">
+                                <label for="page-size"><i class="fa-regular fa-file"></i> Page Size</label>
+                                <select id="page-size">
+                                    <option value="a4">A4 Document</option>
+                                    <option value="letter">US Letter</option>
+                                    <option value="fit" selected>Fit to Photo Size</option>
+                                </select>
+                            </div>
+                            <div class="setting-group">
+                                <label for="orientation"><i class="fa-solid fa-rotate"></i> Orientation</label>
+                                <select id="orientation">
+                                    <option value="auto" selected>Auto</option>
+                                </select>
+                            </div>
+                            <div class="setting-group">
+                                <label for="margin-select">Margin</label>
+                                <select id="margin-select">
+                                    <option value="0" selected>None</option>
+                                    <option value="20">Normal</option>
+                                </select>
+                            </div>
+                            <div class="setting-group">
+                                <label for="size-select">Compress</label>
+                                <select id="size-select">
+                                    <option value="high" selected>High Quality</option>
+                                    <option value="medium">Medium</option>
+                                </select>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="image-list-card">
+                        <div class="card-header">
+                            <h3>Selected Photos (<span id="image-count">0</span>)</h3>
+                            <button class="btn btn-outline-danger btn-sm" id="clear-all-btn">Clear All</button>
+                        </div>
+                        <ul class="image-list" id="image-list"></ul>
+                    </article>
+                    <div class="actions">
+                        <button class="btn btn-primary btn-large btn-block" id="generate-btn">
+                            Create PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="seo-content">
+            <div class="content-box">
+                <h2>Why convert HEIC to PDF?</h2>
+                <p>Apple introduced the High-Efficiency Image Container (HEIC) format into iOS and macOS to save disk space without losing quality. However, most government websites, job application portals, and non-Apple devices do not support HEIC files.</p>
+                <p>By converting your <strong>iPhone photos to PDF</strong>, you guarantee that your documents can be opened natively on Android, Windows, and Linux devices. Img2PDF Pro provides a simple, direct bridge for Mac and iOS users to compile multiple HEIC files into one universally accepted PDF.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="container text-center">
+            <p>&copy; 2026 Img2PDF Pro. Not affiliated with Apple Inc.</p>
+        </div>
+    </footer>
+    
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" defer></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

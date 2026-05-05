@@ -10,7 +10,6 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <!-- Military-Grade Security Policies -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' https://api.whatsapp.com; img-src 'self' data: blob:; worker-src 'self';">
     <!-- SEO Meta Tags -->
     <meta name="description" content="Photo ko PDF kaise banaye? Use India's best free Image to PDF converter. Convert JPG, JPEG, PNG to PDF on mobile without internet. 100% Secure, Merge & Compress to 100kb.">
     <meta name="keywords" content="photo ko pdf kaise banaye, mobile se photo ki pdf kaise banaye, jpg se pdf banane wala app, image to pdf, image to pdf converter, photo se pdf banane wala online converter, gallery ki photo se pdf kaise banaye, aadhar card pdf maker 100kb, pan card pdf compress, pdf banane ka tarika, ilovepdf alternative, free pdf maker, offline pdf generator, photo to document, picture to pdf, heic to pdf, smallpdf alternative, convert photo to pdf mobile">
@@ -78,72 +77,8 @@
         .app-container { background: var(--bg-card); border-radius: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); padding: 40px; margin: 0 auto; max-width: 900px; border: 1px solid rgba(255,255,255,0.4); }
     </style>
         
-    <!-- Rich Snippet Schema Marukp (SEO Traffic Exploder) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Img2PDF Pro Converter",
-      "operatingSystem": "Web, Windows, iOS, Android, macOS",
-      "applicationCategory": "UtilitiesApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "ratingCount": "15420"
-      },
-      "description": "The fastest, 100% offline Image to PDF converter. Convert JPG, PNG, and HEIC to PDF securely without server uploads."
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [{
-        "@type": "Question",
-        "name": "Is my data completely safe?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. Img2PDF Pro uses an offline WebAlgorithm. Your photos never leave your device and are never uploaded to any cloud server."
-        }
-      }, {
-        "@type": "Question",
-        "name": "Can I password protect the PDF for free?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes! You can easily encrypt and lock your generated PDF document with a custom password completely free of charge right in the settings."
-        }
-      }]
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "HowTo",
-      "name": "How to convert Photo to PDF offline instantly",
-      "step": [
-        {
-          "@type": "HowToStep",
-          "name": "Select Images",
-          "text": "Click the Dropzone or 'Select Files' to choose your JPG, PNG, or HEIC images from your gallery."
-        },
-        {
-          "@type": "HowToStep",
-          "name": "Customize Layout (Optional)",
-          "text": "Adjust margins, set up compression size, or add a custom secure password directly in the settings panel."
-        },
-        {
-          "@type": "HowToStep",
-          "name": "Generate PDF",
-          "text": "Hit the 'Create PDF' button. Our local WebAssembly engine will securely compress and generate the PDF instantly."
-        }
-      ]
-    }
-    </script>
+
+    <!-- Rich Snippet Schema Markup (SEO) - SoftwareApplication -->
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="style.css">
@@ -255,7 +190,7 @@
                 <a href="#" class="logo" aria-label="Img2PDF Pro Home">
                     <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Img2PDF<span>Pro</span>
                 </a>
-                <ul class="nav-links" style="display:flex; align-items:center; gap:20px;">
+                <ul class="nav-links">
                     <li><a href="#tool">Converter</a></li>
                     <li><a href="#features">Features</a></li>
                     <li><a href="articles.html" style="color:var(--primary); font-weight:600;">Guides</a></li>
@@ -297,15 +232,10 @@
                     <i class="fa-solid fa-shield-halved" style="margin-right: 8px;"></i> 100% Safe: Photos never leave your phone. No internet needed.
                 </div>
 
-                <div class="controls-panel" id="controls-panel" aria-live="polite">
+                <div class="controls-panel" id="controls-panel" aria-live="polite" style="display:none;">
                     <article class="settings-card">
                         <h3><i class="fa-solid fa-sliders" aria-hidden="true"></i> Page Layout & Settings (Optional)</h3>
-                        <div class="mode-switcher">
-                            <button class="mode-tab active" id="tab-normal" type="button"><i class="fa-solid fa-file-pdf"></i> Normal PDF</button>
-                            <button class="mode-tab" id="tab-passport" type="button"><i class="fa-solid fa-id-badge"></i> Passport Studio</button>
-                        </div>
-                        
-                        <div class="settings-grid" id="normal-settings">
+                        <div class="settings-grid">
                             <div class="setting-group">
                                 <label for="page-size"><i class="fa-regular fa-file"></i> Page Size</label>
                                 <select id="page-size" aria-label="Select PDF Page Size">
@@ -345,6 +275,8 @@
                                     <option value="1" selected>1 Image per Page</option>
                                     <option value="2">2 Images per Page</option>
                                     <option value="4">4 Images per Page</option>
+                                    <option value="8" style="color:var(--primary); font-weight:bold;">8 Passport Photos</option>
+                                    <option value="30" style="color:var(--primary); font-weight:bold;">30 Passport Photos (Studio A4)</option>
                                 </select>
                             </div>
                             <div class="setting-group">
@@ -361,36 +293,19 @@
                                     <option value="bw">Photocopy (B&W)</option>
                                 </select>
                             </div>
-                        </div>
-
-                        <!-- PASSPORT STUDIO SETTINGS (Isolated Mode) -->
-                        <div class="settings-grid" id="passport-settings" style="display: none; background: rgba(99, 102, 241, 0.05); border: 1px solid rgba(99, 102, 241, 0.2); padding: 15px; border-radius: 8px;">
-                            <div class="setting-group" style="grid-column: 1 / -1;">
-                                <p style="font-size: 0.85rem; color: #475569; margin-bottom: 5px;"><i class="fa-solid fa-circle-check" style="color:var(--success)"></i> Auto-forces A4 size, standard 3.5x4.5cm dimensions, and grid margins.</p>
+                            <!-- Passport Studio Features -->
+                            <div class="setting-group">
+                                <label for="passport-copies">Studio Copies (1-30)</label>
+                                <input type="number" id="passport-copies" min="1" max="30" placeholder="e.g. 12" title="Leave empty for full page">
                             </div>
                             <div class="setting-group">
-                                <label for="passport-copies">Number of Photos</label>
-                                <input type="number" id="passport-copies" min="1" max="100" placeholder="e.g. 30" title="Total copies to generate">
+                                <label for="passport-name">Photo Stamp Name</label>
+                                <input type="text" id="passport-name" placeholder="SSC Name (Optional)">
                             </div>
                             <div class="setting-group">
-                                <label for="passport-color">Color Filter</label>
-                                <select id="passport-color" aria-label="Select Color Format">
-                                    <option value="original" selected>Original Studio Color</option>
-                                    <option value="bw">Photocopy (B&W)</option>
-                                </select>
-                            </div>
-                            <div class="setting-group">
-                                <label for="passport-name">Photo Stamp Name (SSC)</label>
-                                <input type="text" id="passport-name" placeholder="Applicant Name (Optional)">
-                            </div>
-                            <div class="setting-group">
-                                <label for="passport-date">Photo Stamp Date (SSC)</label>
+                                <label for="passport-date">Photo Stamp Date</label>
                                 <input type="text" id="passport-date" placeholder="DD/MM/YYYY (Optional)">
                             </div>
-                        </div>
-
-                        <!-- COMMON SETTINGS (Bottom) -->
-                        <div class="settings-grid" style="margin-top: 15px;">
                             <div class="setting-group" style="grid-column: 1 / -1;">
                                 <label for="file-name"><i class="fa-solid fa-pen-to-square"></i> File Name</label>
                                 <input type="text" id="file-name" placeholder="Img2PDFPro_Document" aria-label="Custom File Name" />
@@ -581,12 +496,12 @@
     </div>
 
     <!-- Floating Share & Trust Badge -->
-    <div class="floating-trust">
+    <div class="floating-trust" id="floating-trust-panel">
         <div class="trust-badge" title="100% Offline Processing">
-            <i class="fa-solid fa-lock"></i> Secure & Offline
+            <i class="fa-solid fa-lock"></i> <span>Secure & Offline</span>
         </div>
         <a href="https://api.whatsapp.com/send?text=Apni%20photo%20ko%201%20min%20me%20PDF%20banaye%2C%20bina%20kisi%20app%20ke.%20100%25%20Free%3A%20https%3A%2F%2Fphotosepdf.in" target="_blank" rel="noopener noreferrer" class="whatsapp-btn" aria-label="Share on WhatsApp">
-            <i class="fa-brands fa-whatsapp"></i> Share
+            <i class="fa-brands fa-whatsapp"></i> <span>Share</span>
         </a>
     </div>
 
