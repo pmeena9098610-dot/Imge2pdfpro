@@ -1,4 +1,4 @@
-const CACHE_NAME = 'img2pdf-pro-v8-pro-studio';
+const CACHE_NAME = 'img2pdf-pro-v9-final';
 const ASSETS = [
     './',
     './index.html',
@@ -6,6 +6,25 @@ const ASSETS = [
     './app.js',
     './manifest.json',
     './favicon.svg',
+    './articles.html',
+    './aadhar-card-photo-to-pdf.html',
+    './compress-pdf-100kb.html',
+    './heic-to-pdf-converter.html',
+    './webp-to-pdf-converter.html',
+    './jpg-to-pdf-converter-hindi.html',
+    './jpg-to-pdf-mac-iphone-guide.html',
+    './best-ilovepdf-free-alternative-offline.html',
+    './resume-cv-to-pdf-compressor.html',
+    './how-to-resize-passport-photo-for-us-visa-pdf.html',
+    './how-to-resize-photo-signature-for-ssc-upsc.html',
+    './image-to-pdf-converter-bengali.html',
+    './image-to-pdf-converter-marathi.html',
+    './image-to-pdf-converter-tamil.html',
+    './image-to-pdf-converter-telugu.html',
+    './image-to-pdf-deutsch.html',
+    './image-to-pdf-espanol.html',
+    './image-to-pdf-francais.html',
+    './image-to-pdf-portugues.html',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
     'https://cdn.jsdelivr.net/npm/sweetalert2@11',
     'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js',
@@ -36,12 +55,14 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+    // Always fetch navigation requests from network (fresh HTML)
     if (event.request.mode === 'navigate') {
         event.respondWith(
             fetch(event.request).catch(() => caches.match('./index.html'))
         );
         return;
     }
+    // Cache-first for static assets, network-first fallback
     event.respondWith(
         caches.match(event.request).then((response) => {
             return response || fetch(event.request).then((networkResponse) => {

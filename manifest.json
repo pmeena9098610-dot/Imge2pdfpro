@@ -1,7 +1,7 @@
 {
   "name": "Img2PDF Pro - Free Image to PDF Converter",
   "short_name": "Img2PDF Pro",
-  "description": "Convert JPG, PNG, WEBP, HEIC images to PDF offline, free, and 100% secure. India's #1 free PDF tool. Compress to 100KB for Aadhar, PAN, passport forms.",
+  "description": "Convert JPG, PNG, WEBP, HEIC images to PDF offline, free, and 100% secure. India's #1 free PDF tool.",
   "start_url": "/index.html?source=pwa",
   "scope": "/",
   "display": "standalone",
@@ -11,15 +11,6 @@
   "lang": "hi-IN",
   "dir": "ltr",
   "categories": ["utilities", "productivity"],
-  "screenshots": [
-    {
-      "src": "Image to pdf pro/preview_screenshot.png",
-      "type": "image/png",
-      "sizes": "1280x800",
-      "form_factor": "wide",
-      "label": "Img2PDF Pro - Desktop View"
-    }
-  ],
   "shortcuts": [
     {
       "name": "Convert Images to PDF",

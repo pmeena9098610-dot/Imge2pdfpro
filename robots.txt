@@ -1,4 +1,18 @@
 User-agent: *
 Allow: /
+
+# Block internal or non-useful paths
 Disallow: /api/
+
+# Allow major search engine bots explicitly
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Sitemap location
 Sitemap: https://photosepdf.in/sitemap.xml
