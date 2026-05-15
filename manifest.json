@@ -1,0 +1,53 @@
+{
+  "name": "Img2PDF Pro - Free Image to PDF Converter",
+  "short_name": "Img2PDF Pro",
+  "description": "Convert JPG, PNG, WEBP, HEIC images to PDF offline, free, and 100% secure. India's #1 free PDF tool. Compress to 100KB for Aadhar, PAN, passport forms.",
+  "start_url": "/index.html?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0F172A",
+  "theme_color": "#6366F1",
+  "orientation": "portrait-primary",
+  "lang": "hi-IN",
+  "dir": "ltr",
+  "categories": ["utilities", "productivity"],
+  "screenshots": [
+    {
+      "src": "Image to pdf pro/preview_screenshot.png",
+      "type": "image/png",
+      "sizes": "1280x800",
+      "form_factor": "wide",
+      "label": "Img2PDF Pro - Desktop View"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Convert Images to PDF",
+      "short_name": "Convert",
+      "description": "Quickly upload photos and convert to PDF",
+      "url": "/index.html#tool",
+      "icons": [{ "src": "favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Cyber Cafe Print Layout",
+      "short_name": "Print",
+      "description": "Print passport or wallet photos directly",
+      "url": "/index.html#tool",
+      "icons": [{ "src": "favicon.svg", "sizes": "any" }]
+    }
+  ],
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ]
+}
