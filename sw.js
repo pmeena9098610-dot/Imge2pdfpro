@@ -1,4 +1,4 @@
-const CACHE_NAME = 'img2pdf-pro-v9-final';
+const CACHE_NAME = 'img2pdf-pro-v10-syntax-fix';
 const ASSETS = [
     './',
     './index.html',

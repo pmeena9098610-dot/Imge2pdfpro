@@ -1012,6 +1012,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const printSizeVal = document.getElementById('print-size').value;
         const layoutMode = document.getElementById('print-layout-mode').value;
         const copiesCount = parseInt(document.getElementById('print-copies-count').value) || 1;
+        const loadingTextEl = document.getElementById('progress-status-text');
         const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab;
         const colorModePref = activeTab === 'print-tab' 
             ? (document.getElementById('print-color-mode')?.value || 'original')
@@ -1046,7 +1047,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const passDate = document.getElementById('passport-date').value;
         const processedImages = [];
         for (let i = 0; i < files.length; i++) {
-            if (loadingTextEl) loadingTextEl.innerText = Studio Processing: Image ...;
+            if (loadingTextEl) loadingTextEl.innerText = `Studio Processing: Image ${i + 1} of ${files.length}...`;
             const img = await loadImageFromDataUrl(files[i].dataUrl);
             const compressed = await compressImage(img, 'high', colorModePref, passName, passDate, files[i].filters);
             processedImages.push(compressed);
