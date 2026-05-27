@@ -1,5 +1,6 @@
-{
+﻿{
   "version": 2,
+  "notFound": "/404.html",
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
@@ -71,3 +72,4 @@
     }
   ]
 }
+

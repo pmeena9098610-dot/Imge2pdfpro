@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'img2pdf-pro-v13-no-double-refresh';
+﻿const CACHE_NAME = 'img2pdf-pro-v15-ultra-upgrade';
 const ASSETS = [
     './',
     './index.html',
@@ -75,4 +75,5 @@ self.addEventListener('fetch', (event) => {
         })
     );
 });
+
 

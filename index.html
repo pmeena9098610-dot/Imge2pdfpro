@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photo Ko PDF Kaise Banaye | Free Image to PDF Converter App</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/rss+xml" title="PhotoSePDF.in Blog Feed" href="/feed.xml">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#6366F1">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -799,7 +800,12 @@
                 <a href="image-to-pdf-deutsch.html" style="color:#64748B; margin:0 5px;" hreflang="de">Deutsch</a> | 
                 <a href="image-to-pdf-portugues.html" style="color:#64748B; margin:0 5px;" hreflang="pt">PortuguÃªs</a>
             </p>
-            <p>&copy; 2026 Img2PDF Pro. Built with privacy in mind.</p>
+            <p style="margin-bottom:10px;">
+    <a href="/privacy-policy.html" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Privacy Policy</a> |
+    <a href="/terms.html" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Terms of Service</a> |
+    <a href="/sitemap.xml" style="color:#64748B; margin:0 8px; font-size:0.88rem;">Sitemap</a>
+</p>
+<p>© 2026 PhotoSePDF.in — India ka #1 Free Offline Image to PDF Converter 🇮🇳</p>
         </div>
     </footer>
 
@@ -903,8 +909,35 @@
             else { btn.classList.remove('visible'); }
         }, {passive:true});
     })();
+    </script>
+    <!-- Interactive FAQ Accordion -->
+    <script>
+    (function(){
+        document.querySelectorAll('.faq-item h3').forEach(function(h3){
+            var p = h3.nextElementSibling;
+            if(!p) return;
+            var maxH = p.scrollHeight + 'px';
+            p.style.overflow = 'hidden';
+            p.style.transition = 'max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease';
+            p.style.maxHeight = maxH;
+            p.style.opacity = '1';
+            h3.style.cursor = 'pointer';
+            h3.setAttribute('role','button');
+            h3.setAttribute('aria-expanded','true');
+            h3.addEventListener('click', function(){
+                var open = p.style.maxHeight !== '0px';
+                p.style.maxHeight = open ? '0px' : (p.scrollHeight + 'px');
+                p.style.opacity = open ? '0' : '1';
+                h3.setAttribute('aria-expanded', open ? 'false' : 'true');
+                h3.style.color = open ? 'var(--text-main)' : 'var(--primary)';
+            });
+        });
+    })();
     </script></body>
 </html>
+
+
+
 
 
 
