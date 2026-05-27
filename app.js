@@ -1,28 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Service Worker v4 Auto-Update Engine
+    // Service Worker - Smart Update Engine (No Double Refresh)
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js').then(registration => {
-                // Check for updates every time page is loaded
-                registration.addEventListener('updatefound', () => {
-                    const newWorker = registration.installing;
-                    newWorker.addEventListener('statechange', () => {
-                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                            // New update found! Reloading to apply...
-                            console.log('New update available. Reloading...');
-                            window.location.reload();
-                        }
-                    });
-                });
-            }).catch(err => console.log('SW registration failed:', err));
+            navigator.serviceWorker.register('sw.js')
+                .then(registration => {
+                    console.log('SW registered:', registration.scope);
+                })
+                .catch(err => console.log('SW registration failed:', err));
         });
 
-        // Ensure page reloads only once when the new SW takes over
+        // Single reload only when new SW takes over control
+        // This fires ONCE after skipWaiting() in sw.js activates the new worker
         let refreshing = false;
         navigator.serviceWorker.addEventListener('controllerchange', () => {
             if (!refreshing) {
-                window.location.reload();
                 refreshing = true;
+                window.location.reload();
             }
         });
     }
