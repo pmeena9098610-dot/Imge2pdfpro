@@ -1,18 +1,45 @@
-User-agent: *
+﻿User-agent: *
 Allow: /
+Crawl-delay: 1
 
-# Block internal or non-useful paths
+# Block non-useful paths
 Disallow: /api/
+Disallow: /*.json$
+Disallow: /sw.js
 
-# Allow major search engine bots explicitly
+# Allow major search engine bots
 User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Googlebot-Image
 Allow: /
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Slurp
 Allow: /
 
-# Sitemap location
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: facebot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# Sitemap
 Sitemap: https://photosepdf.in/sitemap.xml
