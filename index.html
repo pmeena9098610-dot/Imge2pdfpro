@@ -889,8 +889,23 @@
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js" crossorigin="anonymous"></script>
     <script src="app.js" defer></script>
-</body>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-top-btn" aria-label="Scroll to top" title="Upar jao" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+    <script>
+    (function(){
+        var btn = document.getElementById('scroll-top-btn');
+        if(!btn) return;
+        window.addEventListener('scroll', function(){
+            if(window.scrollY > 400){ btn.classList.add('visible'); }
+            else { btn.classList.remove('visible'); }
+        }, {passive:true});
+    })();
+    </script></body>
 </html>
+
 
 
 
