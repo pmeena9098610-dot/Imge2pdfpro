@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -56,9 +56,78 @@
     <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
     <link rel="preload" href="style.css" as="style">
 
+    <!-- GDPR Consent Management (Google Certified CMP) -->
+    <script>
+    (function() {
+      // EEA/UK/Switzerland country codes
+      var EEA_COUNTRIES = ["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];
+      var CONSENT_KEY = "gdpr_consent_v1";
+      var USER_REGION_KEY = "user_region_checked";
+
+      function isEEAUser(countryCode) {
+        return EEA_COUNTRIES.indexOf(countryCode) !== -1;
+      }
+
+      function getConsent() {
+        try { return localStorage.getItem(CONSENT_KEY); } catch(e) { return null; }
+      }
+
+      function setConsent(val) {
+        try { localStorage.setItem(CONSENT_KEY, val); } catch(e) {}
+      }
+
+      function loadAdSense() {
+        var s = document.createElement("script");
+        s.async = true;
+        s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327226842644895";
+        s.crossOrigin = "anonymous";
+        document.head.appendChild(s);
+      }
+
+      function showConsentBanner() {
+        var banner = document.getElementById("gdpr-consent-banner");
+        if (banner) { banner.style.display = "flex"; document.body.style.overflow = "hidden"; }
+      }
+
+      function hideConsentBanner() {
+        var banner = document.getElementById("gdpr-consent-banner");
+        if (banner) { banner.style.display = "none"; document.body.style.overflow = ""; }
+      }
+
+      window.handleConsent = function(accepted) {
+        setConsent(accepted ? "granted" : "denied");
+        hideConsentBanner();
+        if (accepted) { loadAdSense(); }
+      }
+
+      window.__consentInit = function() {
+        var consent = getConsent();
+        if (consent === "granted") { loadAdSense(); return; }
+        if (consent === "denied") { return; }
+
+        // Check region via timezone first (fast, no API needed)
+        var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+        var euroTZ = ["Europe/","Atlantic/Azores","Atlantic/Canary","Atlantic/Faroe","Atlantic/Madeira"];
+        var isEuroTZ = euroTZ.some(function(t){ return tz.indexOf(t) === 0; });
+
+        if (isEuroTZ) {
+          showConsentBanner();
+        } else {
+          // Not Europe timezone - load AdSense directly
+          loadAdSense();
+        }
+      };
+
+      // Run after DOM ready
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", window.__consentInit);
+      } else {
+        window.__consentInit();
+      }
+    })();
+    </script>
+
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327226842644895"
-         crossorigin="anonymous"></script>
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -100,7 +169,7 @@
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Img2PDF Pro — Studio Studio Edition",
+      "name": "Img2PDF Pro â€” Studio Studio Edition",
       "url": "https://photosepdf.in/",
       "description": "Professional offline image to PDF converter with built-in photo studio editor for Cyber Cafes. 100% Private.",
       "applicationCategory": "MultimediaApplication",
@@ -285,7 +354,7 @@
 
         <div class="hero">
             <div class="container text-center">
-                <span class="badge" aria-label="Pricing Status">🇮🇳 India's #1 Free PDF Tool (100% Secure)</span>
+                <span class="badge" aria-label="Pricing Status">ðŸ‡®ðŸ‡³ India's #1 Free PDF Tool (100% Secure)</span>
                 <h1 class="hero-title fade-up visible">Photo Ko PDF Kaise Banaye<br><span class="text-gradient">Image to PDF Converter</span></h1>
                 <p class="subtitle fade-up visible delay-100">Bina kisi app ke apne mobile gallery ki JPG, PNG, WEBP photos ko click mein PDF banayein. No internet needed, 100% Offline & Private.</p>
                 <div class="trust-badges-hero">
@@ -452,12 +521,12 @@
                                 <div class="setting-group print-size-group">
                                     <label for="print-size"><i class="fa-solid fa-expand" style="color:#10B981;"></i> Select Print Size</label>
                                     <select id="print-size">
-                                        <option value="passport" selected>📸 Passport (3.5 × 4.5 cm)</option>
-                                        <option value="wallet">💳 Wallet (2.5 × 3.5 cm)</option>
-                                        <option value="photo4r">🖼️ 4R Photo (4 × 6 inch)</option>
-                                        <option value="halfa4">📄 Half A4</option>
-                                        <option value="fulla4">📋 Full A4 Page</option>
-                                        <option value="custom">⚙️ Custom Size...</option>
+                                        <option value="passport" selected>ðŸ“¸ Passport (3.5 Ã— 4.5 cm)</option>
+                                        <option value="wallet">ðŸ’³ Wallet (2.5 Ã— 3.5 cm)</option>
+                                        <option value="photo4r">ðŸ–¼ï¸ 4R Photo (4 Ã— 6 inch)</option>
+                                        <option value="halfa4">ðŸ“„ Half A4</option>
+                                        <option value="fulla4">ðŸ“‹ Full A4 Page</option>
+                                        <option value="custom">âš™ï¸ Custom Size...</option>
                                     </select>
                                 </div>
                                 <div class="setting-group">
@@ -695,10 +764,10 @@
             </p>
             <p style="margin-bottom:15px; font-size:0.9rem; font-weight:500;">
                 Global Languages: 
-                <a href="image-to-pdf-espanol.html" style="color:#64748B; margin:0 5px;" hreflang="es">Español</a> | 
-                <a href="image-to-pdf-francais.html" style="color:#64748B; margin:0 5px;" hreflang="fr">Français</a> | 
+                <a href="image-to-pdf-espanol.html" style="color:#64748B; margin:0 5px;" hreflang="es">EspaÃ±ol</a> | 
+                <a href="image-to-pdf-francais.html" style="color:#64748B; margin:0 5px;" hreflang="fr">FranÃ§ais</a> | 
                 <a href="image-to-pdf-deutsch.html" style="color:#64748B; margin:0 5px;" hreflang="de">Deutsch</a> | 
-                <a href="image-to-pdf-portugues.html" style="color:#64748B; margin:0 5px;" hreflang="pt">Português</a>
+                <a href="image-to-pdf-portugues.html" style="color:#64748B; margin:0 5px;" hreflang="pt">PortuguÃªs</a>
             </p>
             <p>&copy; 2026 Img2PDF Pro. Built with privacy in mind.</p>
         </div>
@@ -726,7 +795,7 @@
     <!-- PWA Install Banner -->
     <div id="pwa-install-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:var(--bg-card); backdrop-filter:blur(10px); border-top:2px solid var(--primary); padding:15px 20px; z-index:1000; box-shadow:0 -10px 20px rgba(0,0,0,0.15); justify-content:space-between; align-items:center;">
         <div style="flex:1;">
-            <h4 style="margin-bottom:2px; color:var(--dark); font-size:1.1rem;">📲 Add to Home Screen</h4>
+            <h4 style="margin-bottom:2px; color:var(--dark); font-size:1.1rem;">ðŸ“² Add to Home Screen</h4>
             <p style="font-size:0.85rem; color:var(--text-muted); margin:0;">Convert 100x Faster Offline. No Ads.</p>
         </div>
         <div style="display:flex; align-items:center;">
@@ -735,7 +804,47 @@
         </div>
     </div>
 
-    <!-- PWA Service Worker Registration -->
+    <!-- GDPR Consent Banner HTML -->
+    <div id="gdpr-consent-banner" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.75); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:20px; font-family:Outfit,sans-serif;" role="dialog" aria-modal="true" aria-labelledby="gdpr-title">
+      <div style="background:#1e1e2e; border:1px solid rgba(99,102,241,0.4); border-radius:20px; max-width:520px; width:100%; padding:36px 32px; box-shadow:0 25px 60px rgba(0,0,0,0.5); text-align:center; position:relative;">
+        <!-- Cookie Icon -->
+        <div style="font-size:3rem; margin-bottom:12px;">🍪</div>
+        <h2 id="gdpr-title" style="color:#e2e8f0; font-size:1.4rem; font-weight:700; margin:0 0 12px 0; line-height:1.3;">We Value Your Privacy</h2>
+        <p style="color:#94a3b8; font-size:0.92rem; line-height:1.6; margin:0 0 10px 0;">
+          We and our partners use cookies and similar technologies to personalise content, show relevant ads, and improve our service. 
+          By clicking <strong style="color:#e2e8f0;">"Accept All"</strong>, you consent to the use of all cookies for advertising purposes.
+        </p>
+        <p style="color:#64748b; font-size:0.82rem; margin:0 0 24px 0;">
+          You can also choose <strong style="color:#94a3b8;">"Reject"</strong> to use our tool without personalised ads. 
+          Your photos are always processed <strong style="color:#6366F1;">100% offline</strong> on your device.
+        </p>
+
+        <!-- Buttons -->
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:16px;">
+          <button id="gdpr-accept-btn" onclick="handleConsent(true)" style="background:linear-gradient(135deg,#6366F1,#8b5cf6); color:white; border:none; padding:13px 32px; border-radius:30px; font-size:1rem; font-weight:600; cursor:pointer; box-shadow:0 4px 15px rgba(99,102,241,0.4); transition:transform 0.2s; min-width:150px;" onmouseover="this.style.transform=`scale(1.03)`" onmouseout="this.style.transform=`scale(1)`">
+            ✓ Accept All
+          </button>
+          <button id="gdpr-reject-btn" onclick="handleConsent(false)" style="background:transparent; color:#94a3b8; border:1.5px solid #334155; padding:13px 32px; border-radius:30px; font-size:1rem; font-weight:500; cursor:pointer; transition:all 0.2s; min-width:150px;" onmouseover="this.style.borderColor=`#94a3b8`" onmouseout="this.style.borderColor=`#334155`">
+            ✕ Reject
+          </button>
+        </div>
+
+        <!-- Privacy Policy Link -->
+        <p style="color:#475569; font-size:0.78rem; margin:0;">
+          This site uses Google AdSense. Learn more in our 
+          <a href="https://photosepdf.in/privacy-policy.html" style="color:#6366F1; text-decoration:none;" onmouseover="this.style.textDecoration=`underline`" onmouseout="this.style.textDecoration=`none`">Privacy Policy</a>. 
+          This message appears only for EEA, UK &amp; Switzerland users (GDPR).
+        </p>
+
+        <!-- Badge -->
+        <div style="display:inline-flex; align-items:center; gap:6px; margin-top:16px; background:rgba(99,102,241,0.1); border:1px solid rgba(99,102,241,0.2); border-radius:20px; padding:6px 14px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span style="color:#6366F1; font-size:0.78rem; font-weight:600;">Google AdSense Compliant</span>
+        </div>
+      </div>
+    </div>
+
+        <!-- PWA Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -752,3 +861,6 @@
     <script src="app.js" defer></script>
 </body>
 </html>
+
+
+
