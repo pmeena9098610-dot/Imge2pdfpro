@@ -162,5 +162,14 @@
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
+  <!-- Image Resize Tool -->
+  <url>
+    <loc>https://photosepdf.in/#resize-image-online-free</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
 </urlset>
+
+
 

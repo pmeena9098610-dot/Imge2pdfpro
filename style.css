@@ -1668,3 +1668,225 @@ body {
 }
 
 /* ========== END ULTRA UPGRADES ========== */
+
+/* ========== SMART PRINT STUDIO (V3 INLINE MODAL) ========== */
+.studio-label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.studio-select {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s;
+}
+.studio-select:focus {
+    border-color: #10B981;
+    box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
+}
+.studio-select option {
+    background: #1e293b;
+    color: #e2e8f0;
+}
+
+.studio-input {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: all 0.2s;
+}
+.studio-input:focus {
+    border-color: #10B981;
+    box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
+}
+.studio-input::placeholder { color: #475569; }
+
+.studio-control-group {
+    margin-bottom: 16px;
+}
+
+/* A4 Sheet - real print dimensions */
+#studio-a4-sheet {
+    transform-origin: top center;
+}
+@media (max-width: 800px) {
+    #studio-a4-sheet {
+        transform: scale(0.5);
+        transform-origin: top center;
+        margin-bottom: -148.5mm;
+    }
+    #studio-sidebar {
+        width: 260px !important;
+        min-width: 220px !important;
+    }
+}
+
+/* Photo cell in studio */
+.studio-photo-cell {
+    position: relative;
+    overflow: hidden;
+    background: #fafafa;
+    flex-shrink: 0;
+}
+.studio-photo-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+/* Cut marks */
+.studio-photo-cell.with-marks::before,
+.studio-photo-cell.with-marks::after {
+    content: '';
+    position: absolute;
+    z-index: 5;
+}
+.studio-photo-cell.with-marks::before {
+    top: 0; left: 0;
+    width: 3mm; height: 3mm;
+    border-top: 0.4mm solid #999;
+    border-left: 0.4mm solid #999;
+}
+.studio-photo-cell.with-marks::after {
+    bottom: 0; right: 0;
+    width: 3mm; height: 3mm;
+    border-bottom: 0.4mm solid #999;
+    border-right: 0.4mm solid #999;
+}
+.studio-photo-cell.border-thin {
+    border: 0.3mm solid #bbb;
+}
+.studio-photo-cell.border-thick {
+    border: 0.7mm solid #888;
+}
+
+/* Name/Date overlay */
+.studio-name-strip {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 0.3mm solid black;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: black;
+    padding: 1px 2px;
+    line-height: 1.2;
+}
+
+/* Print-only: hide everything except A4 sheet */
+@media print {
+    body * { visibility: hidden; }
+    #studio-a4-sheet, #studio-a4-sheet * { visibility: visible; }
+    #studio-a4-sheet {
+        position: fixed !important;
+        top: 0; left: 0;
+        width: 210mm !important;
+        min-height: 297mm !important;
+        box-shadow: none !important;
+        transform: none !important;
+        margin: 0 !important;
+    }
+}
+
+/* Resize tab specific */
+#resize-tab .tab-info-strip {
+    background: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(236,72,153,0.08));
+    border-color: rgba(245,158,11,0.3);
+    color: #d97706;
+}
+
+/* Studio open animation */
+#print-studio-modal {
+    animation: studioFadeIn 0.3s ease;
+}
+@keyframes studioFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Resize mode dropdown visual */
+#resize-tab select { border-color: rgba(245,158,11,0.3); }
+#resize-tab select:focus { border-color: #F59E0B; box-shadow: 0 0 0 3px rgba(245,158,11,0.15); }
+
+/* Format tag update - make it look more premium */
+.format-tag {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: default;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+.format-tag:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(99,102,241,0.3);
+}
+
+/* Resize download card */
+.resize-dl-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.resize-dl-card img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+.resize-dl-info { flex:1; }
+.resize-dl-info .name { font-weight: 600; font-size: 0.9rem; color: var(--dark); }
+.resize-dl-info .meta { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+
+/* 3-tab settings tabs layout */
+.settings-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+.tab-btn:nth-child(3) {
+    background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(236,72,153,0.05));
+    border-color: rgba(245,158,11,0.3);
+    color: #d97706;
+}
+.tab-btn:nth-child(3).active {
+    background: linear-gradient(135deg, #F59E0B, #EF4444);
+    color: white;
+    border-color: #F59E0B;
+    box-shadow: 0 4px 12px rgba(245,158,11,0.4);
+}
+
+/* Resize info strip */
+#resize-tab .tab-info-strip b {
+    color: #d97706;
+}
+
+/* ========== END PRINT STUDIO V3 ========== */

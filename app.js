@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     // Service Worker - Smart Update Engine (No Double Refresh)
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Version Management (Zero Refresh Issue) ---
-    const APP_VERSION = '4.1.0'; // Professional Version
+    const APP_VERSION = '5.0.0'; // Professional Version
     if (localStorage.getItem('app_version') !== APP_VERSION) {
         localStorage.setItem('app_version', APP_VERSION);
         if ('serviceWorker' in navigator) {
@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let addedCount = 0;
 
         for (let file of Array.from(selectedFiles)) {
-            if (!validTypes.includes(file.type) && !file.name.match(/\.(jpg|jpeg|png|webp|heic|gif|bmp)$/i)) {
+            if (!validTypes.includes(file.type) && !file.name.match(/\.(jpg|jpeg|png|webp|heic|gif|bmp|svg|tif|tiff|avif|ico)$/i)) {
                 rejectedCount++;
                 continue;
             }
@@ -993,236 +993,203 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 350);
     }
 
-    // ===== CYBER CAFE PRINT ENGINE (V2 SMART STUDIO) =====
+    // ===== SMART PRINT STUDIO V3 - INLINE MODAL ENGINE =====
+    window.studioProcessedImages = [];
+    
     async function printPhotos() {
         if (files.length === 0) {
             Swal.fire({ icon: 'warning', title: 'No Images', text: 'Select photos first!', background: 'rgba(255,255,255,0.9)' });
             return;
         }
+        showProgress('Preparing Smart Print Studio...');
+        try {
+            // Pre-process all images for the studio
+            const passName = document.getElementById('s-name') ? document.getElementById('s-name').value : '';
+            const passDate = document.getElementById('s-date') ? document.getElementById('s-date').value : '';
+            const colorMode = document.getElementById('s-color-mode') ? document.getElementById('s-color-mode').value : 'original';
+            
+            window.studioProcessedImages = [];
+            for (let i = 0; i < files.length; i++) {
+                const txt = document.getElementById('progress-status-text');
+                if (txt) txt.innerText = `Processing Image ${i + 1} of ${files.length}...`;
+                const img = await loadImageFromDataUrl(files[i].dataUrl);
+                const compressed = await compressImage(img, 'high', colorMode, passName, passDate, files[i].filters || {brightness:100,contrast:100});
+                window.studioProcessedImages.push(compressed);
+            }
+            hideProgress();
+            // Show the inline modal
+            const modal = document.getElementById('print-studio-modal');
+            if (modal) {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                studioUpdate();
+            }
+        } catch(e) {
+            hideProgress();
+            console.error('Studio error:', e);
+            Swal.fire({ icon: 'error', title: 'Studio Error', text: e.message || 'Failed to open studio.' });
+        }
+    }
 
-        showProgress('Preparing Studio Layout...');
+    window.closePrintStudio = function() {
+        const modal = document.getElementById('print-studio-modal');
+        if (modal) { modal.style.display = 'none'; document.body.style.overflow = ''; }
+    };
 
-        const printSizeVal = document.getElementById('print-size').value;
-        const layoutMode = document.getElementById('print-layout-mode').value;
-        const copiesCount = parseInt(document.getElementById('print-copies-count').value) || 1;
-        const loadingTextEl = document.getElementById('progress-status-text');
-        const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab;
-        const colorModePref = activeTab === 'print-tab' 
-            ? (document.getElementById('print-color-mode')?.value || 'original')
-            : (document.getElementById('color-mode')?.value || 'original');
-
-        // Size definitions: width x height in mm
+    window.studioUpdate = function() {
         const sizeMap = {
-            passport: { w: 35,  h: 45,  label: 'Passport Size' },
-            wallet:   { w: 25,  h: 35,  label: 'Wallet Size' },
-            photo4r:  { w: 102, h: 152, label: '4R (4\u00d76) Photo' },
+            passport: { w: 35, h: 45, label: 'Passport (3.5x4.5cm)' },
+            wallet:   { w: 25, h: 35, label: 'Wallet (2.5x3.5cm)' },
+            stamp:    { w: 20, h: 25, label: 'Stamp (2.0x2.5cm)' },
+            photo4r:  { w: 102, h: 152, label: '4R Photo' },
+            photo5r:  { w: 127, h: 178, label: '5R Photo' },
             halfa4:   { w: 148, h: 105, label: 'Half A4' },
-            fulla4:   { w: 190, h: 277, label: 'Full A4 Page' }
+            fulla4:   { w: 190, h: 277, label: 'Full A4' }
         };
 
+        const sizeVal = document.getElementById('s-print-size').value;
+        const layoutVal = document.getElementById('s-layout').value;
+        const gapMm = parseFloat(document.getElementById('s-gap').value) || 3;
+        const cutmarks = document.getElementById('s-cutmarks').value;
+        const border = document.getElementById('s-border').value;
+        const nameVal = document.getElementById('s-name').value;
+        const dateVal = document.getElementById('s-date').value;
+        const copiesVal = parseInt(document.getElementById('s-copies').value) || 8;
+
+        // Show/hide custom dims
+        document.getElementById('s-custom-dims').style.display = sizeVal === 'custom' ? 'block' : 'none';
+        document.getElementById('s-copies-group').style.display = layoutVal === 'copies' ? 'block' : 'none';
+
         let size;
-        if (printSizeVal === 'custom') {
-            size = {
-                w: parseInt(document.getElementById('print-custom-w').value) || 35,
-                h: parseInt(document.getElementById('print-custom-h').value) || 45,
-                label: 'Custom Size'
-            };
+        if (sizeVal === 'custom') {
+            size = { w: parseFloat(document.getElementById('s-custom-w').value) || 35, h: parseFloat(document.getElementById('s-custom-h').value) || 45, label: 'Custom' };
         } else {
-            size = sizeMap[printSizeVal] || sizeMap.passport;
+            size = sizeMap[sizeVal] || sizeMap.passport;
         }
 
-        const gapMm = 3;
-        const usableW = 190;
-        const usableH = 277;
+        const usableW = 194; // 210 - 2*8mm
+        const usableH = 281; // 297 - 2*8mm
 
-        // Process images
-        const passName = document.getElementById('passport-name').value;
-        const passDate = document.getElementById('passport-date').value;
-        const processedImages = [];
-        for (let i = 0; i < files.length; i++) {
-            if (loadingTextEl) loadingTextEl.innerText = `Studio Processing: Image ${i + 1} of ${files.length}...`;
-            const img = await loadImageFromDataUrl(files[i].dataUrl);
-            const compressed = await compressImage(img, 'high', colorModePref, passName, passDate, files[i].filters);
-            processedImages.push(compressed);
-        }
-
-        // Generate total list of photos to render
+        // Calculate grid
+        const cols = Math.max(1, Math.floor((usableW + gapMm) / (size.w + gapMm)));
+        const rows = Math.max(1, Math.floor((usableH + gapMm) / (size.h + gapMm)));
+        const totalFit = cols * rows;
+        
         let photosToRender = [];
-        if (layoutMode === 'fill-page') {
+        const imgs = window.studioProcessedImages || [];
+        if (imgs.length === 0) return;
+
+        if (layoutVal === 'fill') {
+            const copiesPerImg = Math.max(1, Math.floor(totalFit / imgs.length));
+            for (let src of imgs) {
+                for (let c = 0; c < copiesPerImg; c++) photosToRender.push(src);
+            }
+            while (photosToRender.length < totalFit) photosToRender.push(imgs[0]);
+        } else {
+            for (let src of imgs) {
+                for (let c = 0; c < copiesVal; c++) photosToRender.push(src);
+            }
+        }
+
+        // Update info
+        const infoEl = document.getElementById('studio-info');
+        if (infoEl) infoEl.innerHTML = `<b style="color:#e2e8f0;">Size:</b> ${size.label}<br><b style="color:#e2e8f0;">Grid:</b> ${cols} cols x ${rows} rows = ${totalFit} slots<br><b style="color:#e2e8f0;">Photos:</b> ${photosToRender.length} on A4`;
+
+        // Render the A4 preview
+        const grid = document.getElementById('studio-photo-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        grid.style.gap = gapMm + 'mm';
+
+        photosToRender.forEach(src => {
+            const cell = document.createElement('div');
+            cell.className = 'studio-photo-cell' + (cutmarks === 'on' ? ' with-marks' : '') + (border !== 'none' ? ' border-' + border : '');
+            cell.style.width = size.w + 'mm';
+            cell.style.height = size.h + 'mm';
+
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = 'Photo';
+            cell.appendChild(img);
+
+            if (nameVal || dateVal) {
+                const strip = document.createElement('div');
+                strip.className = 'studio-name-strip';
+                const fontSize = Math.max(1.5, size.h * 0.06);
+                strip.style.fontSize = fontSize + 'mm';
+                const strips = [];
+                if (nameVal) strips.push(nameVal);
+                if (dateVal) strips.push(dateVal);
+                strip.style.height = (fontSize * 1.4 * strips.length + 1) + 'mm';
+                strip.innerHTML = strips.map(t => `<div>${t}</div>`).join('');
+                cell.appendChild(strip);
+            }
+            grid.appendChild(cell);
+        });
+    };
+
+    window.triggerPrint = function() {
+        window.print();
+    };
+
+    window.saveStudioAsPDF = async function() {
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+            Swal.fire({ icon: 'error', title: 'PDF Engine Error', text: 'Please wait for jsPDF to load.' });
+            return;
+        }
+        const imgs = window.studioProcessedImages || [];
+        if (!imgs.length) return;
+
+        showProgress('Generating Studio PDF...');
+        try {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
+            
+            const sizeVal = document.getElementById('s-print-size').value;
+            const gapMm = parseFloat(document.getElementById('s-gap').value) || 3;
+            const layoutVal = document.getElementById('s-layout').value;
+            const copiesVal = parseInt(document.getElementById('s-copies').value) || 8;
+            const sizeMap = { passport:{w:35,h:45}, wallet:{w:25,h:35}, stamp:{w:20,h:25}, photo4r:{w:102,h:152}, photo5r:{w:127,h:178}, halfa4:{w:148,h:105}, fulla4:{w:190,h:277} };
+            let size;
+            if (sizeVal === 'custom') { size = { w: parseFloat(document.getElementById('s-custom-w').value) || 35, h: parseFloat(document.getElementById('s-custom-h').value) || 45 }; }
+            else { size = sizeMap[sizeVal] || sizeMap.passport; }
+
+            const marginMm = 8;
+            const usableW = 210 - 2*marginMm;
+            const usableH = 297 - 2*marginMm;
             const cols = Math.max(1, Math.floor((usableW + gapMm) / (size.w + gapMm)));
             const rows = Math.max(1, Math.floor((usableH + gapMm) / (size.h + gapMm)));
             const totalFit = cols * rows;
-            const copiesPerImage = Math.max(1, Math.floor(totalFit / processedImages.length));
-            for (let imgData of processedImages) {
-                for (let c = 0; c < copiesPerImage; c++) {
-                    photosToRender.push(imgData);
-                }
+
+            let photosToRender = [];
+            if (layoutVal === 'fill') {
+                const cpi = Math.max(1, Math.floor(totalFit / imgs.length));
+                for (let s of imgs) for (let c = 0; c < cpi; c++) photosToRender.push(s);
+                while (photosToRender.length < totalFit) photosToRender.push(imgs[0]);
+            } else {
+                for (let s of imgs) for (let c = 0; c < copiesVal; c++) photosToRender.push(s);
             }
-            while (photosToRender.length < totalFit) {
-                photosToRender.push(processedImages[0]);
+
+            let pagePhotoIdx = 0;
+            for (let i = 0; i < photosToRender.length; i++) {
+                if (i > 0 && pagePhotoIdx === 0) pdf.addPage();
+                const col = pagePhotoIdx % cols;
+                const row = Math.floor(pagePhotoIdx / cols);
+                const x = marginMm + col * (size.w + gapMm);
+                const y = marginMm + row * (size.h + gapMm);
+                pdf.addImage(photosToRender[i], 'JPEG', x, y, size.w, size.h);
+                pagePhotoIdx = (pagePhotoIdx + 1) % totalFit;
             }
-        } else {
-            for (let imgData of processedImages) {
-                for (let c = 0; c < copiesCount; c++) {
-                    photosToRender.push(imgData);
-                }
-            }
+            hideProgress();
+            pdf.save('PrintStudio_Layout.pdf');
+            closePrintStudio();
+        } catch(e) {
+            hideProgress();
+            Swal.fire({ icon: 'error', title: 'PDF Error', text: e.message });
         }
-        let photoCellsHtml = '';
-        photosToRender.forEach((src, idx) => {
-            photoCellsHtml += `
-                <div class="photo-cell">
-                    <img src="${src}" alt="Photo ${idx + 1}" />
-                </div>`;
-        });
+    };
 
-        const printHTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Smart Print Studio — Img2PDF Pro</title>
-    <style>
-        @page { margin: 8mm; size: A4 portrait; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f1f5f9; color: #1e293b; }
 
-        /* Toolbar */
-        .no-print-zone {
-            background: #0f172a;
-            color: #fff;
-            padding: 15px 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-area h1 { font-size: 1.1rem; letter-spacing: 1px; }
-        .controls { display: flex; gap: 12px; }
-        .btn {
-            padding: 10px 22px;
-            border-radius: 6px;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
-            transition: 0.2s;
-            font-size: 0.9rem;
-        }
-        .btn-print { background: #10b981; color: white; }
-        .btn-print:hover { background: #059669; transform: scale(1.03); }
-        .btn-close { background: rgba(255,255,255,0.1); color: white; }
-        .btn-close:hover { background: rgba(255,255,255,0.2); }
-
-        /* Sheet Info */
-        .sheet-info {
-            background: #fff;
-            padding: 10px 30px;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            gap: 25px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #64748b;
-        }
-        .sheet-info b { color: #10b981; }
-
-        /* Print Layout */
-        .page-sheet {
-            background: #fff;
-            width: 210mm;
-            min-height: 297mm;
-            margin: 20px auto;
-            padding: 10mm;
-            box-shadow: 0 0 40px rgba(0,0,0,0.1);
-            position: relative;
-        }
-        .photo-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: ${gapMm}mm;
-            justify-content: flex-start;
-            align-content: flex-start;
-        }
-        .photo-cell {
-            width: ${size.w}mm;
-            height: ${size.h}mm;
-            border: 0.2mm solid #ddd;
-            position: relative;
-            background: #fafafa;
-            overflow: hidden;
-        }
-        .photo-cell img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        /* Smart Cut Marks */
-        .photo-cell::before, .photo-cell::after {
-            content: '';
-            position: absolute;
-            width: 4mm; height: 4mm;
-            border: 0.4mm solid #999;
-            z-index: 5;
-            opacity: 0.6;
-        }
-        .photo-cell::before { top: 0; left: 0; border-right: none; border-bottom: none; }
-        .photo-cell::after { bottom: 0; right: 0; border-left: none; border-top: none; }
-
-        @media print {
-            body { background: #fff; }
-            .no-print-zone, .sheet-info { display: none !important; }
-            .page-sheet { margin: 0; box-shadow: none; padding: 0; width: 100%; }
-            @page { margin: 8mm; }
-        }
-    </style>
-</head>
-<body>
-    <div class="no-print-zone">
-        <div class="logo-area">
-            <h1>\ud83d\udda8\ufe0f SMART PRINT STUDIO</h1>
-        </div>
-        <div class="controls">
-            <button class="btn btn-close" onclick="window.close()">Cancel</button>
-            <button class="btn btn-print" onclick="window.print()">START PRINTING</button>
-        </div>
-    </div>
-    <div class="sheet-info">
-        <span>Paper: <b>A4 Sheet</b></span>
-        <span>Size: <b>${size.label} (${size.w}\u00d7${size.h}mm)</b></span>
-        <span>Copies: <b>${photosToRender.length} Photos</b></span>
-        <span>Layout: <b>${layoutMode === 'tile-single' ? 'Single Photo Tiled' : 'Multiple Images'}</b></span>
-    </div>
-
-    <div class="page-sheet">
-        <div class="photo-grid">
-            ${photoCellsHtml}
-        </div>
-    </div>
-
-    <script>
-        // Auto-focus print dialog
-        window.onload = () => {
-            setTimeout(() => {
-                // window.print(); // Optional: trigger auto-print
-            }, 500);
-        };
-    </script>
-</body>
-</html>`;
-
-        hideProgress();
-
-        const printWindow = window.open('', '_blank', 'width=1000,height=900');
-        if (!printWindow) {
-            Swal.fire({ title: 'Popup Blocked', text: 'Please allow popups.', icon: 'error' });
-            return;
-        }
-        printWindow.document.write(printHTML);
-        printWindow.document.close();
-    }
     // --- Final Action Bindings (Fixed IDs) ---
     const pdfActionBtn = document.getElementById('pdf-action-btn');
     const printActionBtn = document.getElementById('print-action-btn');
@@ -1309,5 +1276,209 @@ document.addEventListener('DOMContentLoaded', () => {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applySystemTheme);
     applySystemTheme();
 
+
+
+    // ===== RESIZE & CONVERT ENGINE (V1) =====
+    // Handle Resize Tab mode switching
+    const resizeModeEl = document.getElementById('resize-mode');
+    if (resizeModeEl) {
+        resizeModeEl.addEventListener('change', function() {
+            const mode = this.value;
+            const percentGrp = document.getElementById('resize-percent-group');
+            const pixelsGrp = document.getElementById('resize-pixels-group');
+            const kbGrp = document.getElementById('resize-kb-group');
+            
+            if (percentGrp) percentGrp.classList.toggle('hidden', mode !== 'by-percent');
+            if (pixelsGrp) pixelsGrp.classList.toggle('hidden', !['by-pixels', 'passport-std', 'id-card', 'linkedin', 'facebook', 'instagram', 'whatsapp-dp'].includes(mode));
+            if (kbGrp) kbGrp.classList.toggle('hidden', mode !== 'by-kb');
+
+            // Auto-fill preset dimensions
+            const presets = {
+                'passport-std': [413, 531], 'id-card': [200, 200], 'linkedin': [400, 400],
+                'facebook': [820, 312], 'instagram': [1080, 1080], 'whatsapp-dp': [500, 500]
+            };
+            if (presets[mode]) {
+                const widthEl = document.getElementById('resize-width');
+                const heightEl = document.getElementById('resize-height');
+                if (widthEl) widthEl.value = presets[mode][0];
+                if (heightEl) heightEl.value = presets[mode][1];
+            }
+        });
+    }
+
+    // Resize Action Button
+    const resizeActionBtn = document.getElementById('resize-action-btn');
+    if (resizeActionBtn) {
+        resizeActionBtn.addEventListener('click', async () => {
+            if (files.length === 0) {
+                Swal.fire({ icon: 'warning', title: 'No Images', text: 'Please select images first!', background: 'rgba(255,255,255,0.9)' });
+                return;
+            }
+            await runResizeEngine(false);
+        });
+    }
+
+    // Resize + Save as PDF
+    const resizeToPdfBtn = document.getElementById('resize-to-pdf-btn');
+    if (resizeToPdfBtn) {
+        resizeToPdfBtn.addEventListener('click', async () => {
+            if (files.length === 0) {
+                Swal.fire({ icon: 'warning', title: 'No Images', text: 'Please select images first!', background: 'rgba(255,255,255,0.9)' });
+                return;
+            }
+            await runResizeEngine(true);
+        });
+    }
+
+    async function runResizeEngine(saveAsPdf) {
+        showProgress('Resizing Images...');
+        try {
+            const mode = document.getElementById('resize-mode')?.value || 'by-percent';
+            const percent = parseInt(document.getElementById('resize-percent')?.value) || 50;
+            const targetW = parseInt(document.getElementById('resize-width')?.value) || 800;
+            const targetH = parseInt(document.getElementById('resize-height')?.value) || 600;
+            const targetKb = parseInt(document.getElementById('resize-target-kb')?.value) || 100;
+            const maintainRatio = document.getElementById('resize-maintain-ratio')?.value !== 'no';
+            const outputFmt = document.getElementById('output-format')?.value || 'jpeg';
+            const quality = parseFloat(document.getElementById('output-quality')?.value) || 0.85;
+            const mimeType = 'image/' + (outputFmt === 'jpg' ? 'jpeg' : outputFmt);
+            const ext = outputFmt === 'jpeg' ? 'jpg' : outputFmt;
+
+            const results = [];
+
+            for (let i = 0; i < files.length; i++) {
+                updateProgress(Math.round(i / files.length * 100), `Resizing ${i + 1} of ${files.length}...`);
+                const imgEl = await loadImageFromDataUrl(files[i].dataUrl);
+                let newW = imgEl.width, newH = imgEl.height;
+
+                if (mode === 'by-percent') {
+                    newW = Math.round(imgEl.width * percent / 100);
+                    newH = Math.round(imgEl.height * percent / 100);
+                } else if (mode === 'by-pixels' || ['passport-std','id-card','linkedin','facebook','instagram','whatsapp-dp'].includes(mode)) {
+                    if (maintainRatio) {
+                        const ratioW = targetW / imgEl.width;
+                        const ratioH = targetH / imgEl.height;
+                        const ratio = Math.min(ratioW, ratioH);
+                        newW = Math.round(imgEl.width * ratio);
+                        newH = Math.round(imgEl.height * ratio);
+                    } else {
+                        newW = targetW; newH = targetH;
+                    }
+                } else if (mode === 'by-kb') {
+                    newW = imgEl.width; newH = imgEl.height;
+                }
+
+                const canvas = document.createElement('canvas');
+                canvas.width = newW; canvas.height = newH;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(0, 0, newW, newH);
+                ctx.drawImage(imgEl, 0, 0, newW, newH);
+
+                let dataUrl;
+                if (mode === 'by-kb') {
+                    // Binary search for quality
+                    let lo = 0.1, hi = 0.99;
+                    for (let iter = 0; iter < 8; iter++) {
+                        const mid = (lo + hi) / 2;
+                        dataUrl = canvas.toDataURL(mimeType, mid);
+                        const kb = Math.round((dataUrl.length * 3) / 4 / 1024);
+                        if (kb > targetKb) hi = mid; else lo = mid;
+                    }
+                } else {
+                    dataUrl = canvas.toDataURL(mimeType, quality);
+                }
+
+                const sizeKb = Math.round((dataUrl.length * 3) / 4 / 1024);
+                const baseName = (files[i].file?.name || files[i].name || 'image').replace(/\.[^.]+$/, '');
+                results.push({ dataUrl, name: `${baseName}_resized_${newW}x${newH}.${ext}`, w: newW, h: newH, sizeKb, original: files[i] });
+            }
+
+            hideProgress();
+
+            if (saveAsPdf) {
+                // Generate PDF with resized images
+                await generateResizedPDF(results);
+            } else {
+                // Show download modal
+                showResizeDownloads(results);
+            }
+        } catch(e) {
+            hideProgress();
+            console.error('Resize error:', e);
+            Swal.fire({ icon: 'error', title: 'Resize Failed', text: e.message || 'Unknown error.' });
+        }
+    }
+
+    function showResizeDownloads(results) {
+        const modal = document.getElementById('resize-download-modal');
+        const list = document.getElementById('resize-download-list');
+        if (!modal || !list) return;
+        
+        list.innerHTML = '';
+        results.forEach((r, idx) => {
+            const card = document.createElement('div');
+            card.className = 'resize-dl-card';
+            card.innerHTML = `
+                <img src="${r.dataUrl}" alt="Resized">
+                <div class="resize-dl-info">
+                    <div class="name">${r.name}</div>
+                    <div class="meta">${r.w} × ${r.h} px | ${r.sizeKb} KB</div>
+                </div>
+                <a href="${r.dataUrl}" download="${r.name}" style="background:linear-gradient(135deg,#10B981,#059669); color:white; border:none; padding:10px 18px; border-radius:8px; font-size:0.85rem; font-weight:600; cursor:pointer; text-decoration:none; display:flex; align-items:center; gap:6px; white-space:nowrap;">
+                    <i class="fa-solid fa-download"></i> Download
+                </a>`;
+            list.appendChild(card);
+        });
+
+        if (results.length > 1) {
+            const dlAll = document.createElement('button');
+            dlAll.style.cssText = 'width:100%; background:linear-gradient(135deg,#6366F1,#8b5cf6); color:white; border:none; padding:14px; border-radius:10px; font-weight:700; cursor:pointer; margin-top:10px; font-size:1rem;';
+            dlAll.innerHTML = '<i class="fa-solid fa-download"></i> Download All Images';
+            dlAll.onclick = () => { results.forEach(r => { const a = document.createElement('a'); a.href = r.dataUrl; a.download = r.name; a.click(); }); };
+            list.appendChild(dlAll);
+        }
+
+        modal.style.display = 'flex';
+    }
+
+    async function generateResizedPDF(results) {
+        if (!window.jspdf?.jsPDF) { Swal.fire({ icon: 'error', title: 'PDF Engine Error', text: 'jsPDF not loaded.' }); return; }
+        showProgress('Generating PDF from resized images...');
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ orientation: 'p', unit: 'px', format: 'a4' });
+        for (let i = 0; i < results.length; i++) {
+            if (i > 0) pdf.addPage();
+            const r = results[i];
+            const pdfW = 794, pdfH = 1123;
+            const ratio = Math.min(pdfW / r.w, pdfH / r.h);
+            const dW = r.w * ratio, dH = r.h * ratio;
+            pdf.addImage(r.dataUrl, 'JPEG', (pdfW - dW) / 2, (pdfH - dH) / 2, dW, dH);
+        }
+        hideProgress();
+        pdf.save('Resized_Images.pdf');
+        Swal.fire({ icon: 'success', title: 'PDF Saved!', text: `${results.length} resized image(s) saved as PDF.`, timer: 2000, showConfirmButton: false });
+    }
+
+    // ===== SVG / TIFF / AVIF SUPPORT =====
+    async function loadSvgAsImage(file) {
+        return new Promise((resolve, reject) => {
+            const url = URL.createObjectURL(file);
+            const img = new Image();
+            img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+            img.onerror = reject;
+            img.src = url;
+        });
+    }
+
+    // ===== RESIZE TAB: Update file input accepted types and handling =====
+    // Patch the file validation to accept SVG, TIFF, AVIF
+    const origHandleFiles = window.__handleFilesOrig;
+
+    // ===== TAB 3 WIRING =====
+    // Wire up the 3rd tab (resize) through the existing tab system - already handled by the existing tab btn code
     console.log("Image2PDF Pro: Professional Engine v4.5 Loaded.");
 });
+
+
+
