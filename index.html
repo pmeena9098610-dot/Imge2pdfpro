@@ -64,78 +64,8 @@
     <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
     <link rel="preload" href="style.css" as="style">
 
-    <!-- GDPR Consent Management (Google Certified CMP) -->
-    <script>
-    (function() {
-      // EEA/UK/Switzerland country codes
-      var EEA_COUNTRIES = ["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];
-      var CONSENT_KEY = "gdpr_consent_v1";
-      var USER_REGION_KEY = "user_region_checked";
-
-      function isEEAUser(countryCode) {
-        return EEA_COUNTRIES.indexOf(countryCode) !== -1;
-      }
-
-      function getConsent() {
-        try { return localStorage.getItem(CONSENT_KEY); } catch(e) { return null; }
-      }
-
-      function setConsent(val) {
-        try { localStorage.setItem(CONSENT_KEY, val); } catch(e) {}
-      }
-
-      function loadAdSense() {
-        var s = document.createElement("script");
-        s.async = true;
-        s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327226842644895";
-        s.crossOrigin = "anonymous";
-        document.head.appendChild(s);
-      }
-
-      function showConsentBanner() {
-        var banner = document.getElementById("gdpr-consent-banner");
-        if (banner) { banner.style.display = "flex"; document.body.style.overflow = "hidden"; }
-      }
-
-      function hideConsentBanner() {
-        var banner = document.getElementById("gdpr-consent-banner");
-        if (banner) { banner.style.display = "none"; document.body.style.overflow = ""; }
-      }
-
-      window.handleConsent = function(accepted) {
-        setConsent(accepted ? "granted" : "denied");
-        hideConsentBanner();
-        if (accepted) { loadAdSense(); }
-      }
-
-      window.__consentInit = function() {
-        var consent = getConsent();
-        if (consent === "granted") { loadAdSense(); return; }
-        if (consent === "denied") { return; }
-
-        // Check region via timezone first (fast, no API needed)
-        var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
-        var euroTZ = ["Europe/","Atlantic/Azores","Atlantic/Canary","Atlantic/Faroe","Atlantic/Madeira"];
-        var isEuroTZ = euroTZ.some(function(t){ return tz.indexOf(t) === 0; });
-
-        if (isEuroTZ) {
-          showConsentBanner();
-        } else {
-          // Not Europe timezone - load AdSense directly
-          loadAdSense();
-        }
-      };
-
-      // Run after DOM ready
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", window.__consentInit);
-      } else {
-        window.__consentInit();
-      }
-    })();
-    </script>
-
-    <!-- Google AdSense -->
+    <!-- Google AdSense (Loaded directly, auto-CMP managed via Google AdSense dashboard) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327226842644895" crossorigin="anonymous"></script>
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1278,45 +1208,7 @@
         </div>
     </div>
 
-    <!-- GDPR Consent Banner HTML -->
-    <div id="gdpr-consent-banner" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.75); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:20px; font-family:Outfit,sans-serif;" role="dialog" aria-modal="true" aria-labelledby="gdpr-title">
-      <div style="background:#1e1e2e; border:1px solid rgba(99,102,241,0.4); border-radius:20px; max-width:520px; width:100%; padding:36px 32px; box-shadow:0 25px 60px rgba(0,0,0,0.5); text-align:center; position:relative;">
-        <!-- Cookie Icon -->
-        <div style="font-size:3rem; margin-bottom:12px;">🍪</div>
-        <h2 id="gdpr-title" style="color:#e2e8f0; font-size:1.4rem; font-weight:700; margin:0 0 12px 0; line-height:1.3;">We Value Your Privacy</h2>
-        <p style="color:#94a3b8; font-size:0.92rem; line-height:1.6; margin:0 0 10px 0;">
-          We and our partners use cookies and similar technologies to personalise content, show relevant ads, and improve our service. 
-          By clicking <strong style="color:#e2e8f0;">"Accept All"</strong>, you consent to the use of all cookies for advertising purposes.
-        </p>
-        <p style="color:#64748b; font-size:0.82rem; margin:0 0 24px 0;">
-          You can also choose <strong style="color:#94a3b8;">"Reject"</strong> to use our tool without personalised ads. 
-          Your photos are always processed <strong style="color:#6366F1;">100% offline</strong> on your device.
-        </p>
-
-        <!-- Buttons -->
-        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:16px;">
-          <button id="gdpr-accept-btn" onclick="handleConsent(true)" style="background:linear-gradient(135deg,#6366F1,#8b5cf6); color:white; border:none; padding:13px 32px; border-radius:30px; font-size:1rem; font-weight:600; cursor:pointer; box-shadow:0 4px 15px rgba(99,102,241,0.4); transition:transform 0.2s; min-width:150px;" onmouseover="this.style.transform=`scale(1.03)`" onmouseout="this.style.transform=`scale(1)`">
-            ✓ Accept All
-          </button>
-          <button id="gdpr-reject-btn" onclick="handleConsent(false)" style="background:transparent; color:#94a3b8; border:1.5px solid #334155; padding:13px 32px; border-radius:30px; font-size:1rem; font-weight:500; cursor:pointer; transition:all 0.2s; min-width:150px;" onmouseover="this.style.borderColor=`#94a3b8`" onmouseout="this.style.borderColor=`#334155`">
-            ✕ Reject
-          </button>
-        </div>
-
-        <!-- Privacy Policy Link -->
-        <p style="color:#475569; font-size:0.78rem; margin:0;">
-          This site uses Google AdSense. Learn more in our 
-          <a href="https://photosepdf.in/privacy-policy.html" style="color:#6366F1; text-decoration:none;" onmouseover="this.style.textDecoration=`underline`" onmouseout="this.style.textDecoration=`none`">Privacy Policy</a>. 
-          This message appears only for EEA, UK &amp; Switzerland users (GDPR).
-        </p>
-
-        <!-- Badge -->
-        <div style="display:inline-flex; align-items:center; gap:6px; margin-top:16px; background:rgba(99,102,241,0.1); border:1px solid rgba(99,102,241,0.2); border-radius:20px; padding:6px 14px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span style="color:#6366F1; font-size:0.78rem; font-weight:600;">Google AdSense Compliant</span>
-        </div>
-      </div>
-    </div>
+    
 
         <!-- PWA Service Worker Registration -->
     <script>
@@ -1473,6 +1365,8 @@
 
 </body>
 </html>
+
+
 
 
 
