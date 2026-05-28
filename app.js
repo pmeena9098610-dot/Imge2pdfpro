@@ -248,6 +248,35 @@
         });
     }
 
+    // --- Bulk Filter Buttons ---
+    const bulkLightenBtn = document.getElementById('bulk-lighten');
+    const bulkContrastBtn = document.getElementById('bulk-contrast');
+    if (bulkLightenBtn) {
+        bulkLightenBtn.addEventListener('click', () => {
+            files.forEach(f => {
+                if (!f.filters) f.filters = { brightness: 100, contrast: 100 };
+                f.filters.brightness = Math.min(200, (f.filters.brightness || 100) + 20);
+                const brEl = document.getElementById('val-br-' + f.id);
+                const brSlider = document.querySelector('[oninput*="' + f.id + '"][oninput*="brightness"]');
+                if (brEl) brEl.innerText = f.filters.brightness + '%';
+                if (brSlider) brSlider.value = f.filters.brightness;
+            });
+            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'All photos lightened!', showConfirmButton: false, timer: 1200 });
+        });
+    }
+    if (bulkContrastBtn) {
+        bulkContrastBtn.addEventListener('click', () => {
+            files.forEach(f => {
+                if (!f.filters) f.filters = { brightness: 100, contrast: 100 };
+                f.filters.contrast = Math.min(200, (f.filters.contrast || 100) + 20);
+                const ctEl = document.getElementById('val-ct-' + f.id);
+                const ctSlider = document.querySelector('[oninput*="' + f.id + '"][oninput*="contrast"]');
+                if (ctEl) ctEl.innerText = f.filters.contrast + '%';
+                if (ctSlider) ctSlider.value = f.filters.contrast;
+            });
+            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Contrast boosted for all!', showConfirmButton: false, timer: 1200 });
+        });
+    }
     // Keyboard Shortcuts (Ctrl+G = Generate PDF, Ctrl+Shift+P = Print)
     document.addEventListener('keydown', (e) => {
         if (e.ctrlKey && e.key === 'g') {
@@ -931,7 +960,7 @@
             const waUrl = `https://wa.me/?text=${shareMsg}`;
 
             Swal.fire({
-                title: 'PDF Generated! 🎉',
+                title: 'PDF Generated! &#x2705;',
                 html: `
                     <p style="margin-bottom:20px; font-size:1.1rem;">Your newly created PDF has been saved securely to your device.</p>
                     <div style="background:rgba(37,211,102,0.1); padding:20px; border-radius:15px; border:2px dashed #25D366; margin-top:10px;">
@@ -1477,8 +1506,11 @@
 
     // ===== TAB 3 WIRING =====
     // Wire up the 3rd tab (resize) through the existing tab system - already handled by the existing tab btn code
-    console.log("Image2PDF Pro: Professional Engine v4.5 Loaded.");
+    console.log("%cPhotoSePDF.in v5.0 | India #1 Free Image to PDF + Resize Tool", "color:#6366F1; font-size:14px; font-weight:bold;");
 });
+
+
+
 
 
 

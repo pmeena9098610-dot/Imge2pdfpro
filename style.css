@@ -1890,3 +1890,65 @@ body {
 }
 
 /* ========== END PRINT STUDIO V3 ========== */
+
+/* ========== TESTIMONIALS SECTION ========== */
+.testimonials-section {
+    background: var(--bg-main);
+}
+
+/* ========== COMPARISON TABLE ========== */
+table th, table td {
+    border: none;
+}
+table tr:hover td {
+    background: rgba(99,102,241,0.04) !important;
+}
+
+/* ========== SHARE/NEWSLETTER STRIP ========== */
+/* Already handled inline */
+
+/* ========== STICKY KBD HINT ========== */
+.kbd-hint {
+    background: rgba(0,0,0,0.04);
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.kbd {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-family: monospace;
+    font-size: 0.82rem;
+    color: var(--dark);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* ========== ANIMATE ON SCROLL ========== */
+.testimonials-section article {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.testimonials-section article:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -8px rgba(99,102,241,0.15) !important;
+}
+
+/* ========== COMPARISON TABLE HOVER GLOW ========== */
+table tbody tr {
+    transition: background 0.2s ease;
+}
+
+/* ========== FOOTER NAV UPGRADE ========== */
+footer {
+    padding: 40px 0 20px;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border);
+}
+
+/* ========== END V5 UPGRADES ========== */
