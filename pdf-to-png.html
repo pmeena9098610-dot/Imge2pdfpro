@@ -1,0 +1,866 @@
+﻿<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF to PNG Converter Free | PDF Ko PNG Image Mein Badlein | PhotoSePDF.in</title>
+  <meta name="description" content="PDF ko PNG image mein convert karo free mein offline. High quality transparent PNG images banayein. No upload, 100% secure, no watermark. Best PDF to PNG converter." />
+  <meta name="keywords" content="pdf to jpg converter free, pdf to image, pdf to png, pdf ko image mein convert, pdf pages as images india" />
+  <link rel="canonical" href="https://photosepdf.in/pdf-to-png" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="PDF to PNG Converter Free | PhotoSePDF.in" />
+  <meta property="og:description" content="PDF ko PNG mein convert karein completely offline. High quality transparent PNG pages, no upload, no watermark." />
+  <meta property="og:image" content="https://photosepdf.in/og-image.svg" />
+  <meta property="og:url" content="https://photosepdf.in/pdf-to-png" />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6366F1">
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Third Party Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <style>
+    .convert-container {
+      max-width: 900px;
+      margin: 40px auto 60px;
+      padding: 0 20px;
+    }
+    .convert-hero {
+      text-align: center;
+      padding: 60px 0 30px;
+    }
+    .convert-hero h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .convert-hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    /* Upload box */
+    .upload-box {
+      border: 3px dashed var(--border);
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 50px 30px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      backdrop-filter: blur(12px);
+    }
+    .upload-box:hover, .upload-box.dragover {
+      border-color: var(--primary);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .upload-icon {
+      font-size: 3.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    .upload-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .upload-hint {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    /* Options area styling */
+    .options-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-top: 24px;
+      backdrop-filter: blur(12px);
+    }
+    .options-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 600px) {
+      .options-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    .option-group-title {
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pills-group {
+      display: flex;
+      gap: 8px;
+      background: var(--primary-light);
+      padding: 4px;
+      border-radius: 30px;
+    }
+    .pill-opt {
+      flex: 1;
+      padding: 10px;
+      border-radius: 25px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text-main);
+      background: transparent;
+      border: none;
+    }
+    .pill-opt.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Progress box */
+    .progress-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 30px;
+      margin-top: 24px;
+      display: none;
+    }
+    .progress-bar-container {
+      background: var(--border);
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 15px 0;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.3s ease;
+    }
+    .progress-text {
+      font-weight: 600;
+      color: var(--dark);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Previews & Results grid */
+    .results-area {
+      display: none;
+      margin-top: 30px;
+    }
+    .results-header-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .stats-badge {
+      font-weight: 700;
+      color: var(--dark);
+      font-size: 1.1rem;
+    }
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .result-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      text-align: center;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .result-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+    }
+    .result-img-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 130%; /* 4:3 Aspect ratio placeholder */
+      background: var(--bg-main);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .result-img-wrapper img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: contain;
+    }
+    .result-info {
+      margin: 10px 0;
+    }
+    .result-label {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--dark);
+    }
+    .result-size {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+      width: 100%;
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: rgba(100, 116, 139, 0.1);
+      color: var(--dark);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: rgba(100, 116, 139, 0.2);
+    }
+    .btn-success {
+      background: var(--secondary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+    .btn-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    }
+    .btn-sm {
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      border-radius: 20px;
+      width: 100%;
+    }
+
+    .file-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--primary-light);
+      padding: 14px 20px;
+      border-radius: var(--radius-sm);
+      margin-top: 24px;
+    }
+
+    /* FAQ accordion */
+    .faq-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 30px;
+      margin-top: 50px;
+      backdrop-filter: blur(12px);
+    }
+    .faq-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    .faq-question {
+      font-weight: 700;
+      color: var(--dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-answer {
+      color: var(--text-muted);
+      margin-top: 10px;
+      display: none;
+      font-size: 0.95rem;
+    }
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+    .faq-item.open .faq-question i {
+      transform: rotate(180deg);
+    }
+    .faq-question i {
+      transition: transform 0.3s ease;
+      color: var(--primary);
+    }
+
+    /* Bottom tools grid */
+    .other-tools-title {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin: 60px 0 20px;
+      color: var(--dark);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<header role="banner">
+  <nav class="navbar" aria-label="Main Navigation" role="navigation">
+    <div class="container nav-container">
+      <a href="index.html" class="logo" aria-label="PhotoSePDF.in Home">
+        <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> PhotoSePDF<span>.in</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="tools.html">All Tools</a></li>
+        <li><a href="articles.html">Guides</a></li>
+        <li>
+          <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="convert-hero">
+    <div class="container">
+      <span class="badge"><i class="fa-solid fa-file-image"></i> 100% Private & Offline</span>
+      <h1>PDF Ko PNG Mein <span class="text-gradient">Convert Karo</span></h1>
+      <p>Kisi bhi PDF document ke saare pages ko high-quality JPG ya PNG images mein convert karein offline.</p>
+    </div>
+  </div>
+
+  <div class="convert-container">
+    <div class="premium-card">
+      <div id="dropZone" class="upload-box">
+        <input type="file" id="fileInput" accept="application/pdf" style="display: none;" />
+        <div class="upload-icon">
+          <i class="fa-solid fa-file-image" style="color: var(--primary);"></i>
+        </div>
+        <div class="upload-title">Apni PDF File Upload Karein</div>
+        <div class="upload-hint">Drag & drop a PDF file or click to select</div>
+        <span class="badge" style="margin-bottom: 0;"><i class="fa-solid fa-user-shield"></i> 100% Secure: Files aapke machine pe process hoti hain</span>
+      </div>
+
+      <!-- File info banner -->
+      <div id="fileBanner" class="file-banner" style="display: none;">
+        <span style="font-weight: 700; color: var(--dark);" id="fileNameLabel">document.pdf</span>
+        <span class="badge" id="filePagesLabel" style="margin: 0; background: var(--border); color: var(--text-main);">0 Pages</span>
+      </div>
+
+      <!-- Options Box -->
+      <div id="optionsArea" style="display: none; margin-top: 24px;">
+        <div class="options-box">
+          <div class="options-row">
+            <!-- Format Group -->
+            <div>
+              <div class="option-group-title"><i class="fa-solid fa-image"></i> Output Format</div>
+              <div class="pills-group">
+                <button class="pill-opt" id="btnJpg" onclick="setFormat('jpg')">JPG</button>
+                <button class="pill-opt active" id="btnPng" onclick="setFormat('png')">PNG</button>
+              </div>
+            </div>
+            
+            <!-- Quality Group -->
+            <div>
+              <div class="option-group-title"><i class="fa-solid fa-gauge-high"></i> Image Quality (DPI)</div>
+              <div class="pills-group">
+                <button class="pill-opt active" id="btnMedium" onclick="setQuality('medium')">Medium (100 DPI)</button>
+                <button class="pill-opt" id="btnLow" onclick="setQuality('low')">Low (72 DPI)</button>
+                <button class="pill-opt" id="btnHigh" onclick="setQuality('high')">High (150 DPI)</button>
+              </div>
+            </div>
+          </div>
+
+          <button id="convertBtn" class="btn btn-primary">
+            <i class="fa-solid fa-file-export"></i> PDF Ko Image Mein Convert Karo
+          </button>
+        </div>
+      </div>
+
+      <!-- Progress Box -->
+      <div id="progressBox" class="progress-box">
+        <div class="progress-text">
+          <span id="progressState">Converting PDF...</span>
+          <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar-container">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+        <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">
+          <i class="fa-solid fa-circle-notch fa-spin"></i> Loading pages & extracting vectors...
+        </p>
+      </div>
+
+      <!-- Results Grid Area -->
+      <div id="resultsArea" class="results-area">
+        <div class="results-header-actions">
+          <div class="stats-badge" id="statsLabel">0 Pages Converted</div>
+          <div style="display: flex; gap: 10px;">
+            <button id="downloadZipBtn" class="btn btn-success">
+              <i class="fa-solid fa-file-zipper"></i> Download All as ZIP
+            </button>
+            <button id="resetBtn" class="btn btn-secondary">
+              <i class="fa-solid fa-rotate-left"></i> Reset
+            </button>
+          </div>
+        </div>
+
+        <div class="results-grid" id="resultsGrid"></div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-container">
+      <div class="faq-title"><i class="fa-solid fa-circle-question" style="color: var(--primary);"></i> FAQs — PDF to Image Tool</div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>JPG aur PNG formats me kya difference hai?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          JPG standard lightweight format hai jo image files ka size chota rakhta hai. PNG ek high-quality lossless format hai jo transparency support karta hai aur details ko best maintain karta hai. Forms aur text-rich documents ke liye PNG choose karein.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Quality (DPI) options kaise choose karein?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          DPI (Dots Per Inch) resolution scale hai:
+          <br>• <strong>Low (72 DPI):</strong> Fast convert hota hai, small file size. Online share karne ke liye best.
+          <br>• <strong>Medium (100 DPI):</strong> Standard balance.
+          <br>• <strong>High (150 DPI):</strong> Print-ready vectors aur crystal-clear text details ke liye perfect.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Kya is converter ke liye internet ki zaroorat hai?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Nahi! PhotoSePDF.in ka PDF to JPG converter completely offline kaam karta hai. Ye pure Javascript (using PDF.js library) ke madhyam se aapke device memory ke andar local canvas rendering karta hai. Aapki privacy 100% guarantee hai.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Mujhe multiple pages alag alag download karne honge?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Aap har card ke niche bane download button se individual page image save kar sakte hain. Lekin agar PDF badi hai, toh "Download All as ZIP" click karke ek click mein saare pages download kar sakte hain.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Kya password-protected PDF convert ho sakti hai?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Nahi, agar PDF password locked hai toh pehle use unlock (decrypt) karna padega. Ek baar document normal hone par aap aasaani se use images me convert kar sakte hain.
+        </div>
+      </div>
+    </div>
+
+    <!-- Related tools grid -->
+    <h2 class="other-tools-title">Aapke Kaam Ke Dusre Tools</h2>
+    <div class="tools-grid-full" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+      <a href="compress-pdf.html" class="tool-card-full">
+        <div class="tool-icon-lg" style="background: linear-gradient(135deg, #3B82F6, #1D4ED8);"><i class="fa-solid fa-compress-arrows-alt"></i></div>
+        <div class="tool-name">Compress PDF</div>
+        <div class="tool-desc-sm">PDF ka size compress karein</div>
+      </a>
+      <a href="merge-pdf.html" class="tool-card-full">
+        <div class="tool-icon-lg" style="background: linear-gradient(135deg, #10B981, #059669);"><i class="fa-solid fa-file-signature"></i></div>
+        <div class="tool-name">Merge PDF</div>
+        <div class="tool-desc-sm">Multiple PDFs combine karein</div>
+      </a>
+      <a href="split-pdf.html" class="tool-card-full">
+        <div class="tool-icon-lg" style="background: linear-gradient(135deg, #EF4444, #DC2626);"><i class="fa-solid fa-scissors"></i></div>
+        <div class="tool-name">Split PDF</div>
+        <div class="tool-desc-sm">Pages alag-alag karein</div>
+      </a>
+      <a href="index.html" class="tool-card-full">
+        <div class="tool-icon-lg" style="background: linear-gradient(135deg, #F59E0B, #D97706);"><i class="fa-solid fa-images"></i></div>
+        <div class="tool-name">Photo to PDF</div>
+        <div class="tool-desc-sm">Apni images ko PDF banayein</div>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer role="contentinfo" style="background: var(--dark); color: white; padding: 40px 0; text-align: center; margin-top: 80px;">
+  <div class="container">
+    <p style="font-weight: 700; margin-bottom: 10px;">PhotoSePDF.in</p>
+    <p style="font-size: 0.85rem; color: #94A3B8;">Bharat Ka Apna Safe, Secure & Offline PDF Toolkit. 🇮🇳</p>
+    <p style="font-size: 0.8rem; color: #64748B; margin-top: 15px;">&copy; 2026 PhotoSePDF.in. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Theme Toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  const htmlEl = document.documentElement;
+
+  const currentTheme = localStorage.getItem('theme') || 'light';
+  htmlEl.setAttribute('data-theme', currentTheme);
+  updateThemeIcon(currentTheme);
+
+  themeToggle.addEventListener('click', () => {
+    const current = htmlEl.getAttribute('data-theme');
+    const target = current === 'dark' ? 'light' : 'dark';
+    htmlEl.setAttribute('data-theme', target);
+    localStorage.setItem('theme', target);
+    updateThemeIcon(target);
+  });
+
+  function updateThemeIcon(theme) {
+    const icon = themeToggle.querySelector('i');
+    if (theme === 'dark') {
+      icon.className = 'fa-solid fa-sun';
+    } else {
+      icon.className = 'fa-solid fa-moon';
+    }
+  }
+
+  function toggleFaq(el) {
+    el.parentElement.classList.toggle('open');
+  }
+
+  // --- PDF TO IMAGE CONVERTER LOGIC ---
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const fileBanner = document.getElementById('fileBanner');
+  const fileNameLabel = document.getElementById('fileNameLabel');
+  const filePagesLabel = document.getElementById('filePagesLabel');
+  const optionsArea = document.getElementById('optionsArea');
+  const convertBtn = document.getElementById('convertBtn');
+  const progressBox = document.getElementById('progressBox');
+  const progressBar = document.getElementById('progressBar');
+  const progressPercent = document.getElementById('progressPercent');
+  const progressState = document.getElementById('progressState');
+  const resultsArea = document.getElementById('resultsArea');
+  const resultsGrid = document.getElementById('resultsGrid');
+  const statsLabel = document.getElementById('statsLabel');
+  const downloadZipBtn = document.getElementById('downloadZipBtn');
+  const resetBtn = document.getElementById('resetBtn');
+
+  let uploadedFile = null;
+  let fileBuffer = null;
+  let pdfPageCount = 0;
+  let outputFormat = 'png';
+  let outputQuality = 'medium';
+  let convertedImages = []; // Objects: { pageNum, dataUrl, sizeText, blob, filename }
+
+  dropZone.addEventListener('click', () => fileInput.click());
+
+  dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+  });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    if (e.dataTransfer.files.length > 0) {
+      handleFile(e.dataTransfer.files[0]);
+    }
+  });
+
+  fileInput.addEventListener('change', (e) => {
+    if (e.target.files.length > 0) {
+      handleFile(e.target.files[0]);
+    }
+  });
+
+  async function handleFile(file) {
+    if (file.type !== 'application/pdf') {
+      alert('Kripya valid PDF file select karein.');
+      return;
+    }
+    uploadedFile = file;
+    fileNameLabel.innerText = file.name;
+
+    fileBuffer = await readFileAsArrayBuffer(file);
+
+    try {
+      const loadingTask = pdfjsLib.getDocument({ data: fileBuffer });
+      const pdfDoc = await loadingTask.promise;
+      pdfPageCount = pdfDoc.numPages;
+      filePagesLabel.innerText = `${pdfPageCount} Pages`;
+    } catch (err) {
+      console.error(err);
+      alert('File open karne me error: File locked ya corrupted ho sakti hai.');
+      return;
+    }
+
+    dropZone.style.display = 'none';
+    fileBanner.style.display = 'flex';
+    optionsArea.style.display = 'block';
+  }
+
+  function readFileAsArrayBuffer(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve(e.target.result);
+      reader.onerror = (err) => reject(err);
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
+  // Set configuration
+  window.setFormat = function(fmt) {
+    outputFormat = fmt;
+    document.getElementById('btnJpg').classList.remove('active');
+    document.getElementById('btnPng').classList.remove('active');
+    if (fmt === 'jpg') {
+      document.getElementById('btnJpg').classList.add('active');
+    } else {
+      document.getElementById('btnPng').classList.add('active');
+    }
+  };
+
+  window.setQuality = function(qlt) {
+    outputQuality = qlt;
+    document.getElementById('btnLow').classList.remove('active');
+    document.getElementById('btnMedium').classList.remove('active');
+    document.getElementById('btnHigh').classList.remove('active');
+    if (qlt === 'low') {
+      document.getElementById('btnLow').classList.add('active');
+    } else if (qlt === 'medium') {
+      document.getElementById('btnMedium').classList.add('active');
+    } else {
+      document.getElementById('btnHigh').classList.add('active');
+    }
+  };
+
+  function formatBytes(bytes) {
+    if (bytes === 0) return '0 KB';
+    return (bytes / 1024).toFixed(1) + ' KB';
+  }
+
+  // Core Render & Convert Execution
+  convertBtn.addEventListener('click', async () => {
+    optionsArea.style.display = 'none';
+    progressBox.style.display = 'block';
+    progressBar.style.width = '0%';
+    progressPercent.innerText = '0%';
+    
+    convertedImages = [];
+    resultsGrid.innerHTML = '';
+
+    try {
+      const loadingTask = pdfjsLib.getDocument({ data: fileBuffer });
+      const pdfDoc = await loadingTask.promise;
+
+      // DPI maps to scale: High(150)=2.08, Medium(100)=1.39, Low(72)=1.0
+      let scale = 1.39;
+      if (outputQuality === 'low') {
+        scale = 1.0;
+      } else if (outputQuality === 'high') {
+        scale = 2.08;
+      }
+
+      const mimeType = outputFormat === 'png' ? 'image/png' : 'image/jpeg';
+      const fileExt = outputFormat === 'png' ? 'png' : 'jpg';
+
+      for (let i = 1; i <= pdfPageCount; i++) {
+        progressState.innerText = `Converting page ${i} of ${pdfPageCount}...`;
+        const pct = Math.round((i / pdfPageCount) * 100);
+        progressBar.style.width = `${pct}%`;
+        progressPercent.innerText = `${pct}%`;
+
+        const page = await pdfDoc.getPage(i);
+        const viewport = page.getViewport({ scale });
+
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+        await page.render({ canvasContext: context, viewport }).promise;
+
+        const dataUrl = canvas.toDataURL(mimeType, 0.9);
+        
+        // Calculate size from base64 characters
+        const base64Len = dataUrl.split(',')[1].length;
+        const bytes = Math.round(base64Len * 0.75);
+        const sizeText = formatBytes(bytes);
+
+        // Convert base64 dataURL to Blob for ZIP packing
+        const response = await fetch(dataUrl);
+        const blob = await response.blob();
+
+        const cleanName = uploadedFile.name.replace(/\.[^/.]+$/, "");
+        const filename = `${cleanName}_page_${i}.${fileExt}`;
+
+        convertedImages.push({
+          pageNum: i,
+          dataUrl: dataUrl,
+          sizeText: sizeText,
+          blob: blob,
+          filename: filename
+        });
+
+        // Add to result DOM
+        const card = document.createElement('div');
+        card.className = 'result-card';
+        card.innerHTML = `
+          <div class="result-img-wrapper">
+            <img src="${dataUrl}" alt="Page ${i}" />
+          </div>
+          <div class="result-info">
+            <div class="result-label">Page ${i}</div>
+            <div class="result-size">${sizeText}</div>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="downloadSingle(${i - 1})">
+            <i class="fa-solid fa-download"></i> Download
+          </button>
+        `;
+        resultsGrid.appendChild(card);
+      }
+
+      statsLabel.innerText = `${pdfPageCount} Pages Converted`;
+      progressBox.style.display = 'none';
+      resultsArea.style.display = 'block';
+
+    } catch (err) {
+      console.error(err);
+      alert('Conversion failed: ' + err.message);
+      progressBox.style.display = 'none';
+      optionsArea.style.display = 'block';
+    }
+  });
+
+  // Single page download trigger
+  window.downloadSingle = function(index) {
+    const item = convertedImages[index];
+    if (!item) return;
+    const a = document.createElement('a');
+    a.href = item.dataUrl;
+    a.download = item.filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
+  // Download all pages package as ZIP
+  downloadZipBtn.addEventListener('click', async () => {
+    if (convertedImages.length === 0) return;
+    
+    downloadZipBtn.disabled = true;
+    downloadZipBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating ZIP...';
+
+    try {
+      const zip = new JSZip();
+      const folderName = uploadedFile.name.replace(/\.[^/.]+$/, "");
+      const zipFolder = zip.folder(`${folderName}_images`);
+
+      convertedImages.forEach(img => {
+        zipFolder.file(img.filename, img.blob);
+      });
+
+      const zipBlob = await zip.generateAsync({ type: 'blob' });
+      const url = URL.createObjectURL(zipBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${folderName}_images.zip`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+    } catch (err) {
+      console.error(err);
+      alert('ZIP generation failed: ' + err.message);
+    } finally {
+      downloadZipBtn.disabled = false;
+      downloadZipBtn.innerHTML = '<i class="fa-solid fa-file-zipper"></i> Download All as ZIP';
+    }
+  });
+
+  // Reset to initial screen
+  resetBtn.addEventListener('click', () => {
+    uploadedFile = null;
+    fileBuffer = null;
+    pdfPageCount = 0;
+    convertedImages = [];
+    fileInput.value = '';
+    
+    resultsArea.style.display = 'none';
+    optionsArea.style.display = 'none';
+    fileBanner.style.display = 'none';
+    dropZone.style.display = 'block';
+  });
+</script>
+
+</body>
+</html>

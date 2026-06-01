@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'img2pdf-pro-v19-pdf-suite';
+﻿const CACHE_NAME = 'img2pdf-pro-v20-seo-expansion';
 const ASSETS = [
     './',
     './index.html',
@@ -11,6 +11,13 @@ const ASSETS = [
     './merge-pdf.html',
     './split-pdf.html',
     './pdf-to-jpg.html',
+    './photo-to-pdf.html',
+    './jpg-to-pdf.html',
+    './png-to-pdf.html',
+    './pdf-to-png.html',
+    './word-to-pdf.html',
+    './excel-to-pdf.html',
+    './ppt-to-pdf.html',
     './articles.html',
     './aadhar-card-photo-to-pdf.html',
     './compress-pdf-100kb.html',

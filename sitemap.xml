@@ -209,6 +209,61 @@
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
+  <!-- Photo to PDF Tool -->
+  <url>
+    <loc>https://photosepdf.in/photo-to-pdf</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- JPG to PDF Tool -->
+  <url>
+    <loc>https://photosepdf.in/jpg-to-pdf</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- PNG to PDF Tool -->
+  <url>
+    <loc>https://photosepdf.in/png-to-pdf</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- PDF to PNG Tool -->
+  <url>
+    <loc>https://photosepdf.in/pdf-to-png</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- Word to PDF Guide -->
+  <url>
+    <loc>https://photosepdf.in/word-to-pdf</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Excel to PDF Guide -->
+  <url>
+    <loc>https://photosepdf.in/excel-to-pdf</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- PowerPoint to PDF Guide -->
+  <url>
+    <loc>https://photosepdf.in/ppt-to-pdf</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
 </urlset>
 
 
