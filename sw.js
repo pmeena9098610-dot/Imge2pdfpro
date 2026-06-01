@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'img2pdf-pro-v18-seo-guides-v1';
+﻿const CACHE_NAME = 'img2pdf-pro-v19-pdf-suite';
 const ASSETS = [
     './',
     './index.html',
@@ -6,6 +6,11 @@ const ASSETS = [
     './app.js',
     './manifest.json',
     './favicon.svg',
+    './tools.html',
+    './compress-pdf.html',
+    './merge-pdf.html',
+    './split-pdf.html',
+    './pdf-to-jpg.html',
     './articles.html',
     './aadhar-card-photo-to-pdf.html',
     './compress-pdf-100kb.html',
@@ -75,8 +80,3 @@ self.addEventListener('fetch', (event) => {
         })
     );
 });
-
-
-
-
-

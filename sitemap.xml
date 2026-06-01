@@ -169,6 +169,46 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+
+  <!-- All PDF Tools Hub -->
+  <url>
+    <loc>https://photosepdf.in/tools</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- PDF Compress Tool -->
+  <url>
+    <loc>https://photosepdf.in/compress-pdf</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- PDF Merge Tool -->
+  <url>
+    <loc>https://photosepdf.in/merge-pdf</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- PDF Split Tool -->
+  <url>
+    <loc>https://photosepdf.in/split-pdf</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- PDF to JPG Tool -->
+  <url>
+    <loc>https://photosepdf.in/pdf-to-jpg</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
 </urlset>
 
 
