@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'img2pdf-pro-v20-seo-expansion';
+const CACHE_NAME = 'img2pdf-pro-v21-adsense-compliance';
 const ASSETS = [
     './',
     './index.html',
@@ -18,6 +18,10 @@ const ASSETS = [
     './word-to-pdf.html',
     './excel-to-pdf.html',
     './ppt-to-pdf.html',
+    './about.html',
+    './contact.html',
+    './privacy-policy.html',
+    './terms.html',
     './articles.html',
     './aadhar-card-photo-to-pdf.html',
     './compress-pdf-100kb.html',
