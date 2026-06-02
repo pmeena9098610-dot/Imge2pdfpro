@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'img2pdf-pro-v24-phase4-ai-camera';
+﻿const CACHE_NAME = 'img2pdf-pro-v25-phase5-multilingual-adsense';
 const ASSETS = [
     './',
     './index.html',

@@ -1,60 +1,66 @@
-# Implementation Plan - Mega SEO Upgrades & Interactive Hindi Guides
+# Implementation Plan - Phase 5 (Multilingual Pages & AdSense Optimization)
 
-We will implement a premium, interactive, and comprehensive SEO optimization strategy on the website. Based on real-world keyword research (including terms like *"ssc upsc photo signature resize"*, *"aadhar card single page merge"*, *"photo ko pdf kaise banaye"*), we will add a gorgeous interactive guide section right on the homepage (`index.html`) and style it beautifully in `style.css`.
+This plan outlines the implementation of **Phase 5** (Multilingual Pages & AdSense Optimization) of the high-volume growth roadmap for PhotoSePDF.in.
+
+The objective is to optimize the monetization potential of the entire site by injecting Google AdSense auto-ads into all existing tool, guide, legal, and multilingual pages, while verifying and polishing the multilingual subpages for absolute SEO sync.
 
 ---
 
 ## User Review Required
 
-We are introducing an interactive **Use-Case Guides Tabbed Section** below the main tool in `index.html`. This section is fully optimized for SEO crawler visibility while providing users with clear step-by-step instructions.
-
-> [!TIP]
-> All guides are designed to be extremely premium, utilizing modern CSS gradients, subtle hover micro-animations, and full compatibility with dark and light themes.
+We are applying Google AdSense monetization across the entire site by injecting the global auto-ads script inside the `<head>` tag of every HTML page. Google AdSense auto-ads dynamically identify the optimal positions for ads (e.g. under headers, in sidebars, and alongside articles) to maximize CTR and revenue without breaking the clean user interface.
 
 ---
 
 ## Open Questions
 
-There are no major blocking questions, but we will make sure the guides are fully interlinked with the existing article subpages (e.g., `aadhar-card-photo-to-pdf.html`, `how-to-resize-photo-signature-for-ssc-upsc.html`, `compress-pdf-100kb.html`) to maximize domain-level SEO authority.
+No major blocking questions. We will use a script to ensure that:
+1. Every HTML file is written with strict **UTF-8 encoding with BOM** signature, preventing any accented regional character corruption (such as `Español` or `Français` turning into raw byte typos).
+2. The AdSense publisher ID `ca-pub-3327226842644895` is verified.
 
 ---
 
 ## Proposed Changes
 
-### [HTML & CSS Components]
+We will create and execute an automated PowerShell script to safely perform bulk updates across all HTML files in the workspace.
+
+### [AdSense Monetization & Global SEO]
 
 ---
 
-#### [MODIFY] [index.html](file:///c:/Users/Bappa%20official/.gemini/antigravity/playground/outer-perihelion/index.html)
-- Add a new `seo-guides-tabs` section right before the comparison table.
-- Structure it using a fully accessible tab list where users can select:
-  1. **Govt Forms (SSC/UPSC/NEET)**: Instructions on resizing photos/signatures to 20KB/50KB.
-  2. **Aadhar/PAN Card Merge**: Guidance on joining front + back cards into a single A4 PDF.
-  3. **Cyber Cafe Print Studio**: Steps on printing passport photo sheets with cut-marks.
-  4. **Offline Mobile PWA**: Directions to install the app on Android/iOS home screen.
-- Inject Hindi and Hinglish keywords naturally inside headings and paragraphs (e.g. `H3` tags).
-- Add JavaScript logic at the bottom to handle smooth, animated switching between the tabs.
+#### [MODIFY] [All HTML Pages](file:///c:/Users/Bappa%20official/.gemini/antigravity/playground/outer-perihelion/)
+- We will iterate through all HTML files in the workspace.
+- For every page that does not contain the AdSense script, we will insert the following script block directly beneath the `<head>` tag:
+  ```html
+  <!-- Google AdSense (Loaded directly, auto-CMP managed via Google AdSense dashboard) -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327226842644895" crossorigin="anonymous"></script>
+  ```
+- This covers:
+  - Core tools: `compress-pdf.html`, `merge-pdf.html`, `split-pdf.html`, `pdf-to-jpg.html`, `pdf-to-png.html`, `pdf-password.html`, `esignature.html`.
+  - Phase 4 tools: `camera-to-pdf.html`, `ai-summarizer.html`, `ai-notes.html`.
+  - Existing tool hub: `tools.html`.
+  - Interactive OCR scanner: `ocr-pdf.html`.
+  - High-traffic Hindi guides: `photo-ko-pdf-kaise-banaye.html`, `mobile-se-pdf-kaise-banaye.html`, `pdf-size-kam-kaise-kare.html`.
+  - Microsoft Office guides: `word-to-pdf.html`, `excel-to-pdf.html`, `ppt-to-pdf.html`.
+  - Regional & International pages: `image-to-pdf-converter-bengali.html`, `image-to-pdf-converter-marathi.html`, `image-to-pdf-converter-tamil.html`, `image-to-pdf-converter-telugu.html`, `image-to-pdf-deutsch.html`, `image-to-pdf-espanol.html`, `image-to-pdf-francais.html`, `image-to-pdf-portugues.html`, `jpg-to-pdf-converter-hindi.html`.
+  - Legal & Info pages: `about.html`, `contact.html`, `privacy-policy.html`, `terms.html`, `404.html`, `articles.html`.
 
 ---
 
-#### [MODIFY] [style.css](file:///c:/Users/Bappa%20official/.gemini/antigravity/playground/outer-perihelion/style.css)
-- Add styles for `.seo-guides-tabs`, `.tab-triggers`, `.tab-content-panel`, and internal grid elements.
-- Style tab buttons with sleek gradients, glassmorphism borders, and active shadows.
-- Add responsiveness ensuring the grid collapses cleanly on mobile devices.
-
----
-
-#### [MODIFY] [sw.js](file:///c:/Users/Bappa%20official/.gemini/antigravity/playground/outer-perihelion/sw.js)
-- Update the Service Worker cache version number to force refresh of updated CSS and HTML content in users' browsers.
+#### [MODIFY] [Service Worker](file:///c:/Users/Bappa%20official/.gemini/antigravity/playground/outer-perihelion/sw.js)
+- Update the Service Worker cache name to trigger instant resource updates for returning users:
+  ```javascript
+  const CACHE_NAME = 'img2pdf-pro-v25-phase5-multilingual-adsense';
+  ```
 
 ---
 
 ## Verification Plan
 
 ### Automated Tests
-1. Verify HTML syntax and SEO headings hierarchy using browser validator.
-2. Confirm script functionality (active class switching on tab click) with zero console errors.
+1. Verify that the AdSense script is successfully present in every single HTML file in the repository.
+2. Verify that every HTML file is valid XML/HTML and loads without parsing errors.
 
 ### Manual Verification
-1. Ensure the tab transitions are smooth and performant on mobile view.
-2. Verify visual aesthetics match the premium look-and-feel of the website.
+1. Access the local dev environment or deployed Vercel URL and check the page source of multiple subpages (e.g. `/tools`, `/camera-to-pdf`, `/image-to-pdf-converter-marathi`) to confirm AdSense code rendering inside the `<head>` element.
+2. Confirm the site builds successfully on Vercel.

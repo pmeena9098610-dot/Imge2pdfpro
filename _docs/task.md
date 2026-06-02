@@ -1,9 +1,8 @@
-# Task List - SEO Interactive Guides Upgrades
+# Task List - Phase 5 (Multilingual & AdSense)
 
-- `[x]` Integrate interactive guides section in `index.html` with target keywords
-- `[x]` Add custom JavaScript at the bottom of `index.html` for tab switching
-- `[x]` Design premium CSS classes in `style.css` for tabs, panels, and badges
-- `[x]` Verify responsiveness across mobile, tablet, and desktop views
-- `[x]` Update cache version in `sw.js` to trigger a client-side update
-- `[x]` Perform a deep analysis of code integrity (run syntactical checks if possible)
-- `[x]` Commit and push changes to git
+- `[x]` Create and test the PowerShell AdSense injection script
+- `[x]` Run script to inject Google AdSense to all HTML pages lacking it
+- `[x]` Verify UTF-8 encoding integrity of all modified subpages (especially accents in footer)
+- `[x]` Update cache version in `sw.js` to `img2pdf-pro-v25-phase5-multilingual-adsense`
+- `[x]` Commit and push changes to GitHub `main`
+- `[/]` Trigger production deployment on Vercel
