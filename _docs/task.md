@@ -5,4 +5,4 @@
 - `[x]` Verify UTF-8 encoding integrity of all modified subpages (especially accents in footer)
 - `[x]` Update cache version in `sw.js` to `img2pdf-pro-v25-phase5-multilingual-adsense`
 - `[x]` Commit and push changes to GitHub `main`
-- `[/]` Trigger production deployment on Vercel
+- `[x]` Trigger production deployment on Vercel
