@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'img2pdf-pro-v23-step3-all-advanced-tools';
+﻿const CACHE_NAME = 'img2pdf-pro-v24-phase4-ai-camera';
 const ASSETS = [
     './',
     './index.html',
@@ -31,6 +31,9 @@ const ASSETS = [
     './esignature.html',
     './aadhar-ko-pdf-mein-convert.html',
     './pdf-tools-comparison.html',
+    './camera-to-pdf.html',
+    './ai-summarizer.html',
+    './ai-notes.html',
     './aadhar-card-photo-to-pdf.html',
     './compress-pdf-100kb.html',
     './heic-to-pdf-converter.html',

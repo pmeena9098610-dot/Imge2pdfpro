@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Camera to PDF Scanner Online Free | CamScanner Alternative | PhotoSePDF.in</title>
+  <meta name="description" content="Apne mobile camera se document scan karein aur instantly PDF banayein. CamScanner free alternative, 100% offline, auto-contrast, shadow removal, no upload." />
+  <meta name="keywords" content="camera se pdf banao, document scan online free, camscanner alternative, scan to pdf online, photo se pdf scanner, mobile document scanner" />
+  <link rel="canonical" href="https://photosepdf.in/camera-to-pdf.html" />
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Camera to PDF Scanner Online Free | PhotoSePDF.in" />
+  <meta property="og:description" content="100% offline document scanner in browser. Scan, enhance, and download PDFs locally." />
+  <meta property="og:image" content="https://photosepdf.in/og-image.svg" />
+  <meta property="og:url" content="https://photosepdf.in/camera-to-pdf.html" />
+  <meta property="og:type" content="website" />
+  
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6366F1">
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Third Party Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+  <style>
+    .scanner-container {
+      max-width: 1000px;
+      margin: 40px auto 60px;
+      padding: 0 20px;
+    }
+    .scanner-hero {
+      text-align: center;
+      padding: 60px 0 30px;
+    }
+    .scanner-hero h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .scanner-hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+    
+    .scanner-grid {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 30px;
+      margin-top: 30px;
+    }
+    @media (max-width: 900px) {
+      .scanner-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .camera-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .video-viewport {
+      width: 100%;
+      max-width: 500px;
+      aspect-ratio: 4/3;
+      background: #000000;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      position: relative;
+      border: 2px solid var(--border);
+    }
+    #videoStream {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .capture-flash {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #FFFFFF;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease-out;
+    }
+    .capture-flash.active {
+      opacity: 1;
+    }
+    
+    .camera-controls {
+      display: flex;
+      gap: 15px;
+      width: 100%;
+      max-width: 500px;
+      margin-top: 20px;
+    }
+    
+    /* Document Stack styling */
+    .stack-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .stack-title {
+      font-weight: 800;
+      color: var(--dark);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .page-count-badge {
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    
+    .pages-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+      gap: 10px;
+      max-height: 250px;
+      overflow-y: auto;
+      padding: 5px;
+    }
+    
+    .page-thumb-wrapper {
+      position: relative;
+      aspect-ratio: 3/4;
+      border-radius: 6px;
+      border: 2px solid var(--border);
+      background: var(--bg-body);
+      overflow: hidden;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .page-thumb-wrapper.active {
+      border-color: var(--primary);
+      box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
+    }
+    .page-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .page-number {
+      position: absolute;
+      bottom: 2px;
+      left: 2px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .delete-page-btn {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #EF4444;
+      color: white;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+    }
+    
+    /* Edit Page Filters Panel */
+    .filter-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: none;
+    }
+    .filter-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .filter-btn {
+      padding: 8px 4px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg-body);
+      color: var(--dark);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: var(--transition);
+    }
+    .filter-btn.active {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      width: 100%;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: rgba(100, 116, 139, 0.1);
+      color: var(--dark);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: rgba(100, 116, 139, 0.2);
+    }
+    .btn-success {
+      background: var(--secondary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+    .btn-success:hover {
+      transform: translateY(-2px);
+    }
+    
+    .camera-select-wrapper {
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 15px;
+    }
+    .camera-select {
+      width: 100%;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-body);
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    .faq-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 30px;
+      margin-top: 50px;
+      backdrop-filter: blur(12px);
+    }
+    .faq-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    .faq-question {
+      font-weight: 700;
+      color: var(--dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-answer {
+      color: var(--text-muted);
+      margin-top: 10px;
+      display: none;
+      font-size: 0.95rem;
+    }
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+    .faq-item.open .faq-question i {
+      transform: rotate(180deg);
+    }
+    .faq-question i {
+      transition: transform 0.3s ease;
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+<header role="banner">
+  <nav class="navbar" aria-label="Main Navigation" role="navigation">
+    <div class="container nav-container">
+      <a href="index.html" class="logo" aria-label="PhotoSePDF.in Home">
+        <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> PhotoSePDF<span>.in</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="tools.html">All Tools</a></li>
+        <li><a href="articles.html">Guides</a></li>
+        <li>
+          <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="scanner-hero">
+    <div class="container">
+      <span class="badge"><i class="fa-solid fa-camera"></i> 100% Offline Cam Scanner</span>
+      <h1>Camera Se <span class="text-gradient">PDF Scanner</span></h1>
+      <p>Apne mobile camera se high-quality document scan karein, filters lagayein aur instantly secure PDF download karein.</p>
+    </div>
+  </div>
+
+  <div class="scanner-container">
+    <!-- Camera source selection if multiple exist -->
+    <div class="camera-select-wrapper" style="margin: 0 auto 20px; display: none;" id="camSelectWrapper">
+      <select id="cameraSource" class="camera-select" onchange="switchCamera(this.value)">
+        <option value="">Loading camera sources...</option>
+      </select>
+    </div>
+
+    <div class="scanner-grid">
+      <!-- LIVE CAMERA WORKSPACE -->
+      <div class="camera-card">
+        <span class="badge" style="position: absolute; top: 15px; left: 15px; z-index: 10; background: var(--secondary); color: white;"><i class="fa-solid fa-circle-play"></i> Live Camera</span>
+        <div class="video-viewport">
+          <video id="videoStream" autoplay playsinline muted></video>
+          <div id="flashOverlay" class="capture-flash"></div>
+        </div>
+        
+        <div class="camera-controls">
+          <button id="captureBtn" class="btn btn-primary">
+            <i class="fa-solid fa-camera-retro"></i> Capture Photo
+          </button>
+          <button id="toggleCameraBtn" class="btn btn-secondary" style="width: auto; padding: 12px 20px; display: none;">
+            <i class="fa-solid fa-camera-rotate"></i> Toggle Camera
+          </button>
+        </div>
+      </div>
+      
+      <!-- STACK & ACTIONS -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <!-- Scanned Pages Stack -->
+        <div class="stack-card">
+          <div class="stack-title">
+            <span><i class="fa-solid fa-layer-group" style="color:var(--primary);"></i> Scanned Pages</span>
+            <span class="page-count-badge" id="pageCount">0 Pages</span>
+          </div>
+          
+          <div class="pages-strip" id="pagesStack">
+            <p id="emptyStackMsg" style="grid-column: 1 / -1; text-align: center; color: var(--text-muted); font-size: 0.9rem; padding: 20px 0;">
+              Dosto, abhi koi page scan nahi kiya hai. Upar capture karein!
+            </p>
+          </div>
+        </div>
+        
+        <!-- Page Editing Filters -->
+        <div class="filter-section" id="filterSection">
+          <div class="stack-title" style="border-bottom: none; padding-bottom: 0;">
+            <span><i class="fa-solid fa-sliders" style="color:var(--primary);"></i> Page Enhance Filters</span>
+          </div>
+          
+          <!-- Contrast brightness rotation controls -->
+          <div class="filter-options">
+            <div class="filter-btn active" id="fOrig" onclick="applyFilter('original')">Original</div>
+            <div class="filter-btn" id="fEnhance" onclick="applyFilter('enhance')">Enhance</div>
+            <div class="filter-btn" id="fMono" onclick="applyFilter('mono')">B&W Document</div>
+            <div class="filter-btn" id="fGray" onclick="applyFilter('gray')">Grayscale</div>
+          </div>
+          
+          <div style="display: flex; gap: 8px; margin-top: 15px;">
+            <button class="btn btn-secondary" onclick="rotateSelectedPage()" style="padding: 10px; font-size: 0.85rem;"><i class="fa-solid fa-rotate-right"></i> Rotate 90&deg;</button>
+            <button class="btn btn-secondary" onclick="deleteSelectedPage()" style="padding: 10px; font-size: 0.85rem; background: rgba(239, 68, 68, 0.1); color: #EF4444; border-color: rgba(239, 68, 68, 0.2);"><i class="fa-solid fa-trash-can"></i> Delete</button>
+          </div>
+        </div>
+        
+        <!-- Complete download -->
+        <div class="stack-card" id="downloadCard" style="display: none;">
+          <button id="generatePdfBtn" class="btn btn-success">
+            <i class="fa-solid fa-file-pdf"></i> Generate & Download PDF
+          </button>
+          <button id="resetAllBtn" class="btn btn-secondary">
+            <i class="fa-solid fa-arrows-rotate"></i> Reset All
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Container -->
+    <div class="faq-container">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          1. Kya meri camera scans private aur safe hain? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Haan, 100%! PhotoSePDF.in offline architecture par runs karta hai. Aapke camera ka stream aur captured photos direct aapke phone ya computer ki local sandbox memory (RAM) mein processing hoti hai. Kisi bhi remote servers par frames upload nahi hoti hain.
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          2. Document Enhance filters kaise kaam karte hain? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          CamScanner alternative style me, **Enhance filter** brightness and contrast values optimize karta hai jo photo ke standard page background shadows clean kar deta hai aur black text ko sharp and bright white margins ke sath format karta hai.
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          3. Back camera aur flash functionality control ho sakti hai? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Haan! Agar aap mobile phone par website run kar rahe hain, toh camera drop-down or toggle button se aap direct phone ke Back main sensor camera ko trigger kar sakte hain, jisse document details scanned crisp display hote hain.
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="premium-footer">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 20px;">
+      <a href="index.html" style="color:var(--primary); margin:0 10px;">Home Tool</a> |
+      <a href="tools.html" style="color:var(--primary); margin:0 10px;">All Tools</a> |
+      <a href="articles.html" style="color:var(--primary); margin:0 10px;">Guides</a> |
+      <a href="privacy-policy.html" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Privacy Policy</a> |
+      <a href="terms.html" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Terms of Service</a>
+    </div>
+    <p class="copyright" style="text-align: center;">&copy; 2026 PhotoSePDF.in. Secure offline scan power.</p>
+  </div>
+</footer>
+
+<script>
+  // Theme Toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  const htmlEl = document.documentElement;
+  
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  htmlEl.setAttribute('data-theme', savedTheme);
+  updateThemeIcon(savedTheme);
+  
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = htmlEl.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    htmlEl.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+  });
+  
+  function updateThemeIcon(theme) {
+    const icon = themeToggle.querySelector('i');
+    if (theme === 'dark') {
+      icon.className = 'fa-solid fa-sun';
+    } else {
+      icon.className = 'fa-solid fa-moon';
+    }
+  }
+
+  // FAQ logic
+  document.querySelectorAll('.faq-question').forEach(item => {
+    item.addEventListener('click', () => {
+      const parent = item.parentElement;
+      const isOpen = parent.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+      if (!isOpen) parent.classList.add('open');
+    });
+  });
+
+  // CAMERA & SCANNING SYSTEM
+  const video = document.getElementById('videoStream');
+  const captureBtn = document.getElementById('captureBtn');
+  const toggleCameraBtn = document.getElementById('toggleCameraBtn');
+  const camSelectWrapper = document.getElementById('camSelectWrapper');
+  const cameraSource = document.getElementById('cameraSource');
+  const flashOverlay = document.getElementById('flashOverlay');
+  
+  const pagesStack = document.getElementById('pagesStack');
+  const emptyStackMsg = document.getElementById('emptyStackMsg');
+  const pageCountBadge = document.getElementById('pageCount');
+  
+  const filterSection = document.getElementById('filterSection');
+  const downloadCard = document.getElementById('downloadCard');
+  const generatePdfBtn = document.getElementById('generatePdfBtn');
+  const resetAllBtn = document.getElementById('resetAllBtn');
+  
+  let mediaStream = null;
+  let videoDevices = [];
+  let currentDeviceIdx = 0;
+  
+  // Document pages stack
+  let scannedPages = []; // array of { originalDataUrl, enhancedDataUrl, filter, rotation }
+  let selectedPageIndex = -1;
+
+  // Initialize webcam
+  async function initWebcam() {
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      videoDevices = devices.filter(device => device.kind === 'videoinput');
+      
+      if (videoDevices.length > 1) {
+        camSelectWrapper.style.display = 'block';
+        toggleCameraBtn.style.display = 'inline-flex';
+        
+        cameraSource.innerHTML = '';
+        videoDevices.forEach((device, index) => {
+          const opt = document.createElement('option');
+          opt.value = device.deviceId;
+          opt.textContent = device.label || `Camera ${index + 1}`;
+          cameraSource.appendChild(opt);
+        });
+      }
+      
+      // Load default camera (prefer back camera if available on mobile)
+      let backCam = videoDevices.find(d => d.label.toLowerCase().includes('back') || d.label.toLowerCase().includes('environment'));
+      let constraints = {
+        video: {
+          width: { ideal: 1920 },
+          height: { ideal: 1080 },
+          facingMode: backCam ? undefined : 'environment'
+        }
+      };
+      
+      if (backCam) {
+        constraints.video.deviceId = { exact: backCam.deviceId };
+        cameraSource.value = backCam.deviceId;
+      } else if (videoDevices.length > 0) {
+        constraints.video.deviceId = { exact: videoDevices[0].deviceId };
+      }
+      
+      startStream(constraints);
+      
+    } catch(err) {
+      console.error(err);
+      alert('Camera access disabled or unsupported: ' + err.message);
+    }
+  }
+
+  async function startStream(constraints) {
+    if (mediaStream) {
+      mediaStream.getTracks().forEach(track => track.stop());
+    }
+    
+    try {
+      mediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+      video.srcObject = mediaStream;
+    } catch(err) {
+      console.error(err);
+      alert('Error starting stream: ' + err.message);
+    }
+  }
+
+  window.switchCamera = function(deviceId) {
+    startStream({
+      video: { deviceId: { exact: deviceId } }
+    });
+  }
+
+  toggleCameraBtn.addEventListener('click', () => {
+    if (videoDevices.length <= 1) return;
+    currentDeviceIdx = (currentDeviceIdx + 1) % videoDevices.length;
+    cameraSource.value = videoDevices[currentDeviceIdx].deviceId;
+    switchCamera(videoDevices[currentDeviceIdx].deviceId);
+  });
+
+  // Capture frame
+  captureBtn.addEventListener('click', () => {
+    if (!video.srcObject) return;
+    
+    // Trigger visual flash
+    flashOverlay.classList.add('active');
+    setTimeout(() => flashOverlay.classList.remove('active'), 150);
+    
+    const hiddenCanvas = document.createElement('canvas');
+    const hiddenCtx = hiddenCanvas.getContext('2d');
+    
+    // Set matching dimensions
+    hiddenCanvas.width = video.videoWidth;
+    hiddenCanvas.height = video.videoHeight;
+    
+    // Draw current video frame
+    hiddenCtx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+    const dataUrl = hiddenCanvas.toDataURL('image/jpeg', 0.92);
+    
+    // Add page to stack
+    const newPage = {
+      originalDataUrl: dataUrl,
+      enhancedDataUrl: dataUrl,
+      filter: 'original',
+      rotation: 0
+    };
+    
+    scannedPages.push(newPage);
+    selectedPageIndex = scannedPages.length - 1;
+    
+    updatePagesUI();
+  });
+
+  function updatePagesUI() {
+    if (scannedPages.length === 0) {
+      emptyStackMsg.style.display = 'block';
+      filterSection.style.display = 'none';
+      downloadCard.style.display = 'none';
+      pageCountBadge.textContent = '0 Pages';
+      return;
+    }
+    
+    emptyStackMsg.style.display = 'none';
+    filterSection.style.display = 'block';
+    downloadCard.style.display = 'block';
+    pageCountBadge.textContent = `${scannedPages.length} Page${scannedPages.length > 1 ? 's' : ''}`;
+    
+    // Clear thumbnail list (except placeholder empty message)
+    const existingThumbs = pagesStack.querySelectorAll('.page-thumb-wrapper');
+    existingThumbs.forEach(t => t.remove());
+    
+    // Build thumbnails
+    scannedPages.forEach((page, idx) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = `page-thumb-wrapper ${idx === selectedPageIndex ? 'active' : ''}`;
+      wrapper.onclick = () => selectPage(idx);
+      
+      const img = document.createElement('img');
+      img.src = page.enhancedDataUrl;
+      img.className = 'page-thumb';
+      
+      // Handle rotation preview CSS
+      img.style.transform = `rotate(${page.rotation}deg)`;
+      
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'delete-page-btn';
+      deleteBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+      deleteBtn.onclick = (e) => {
+        e.stopPropagation();
+        deletePage(idx);
+      };
+      
+      const numLabel = document.createElement('span');
+      numLabel.className = 'page-number';
+      numLabel.textContent = idx + 1;
+      
+      wrapper.appendChild(img);
+      wrapper.appendChild(deleteBtn);
+      wrapper.appendChild(numLabel);
+      pagesStack.appendChild(wrapper);
+    });
+    
+    // Update active filter card visual classes
+    if (selectedPageIndex !== -1) {
+      const activeFilter = scannedPages[selectedPageIndex].filter;
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      if (activeFilter === 'original') document.getElementById('fOrig').classList.add('active');
+      if (activeFilter === 'enhance') document.getElementById('fEnhance').classList.add('active');
+      if (activeFilter === 'mono') document.getElementById('fMono').classList.add('active');
+      if (activeFilter === 'gray') document.getElementById('fGray').classList.add('active');
+    }
+  }
+
+  function selectPage(idx) {
+    selectedPageIndex = idx;
+    updatePagesUI();
+  }
+
+  function deletePage(idx) {
+    scannedPages.splice(idx, 1);
+    if (selectedPageIndex >= scannedPages.length) {
+      selectedPageIndex = scannedPages.length - 1;
+    }
+    updatePagesUI();
+  }
+
+  window.deleteSelectedPage = function() {
+    if (selectedPageIndex !== -1) {
+      deletePage(selectedPageIndex);
+    }
+  }
+
+  window.rotateSelectedPage = function() {
+    if (selectedPageIndex === -1) return;
+    
+    let curRot = scannedPages[selectedPageIndex].rotation;
+    curRot = (curRot + 90) % 360;
+    scannedPages[selectedPageIndex].rotation = curRot;
+    
+    // Apply visual rotation update
+    updatePagesUI();
+  }
+
+  // IMAGE FILTER ENHANCEMENTS (100% OFFLINE IN BROWSER)
+  window.applyFilter = function(filterName) {
+    if (selectedPageIndex === -1) return;
+    
+    const page = scannedPages[selectedPageIndex];
+    page.filter = filterName;
+    
+    // Re-render thumbnail using canvas pipeline filters
+    const imgObj = new Image();
+    imgObj.onload = function() {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = imgObj.width;
+      canvas.height = imgObj.height;
+      
+      if (filterName === 'original') {
+        ctx.drawImage(imgObj, 0, 0);
+      } else if (filterName === 'enhance') {
+        // High contrast document scanner enhancements
+        ctx.filter = 'contrast(1.45) brightness(1.08)';
+        ctx.drawImage(imgObj, 0, 0);
+        ctx.filter = 'none';
+      } else if (filterName === 'mono') {
+        // High threshold black and white photocopy style
+        ctx.filter = 'contrast(2.0) brightness(1.1) grayscale(1.0)';
+        ctx.drawImage(imgObj, 0, 0);
+        ctx.filter = 'none';
+      } else if (filterName === 'gray') {
+        ctx.filter = 'grayscale(1.0)';
+        ctx.drawImage(imgObj, 0, 0);
+        ctx.filter = 'none';
+      }
+      
+      page.enhancedDataUrl = canvas.toDataURL('image/jpeg', 0.9);
+      updatePagesUI();
+    }
+    imgObj.src = page.originalDataUrl;
+  }
+
+  // COMPILE MULTI-PAGE SCAN TO PDF
+  generatePdfBtn.addEventListener('click', async () => {
+    if (scannedPages.length === 0) return;
+    
+    generatePdfBtn.disabled = true;
+    generatePdfBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating PDF Document...';
+    
+    try {
+      const pdfDoc = await PDFLib.PDFDocument.create();
+      
+      for (let i = 0; i < scannedPages.length; i++) {
+        const page = scannedPages[i];
+        
+        // Fetch raw image bytes from dynamic DataURL
+        const imgBytes = await fetch(page.enhancedDataUrl).then(res => res.arrayBuffer());
+        const embeddedImg = await pdfDoc.embedJpg(imgBytes);
+        
+        // Manage rotation swap page parameters
+        let pageW = embeddedImg.width;
+        let pageH = embeddedImg.height;
+        
+        // Swap dimensions if rotated 90 or 270 degrees
+        if (page.rotation === 90 || page.rotation === 270) {
+          pageW = embeddedImg.height;
+          pageH = embeddedImg.width;
+        }
+        
+        const newPage = pdfDoc.addPage([pageW, pageH]);
+        
+        // PDF-Lib rotation expects angles in degrees
+        newPage.drawImage(embeddedImg, {
+          x: page.rotation === 90 ? pageW : (page.rotation === 180 ? pageW : 0),
+          y: page.rotation === 180 ? pageH : (page.rotation === 270 ? pageH : 0),
+          width: embeddedImg.width,
+          height: embeddedImg.height,
+          rotate: PDFLib.degrees(page.rotation)
+        });
+      }
+      
+      const pdfBytes = await pdfDoc.save();
+      
+      // Trigger download
+      const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      
+      // Generate clean timestamp name
+      const now = new Date();
+      const dateStr = now.toISOString().slice(0,10);
+      link.download = `PhotoSePDF_Scan_${dateStr}.pdf`;
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      
+      generatePdfBtn.disabled = false;
+      generatePdfBtn.innerHTML = '<i class="fa-solid fa-file-pdf"></i> Generate & Download PDF';
+      alert('Scanned PDF Document successfully generated and downloaded!');
+      
+    } catch(err) {
+      console.error(err);
+      alert('Error generating PDF: ' + err.message);
+      generatePdfBtn.disabled = false;
+      generatePdfBtn.innerHTML = '<i class="fa-solid fa-file-pdf"></i> Generate & Download PDF';
+    }
+  });
+
+  resetAllBtn.addEventListener('click', () => {
+    if (confirm('Bhai, kya aap sachme saare scanned pages delete karna chahte hain?')) {
+      scannedPages = [];
+      selectedPageIndex = -1;
+      updatePagesUI();
+    }
+  });
+
+  // Initialize on load
+  initWebcam();
+</script>
+</body>
+</html>

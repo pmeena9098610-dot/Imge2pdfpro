@@ -323,6 +323,21 @@
     <changefreq>weekly</changefreq>
     <priority>0.70</priority>
   </url>
+  <url>
+    <loc>https://photosepdf.in/camera-to-pdf.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://photosepdf.in/ai-summarizer.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://photosepdf.in/ai-notes.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
 </urlset>
 
 
