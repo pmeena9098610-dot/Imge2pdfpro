@@ -47,11 +47,18 @@
 </head>
 <body>
 <header role="banner">
-    <nav class="navbar" aria-label="Main Navigation" role="navigation">
+        <nav class="navbar" aria-label="Main Navigation" role="navigation">
         <div class="container nav-container">
             <a href="/" class="logo" aria-label="PhotoSePDF.in Home">
                 <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> PhotoSePDF<span>.in</span>
             </a>
+            
+            <!-- Pure CSS Checkbox Mobile Menu Hack -->
+            <input type="checkbox" id="menu-toggle-cb" class="menu-toggle-cb">
+            <label for="menu-toggle-cb" class="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+            
             <ul class="nav-links">
                 <li><a href="/">Home</a></li>
                 <li><a href="/tools.html" style="color:var(--primary); font-weight:700;">All Tools</a></li>

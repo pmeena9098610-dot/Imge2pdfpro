@@ -319,15 +319,23 @@
     }
     </script>
 </head>
-<bo
-    <header role="banner">
+<body>
+        <header role="banner">
         <nav class="navbar" aria-label="Main Navigation" role="navigation">
             <div class="container nav-container">
                 <a href="#" class="logo" aria-label="Img2PDF Pro Home">
                     <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Img2PDF<span>Pro</span>
                 </a>
+                
+                <!-- Pure CSS Checkbox Mobile Menu Hack -->
+                <input type="checkbox" id="menu-toggle-cb" class="menu-toggle-cb">
+                <label for="menu-toggle-cb" class="mobile-menu-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </label>
+                
                 <ul class="nav-links">
-                    <li><a href="#tool">Converter</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/tools.html" style="color:var(--primary); font-weight:700;">All Tools</a></li>
                     <li><a href="#features">Features</a></li>
                     <li><a href="articles.html" style="color:var(--primary); font-weight:600;">Guides</a></li>
                     <li>
@@ -354,6 +362,45 @@
                 <!-- No. 1 Privacy Banner -->
                 <div class="privacy-assurance-banner fade-up visible delay-200">
                     <i class="fa-solid fa-lock"></i> Files never leave your device. Processing is 100% Private & Local.
+                </div>
+
+                <!-- Premium Quick Tools Scroll Row -->
+                <div class="quick-tools-scroll-container fade-up visible delay-200">
+                    <span class="quick-tools-label"><i class="fa-solid fa-bolt"></i> Quick Switch:</span>
+                    <div class="quick-tools-wrapper">
+                        <a href="/" class="quick-tool-pill active">
+                            <span class="pill-icon" style="background:#6366F1;"><i class="fa-solid fa-images"></i></span>
+                            <span class="pill-name">Image to PDF</span>
+                        </a>
+                        <a href="/camera-to-pdf.html" class="quick-tool-pill">
+                            <span class="pill-icon" style="background:#10B981;"><i class="fa-solid fa-camera"></i></span>
+                            <span class="pill-name">Camera to PDF</span>
+                        </a>
+                        <a href="/ocr-pdf.html" class="quick-tool-pill">
+                            <span class="pill-icon" style="background:#EC4899;"><i class="fa-solid fa-text-width"></i></span>
+                            <span class="pill-name">OCR Text Extract</span>
+                        </a>
+                        <a href="/ai-summarizer.html" class="quick-tool-pill">
+                            <span class="pill-icon" style="background:#8B5CF6;"><i class="fa-solid fa-robot"></i></span>
+                            <span class="pill-name">AI Summarizer</span>
+                        </a>
+                        <a href="/ai-notes.html" class="quick-tool-pill">
+                            <span class="pill-icon" style="background:#3B82F6;"><i class="fa-solid fa-list-check"></i></span>
+                            <span class="pill-name">AI Notes Gen</span>
+                        </a>
+                        <a href="/compress-pdf.html" class="quick-tool-pill">
+                            <span class="pill-icon" style="background:#F59E0B;"><i class="fa-solid fa-compress"></i></span>
+                            <span class="pill-name">Compress PDF</span>
+                        </a>
+                        <a href="/merge-pdf.html" class="quick-tool-pill">
+                            <span class="pill-icon" style="background:#10B981;"><i class="fa-solid fa-object-group"></i></span>
+                            <span class="pill-name">Merge PDF</span>
+                        </a>
+                        <a href="/tools.html" class="quick-tool-pill view-all-pill">
+                            <span class="pill-icon" style="background:#64748B;"><i class="fa-solid fa-toolbox"></i></span>
+                            <span class="pill-name">View All Tools</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
