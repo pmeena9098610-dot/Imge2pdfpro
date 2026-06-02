@@ -3,14 +3,7 @@
   "notFound": "/404.html",
   "cleanUrls": true,
   "trailingSlash": false,
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.photosepdf.in" }],
-      "destination": "https://photosepdf.in/:path*",
-      "permanent": true
-    }
-  ],
+  "redirects": [],
   "headers": [
     {
       "source": "/(.*)",
@@ -72,4 +65,3 @@
     }
   ]
 }
-
