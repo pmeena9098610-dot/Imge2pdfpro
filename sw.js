@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'img2pdf-pro-v22-step3-blog-guides';
+﻿const CACHE_NAME = 'img2pdf-pro-v23-step3-all-advanced-tools';
 const ASSETS = [
     './',
     './index.html',
@@ -26,6 +26,11 @@ const ASSETS = [
     './photo-ko-pdf-kaise-banaye.html',
     './mobile-se-pdf-kaise-banaye.html',
     './pdf-size-kam-kaise-kare.html',
+    './ocr-pdf.html',
+    './pdf-password.html',
+    './esignature.html',
+    './aadhar-ko-pdf-mein-convert.html',
+    './pdf-tools-comparison.html',
     './aadhar-card-photo-to-pdf.html',
     './compress-pdf-100kb.html',
     './heic-to-pdf-converter.html',
