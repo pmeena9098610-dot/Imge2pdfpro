@@ -1,4 +1,4 @@
-const CACHE_NAME = 'img2pdf-pro-v21-adsense-compliance';
+﻿const CACHE_NAME = 'img2pdf-pro-v22-step3-blog-guides';
 const ASSETS = [
     './',
     './index.html',
@@ -23,6 +23,9 @@ const ASSETS = [
     './privacy-policy.html',
     './terms.html',
     './articles.html',
+    './photo-ko-pdf-kaise-banaye.html',
+    './mobile-se-pdf-kaise-banaye.html',
+    './pdf-size-kam-kaise-kare.html',
     './aadhar-card-photo-to-pdf.html',
     './compress-pdf-100kb.html',
     './heic-to-pdf-converter.html',
