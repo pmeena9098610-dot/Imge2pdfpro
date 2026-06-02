@@ -1793,18 +1793,62 @@ body {
     line-height: 1.2;
 }
 
-/* Print-only: hide everything except A4 sheet */
+/* Print-only: hide everything except the A4 preview sheet */
 @media print {
-    body * { visibility: hidden; }
-    #studio-a4-sheet, #studio-a4-sheet * { visibility: visible; }
+    /* Hide the entire website body content */
+    body > *:not(#print-studio-modal) {
+        display: none !important;
+    }
+    
+    /* Make sure the modal is fully visible and occupies the entire page */
+    #print-studio-modal {
+        display: flex !important;
+        position: absolute !important;
+        inset: 0 !important;
+        background: white !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        backdrop-filter: none !important;
+        overflow: visible !important;
+    }
+
+    /* Hide the controls sidebar inside the modal */
+    #print-studio-modal > div:first-child {
+        display: none !important;
+    }
+
+    /* Hide the parent header, sub-text, and padding of the preview container */
+    #print-studio-modal > div:last-child {
+        padding: 0 !important;
+        background: white !important;
+        overflow: visible !important;
+        display: block !important;
+    }
+
+    #print-studio-modal > div:last-child > *:not(#studio-a4-sheet) {
+        display: none !important;
+    }
+
+    /* Format the A4 sheet perfectly for the physical printer */
     #studio-a4-sheet {
-        position: fixed !important;
-        top: 0; left: 0;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
         width: 210mm !important;
+        height: 297mm !important;
         min-height: 297mm !important;
         box-shadow: none !important;
-        transform: none !important;
+        border: none !important;
         margin: 0 !important;
+        padding: 0 !important;
+        transform: none !important;
+        display: block !important;
+        visibility: visible !important;
+    }
+
+    /* Ensure all child elements of A4 sheet are visible */
+    #studio-a4-sheet * {
+        visibility: visible !important;
     }
 }
 
