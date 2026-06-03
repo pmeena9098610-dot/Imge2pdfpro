@@ -1410,6 +1410,9 @@
                 const imgEl = await loadImageFromDataUrl(files[i].dataUrl);
                 let newW = imgEl.width, newH = imgEl.height;
 
+                let activeMimeType = currentMimeType;
+                let activeExt = currentExt;
+
                 if (mode === 'by-percent') {
                     newW = Math.round(imgEl.width * percent / 100);
                     newH = Math.round(imgEl.height * percent / 100);
@@ -1424,33 +1427,83 @@
                         newW = targetW; newH = targetH;
                     }
                 } else if (mode === 'by-kb') {
-                    newW = imgEl.width; newH = imgEl.height;
+                    // For size-targeting in KB, fallback PNG to JPEG because PNG lossless compression cannot hit specific sizes
+                    if (activeMimeType === 'image/png') {
+                        activeMimeType = 'image/jpeg';
+                        activeExt = 'jpg';
+                    }
+
+                    // Bounding limit first to avoid memory overhead
+                    const maxB = 1600;
+                    if (imgEl.width > maxB || imgEl.height > maxB) {
+                        const ratio = Math.min(maxB / imgEl.width, maxB / imgEl.height);
+                        newW = Math.round(imgEl.width * ratio);
+                        newH = Math.round(imgEl.height * ratio);
+                    }
+
+                    // Dynamically scale down dimensions if size at medium quality (0.5) is larger than target KB
+                    let scale = 1.0;
+                    let attempts = 0;
+                    let testCanvas = document.createElement('canvas');
+                    let testCtx = testCanvas.getContext('2d');
+                    
+                    while (attempts < 6) {
+                        let curW = Math.round(newW * scale);
+                        let curH = Math.round(newH * scale);
+                        testCanvas.width = curW;
+                        testCanvas.height = curH;
+                        
+                        testCtx.clearRect(0, 0, curW, curH);
+                        if (activeMimeType === 'image/jpeg') {
+                            testCtx.fillStyle = '#FFFFFF';
+                            testCtx.fillRect(0, 0, curW, curH);
+                        }
+                        testCtx.drawImage(imgEl, 0, 0, curW, curH);
+                        
+                        let testUrl = testCanvas.toDataURL(activeMimeType, 0.5);
+                        let testKb = Math.round((testUrl.length * 3) / 4 / 1024);
+                        
+                        if (testKb <= targetKb || scale <= 0.25) {
+                            newW = curW;
+                            newH = curH;
+                            break;
+                        }
+                        
+                        scale -= 0.15;
+                        attempts++;
+                    }
                 }
 
                 const canvas = document.createElement('canvas');
                 canvas.width = newW; canvas.height = newH;
                 const ctx = canvas.getContext('2d');
-                ctx.fillStyle = '#FFFFFF';
-                ctx.fillRect(0, 0, newW, newH);
+                
+                // Keep transparent background for PNG/WEBP outputs, fill white only for JPEGs
+                if (activeMimeType === 'image/jpeg') {
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillRect(0, 0, newW, newH);
+                } else {
+                    ctx.clearRect(0, 0, newW, newH);
+                }
                 ctx.drawImage(imgEl, 0, 0, newW, newH);
 
                 let dataUrl;
                 if (mode === 'by-kb') {
-                    // Binary search for quality
-                    let lo = 0.1, hi = 0.99;
+                    // Fine-tuned binary search for size
+                    let lo = 0.1, hi = 0.95;
                     for (let iter = 0; iter < 8; iter++) {
                         const mid = (lo + hi) / 2;
-                        dataUrl = canvas.toDataURL(currentMimeType, mid);
+                        dataUrl = canvas.toDataURL(activeMimeType, mid);
                         const kb = Math.round((dataUrl.length * 3) / 4 / 1024);
                         if (kb > targetKb) hi = mid; else lo = mid;
                     }
                 } else {
-                    dataUrl = canvas.toDataURL(currentMimeType, quality);
+                    dataUrl = canvas.toDataURL(activeMimeType, quality);
                 }
 
                 const sizeKb = Math.round((dataUrl.length * 3) / 4 / 1024);
                 const baseName = (files[i].file?.name || files[i].name || 'image').replace(/\.[^.]+$/, '');
-                results.push({ dataUrl, name: `${baseName}_resized_${newW}x${newH}.${currentExt}`, w: newW, h: newH, sizeKb, original: files[i] });
+                results.push({ dataUrl, name: `${baseName}_resized_${newW}x${newH}.${activeExt}`, w: newW, h: newH, sizeKb, original: files[i] });
             }
 
             hideProgress();
@@ -1512,7 +1565,8 @@
             const pdfW = 794, pdfH = 1123;
             const ratio = Math.min(pdfW / r.w, pdfH / r.h);
             const dW = r.w * ratio, dH = r.h * ratio;
-            pdf.addImage(r.dataUrl, 'JPEG', (pdfW - dW) / 2, (pdfH - dH) / 2, dW, dH);
+            const format = r.name.toLowerCase().endsWith('.png') ? 'PNG' : 'JPEG';
+            pdf.addImage(r.dataUrl, format, (pdfW - dW) / 2, (pdfH - dH) / 2, dW, dH);
         }
         hideProgress();
         pdf.save('Resized_Images.pdf');
