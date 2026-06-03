@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+    <!-- ===== World-Class Security Meta Policies ===== -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <!-- ================================================ -->
+    <!-- Google AdSense (Loaded directly, auto-CMP managed via Google AdSense dashboard) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327226842644895" crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF Split Online Free | PDF Pages Alag Karo | PhotoSePDF.in</title>
+  <meta name="description" content="PDF ko split karo free mein. Pages select karo, range set karo ya single page extract karo. No upload, 100% offline. Best PDF splitter India." />
+  <meta name="keywords" content="split pdf online free, pdf pages alag karo, extract pages from pdf, split pdf india, split pdf online" />
+  <link rel="canonical" href="https://photosepdf.in/split-pdf" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="PDF Split Online Free | PhotoSePDF.in" />
+  <meta property="og:description" content="PDF ko split karo free mein offline. Range select karein ya single page extract karein." />
+  <meta property="og:image" content="https://photosepdf.in/og-image.svg" />
+  <meta property="og:url" content="https://photosepdf.in/split-pdf.html" />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6366F1">
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Third Party Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <style>
+    .split-container {
+      max-width: 900px;
+      margin: 40px auto 60px;
+      padding: 0 20px;
+    }
+    .split-hero {
+      text-align: center;
+      padding: 60px 0 30px;
+    }
+    .split-hero h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .split-hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    /* Upload Box */
+    .upload-box {
+      border: 3px dashed var(--border);
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 50px 30px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      backdrop-filter: blur(12px);
+    }
+    .upload-box:hover, .upload-box.dragover {
+      border-color: var(--primary);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .upload-icon {
+      font-size: 3.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    .upload-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .upload-hint {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    /* Tabs Styling */
+    .split-tabs {
+      display: flex;
+      gap: 10px;
+      background: var(--primary-light);
+      padding: 6px;
+      border-radius: 30px;
+      margin-bottom: 24px;
+    }
+    .split-tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      font-weight: 700;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text-main);
+      background: transparent;
+      border: none;
+    }
+    .split-tab.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Option Panels */
+    .option-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-top: 24px;
+      backdrop-filter: blur(12px);
+      display: none;
+    }
+    .option-panel.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 12px 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      background: var(--bg-main);
+      color: var(--text-main);
+      outline: none;
+      transition: var(--transition);
+    }
+    .form-control:focus {
+      border-color: var(--primary);
+    }
+    .helper-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* Thumbnails Grid */
+    .thumbnails-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg-main);
+    }
+    .thumbnail-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+    }
+    .thumbnail-card:hover {
+      border-color: var(--primary);
+    }
+    .thumbnail-card.selected {
+      border-color: var(--secondary);
+      background: rgba(16, 185, 129, 0.05);
+    }
+    .thumbnail-canvas {
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: white;
+    }
+    .thumbnail-num {
+      margin-top: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--dark);
+    }
+    .thumbnail-select-badge {
+      position: absolute;
+      top: 6px; right: 6px;
+      background: var(--secondary);
+      color: white;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+    }
+    .thumbnail-card.selected .thumbnail-select-badge {
+      display: flex;
+    }
+
+    /* Results */
+    .result-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 30px;
+      margin-top: 24px;
+      display: none;
+      text-align: center;
+      animation: fadeInUp 0.5s ease;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+      width: 100%;
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: rgba(100, 116, 139, 0.1);
+      color: var(--dark);
+      border: 1px solid var(--border);
+      margin-top: 10px;
+      width: 100%;
+    }
+    .btn-secondary:hover {
+      background: rgba(100, 116, 139, 0.2);
+    }
+    .btn-success {
+      background: var(--secondary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+      font-size: 1.1rem;
+      width: 100%;
+    }
+    .btn-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    }
+
+    /* Progress */
+    .progress-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 30px;
+      margin-top: 24px;
+      display: none;
+    }
+    .progress-bar-container {
+      background: var(--border);
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 15px 0;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.3s ease;
+    }
+    .progress-text {
+      font-weight: 600;
+      color: var(--dark);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .file-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--primary-light);
+      padding: 14px 20px;
+      border-radius: var(--radius-sm);
+      margin-top: 24px;
+    }
+
+    /* FAQ accordion */
+    .faq-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 30px;
+      margin-top: 50px;
+      backdrop-filter: blur(12px);
+    }
+    .faq-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    .faq-question {
+      font-weight: 700;
+      color: var(--dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-answer {
+      color: var(--text-muted);
+      margin-top: 10px;
+      display: none;
+      font-size: 0.95rem;
+    }
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+    .faq-item.open .faq-question i {
+      transform: rotate(180deg);
+    }
+    .faq-question i {
+      transition: transform 0.3s ease;
+      color: var(--primary);
+    }
+
+    /* Bottom tools grid */
+    .other-tools-title {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin: 60px 0 20px;
+      color: var(--dark);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<header role="banner">
+  <nav class="navbar" aria-label="Main Navigation" role="navigation">
+    <div class="container nav-container">
+      <a href="index.html" class="logo" aria-label="PhotoSePDF.in Home">
+        <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> PhotoSePDF<span>.in</span>
+      </a>
+            <!-- Pure CSS Checkbox Mobile Menu Hack -->
+            <input type="checkbox" id="menu-toggle-cb" class="menu-toggle-cb">
+            <label for="menu-toggle-cb" class="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="tools.html">All Tools</a></li>
+        <li><a href="articles.html">Guides</a></li>
+        <li>
+          <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="split-hero">
+    <div class="container">
+      <span class="badge"><i class="fa-solid fa-scissors"></i> 100% Private & Offline</span>
+      <h1>PDF Ke Pages <span class="text-gradient">Alag-Alag Karo</span></h1>
+      <p>Kisi bhi PDF file se pages extract karein ya page ranges select karke new PDFs banayein offline.</p>
+    </div>
+  </div>
+
+  <div class="split-container">
+    <div class="premium-card">
+      <div id="dropZone" class="upload-box">
+        <input type="file" id="fileInput" accept="application/pdf" style="display: none;" />
+        <div class="upload-icon">
+          <i class="fa-solid fa-scissors" style="color: var(--primary);"></i>
+        </div>
+        <div class="upload-title">Apni PDF File Upload Karein</div>
+        <div class="upload-hint">Drag & drop a PDF file or click to select</div>
+        <span class="badge" style="margin-bottom: 0;"><i class="fa-solid fa-user-lock"></i> No Servers: Aapka document hamesha secure aur private hai</span>
+      </div>
+
+      <!-- File info banner -->
+      <div id="fileBanner" class="file-banner" style="display: none;">
+        <span style="font-weight: 700; color: var(--dark);" id="fileNameLabel">document.pdf</span>
+        <span class="badge" id="filePagesLabel" style="margin: 0; background: var(--border); color: var(--text-main);">0 Pages</span>
+      </div>
+
+      <!-- Options container -->
+      <div id="optionsArea" style="display: none; margin-top: 24px;">
+        <!-- Tabs -->
+        <div class="split-tabs">
+          <button class="split-tab active" onclick="switchTab('range')"><i class="fa-solid fa-arrow-down-9-1"></i> By Range</button>
+          <button class="split-tab" onclick="switchTab('fixed')"><i class="fa-solid fa-list-ol"></i> Every N Pages</button>
+          <button class="split-tab" onclick="switchTab('single')"><i class="fa-solid fa-hand-pointer"></i> Extract Single Page</button>
+        </div>
+
+        <!-- Range Tab Panel -->
+        <div id="panel-range" class="option-panel active">
+          <div class="form-group">
+            <label for="rangeInput">Page Ranges Enter Karein</label>
+            <input type="text" id="rangeInput" class="form-control" placeholder="e.g. 1-3, 5, 8-10" />
+            <div class="helper-text">
+              Ex: <strong>1-3, 5, 7</strong> se page 1, 2, 3, 5 aur 7 merge hokar ek new PDF ban jayegi.
+            </div>
+          </div>
+        </div>
+
+        <!-- Fixed Tab Panel -->
+        <div id="panel-fixed" class="option-panel">
+          <div class="form-group">
+            <label for="fixedInput">Har N Pages Ke Chunks Banayein</label>
+            <input type="number" id="fixedInput" class="form-control" min="1" value="1" />
+            <div class="helper-text">
+              Ex: Agar 10 page ki PDF hai aur aap <strong>2</strong> enter karenge, toh 5 alag-alag PDFs banenge (har file me 2 pages).
+            </div>
+          </div>
+        </div>
+
+        <!-- Single Page Panel -->
+        <div id="panel-single" class="option-panel">
+          <label style="display: block; font-weight: 700; color: var(--dark); margin-bottom: 8px;">
+            Jis page ko extract karna hai, uspar click karein
+          </label>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+            Aap ek ya multiple pages choose kar sakte hain. Selected pages standard individual files ban kar ZIP me save honge.
+          </p>
+          <div id="thumbnailsGrid" class="thumbnails-grid"></div>
+        </div>
+
+        <div style="margin-top: 24px;">
+          <button id="splitBtn" class="btn btn-primary">
+            <i class="fa-solid fa-scissors"></i> PDF Split Karo
+          </button>
+        </div>
+      </div>
+
+      <!-- Progress Box -->
+      <div id="progressBox" class="progress-box">
+        <div class="progress-text">
+          <span id="progressState">PDF Pages extract ho rahi hain...</span>
+          <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar-container">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+      </div>
+
+      <!-- Success Box -->
+      <div id="resultBox" class="result-box">
+        <div style="font-size: 3rem; color: var(--secondary); margin-bottom: 12px;">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h2>PDF Split Complete!</h2>
+        <p style="color: var(--text-muted); margin-bottom: 20px;">Aapki split files ready hain.</p>
+
+        <button id="downloadBtn" class="btn btn-success" style="margin-bottom: 12px;">
+          <i class="fa-solid fa-file-zipper"></i> Download All as ZIP
+        </button>
+        <button id="resetBtn" class="btn btn-secondary">
+          <i class="fa-solid fa-rotate-left"></i> Dusra PDF Split Karein
+        </button>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-container">
+      <div class="faq-title"><i class="fa-solid fa-circle-question" style="color: var(--primary);"></i> FAQs — Split PDF Tool</div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Page range kaise specify karein?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Aap ranges aur single pages ko commas se separate karke likh sakte hain. Jaise ki "1-4, 7, 9-11". Isse pages 1, 2, 3, 4, 7, 9, 10, 11 select honge aur unka combine PDF ban jayega.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Extract single page mode kaise kaam karta hai?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Is option me aapki PDF ke sabhi pages ke thumbnail previews show hote hain. Aap un thumbnails par click karke direct click-select kar sakte hain. Aap jo pages select karenge, vo local client-side par individual PDF ban jayengi.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Split hone ke baad files kis format me download hoti hain?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Agar split karne se do ya usse zyada alag-alag PDF files banti hain, toh hum unhe aasaani ke liye ek safe compressed ZIP folder me pack kar dete hain. Aap us ZIP ko download karke extract kar sakte hain. Single file output ke case me direct PDF download hoti hai.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Is split operation ke liye internet connection zaroori hai?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Bilkul nahi! PhotoSePDF.in fully offline tool hai. Upload karne se lekar splitting, previews rendering aur ZIP compression tak saara kaam bina kisi server ke locally browser context me 100% secure offline hota hai.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Kya split PDF tool completely free hai?</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Haan! Humari website ke saare features free hain. Koi signature watermark, size limits ya daily bounds nahi hain.
+        </div>
+      </div>
+    </div>
+
+    <!-- Related tools grid -->
+    <h2 class="other-tools-title">Aapke Kaam Ke Dusre Tools</h2>
+    <div class="tools-grid-full" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+      <a href="compress-pdf.html" class="tool-card-full">
+        <div class="tool-icon-lg" style="background: linear-gradient(135deg, #3B82F6, #1D4ED8);"><i class="fa-solid fa-compress-arrows-alt"></i></div>
+        <div class="tool-name">Compress PDF</div>
+        <div class="tool-desc-sm">PDF ka size compress karein</div>
+      </a>
+      <a href="merge-pdf.html" class="tool-card-full">
+        <div class="tool-icon-lg" style="background: linear-gradient(135deg, #10B981, #059669);"><i class="fa-solid fa-file-signature"></i></div>
+        <div class="tool-name">Merge PDF</div>
+        <div class="tool-desc-sm">Multiple PDFs combine karein</div>
+      </a>
+      <a href="pdf-to-jpg.html" class="tool-card-full">
+        <div class="tool-icon-lg" style="background: linear-gradient(135deg, #8B5CF6, #7C3AED);"><i class="fa-solid fa-file-image"></i></div>
+        <div class="tool-name">PDF to JPG</div>
+        <div class="tool-desc-sm">PDF ko images mein convert karein</div>
+      </a>
+      <a href="index.html" class="tool-card-full">
+        <div class="tool-icon-lg" style="background: linear-gradient(135deg, #F59E0B, #D97706);"><i class="fa-solid fa-images"></i></div>
+        <div class="tool-name">Photo to PDF</div>
+        <div class="tool-desc-sm">Apni images ko PDF banayein</div>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer role="contentinfo" style="background: var(--dark); color: white; padding: 40px 0; text-align: center; margin-top: 80px;">
+  <div class="container">
+    <p style="font-weight: 700; margin-bottom: 10px;">PhotoSePDF.in</p>
+    <p style="font-size: 0.85rem; color: #94A3B8;">Bharat Ka Apna Safe, Secure & Offline PDF Toolkit. 🇮🇳</p>
+    <p style="font-size: 0.8rem; color: #64748B; margin-top: 15px;">&copy; 2026 PhotoSePDF.in. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Theme Toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  const htmlEl = document.documentElement;
+
+  const currentTheme = localStorage.getItem('theme') || 'light';
+  htmlEl.setAttribute('data-theme', currentTheme);
+  updateThemeIcon(currentTheme);
+
+  themeToggle.addEventListener('click', () => {
+    const current = htmlEl.getAttribute('data-theme');
+    const target = current === 'dark' ? 'light' : 'dark';
+    htmlEl.setAttribute('data-theme', target);
+    localStorage.setItem('theme', target);
+    updateThemeIcon(target);
+  });
+
+  function updateThemeIcon(theme) {
+    const icon = themeToggle.querySelector('i');
+    if (theme === 'dark') {
+      icon.className = 'fa-solid fa-sun';
+    } else {
+      icon.className = 'fa-solid fa-moon';
+    }
+  }
+
+  function toggleFaq(el) {
+    el.parentElement.classList.toggle('open');
+  }
+
+  // --- PDF SPLIT & PREVIEWS LOGIC ---
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const fileBanner = document.getElementById('fileBanner');
+  const fileNameLabel = document.getElementById('fileNameLabel');
+  const filePagesLabel = document.getElementById('filePagesLabel');
+  const optionsArea = document.getElementById('optionsArea');
+  const thumbnailsGrid = document.getElementById('thumbnailsGrid');
+  const splitBtn = document.getElementById('splitBtn');
+  const progressBox = document.getElementById('progressBox');
+  const progressBar = document.getElementById('progressBar');
+  const progressPercent = document.getElementById('progressPercent');
+  const progressState = document.getElementById('progressState');
+  const resultBox = document.getElementById('resultBox');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const resetBtn = document.getElementById('resetBtn');
+
+  let uploadedFile = null;
+  let fileBuffer = null;
+  let pdfPageCount = 0;
+  let activeTab = 'range';
+  let selectedPages = new Set(); // For single/multi selection
+  let zipBlob = null;
+  let singlePdfBlob = null; // If only 1 file is produced
+
+  dropZone.addEventListener('click', () => fileInput.click());
+  
+  dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+  });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    if (e.dataTransfer.files.length > 0) {
+      handleFile(e.dataTransfer.files[0]);
+    }
+  });
+
+  fileInput.addEventListener('change', (e) => {
+    if (e.target.files.length > 0) {
+      handleFile(e.target.files[0]);
+    }
+  });
+
+  async function handleFile(file) {
+    if (file.type !== 'application/pdf') {
+      alert('Kripya valid PDF file select karein.');
+      return;
+    }
+    uploadedFile = file;
+    fileNameLabel.innerText = file.name;
+    
+    fileBuffer = await readFileAsArrayBuffer(file);
+    
+    try {
+      const doc = await PDFLib.PDFDocument.load(fileBuffer);
+      pdfPageCount = doc.getPageCount();
+      filePagesLabel.innerText = `${pdfPageCount} Pages`;
+    } catch (err) {
+      console.error(err);
+      alert('File open karne me error: File locked ya corrupted ho sakti hai.');
+      return;
+    }
+
+    dropZone.style.display = 'none';
+    fileBanner.style.display = 'flex';
+    optionsArea.style.display = 'block';
+
+    // Render previews lazily
+    renderPreviews();
+  }
+
+  function readFileAsArrayBuffer(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve(e.target.result);
+      reader.onerror = (err) => reject(err);
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
+  // Switch Tab
+  window.switchTab = function(tabName) {
+    activeTab = tabName;
+    document.querySelectorAll('.split-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.option-panel').forEach(p => p.classList.remove('active'));
+
+    const btn = document.querySelector(`.split-tab[onclick="switchTab('${tabName}')"]`);
+    if (btn) btn.classList.add('active');
+
+    const panel = document.getElementById(`panel-${tabName}`);
+    if (panel) panel.classList.add('active');
+  };
+
+  // Render previews (renders up to 24 pages automatically)
+  async function renderPreviews() {
+    thumbnailsGrid.innerHTML = '';
+    selectedPages.clear();
+
+    try {
+      const pdfDoc = await pdfjsLib.getDocument({ data: fileBuffer }).promise;
+      const pagesToRender = Math.min(pdfPageCount, 24); // Cap rendering previews to avoid memory lag
+
+      for (let i = 1; i <= pagesToRender; i++) {
+        const page = await pdfDoc.getPage(i);
+        const scale = 0.3; // small scale thumbnail
+        const viewport = page.getViewport({ scale });
+
+        const card = document.createElement('div');
+        card.className = 'thumbnail-card';
+        card.dataset.pageNum = i;
+        card.onclick = () => togglePageSelection(i, card);
+
+        const canvas = document.createElement('canvas');
+        canvas.className = 'thumbnail-canvas';
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        
+        const context = canvas.getContext('2d');
+        await page.render({ canvasContext: context, viewport }).promise;
+
+        card.innerHTML = `
+          <div class="thumbnail-select-badge"><i class="fa-solid fa-check"></i></div>
+        `;
+        card.appendChild(canvas);
+        card.innerHTML += `<div class="thumbnail-num">Page ${i}</div>`;
+
+        thumbnailsGrid.appendChild(card);
+      }
+
+      if (pdfPageCount > 24) {
+        const extraLabel = document.createElement('div');
+        extraLabel.style.gridColumn = '1 / -1';
+        extraLabel.style.padding = '15px';
+        extraLabel.style.textAlign = 'center';
+        extraLabel.style.color = 'var(--text-muted)';
+        extraLabel.style.fontWeight = '700';
+        extraLabel.innerText = `...aur ${pdfPageCount - 24} pages hain (Previews capped to avoid lag)`;
+        thumbnailsGrid.appendChild(extraLabel);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  function togglePageSelection(pageNum, cardEl) {
+    if (selectedPages.has(pageNum)) {
+      selectedPages.delete(pageNum);
+      cardEl.classList.remove('selected');
+    } else {
+      selectedPages.add(pageNum);
+      cardEl.classList.add('selected');
+    }
+  }
+
+  // Parse custom range parser helper (handles '1-3, 5, 8-10' patterns)
+  function parseRanges(rangeStr) {
+    const list = [];
+    const parts = rangeStr.replace(/\s+/g, '').split(',');
+    for (let part of parts) {
+      if (!part) continue;
+      if (part.includes('-')) {
+        const bounds = part.split('-');
+        const start = parseInt(bounds[0], 10);
+        const end = parseInt(bounds[1], 10);
+        if (isNaN(start) || isNaN(end) || start > end || start < 1 || end > pdfPageCount) return null;
+        for (let i = start; i <= end; i++) list.push(i);
+      } else {
+        const val = parseInt(part, 10);
+        if (isNaN(val) || val < 1 || val > pdfPageCount) return null;
+        list.push(val);
+      }
+    }
+    return list;
+  }
+
+  // Main Split Trigger Execution
+  splitBtn.addEventListener('click', async () => {
+    optionsArea.style.display = 'none';
+    progressBox.style.display = 'block';
+    progressBar.style.width = '0%';
+    progressPercent.innerText = '0%';
+    
+    zipBlob = null;
+    singlePdfBlob = null;
+
+    try {
+      const srcDoc = await PDFLib.PDFDocument.load(fileBuffer);
+
+      if (activeTab === 'range') {
+        // Mode 1: By custom range
+        const rangeText = document.getElementById('rangeInput').value.trim();
+        if (!rangeText) {
+          alert('Kripya valid page range enter karein.');
+          resetOptions();
+          return;
+        }
+
+        const pages = parseRanges(rangeText);
+        if (!pages || pages.length === 0) {
+          alert('Kripya range syntax check karein (Ex: 1-3,5) aur pages check karein.');
+          resetOptions();
+          return;
+        }
+
+        progressBar.style.width = '50%';
+        progressPercent.innerText = '50%';
+
+        // Copy pages into single new document
+        const newDoc = await PDFLib.PDFDocument.create();
+        // Convert to 0-indexed indices for pdf-lib copyPages
+        const copied = await newDoc.copyPages(srcDoc, pages.map(p => p - 1));
+        copied.forEach(p => newDoc.addPage(p));
+
+        const bytes = await newDoc.save();
+        singlePdfBlob = new Blob([bytes], { type: 'application/pdf' });
+
+        progressBar.style.width = '100%';
+        progressPercent.innerText = '100%';
+        
+        downloadBtn.innerHTML = '<i class="fa-solid fa-file-pdf"></i> Download PDF';
+
+      } else if (activeTab === 'fixed') {
+        // Mode 2: Every N pages (outputs a ZIP of chunks)
+        const n = parseInt(document.getElementById('fixedInput').value, 10);
+        if (isNaN(n) || n < 1) {
+          alert('Kripya valid interval number set karein.');
+          resetOptions();
+          return;
+        }
+
+        const zip = new JSZip();
+        const folderName = uploadedFile.name.replace(/\.[^/.]+$/, "");
+        const zipFolder = zip.folder(`${folderName}_split`);
+        
+        let chunkIndex = 1;
+        
+        for (let i = 0; i < pdfPageCount; i += n) {
+          progressPercent.innerText = `${Math.round((i / pdfPageCount) * 100)}%`;
+          progressBar.style.width = `${Math.round((i / pdfPageCount) * 100)}%`;
+
+          const newDoc = await PDFLib.PDFDocument.create();
+          const pagesToCopy = [];
+          for (let j = i; j < i + n && j < pdfPageCount; j++) {
+            pagesToCopy.push(j);
+          }
+          const copied = await newDoc.copyPages(srcDoc, pagesToCopy);
+          copied.forEach(p => newDoc.addPage(p));
+
+          const bytes = await newDoc.save();
+          zipFolder.file(`part-${chunkIndex}.pdf`, bytes);
+          chunkIndex++;
+        }
+
+        progressPercent.innerText = '90%';
+        progressBar.style.width = '90%';
+
+        zipBlob = await zip.generateAsync({ type: 'blob' });
+        
+        progressBar.style.width = '100%';
+        progressPercent.innerText = '100%';
+        downloadBtn.innerHTML = '<i class="fa-solid fa-file-zipper"></i> Download All as ZIP';
+
+      } else if (activeTab === 'single') {
+        // Mode 3: Extract custom selected pages (single download or ZIP)
+        if (selectedPages.size === 0) {
+          alert('Kripya kam se kam ek page card click karke select karein.');
+          resetOptions();
+          return;
+        }
+
+        const pagesList = Array.from(selectedPages).sort((a, b) => a - b);
+
+        if (pagesList.length === 1) {
+          // Just 1 page output -> single PDF
+          const newDoc = await PDFLib.PDFDocument.create();
+          const copied = await newDoc.copyPages(srcDoc, [pagesList[0] - 1]);
+          copied.forEach(p => newDoc.addPage(p));
+          const bytes = await newDoc.save();
+          singlePdfBlob = new Blob([bytes], { type: 'application/pdf' });
+          downloadBtn.innerHTML = '<i class="fa-solid fa-file-pdf"></i> Download PDF (Page ' + pagesList[0] + ')';
+        } else {
+          // Multiple pages selected -> ZIP pack
+          const zip = new JSZip();
+          const folderName = uploadedFile.name.replace(/\.[^/.]+$/, "");
+          const zipFolder = zip.folder(`${folderName}_extracted`);
+
+          for (let pageNum of pagesList) {
+            const newDoc = await PDFLib.PDFDocument.create();
+            const copied = await newDoc.copyPages(srcDoc, [pageNum - 1]);
+            copied.forEach(p => newDoc.addPage(p));
+            const bytes = await newDoc.save();
+            zipFolder.file(`page-${pageNum}.pdf`, bytes);
+          }
+          zipBlob = await zip.generateAsync({ type: 'blob' });
+          downloadBtn.innerHTML = '<i class="fa-solid fa-file-zipper"></i> Download All as ZIP';
+        }
+
+        progressBar.style.width = '100%';
+        progressPercent.innerText = '100%';
+      }
+
+      progressBox.style.display = 'none';
+      resultBox.style.display = 'block';
+
+    } catch (err) {
+      console.error(err);
+      alert('Error splitting PDF: ' + err.message);
+      resetOptions();
+    }
+  });
+
+  function resetOptions() {
+    progressBox.style.display = 'none';
+    optionsArea.style.display = 'block';
+  }
+
+  // Download Trigger
+  downloadBtn.addEventListener('click', () => {
+    const origNameWithoutExt = uploadedFile.name.replace(/\.[^/.]+$/, "");
+    if (zipBlob) {
+      const url = URL.createObjectURL(zipBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${origNameWithoutExt}_split.zip`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } else if (singlePdfBlob) {
+      const url = URL.createObjectURL(singlePdfBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${origNameWithoutExt}_page.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  });
+
+  // Reset to initial screen
+  resetBtn.addEventListener('click', () => {
+    uploadedFile = null;
+    fileBuffer = null;
+    pdfPageCount = 0;
+    zipBlob = null;
+    singlePdfBlob = null;
+    selectedPages.clear();
+    fileInput.value = '';
+    document.getElementById('rangeInput').value = '';
+    document.getElementById('fixedInput').value = '1';
+
+    resultBox.style.display = 'none';
+    fileBanner.style.display = 'none';
+    optionsArea.style.display = 'none';
+    dropZone.style.display = 'block';
+  });
+</script>
+
+</body>
+</html>

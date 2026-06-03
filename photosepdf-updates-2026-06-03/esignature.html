@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+    <!-- ===== World-Class Security Meta Policies ===== -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <!-- ================================================ -->
+    <!-- Google AdSense (Loaded directly, auto-CMP managed via Google AdSense dashboard) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327226842644895" crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF Par Online Signature Karein | Digital E-Sign Tool | PhotoSePDF.in</title>
+  <meta name="description" content="PDF documents par offline signature add karein. Cursive type karein, touchscreen pad par draw karein ya sign image upload karein. 100% offline & private." />
+  <meta name="keywords" content="pdf par sign karo, e signature free, digital signature pdf, pdf sign online free, draw signature online, edit pdf signature, transparent sign creator" />
+  <link rel="canonical" href="https://photosepdf.in/esignature" />
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="PDF Par Online Signature Karein | PhotoSePDF.in" />
+  <meta property="og:description" content="Draw, type ya sign image upload karke PDF par signature place karein offline." />
+  <meta property="og:image" content="https://photosepdf.in/og-image.svg" />
+  <meta property="og:url" content="https://photosepdf.in/esignature.html" />
+  <meta property="og:type" content="website" />
+  
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6366F1">
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Dancing+Script:wght@700&family=Caveat:wght@700&family=Pacifico&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Third Party Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+  <style>
+    .esign-container {
+      max-width: 1100px;
+      margin: 40px auto 60px;
+      padding: 0 20px;
+    }
+    .esign-hero {
+      text-align: center;
+      padding: 60px 0 30px;
+    }
+    .esign-hero h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .esign-hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+    
+    .esign-grid {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 30px;
+      margin-top: 30px;
+    }
+    @media (max-width: 900px) {
+      .esign-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Segmented Tab Control */
+    .tab-triggers-wrapper {
+      background: rgba(100, 116, 139, 0.08);
+      border-radius: var(--radius-sm);
+      padding: 4px;
+      display: flex;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+    .tab-trigger {
+      flex: 1;
+      padding: 10px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-align: center;
+      transition: var(--transition);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .tab-trigger.active {
+      background: var(--bg-card);
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Drawing Pad styling */
+    .canvas-pad-wrapper {
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: #FFFFFF;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    #signCanvas {
+      width: 100%;
+      height: 180px;
+      display: block;
+      cursor: crosshair;
+    }
+    .pad-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: var(--bg-body);
+      border-top: 1px solid var(--border);
+    }
+    .color-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: var(--transition);
+    }
+    .color-dot.active {
+      border-color: var(--dark);
+      transform: scale(1.1);
+    }
+    
+    /* Type / Text controls */
+    .type-font-card {
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 1.8rem;
+      color: #000000;
+      background: #FFFFFF;
+      transition: var(--transition);
+    }
+    .type-font-card.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+    
+    /* Main PDF Workspace styling */
+    .pdf-workspace-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 30px;
+      position: relative;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .pdf-viewer-outer {
+      position: relative;
+      max-width: 100%;
+      margin: 20px 0;
+      border: 1px solid var(--border);
+      background: #808080;
+      border-radius: 4px;
+      padding: 10px;
+      box-shadow: var(--shadow-sm);
+      overflow: auto;
+      display: none;
+    }
+    .pdf-canvas-container {
+      position: relative;
+      margin: 0 auto;
+      background: #FFFFFF;
+    }
+    #pdfCanvas {
+      display: block;
+      max-width: 100%;
+    }
+    
+    /* Draggable Signature Overlay */
+    .draggable-signature-overlay {
+      position: absolute;
+      border: 2px dashed var(--primary);
+      cursor: move;
+      user-select: none;
+      display: none;
+      background: rgba(99, 102, 241, 0.05);
+      touch-action: none;
+    }
+    .signature-resize-handle {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: var(--primary);
+      border-radius: 50%;
+      bottom: -6px;
+      right: -6px;
+      cursor: se-resize;
+    }
+    .signature-close-handle {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: #EF4444;
+      border-radius: 50%;
+      top: -8px;
+      right: -8px;
+      color: white;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .draggable-signature-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+    }
+    
+    .upload-box {
+      border: 3px dashed var(--border);
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 50px 30px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+    }
+    .upload-box:hover, .upload-box.dragover {
+      border-color: var(--primary);
+      transform: translateY(-4px);
+    }
+    .upload-icon {
+      font-size: 3.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    .upload-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      width: 100%;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: rgba(100, 116, 139, 0.1);
+      color: var(--dark);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: rgba(100, 116, 139, 0.2);
+    }
+    .btn-success {
+      background: var(--secondary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+    .btn-success:hover {
+      transform: translateY(-2px);
+    }
+
+    .viewer-navigation {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 15px;
+      display: none;
+    }
+    
+    .sidebar-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      backdrop-filter: blur(12px);
+    }
+    .sidebar-title {
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+    
+    .faq-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 30px;
+      margin-top: 50px;
+      backdrop-filter: blur(12px);
+    }
+    .faq-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    .faq-question {
+      font-weight: 700;
+      color: var(--dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-answer {
+      color: var(--text-muted);
+      margin-top: 10px;
+      display: none;
+      font-size: 0.95rem;
+    }
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+    .faq-item.open .faq-question i {
+      transform: rotate(180deg);
+    }
+    .faq-question i {
+      transition: transform 0.3s ease;
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+<header role="banner">
+  <nav class="navbar" aria-label="Main Navigation" role="navigation">
+    <div class="container nav-container">
+      <a href="index.html" class="logo" aria-label="PhotoSePDF.in Home">
+        <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> PhotoSePDF<span>.in</span>
+      </a>
+            <!-- Pure CSS Checkbox Mobile Menu Hack -->
+            <input type="checkbox" id="menu-toggle-cb" class="menu-toggle-cb">
+            <label for="menu-toggle-cb" class="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="tools.html">All Tools</a></li>
+        <li><a href="articles.html">Guides</a></li>
+        <li>
+          <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="esign-hero">
+    <div class="container">
+      <span class="badge"><i class="fa-solid fa-signature"></i> 100% Client-Side E-Signature</span>
+      <h1>PDF Par Signature <span class="text-gradient">Karein Online</span></h1>
+      <p>Touchscreen se sign draw karein, name type karein ya sign image upload karke PDF par place karein.</p>
+    </div>
+  </div>
+
+  <div class="esign-container">
+    <div class="esign-grid">
+      <!-- SIDEBAR CONTROLS -->
+      <div class="esign-sidebar" style="display: flex; flex-direction: column; gap: 20px;">
+        <div class="sidebar-block">
+          <div class="sidebar-title">
+            <i class="fa-solid fa-signature" style="color: var(--primary);"></i> 1. Signature Create Karein
+          </div>
+          
+          <div class="tab-triggers-wrapper">
+            <div id="tabDraw" class="tab-trigger active" onclick="switchSignTab('draw')">
+              <i class="fa-solid fa-pen"></i> Draw
+            </div>
+            <div id="tabType" class="tab-trigger" onclick="switchSignTab('type')">
+              <i class="fa-solid fa-keyboard"></i> Type
+            </div>
+            <div id="tabUpload" class="tab-trigger" onclick="switchSignTab('upload')">
+              <i class="fa-solid fa-image"></i> Upload
+            </div>
+          </div>
+          
+          <!-- DRAW TAB PANEL -->
+          <div id="panelDraw" class="sign-panel">
+            <div class="canvas-pad-wrapper">
+              <canvas id="signCanvas"></canvas>
+              <div class="pad-controls">
+                <div style="display: flex; gap: 8px;">
+                  <div class="color-dot active" style="background:#000000;" onclick="setPenColor('#000000', this)"></div>
+                  <div class="color-dot" style="background:#1E3A8A;" onclick="setPenColor('#1E3A8A', this)"></div>
+                  <div class="color-dot" style="background:#B91C1C;" onclick="setPenColor('#B91C1C', this)"></div>
+                </div>
+                <button class="btn btn-secondary" onclick="clearDrawPad()" style="width:auto; padding: 6px 12px; font-size: 0.8rem;"><i class="fa-solid fa-eraser"></i> Clear</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- TYPE TAB PANEL -->
+          <div id="panelType" class="sign-panel" style="display: none;">
+            <input type="text" id="typeInput" placeholder="Apna Name Type Karein" class="text-output-area" style="height: auto; padding: 12px; margin-bottom: 12px;" oninput="renderCursiveSignatures()" />
+            
+            <div style="max-height: 200px; overflow-y: auto;">
+              <div class="type-font-card selected" style="font-family:'Dancing Script', cursive;" onclick="selectCursiveFont('Dancing Script', this)">Dancing Script</div>
+              <div class="type-font-card" style="font-family:'Caveat', cursive;" onclick="selectCursiveFont('Caveat', this)">Caveat</div>
+              <div class="type-font-card" style="font-family:'Pacifico', cursive;" onclick="selectCursiveFont('Pacifico', this)">Pacifico</div>
+              <div class="type-font-card" style="font-family:'Great Vibes', cursive;" onclick="selectCursiveFont('Great Vibes', this)">Great Vibes</div>
+            </div>
+          </div>
+          
+          <!-- UPLOAD TAB PANEL -->
+          <div id="panelUpload" class="sign-panel" style="display: none;">
+            <div class="upload-box" onclick="document.getElementById('signImageInput').click()" style="padding: 20px 10px; border-width: 2px;">
+              <input type="file" id="signImageInput" accept="image/*" style="display: none;" onchange="handleSignImageUpload(this)" />
+              <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2rem; color: var(--primary); margin-bottom: 8px;"></i>
+              <div style="font-size: 0.85rem; font-weight: 700;">Signature Image Select Karein</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Transparent PNG best rehta hai</div>
+            </div>
+          </div>
+          
+          <button id="addSignBtn" class="btn btn-primary" style="margin-top: 15px;" disabled onclick="applySignatureToViewer()">
+            <i class="fa-solid fa-plus"></i> Place Signature On PDF
+          </button>
+        </div>
+        
+        <div class="sidebar-block" id="actionSidebar" style="display: none;">
+          <div class="sidebar-title">
+            <i class="fa-solid fa-circle-down" style="color: var(--secondary);"></i> 2. Complete Karein
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">Sign element ko PDF page par sahi jagah drag aur resize slider se arrange karein.</p>
+          
+          <div style="margin-bottom: 15px; background: var(--bg-body); padding: 12px; border-radius: 6px; border: 1px solid var(--border);">
+            <label style="font-size: 0.8rem; font-weight: 700; color: var(--dark); display: block; margin-bottom: 6px;">Resize Signature Size:</label>
+            <input type="range" id="resizeSlider" min="30" max="250" value="120" style="width: 100%;" oninput="resizeSignaturePreview(this.value)" />
+          </div>
+          
+          <button id="downloadBtn" class="btn btn-success">
+            <i class="fa-solid fa-file-pdf"></i> Sign PDF & Download
+          </button>
+        </div>
+      </div>
+      
+      <!-- MAIN WORKSPACE -->
+      <div class="esign-workspace">
+        <div class="pdf-workspace-card" id="workspaceCard">
+          <div id="pdfDropZone" class="upload-box">
+            <input type="file" id="pdfFileInput" accept="application/pdf" style="display: none;" />
+            <div class="upload-icon">
+              <i class="fa-solid fa-file-signature"></i>
+            </div>
+            <div class="upload-title">Apna PDF Document Yahan Upload Karein</div>
+            <div class="upload-hint">Drag & drop karein ya computer se click karke select karein</div>
+            <span class="badge" style="margin-bottom: 0;"><i class="fa-solid fa-shield"></i> safe & offline browser process</span>
+          </div>
+          
+          <!-- Visual PDF renderer and overlay wrapper -->
+          <div class="pdf-viewer-outer" id="pdfViewerOuter">
+            <div class="pdf-canvas-container" id="pdfCanvasContainer">
+              <canvas id="pdfCanvas"></canvas>
+              
+              <!-- Draggable Signature box overlay -->
+              <div id="sigOverlay" class="draggable-signature-overlay">
+                <div class="signature-close-handle" onclick="removeSignatureOverlay()"><i class="fa-solid fa-xmark"></i></div>
+                <img id="sigOverlayImg" class="draggable-signature-img" src="" alt="Sign" />
+                <div class="signature-resize-handle"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="viewer-navigation" id="viewerNav">
+            <button class="btn btn-secondary" onclick="prevPage()" style="width:auto; padding: 8px 16px;"><i class="fa-solid fa-chevron-left"></i> Previous</button>
+            <span style="font-weight: 700; color: var(--dark);" id="pageCounter">Page 1 of 1</span>
+            <button class="btn btn-secondary" onclick="nextPage()" style="width:auto; padding: 8px 16px;">Next <i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Container -->
+    <div class="faq-container">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          1. Kya signature image humare security systems me scan/save hoti hai? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Nahi! PhotoSePDF.in ek completely private offline utility hai. Aapka handwritten signature canvas, generated type signature, ya signature image aapke browser RAM memory ke bahar kabhi nahi jata aur hamare server par koi logs upload nahi hote.
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          2. PDF coordinate mapping kya sahi resolution me sign overlay karta hai? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Haan! Hum standard PDF points calculations aur responsive scales maps utilize karte hain, jisse transparent digital sign exactly usi pixel and point space location par vector alignment ke sath place hota hai jahan aapne visually arrange kiya hai.
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          3. Touchscreen mobile phone par signature draw kiya ja sakta hai? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Haan! Drawing Pad HTML5 Touch events aur mouse click handlers dono ke sath built hai. Aap mobile phone screen, iPad, ya tablet par touch gesture finger se direct smooth, real handwriting pen-style signature easily draw kar sakte hain.
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="premium-footer">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 20px;">
+      <a href="index.html" style="color:var(--primary); margin:0 10px;">Home Tool</a> |
+      <a href="tools.html" style="color:var(--primary); margin:0 10px;">All Tools</a> |
+      <a href="articles.html" style="color:var(--primary); margin:0 10px;">Guides</a> |
+      <a href="privacy-policy.html" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Privacy Policy</a> |
+      <a href="terms.html" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Terms of Service</a>
+    </div>
+    <p class="copyright" style="text-align: center;">&copy; 2026 PhotoSePDF.in. Secure client-side e-signature tools.</p>
+  </div>
+</footer>
+
+<script>
+  // Theme Toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  const htmlEl = document.documentElement;
+  
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  htmlEl.setAttribute('data-theme', savedTheme);
+  updateThemeIcon(savedTheme);
+  
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = htmlEl.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    htmlEl.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+  });
+  
+  function updateThemeIcon(theme) {
+    const icon = themeToggle.querySelector('i');
+    if (theme === 'dark') {
+      icon.className = 'fa-solid fa-sun';
+    } else {
+      icon.className = 'fa-solid fa-moon';
+    }
+  }
+
+  // FAQ logic
+  document.querySelectorAll('.faq-question').forEach(item => {
+    item.addEventListener('click', () => {
+      const parent = item.parentElement;
+      const isOpen = parent.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+      if (!isOpen) parent.classList.add('open');
+    });
+  });
+
+  // Sidebar Tabs Switching
+  let activeTab = 'draw';
+  window.switchSignTab = function(tabName) {
+    activeTab = tabName;
+    document.getElementById('tabDraw').classList.toggle('active', tabName === 'draw');
+    document.getElementById('tabType').classList.toggle('active', tabName === 'type');
+    document.getElementById('tabUpload').classList.toggle('active', tabName === 'upload');
+    
+    document.getElementById('panelDraw').style.display = tabName === 'draw' ? 'block' : 'none';
+    document.getElementById('panelType').style.display = tabName === 'type' ? 'block' : 'none';
+    document.getElementById('panelUpload').style.display = tabName === 'upload' ? 'block' : 'none';
+    
+    checkSignBtnState();
+  }
+
+  // Drawing Pad Canvas logic
+  const canvas = document.getElementById('signCanvas');
+  const ctx = canvas.getContext('2d');
+  let isDrawing = false;
+  let lastX = 0;
+  let lastY = 0;
+  let penColor = '#000000';
+  
+  // Set explicit canvas dimensions on load
+  function resizeCanvas() {
+    canvas.width = canvas.parentElement.clientWidth;
+    canvas.height = 180;
+    clearDrawPad();
+  }
+  
+  window.addEventListener('load', resizeCanvas);
+  window.addEventListener('resize', resizeCanvas);
+
+  // Pen controls
+  window.setPenColor = function(color, dotEl) {
+    penColor = color;
+    document.querySelectorAll('.color-dot').forEach(el => el.classList.remove('active'));
+    dotEl.classList.add('active');
+  }
+  
+  window.clearDrawPad = function() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Draw horizontal clean line guide
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([5, 5]);
+    ctx.beginPath();
+    ctx.moveTo(10, 140);
+    ctx.lineTo(canvas.width - 10, 140);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    checkSignBtnState();
+  }
+  
+  // Canvas drawing events
+  canvas.addEventListener('mousedown', (e) => {
+    isDrawing = true;
+    [lastX, lastY] = getMousePos(canvas, e);
+  });
+  canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener('mouseup', () => isDrawing = false);
+  canvas.addEventListener('mouseout', () => isDrawing = false);
+  
+  // Touchscreen drawing support
+  canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    isDrawing = true;
+    const touch = e.touches[0];
+    [lastX, lastY] = getMousePos(canvas, touch);
+  }, { passive: false });
+  
+  canvas.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    draw(touch);
+  }, { passive: false });
+  
+  canvas.addEventListener('touchend', () => isDrawing = false);
+
+  function getMousePos(canvasDom, touchOrEvent) {
+    const rect = canvasDom.getBoundingClientRect();
+    return [
+      touchOrEvent.clientX - rect.left,
+      touchOrEvent.clientY - rect.top
+    ];
+  }
+
+  function draw(e) {
+    if (!isDrawing) return;
+    const [x, y] = getMousePos(canvas, e);
+    ctx.strokeStyle = penColor;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    [lastX, lastY] = [x, y];
+    checkSignBtnState();
+  }
+
+  // Type handwriting creator logic
+  let activeFont = 'Dancing Script';
+  window.selectCursiveFont = function(fontName, cardEl) {
+    activeFont = fontName;
+    document.querySelectorAll('.type-font-card').forEach(el => el.classList.remove('selected'));
+    cardEl.classList.add('selected');
+    checkSignBtnState();
+  }
+  
+  window.renderCursiveSignatures = function() {
+    const text = document.getElementById('typeInput').value;
+    document.querySelectorAll('.type-font-card').forEach(card => {
+      card.textContent = text && text.trim() ? text.trim() : card.style.fontFamily.replace(/'/g, '');
+    });
+    checkSignBtnState();
+  }
+
+  // Handle uploaded signature
+  let uploadedSignUrl = '';
+  window.handleSignImageUpload = function(input) {
+    if (input.files.length > 0) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        uploadedSignUrl = e.target.result;
+        checkSignBtnState();
+      }
+      reader.readAsDataURL(file);
+    }
+  }
+
+  // Signature validation btn state
+  function checkSignBtnState() {
+    const addSignBtn = document.getElementById('addSignBtn');
+    let valid = false;
+    
+    if (activeTab === 'draw') {
+      // Simple check if canvas has pixels (i.e. user drew something)
+      const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      // Look for non-transparent pixels (ignoring guide dotted line)
+      let nonTransparentCount = 0;
+      for (let i = 3; i < data.length; i += 4) {
+        if (data[i] > 10) {
+          nonTransparentCount++;
+        }
+      }
+      // Dotted guide line accounts for approx 50-80 pixels, if count is much higher user has drawn
+      valid = nonTransparentCount > 150;
+    } else if (activeTab === 'type') {
+      const val = document.getElementById('typeInput').value.trim();
+      valid = val.length > 0;
+    } else if (activeTab === 'upload') {
+      valid = uploadedSignUrl !== '';
+    }
+    
+    addSignBtn.disabled = !valid;
+  }
+
+  // Convert current created signature to dynamic PNG URL
+  function getSignatureDataUrl() {
+    if (activeTab === 'draw') {
+      // Create temporary canvas to trim transparent border for tight fit
+      const tempCanvas = document.createElement('canvas');
+      const tempCtx = tempCanvas.getContext('2d');
+      tempCanvas.width = canvas.width;
+      tempCanvas.height = canvas.height;
+      tempCtx.drawImage(canvas, 0, 0);
+      return tempCanvas.toDataURL('image/png');
+    } else if (activeTab === 'type') {
+      // Render text signature to canvas
+      const text = document.getElementById('typeInput').value.trim();
+      const textCanvas = document.createElement('canvas');
+      const textCtx = textCanvas.getContext('2d');
+      
+      textCanvas.width = 400;
+      textCanvas.height = 100;
+      
+      textCtx.fillStyle = 'rgba(255,255,255,0)'; // transparent background
+      textCtx.fillRect(0,0,400,100);
+      
+      // Set text parameters
+      textCtx.font = `italic 700 48px '${activeFont}'`;
+      textCtx.fillStyle = '#000000';
+      textCtx.textAlign = 'center';
+      textCtx.textBaseline = 'middle';
+      
+      textCtx.fillText(text, 200, 50);
+      return textCanvas.toDataURL('image/png');
+    } else if (activeTab === 'upload') {
+      return uploadedSignUrl;
+    }
+    return '';
+  }
+
+  // Core PDF Loading variables
+  const pdfDropZone = document.getElementById('pdfDropZone');
+  const pdfFileInput = document.getElementById('pdfFileInput');
+  const pdfViewerOuter = document.getElementById('pdfViewerOuter');
+  const pdfCanvasContainer = document.getElementById('pdfCanvasContainer');
+  const pdfCanvas = document.getElementById('pdfCanvas');
+  const viewerNav = document.getElementById('viewerNav');
+  const pageCounter = document.getElementById('pageCounter');
+  const sigOverlay = document.getElementById('sigOverlay');
+  const sigOverlayImg = document.getElementById('sigOverlayImg');
+  const resizeSlider = document.getElementById('resizeSlider');
+  const actionSidebar = document.getElementById('actionSidebar');
+  
+  let selectedPdf = null;
+  let pdfjsDoc = null;
+  let curPageNum = 1;
+  let totalPages = 1;
+  let isSigPlaced = false;
+
+  // Visual offsets for drag & drop
+  let sigX = 50;
+  let sigY = 50;
+  let sigW = 120;
+  let sigH = 60;
+
+  // Event Listeners for PDF
+  pdfDropZone.addEventListener('click', () => pdfFileInput.click());
+  pdfDropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    pdfDropZone.classList.add('dragover');
+  });
+  pdfDropZone.addEventListener('dragleave', () => pdfDropZone.classList.remove('dragover'));
+  pdfDropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    pdfDropZone.classList.remove('dragover');
+    if (e.dataTransfer.files.length > 0) {
+      loadPDFFile(e.dataTransfer.files[0]);
+    }
+  });
+  pdfFileInput.addEventListener('change', () => {
+    if (pdfFileInput.files.length > 0) {
+      loadPDFFile(pdfFileInput.files[0]);
+    }
+  });
+
+  async function loadPDFFile(file) {
+    if (file.type !== 'application/pdf') {
+      alert('Bhai, please ek standard valid PDF file select karein!');
+      return;
+    }
+    selectedPdf = file;
+    pdfDropZone.style.display = 'none';
+    pdfViewerOuter.style.display = 'block';
+    viewerNav.style.display = 'flex';
+    
+    // Load in PDF.js
+    const fileReader = new FileReader();
+    fileReader.onload = async function() {
+      const pdfjsLib = window['pdfjs-dist/build/pdf'];
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      
+      const arrayBuffer = this.result;
+      const typedarray = new Uint8Array(arrayBuffer);
+      
+      const loadingTask = pdfjsLib.getDocument(typedarray);
+      pdfjsDoc = await loadingTask.promise;
+      totalPages = pdfjsDoc.numPages;
+      curPageNum = 1;
+      
+      renderPDFPage(curPageNum);
+    }
+    fileReader.readAsArrayBuffer(selectedPdf);
+  }
+
+  async function renderPDFPage(pageNum) {
+    if (!pdfjsDoc) return;
+    
+    pageCounter.textContent = `Page ${pageNum} of ${totalPages}`;
+    
+    const page = await pdfjsDoc.getPage(pageNum);
+    const viewport = page.getViewport({ scale: 1.2 });
+    
+    const ctx = pdfCanvas.getContext('2d');
+    pdfCanvas.width = viewport.width;
+    pdfCanvas.height = viewport.height;
+    
+    pdfCanvasContainer.style.width = `${viewport.width}px`;
+    pdfCanvasContainer.style.height = `${viewport.height}px`;
+    
+    await page.render({
+      canvasContext: ctx,
+      viewport: viewport
+    }).promise;
+    
+    // Sync sig overlay display
+    if (isSigPlaced) {
+      sigOverlay.style.display = 'block';
+    }
+  }
+
+  window.prevPage = function() {
+    if (curPageNum > 1) {
+      curPageNum--;
+      renderPDFPage(curPageNum);
+    }
+  }
+
+  window.nextPage = function() {
+    if (curPageNum < totalPages) {
+      curPageNum++;
+      renderPDFPage(curPageNum);
+    }
+  }
+
+  // PLACE SIGNATURE ON VIEW OVERLAY
+  window.applySignatureToViewer = function() {
+    const dataUrl = getSignatureDataUrl();
+    if (!dataUrl) return;
+    
+    sigOverlayImg.src = dataUrl;
+    
+    // Default signature scale proportions
+    sigOverlay.style.width = `${sigW}px`;
+    sigOverlay.style.height = `${sigH}px`;
+    
+    // Keep within bounds
+    sigOverlay.style.left = `${sigX}px`;
+    sigOverlay.style.top = `${sigY}px`;
+    
+    isSigPlaced = true;
+    sigOverlay.style.display = 'block';
+    actionSidebar.style.display = 'block';
+    
+    // Smooth scroll into workspace
+    document.getElementById('workspaceCard').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  window.removeSignatureOverlay = function() {
+    isSigPlaced = false;
+    sigOverlay.style.display = 'none';
+    actionSidebar.style.display = 'none';
+  }
+
+  window.resizeSignaturePreview = function(val) {
+    sigW = parseInt(val);
+    sigH = Math.round(sigW / 2);
+    sigOverlay.style.width = `${sigW}px`;
+    sigOverlay.style.height = `${sigH}px`;
+  }
+
+  // Draggable Signature Logic
+  let activeDrag = false;
+  let currentX;
+  let currentY;
+  let initialX;
+  let initialY;
+  let xOffset = sigX;
+  let yOffset = sigY;
+  
+  sigOverlay.addEventListener('mousedown', dragStart);
+  sigOverlay.addEventListener('mouseup', dragEnd);
+  sigOverlay.addEventListener('mousemove', drag);
+  
+  sigOverlay.addEventListener('touchstart', dragStart, { passive: true });
+  sigOverlay.addEventListener('touchend', dragEnd, { passive: true });
+  sigOverlay.addEventListener('touchmove', drag, { passive: false });
+
+  function dragStart(e) {
+    if (e.target.classList.contains('signature-resize-handle')) return; // Ignore resize triggers
+    
+    if (e.type === 'touchstart') {
+      initialX = e.touches[0].clientX - xOffset;
+      initialY = e.touches[0].clientY - yOffset;
+    } else {
+      initialX = e.clientX - xOffset;
+      initialY = e.clientY - yOffset;
+    }
+    
+    if (e.target === sigOverlay || sigOverlay.contains(e.target)) {
+      activeDrag = true;
+    }
+  }
+
+  function dragEnd() {
+    initialX = currentX;
+    initialY = currentY;
+    activeDrag = false;
+  }
+
+  function drag(e) {
+    if (!activeDrag) return;
+    
+    e.preventDefault();
+    
+    if (e.type === 'touchmove') {
+      currentX = e.touches[0].clientX - initialX;
+      currentY = e.touches[0].clientY - initialY;
+    } else {
+      currentX = e.clientX - initialX;
+      currentY = e.clientY - initialY;
+    }
+    
+    // Bounds calculations
+    const parentRect = pdfCanvasContainer.getBoundingClientRect();
+    const overlayRect = sigOverlay.getBoundingClientRect();
+    
+    const maxX = parentRect.width - overlayRect.width;
+    const maxY = parentRect.height - overlayRect.height;
+    
+    if (currentX < 0) currentX = 0;
+    if (currentY < 0) currentY = 0;
+    if (currentX > maxX) currentX = maxX;
+    if (currentY > maxY) currentY = maxY;
+    
+    xOffset = currentX;
+    yOffset = currentY;
+    
+    sigX = currentX;
+    sigY = currentY;
+    
+    sigOverlay.style.left = `${currentX}px`;
+    sigOverlay.style.top = `${currentY}px`;
+  }
+
+  // Resizing Signature via bottom-right grip overlay handle
+  const resizeHandle = sigOverlay.querySelector('.signature-resize-handle');
+  let activeResize = false;
+  
+  resizeHandle.addEventListener('mousedown', (e) => {
+    e.stopPropagation();
+    activeResize = true;
+  });
+  
+  document.addEventListener('mouseup', () => activeResize = false);
+  
+  document.addEventListener('mousemove', (e) => {
+    if (!activeResize) return;
+    const rect = sigOverlay.getBoundingClientRect();
+    const newWidth = e.clientX - rect.left;
+    
+    if (newWidth > 30 && newWidth < 300) {
+      sigW = Math.round(newWidth);
+      sigH = Math.round(sigW / 2);
+      
+      sigOverlay.style.width = `${sigW}px`;
+      sigOverlay.style.height = `${sigH}px`;
+      
+      resizeSlider.value = sigW;
+    }
+  });
+
+  // COMPILE SIGNED PDF AND DOWNLOAD
+  document.getElementById('downloadBtn').addEventListener('click', async () => {
+    if (!selectedPdf || !isSigPlaced) return;
+    
+    // Show spinner state
+    document.getElementById('downloadBtn').disabled = true;
+    document.getElementById('downloadBtn').innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing PDF...';
+    
+    try {
+      const fileReader = new FileReader();
+      fileReader.onload = async function() {
+        const existingPdfBytes = new Uint8Array(this.result);
+        
+        // Load in pdf-lib
+        const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
+        const pages = pdfDoc.getPages();
+        const page = pages[curPageNum - 1]; // 0-indexed
+        
+        // Get visual scale mapping ratios
+        const pdfW = page.getWidth();
+        const pdfH = page.getHeight();
+        
+        const previewW = pdfCanvas.width;
+        const previewH = pdfCanvas.height;
+        
+        const scaleX = pdfW / previewW;
+        const scaleY = pdfH / previewH;
+        
+        // Embedded PNG signature
+        const sigPngUrl = getSignatureDataUrl();
+        const sigBytes = await fetch(sigPngUrl).then(res => res.arrayBuffer());
+        const embeddedImg = await pdfDoc.embedPng(sigBytes);
+        
+        // Map visual coordinates to PDF points coordinates
+        const signPdfW = sigW * scaleX;
+        const signPdfH = sigH * scaleY;
+        const signPdfX = sigX * scaleX;
+        // PDF starting point is bottom-left, while HTML viewport is top-left
+        const signPdfY = (previewH - sigY - sigH) * scaleY;
+        
+        // Draw the embedded image
+        page.drawImage(embeddedImg, {
+          x: signPdfX,
+          y: signPdfY,
+          width: signPdfW,
+          height: signPdfH
+        });
+        
+        const signedPdfBytes = await pdfDoc.save();
+        
+        // Trigger download
+        const blob = new Blob([signedPdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        
+        let origName = selectedPdf.name.substring(0, selectedPdf.name.lastIndexOf('.'));
+        link.download = `${origName}_signed.pdf`;
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        
+        // Reset button
+        document.getElementById('downloadBtn').disabled = false;
+        document.getElementById('downloadBtn').innerHTML = '<i class="fa-solid fa-file-pdf"></i> Sign PDF & Download';
+        alert('Signed PDF successfully downloaded!');
+      }
+      fileReader.readAsArrayBuffer(selectedPdf);
+      
+    } catch(err) {
+      console.error(err);
+      alert('E-Signature failed: ' + err.message);
+      document.getElementById('downloadBtn').disabled = false;
+      document.getElementById('downloadBtn').innerHTML = '<i class="fa-solid fa-file-pdf"></i> Sign PDF & Download';
+    }
+  });
+
+  function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  }
+</script>
+</body>
+</html>
