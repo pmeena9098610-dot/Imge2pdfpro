@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'img2pdf-pro-v29-resizer-quality';
+const CACHE_NAME = 'img2pdf-pro-v30-security-enhanced';
 const ASSETS = [
     './',
     './index.html',

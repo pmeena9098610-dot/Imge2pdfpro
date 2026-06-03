@@ -1,8 +1,8 @@
-﻿{
+{
   "name": "PhotoSePDF - Free Image to PDF Converter India",
   "short_name": "PhotoSePDF",
   "description": "India's #1 free offline JPG PNG WEBP HEIC to PDF converter. No watermark, no internet, 100% secure. Compress PDF to 100KB. Convert multiple photos to one PDF.",
-  "start_url": "/index.html?source=pwa",
+  "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
   "background_color": "#0F172A",
