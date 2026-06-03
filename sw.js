@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'img2pdf-pro-v27-mobile-menu';
+﻿const CACHE_NAME = 'img2pdf-pro-v28-image-resizer';
 const ASSETS = [
     './',
     './index.html',

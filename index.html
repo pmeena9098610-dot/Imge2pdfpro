@@ -484,6 +484,9 @@
                         <button class="tab-btn" data-tab="print-tab" id="tab-print">
                             <i class="fa-solid fa-print"></i> 2. Cyber Cafe Studio
                         </button>
+                        <button class="tab-btn" data-tab="resize-tab" id="tab-resize">
+                            <i class="fa-solid fa-maximize"></i> 3. Resize Image
+                        </button>
                     </div>
 
                     <article class="settings-card">
@@ -601,6 +604,81 @@
                             </div>
                         </div>
 
+                        <!-- RESIZE SETTINGS TAB -->
+                        <div id="resize-tab" class="tab-content">
+                            <div class="tab-info-strip" style="background: rgba(249, 115, 22, 0.1); border-left-color: #F97316; color: #EA580C; margin-bottom: 20px; padding: 10px 15px; border-radius: 8px; border-left: 4px solid #F97316; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-expand"></i> <b>Image Resizer Mode:</b> Resize and compress images without losing quality.
+                            </div>
+                            <div class="settings-grid">
+                                <div class="setting-group">
+                                    <label for="resize-mode"><i class="fa-solid fa-sliders"></i> Resize Mode</label>
+                                    <select id="resize-mode">
+                                        <option value="by-percent" selected>By Percentage (%)</option>
+                                        <option value="by-pixels">By Pixels (Custom Dimensions)</option>
+                                        <option value="by-kb">By Target File Size (KB)</option>
+                                        <option value="passport-std">Passport Size (413 x 531 px)</option>
+                                        <option value="id-card">ID Card / Aadhaar (200 x 200 px)</option>
+                                        <option value="linkedin">LinkedIn Profile (400 x 400 px)</option>
+                                        <option value="facebook">Facebook Cover (820 x 312 px)</option>
+                                        <option value="instagram">Instagram Post (1080 x 1080 px)</option>
+                                        <option value="whatsapp-dp">WhatsApp DP (500 x 500 px)</option>
+                                    </select>
+                                </div>
+
+                                <div class="setting-group" id="resize-percent-group">
+                                    <label for="resize-percent"><i class="fa-solid fa-percent"></i> Percentage (10% - 90%)</label>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <input type="range" id="resize-percent" min="10" max="90" value="50" style="flex:1;" oninput="document.getElementById('percent-val').innerText = this.value + '%'">
+                                        <span id="percent-val" style="font-weight:700; min-width:40px; text-align:right;">50%</span>
+                                    </div>
+                                </div>
+
+                                <div class="setting-group hidden" id="resize-pixels-group">
+                                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                                        <div>
+                                            <label for="resize-width">Width (px)</label>
+                                            <input type="number" id="resize-width" value="800" min="10">
+                                        </div>
+                                        <div>
+                                            <label for="resize-height">Height (px)</label>
+                                            <input type="number" id="resize-height" value="600" min="10">
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 10px;">
+                                        <label for="resize-maintain-ratio">Maintain Aspect Ratio</label>
+                                        <select id="resize-maintain-ratio">
+                                            <option value="yes" selected>Yes (Keep Proportions)</option>
+                                            <option value="no">No (Stretch / Squish)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="setting-group hidden" id="resize-kb-group">
+                                    <label for="resize-target-kb"><i class="fa-solid fa-weight-hanging"></i> Target Size (KB)</label>
+                                    <input type="number" id="resize-target-kb" value="100" min="5" max="5000">
+                                    <span style="font-size:0.75rem; color:var(--text-muted);">For SSC/UPSC forms (e.g. 20KB, 50KB).</span>
+                                </div>
+
+                                <div class="setting-group">
+                                    <label for="output-format"><i class="fa-solid fa-file-image"></i> Output Format</label>
+                                    <select id="output-format">
+                                        <option value="original" selected>Same as Original (Preserve Format)</option>
+                                        <option value="jpeg">JPG / JPEG</option>
+                                        <option value="png">PNG (Lossless / Transparent)</option>
+                                        <option value="webp">WEBP (Modern / Optimized)</option>
+                                    </select>
+                                </div>
+
+                                <div class="setting-group">
+                                    <label for="output-quality"><i class="fa-solid fa-gauge-high"></i> Compression Quality</label>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <input type="range" id="output-quality" min="0.1" max="1.0" step="0.05" value="0.85" style="flex:1;" oninput="document.getElementById('quality-val').innerText = Math.round(this.value * 100) + '%'">
+                                        <span id="quality-val" style="font-weight:700; min-width:40px; text-align:right;">85%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="setting-group" style="margin-top:20px; border-top: 1px solid var(--border); padding-top:15px;">
                             <label for="file-name"><i class="fa-solid fa-pen-to-square"></i> Final File Name</label>
                             <input type="text" id="file-name" placeholder="Img2PDFPro_Document" />
@@ -647,6 +725,21 @@
                                 <button class="btn btn-block" id="print-action-btn" style="background: linear-gradient(135deg, #10B981, #059669); color: white; border:none; box-shadow: 0 4px 15px rgba(16,185,129,0.3);">
                                     <i class="fa-solid fa-print"></i> Print Studio
                                 </button>
+                            </div>
+
+                            <!-- Resize Path Card -->
+                            <div class="choice-card resize-path" id="resize-choice-card" style="transition: all 0.3s ease;">
+                                <div class="choice-icon"><i class="fa-solid fa-maximize"></i></div>
+                                <h3>Resize Image</h3>
+                                <p>Resize images by dimensions, percentage, or file size (KB).</p>
+                                <div style="display:flex; gap:8px;">
+                                    <button class="btn btn-block" id="resize-action-btn" style="background: linear-gradient(135deg, #F97316, #EAB308); color: white; border:none; box-shadow: 0 4px 15px rgba(249,115,22,0.3); flex: 1;">
+                                        <i class="fa-solid fa-download"></i> Resize Only
+                                    </button>
+                                    <button class="btn btn-block" id="resize-to-pdf-btn" style="background: linear-gradient(135deg, #8B5CF6, #EC4899); color: white; border:none; box-shadow: 0 4px 15px rgba(139,92,246,0.3); flex: 1; padding: 10px 5px; font-size: 0.8rem;">
+                                        <i class="fa-solid fa-file-pdf"></i> Resize + PDF
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
@@ -1250,7 +1343,7 @@
                     <span class="hub-badge hub-badge-orange">New</span>
                 </a>
                 <!-- Image Resize -->
-                <a href="#resize-tab-btn" class="tools-hub-card" onclick="document.getElementById('resize-tab-btn')?.click(); return false;" style="text-decoration:none;">
+                <a href="/#resize" class="tools-hub-card" onclick="if(document.getElementById(\x27tab-resize\x27)){document.getElementById(\x27tab-resize\x27)?.click(); return false;}" style="text-decoration:none;">
                     <div class="hub-icon" style="background:linear-gradient(135deg,#F97316,#EAB308);">
                         <i class="fa-solid fa-maximize"></i>
                     </div>
@@ -1259,7 +1352,7 @@
                     <span class="hub-badge hub-badge-green">Popular</span>
                 </a>
                 <!-- Passport Photo -->
-                <a href="#print-tab" class="tools-hub-card" onclick="document.querySelector('[data-tab=print-tab]')?.click(); return false;" style="text-decoration:none;">
+                <a href="/#print" class="tools-hub-card" onclick="if(document.getElementById(\x27tab-print\x27)){document.getElementById(\x27tab-print\x27)?.click(); return false;}" style="text-decoration:none;">
                     <div class="hub-icon" style="background:linear-gradient(135deg,#8B5CF6,#6366F1);">
                         <i class="fa-solid fa-id-card"></i>
                     </div>

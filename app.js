@@ -40,11 +40,17 @@
 
             // Highlight the corresponding choice card
             if (tabId === 'print-tab') {
-                document.getElementById('print-choice-card').style.transform = 'scale(1.05)';
-                document.getElementById('pdf-choice-card').style.transform = 'scale(1)';
+                if(document.getElementById('print-choice-card')) document.getElementById('print-choice-card').style.transform = 'scale(1.05)';
+                if(document.getElementById('pdf-choice-card')) document.getElementById('pdf-choice-card').style.transform = 'scale(1)';
+                if(document.getElementById('resize-choice-card')) document.getElementById('resize-choice-card').style.transform = 'scale(1)';
+            } else if (tabId === 'resize-tab') {
+                if(document.getElementById('resize-choice-card')) document.getElementById('resize-choice-card').style.transform = 'scale(1.05)';
+                if(document.getElementById('pdf-choice-card')) document.getElementById('pdf-choice-card').style.transform = 'scale(1)';
+                if(document.getElementById('print-choice-card')) document.getElementById('print-choice-card').style.transform = 'scale(1)';
             } else {
-                document.getElementById('pdf-choice-card').style.transform = 'scale(1.05)';
-                document.getElementById('print-choice-card').style.transform = 'scale(1)';
+                if(document.getElementById('pdf-choice-card')) document.getElementById('pdf-choice-card').style.transform = 'scale(1.05)';
+                if(document.getElementById('print-choice-card')) document.getElementById('print-choice-card').style.transform = 'scale(1)';
+                if(document.getElementById('resize-choice-card')) document.getElementById('resize-choice-card').style.transform = 'scale(1)';
             }
         });
     });
@@ -1368,15 +1374,39 @@
             const targetH = parseInt(document.getElementById('resize-height')?.value) || 600;
             const targetKb = parseInt(document.getElementById('resize-target-kb')?.value) || 100;
             const maintainRatio = document.getElementById('resize-maintain-ratio')?.value !== 'no';
-            const outputFmt = document.getElementById('output-format')?.value || 'jpeg';
+            const outputFmt = document.getElementById('output-format')?.value || 'original';
             const quality = parseFloat(document.getElementById('output-quality')?.value) || 0.85;
-            const mimeType = 'image/' + (outputFmt === 'jpg' ? 'jpeg' : outputFmt);
-            const ext = outputFmt === 'jpeg' ? 'jpg' : outputFmt;
+            
+            const mimeType = outputFmt === 'original' ? '' : 'image/' + (outputFmt === 'jpg' ? 'jpeg' : outputFmt);
+            const ext = outputFmt === 'original' ? '' : (outputFmt === 'jpeg' ? 'jpg' : outputFmt);
 
             const results = [];
 
             for (let i = 0; i < files.length; i++) {
                 updateProgress(Math.round(i / files.length * 100), `Resizing ${i + 1} of ${files.length}...`);
+                
+                let currentMimeType = mimeType;
+                let currentExt = ext;
+                
+                if (outputFmt === 'original') {
+                    const fileObj = files[i].file;
+                    const origType = fileObj?.type || '';
+                    const origName = fileObj?.name || '';
+                    if (origType.includes('png') || origName.toLowerCase().endsWith('.png')) {
+                        currentMimeType = 'image/png';
+                        currentExt = 'png';
+                    } else if (origType.includes('webp') || origName.toLowerCase().endsWith('.webp')) {
+                        currentMimeType = 'image/webp';
+                        currentExt = 'webp';
+                    } else if (origType.includes('gif') || origName.toLowerCase().endsWith('.gif')) {
+                        currentMimeType = 'image/gif';
+                        currentExt = 'gif';
+                    } else {
+                        currentMimeType = 'image/jpeg';
+                        currentExt = 'jpg';
+                    }
+                }
+                
                 const imgEl = await loadImageFromDataUrl(files[i].dataUrl);
                 let newW = imgEl.width, newH = imgEl.height;
 
@@ -1410,17 +1440,17 @@
                     let lo = 0.1, hi = 0.99;
                     for (let iter = 0; iter < 8; iter++) {
                         const mid = (lo + hi) / 2;
-                        dataUrl = canvas.toDataURL(mimeType, mid);
+                        dataUrl = canvas.toDataURL(currentMimeType, mid);
                         const kb = Math.round((dataUrl.length * 3) / 4 / 1024);
                         if (kb > targetKb) hi = mid; else lo = mid;
                     }
                 } else {
-                    dataUrl = canvas.toDataURL(mimeType, quality);
+                    dataUrl = canvas.toDataURL(currentMimeType, quality);
                 }
 
                 const sizeKb = Math.round((dataUrl.length * 3) / 4 / 1024);
                 const baseName = (files[i].file?.name || files[i].name || 'image').replace(/\.[^.]+$/, '');
-                results.push({ dataUrl, name: `${baseName}_resized_${newW}x${newH}.${ext}`, w: newW, h: newH, sizeKb, original: files[i] });
+                results.push({ dataUrl, name: `${baseName}_resized_${newW}x${newH}.${currentExt}`, w: newW, h: newH, sizeKb, original: files[i] });
             }
 
             hideProgress();
@@ -1505,6 +1535,20 @@
     const origHandleFiles = window.__handleFilesOrig;
 
     // ===== TAB 3 WIRING =====
+    // Auto-activate tab based on hash on load or hashchange
+    const handleHashRouting = () => {
+        const hash = window.location.hash;
+        if (hash === '#resize' || hash === '#resize-tab') {
+            document.getElementById('tab-resize')?.click();
+        } else if (hash === '#print' || hash === '#print-tab') {
+            document.getElementById('tab-print')?.click();
+        } else if (hash === '#pdf' || hash === '#pdf-tab') {
+            document.getElementById('tab-pdf')?.click();
+        }
+    };
+    window.addEventListener('hashchange', handleHashRouting);
+    handleHashRouting();
+
     // Wire up the 3rd tab (resize) through the existing tab system - already handled by the existing tab btn code
     console.log("%cPhotoSePDF.in v5.0 | India #1 Free Image to PDF + Resize Tool", "color:#6366F1; font-size:14px; font-weight:bold;");
 });
