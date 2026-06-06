@@ -1,4 +1,4 @@
-﻿# ===================================================
+# ===================================================
 # PhotoSePDF.in - robots.txt
 # Last updated: 2026-06-06
 # ===================================================
@@ -57,4 +57,4 @@ Allow: /
 Crawl-delay: 1
 
 # Sitemap
-Sitemap: https://photosepdf.in/sitemap.xml
+Sitemap: https://www.photosepdf.in/sitemap.xml
