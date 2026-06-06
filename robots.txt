@@ -1,6 +1,6 @@
 ﻿# ===================================================
 # PhotoSePDF.in - robots.txt
-# Last updated: 2026-06-03
+# Last updated: 2026-06-06
 # ===================================================
 
 # Allow all major search engines
@@ -9,7 +9,6 @@ Allow: /
 
 # Block low-value crawler traffic to protect server
 Disallow: /api/
-Disallow: /*.json$
 Disallow: /sw.js
 
 # Block specific bad AI/scraper bots
