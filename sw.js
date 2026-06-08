@@ -1,4 +1,4 @@
-const CACHE_NAME = 'photosepdf-v31-clean-urls';
+const CACHE_NAME = 'photosepdf-v32-clean-urls';
 const ASSETS = [
     './',
     './style.css',

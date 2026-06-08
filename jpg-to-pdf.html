@@ -1431,7 +1431,7 @@
     <!-- PWA Install Banner -->
     <div id="pwa-install-banner" style="display:none; position:fixed; bottom:0; left:0; right:0; background:var(--bg-card); backdrop-filter:blur(10px); border-top:2px solid var(--primary); padding:15px 20px; z-index:1000; box-shadow:0 -10px 20px rgba(0,0,0,0.15); justify-content:space-between; align-items:center;">
         <div style="flex:1;">
-            <h4 style="margin-bottom:2px; color:var(--dark); font-size:1.1rem;">ðŸ“² Add to Home Screen</h4>
+            <h4 style="margin-bottom:2px; color:var(--dark); font-size:1.1rem;">📱 Add to Home Screen</h4>
             <p style="font-size:0.85rem; color:var(--text-muted); margin:0;">Convert 100x Faster Offline. No Ads.</p>
         </div>
         <div style="display:flex; align-items:center;">
@@ -1447,6 +1447,13 @@
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js').catch(err => console.log('SW fail: ', err));
+            });
+            let refreshing = false;
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                if (!refreshing) {
+                    refreshing = true;
+                    window.location.reload();
+                }
             });
         }
     </script>

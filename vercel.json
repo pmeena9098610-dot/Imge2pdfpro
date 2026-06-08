@@ -4,6 +4,17 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "photosepdf.in"
+        }
+      ],
+      "destination": "https://www.photosepdf.in/:path*",
+      "permanent": true
+    },
+    {
       "source": "/:page.html",
       "destination": "/:page",
       "permanent": true
