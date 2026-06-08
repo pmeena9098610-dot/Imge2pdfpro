@@ -1,6 +1,6 @@
 # ===================================================
 # PhotoSePDF.in - robots.txt
-# Last updated: 2026-06-06
+# Last updated: 2026-06-08
 # ===================================================
 
 # Allow all major search engines
