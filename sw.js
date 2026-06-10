@@ -1,8 +1,9 @@
-const CACHE_NAME = 'photosepdf-v32-clean-urls';
+const CACHE_NAME = 'photosepdf-v33-quantum-3d';
 const ASSETS = [
     './',
     './style.css',
     './app.js',
+    './interactive-core.js',
     './manifest.json',
     './favicon.svg',
     './tools',
@@ -17,6 +18,17 @@ const ASSETS = [
     './word-to-pdf',
     './excel-to-pdf',
     './ppt-to-pdf',
+    './rotate-pdf',
+    './unlock-pdf',
+    './pdf-to-word',
+    './pdf-to-text',
+    './watermark-pdf',
+    './add-page-numbers-pdf',
+    './delete-pdf-pages',
+    './jpg-to-png',
+    './png-to-jpg',
+    './pdf-to-excel',
+    './pdf-to-ppt',
     './about',
     './contact',
     './privacy-policy',

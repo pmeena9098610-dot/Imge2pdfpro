@@ -455,17 +455,17 @@
 
     <main class="container" role="main">
         <section id="tool" class="converter-section fade-up visible delay-200" aria-label="Image to PDF Converter Tool">
-            <div class="app-container">
+            <div class="app-container card-3d glass-glow">
                 <div class="dropzone" id="dropzone" aria-label="Drag and Drop zone for files">
                     <input type="file" id="file-input" multiple accept="image/jpeg, image/jpg, image/png, image/webp, image/heic, image/gif, image/bmp, image/svg+xml, image/tiff, image/avif, image/x-icon" class="hidden-input" aria-label="Upload Images">
                     <div class="dropzone-content">
-                        <div class="icon-blob" aria-hidden="true">
+                        <div class="icon-blob float-depth-icon" aria-hidden="true">
                             <i class="fa-solid fa-folder-plus"></i>
                         </div>
-                        <h2>Drag &amp; Drop Images Here</h2>
-                        <p>or</p>
-                        <button class="btn btn-primary" id="browse-btn" aria-label="Browse your photos locally">&#x1F4F2; Select Images</button>
-                        <p class="formats" aria-label="Supported image formats">
+                        <h2 class="float-depth-text">Drag &amp; Drop Images Here</h2>
+                        <p class="float-depth-text">or</p>
+                        <button class="btn btn-primary btn-3d" id="browse-btn" aria-label="Browse your photos locally">&#x1F4F2; Select Images</button>
+                        <p class="formats float-depth-text" aria-label="Supported image formats">
                             <span class="format-tag">JPG</span>
                             <span class="format-tag">PNG</span>
                             <span class="format-tag">WEBP</span>
@@ -1311,120 +1311,219 @@
             </div>
             <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:18px;">
                 <!-- Image to PDF -->
-                <a href="/" class="tools-hub-card" style="text-decoration:none;">
-                    <div class="hub-icon" style="background:linear-gradient(135deg,#6366F1,#8b5cf6);">
+                <a href="/" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#6366F1,#8b5cf6);">
                         <i class="fa-solid fa-images"></i>
                     </div>
-                    <div class="hub-label">Image to PDF</div>
-                    <div class="hub-desc">JPG, PNG, WEBP, HEIC → PDF</div>
+                    <div class="hub-label float-depth-text">Image to PDF</div>
+                    <div class="hub-desc float-depth-text">JPG, PNG, WEBP, HEIC → PDF</div>
                     <span class="hub-badge hub-badge-green">Popular</span>
                 </a>
                 <!-- Compress PDF -->
-                <a href="/compress-pdf" class="tools-hub-card" style="text-decoration:none;">
-                    <div class="hub-icon" style="background:linear-gradient(135deg,#F59E0B,#EF4444);">
+                <a href="/compress-pdf" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#F59E0B,#EF4444);">
                         <i class="fa-solid fa-compress"></i>
                     </div>
-                    <div class="hub-label">Compress PDF</div>
-                    <div class="hub-desc">PDF size 80% tak kam karo</div>
+                    <div class="hub-label float-depth-text">Compress PDF</div>
+                    <div class="hub-desc float-depth-text">PDF size 80% tak kam karo</div>
                     <span class="hub-badge hub-badge-orange">New</span>
                 </a>
                 <!-- Merge PDF -->
-                <a href="/merge-pdf" class="tools-hub-card" style="text-decoration:none;">
-                    <div class="hub-icon" style="background:linear-gradient(135deg,#10B981,#059669);">
+                <a href="/merge-pdf" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#10B981,#059669);">
                         <i class="fa-solid fa-object-group"></i>
                     </div>
-                    <div class="hub-label">Merge PDF</div>
-                    <div class="hub-desc">Multiple PDFs ek mein combine karo</div>
+                    <div class="hub-label float-depth-text">Merge PDF</div>
+                    <div class="hub-desc float-depth-text">Multiple PDFs ek mein combine karo</div>
                     <span class="hub-badge hub-badge-orange">New</span>
                 </a>
                 <!-- Split PDF -->
-                <a href="/split-pdf" class="tools-hub-card" style="text-decoration:none;">
-                    <div class="hub-icon" style="background:linear-gradient(135deg,#3B82F6,#06B6D4);">
+                <a href="/split-pdf" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#3B82F6,#06B6D4);">
                         <i class="fa-solid fa-scissors"></i>
                     </div>
-                    <div class="hub-label">Split PDF</div>
-                    <div class="hub-desc">Pages select karke alag karo</div>
+                    <div class="hub-label float-depth-text">Split PDF</div>
+                    <div class="hub-desc float-depth-text">Pages select karke alag karo</div>
                     <span class="hub-badge hub-badge-orange">New</span>
                 </a>
                 <!-- PDF to JPG -->
-                <a href="/pdf-to-jpg" class="tools-hub-card" style="text-decoration:none;">
-                    <div class="hub-icon" style="background:linear-gradient(135deg,#EC4899,#8B5CF6);">
+                <a href="/pdf-to-jpg" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#EC4899,#8B5CF6);">
                         <i class="fa-solid fa-file-image"></i>
                     </div>
-                    <div class="hub-label">PDF to JPG</div>
-                    <div class="hub-desc">PDF pages ko images mein convert karo</div>
+                    <div class="hub-label float-depth-text">PDF to JPG</div>
+                    <div class="hub-desc float-depth-text">PDF pages ko images mein convert karo</div>
+                    <span class="hub-badge hub-badge-orange">New</span>
+                </a>
+                <!-- Rotate PDF -->
+                <a href="/rotate-pdf" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#8B5CF6,#6366F1);">
+                        <i class="fa-solid fa-rotate"></i>
+                    </div>
+                    <div class="hub-label float-depth-text">Rotate PDF</div>
+                    <div class="hub-desc float-depth-text">PDF pages ko rotate/spin karein</div>
+                    <span class="hub-badge hub-badge-green">Popular</span>
+                </a>
+                <!-- Unlock PDF -->
+                <a href="/unlock-pdf" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#F59E0B,#EF4444);">
+                        <i class="fa-solid fa-lock-open"></i>
+                    </div>
+                    <div class="hub-label float-depth-text">Unlock PDF</div>
+                    <div class="hub-desc float-depth-text">PDF se password permanently hatayein</div>
+                    <span class="hub-badge hub-badge-orange">New</span>
+                </a>
+                <!-- PDF to Word -->
+                <a href="/pdf-to-word" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#2B579A,#3B82F6);">
+                        <i class="fa-solid fa-file-word"></i>
+                    </div>
+                    <div class="hub-label float-depth-text">PDF to Word</div>
+                    <div class="hub-desc float-depth-text">PDF to doc editable file offline</div>
+                    <span class="hub-badge hub-badge-green">Popular</span>
+                </a>
+                <!-- PDF to Text -->
+                <a href="/pdf-to-text" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#6366F1,#8B5CF6);">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <div class="hub-label float-depth-text">PDF to Text</div>
+                    <div class="hub-desc float-depth-text">PDF se plain text extract karein</div>
+                    <span class="hub-badge hub-badge-orange">New</span>
+                </a>
+                <!-- Add Watermark -->
+                <a href="/watermark-pdf" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#EC4899,#F43F5E);">
+                        <i class="fa-solid fa-stamp"></i>
+                    </div>
+                    <div class="hub-label float-depth-text">Add Watermark</div>
+                    <div class="hub-desc float-depth-text">PDF par custom text watermark lagayein</div>
+                    <span class="hub-badge hub-badge-orange">New</span>
+                </a>
+                <!-- Add Page Numbers -->
+                <a href="/add-page-numbers-pdf" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#10B981,#3B82F6);">
+                        <i class="fa-solid fa-list-ol"></i>
+                    </div>
+                    <div class="hub-label float-depth-text">Page Numbers</div>
+                    <div class="hub-desc float-depth-text">PDF par page numbers/indexes daalein</div>
+                    <span class="hub-badge hub-badge-orange">New</span>
+                </a>
+                <!-- Delete PDF Pages -->
+                <a href="/delete-pdf-pages" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#EF4444,#DC2626);">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </div>
+                    <div class="hub-label float-depth-text">Delete Pages</div>
+                    <div class="hub-desc float-depth-text">PDF se unwanted pages remove karein</div>
                     <span class="hub-badge hub-badge-orange">New</span>
                 </a>
                 <!-- Image Resize -->
-                <a href="/#resize" class="tools-hub-card" onclick="if(document.getElementById(\x27tab-resize\x27)){document.getElementById(\x27tab-resize\x27)?.click(); return false;}" style="text-decoration:none;">
-                    <div class="hub-icon" style="background:linear-gradient(135deg,#F97316,#EAB308);">
+                <a href="/#resize" class="tools-hub-card card-3d glass-glow" onclick="if(document.getElementById('tab-resize')){document.getElementById('tab-resize')?.click(); return false;}" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#F97316,#EAB308);">
                         <i class="fa-solid fa-maximize"></i>
                     </div>
-                    <div class="hub-label">Image Resize</div>
-                    <div class="hub-desc">Photo 20KB, 50KB mein resize karo</div>
+                    <div class="hub-label float-depth-text">Image Resize</div>
+                    <div class="hub-desc float-depth-text">Photo 20KB, 50KB mein resize karo</div>
                     <span class="hub-badge hub-badge-green">Popular</span>
                 </a>
                 <!-- Passport Photo -->
-                <a href="/#print" class="tools-hub-card" onclick="if(document.getElementById(\x27tab-print\x27)){document.getElementById(\x27tab-print\x27)?.click(); return false;}" style="text-decoration:none;">
-                    <div class="hub-icon" style="background:linear-gradient(135deg,#8B5CF6,#6366F1);">
+                <a href="/#print" class="tools-hub-card card-3d glass-glow" onclick="if(document.getElementById('tab-print')){document.getElementById('tab-print')?.click(); return false;}" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#8B5CF6,#6366F1);">
                         <i class="fa-solid fa-id-card"></i>
                     </div>
-                    <div class="hub-label">Passport Photo</div>
-                    <div class="hub-desc">Govt ID / Visa photo maker</div>
+                    <div class="hub-label float-depth-text">Passport Photo</div>
+                    <div class="hub-desc float-depth-text">Govt ID / Visa photo maker</div>
                     <span class="hub-badge hub-badge-green">Popular</span>
                 </a>
                 <!-- OCR -->
-                <a href="/ocr-pdf" class="tools-hub-card" style="text-decoration:none;">
-                    <div class="hub-icon" style="background:linear-gradient(135deg,#8B5CF6,#EC4899);">
+                <a href="/ocr-pdf" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#8B5CF6,#EC4899);">
                         <i class="fa-solid fa-text-width"></i>
                     </div>
-                    <div class="hub-label">OCR - Text Extract</div>
-                    <div class="hub-desc">Image se text copy karo</div>
+                    <div class="hub-label float-depth-text">OCR - Text Extract</div>
+                    <div class="hub-desc float-depth-text">Image se text copy karo</div>
                     <span class="hub-badge hub-badge-orange">New</span>
                 </a>
                 <!-- PDF Password -->
-                <a href="/pdf-password" class="tools-hub-card" style="text-decoration:none;">
-                    <div class="hub-icon" style="background:linear-gradient(135deg,#F59E0B,#EF4444);">
+                <a href="/pdf-password" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#F59E0B,#EF4444);">
                         <i class="fa-solid fa-lock"></i>
                     </div>
-                    <div class="hub-label">PDF Password</div>
-                    <div class="hub-desc">PDF lock / unlock karo</div>
+                    <div class="hub-label float-depth-text">PDF Password</div>
+                    <div class="hub-desc float-depth-text">PDF lock / unlock karo</div>
                     <span class="hub-badge hub-badge-orange">New</span>
                 </a>
                 <!-- E-Signature -->
-                <a href="/esignature" class="tools-hub-card" style="text-decoration:none;">
-                    <div class="hub-icon" style="background:linear-gradient(135deg,#10B981,#3B82F6);">
+                <a href="/esignature" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#10B981,#3B82F6);">
                         <i class="fa-solid fa-signature"></i>
                     </div>
-                    <div class="hub-label">E-Signature</div>
-                    <div class="hub-desc">PDF par sign karo</div>
+                    <div class="hub-label float-depth-text">E-Signature</div>
+                    <div class="hub-desc float-depth-text">PDF par sign karo</div>
                     <span class="hub-badge hub-badge-orange">New</span>
                 </a>
                 <!-- Camera to PDF -->
-                <a href="/camera-to-pdf" class="tools-hub-card" style="text-decoration:none;">
-                    <div class="hub-icon" style="background:linear-gradient(135deg,#10B981,#059669);">
+                <a href="/camera-to-pdf" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#10B981,#059669);">
                         <i class="fa-solid fa-camera"></i>
                     </div>
-                    <div class="hub-label">Camera to PDF</div>
-                    <div class="hub-desc">Mobile camera se scan karo</div>
+                    <div class="hub-label float-depth-text">Camera to PDF</div>
+                    <div class="hub-desc float-depth-text">Mobile camera se scan karo</div>
                     <span class="hub-badge hub-badge-orange">New</span>
                 </a>
                 <!-- AI PDF Summarizer -->
-                <a href="/ai-summarizer" class="tools-hub-card" style="text-decoration:none;">
-                    <div class="hub-icon" style="background:linear-gradient(135deg,#8B5CF6,#EC4899);">
+                <a href="/ai-summarizer" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#8B5CF6,#EC4899);">
                         <i class="fa-solid fa-robot"></i>
                     </div>
-                    <div class="hub-label">AI PDF Summarizer</div>
-                    <div class="hub-desc">PDF ka offline summary banao</div>
+                    <div class="hub-label float-depth-text">AI PDF Summarizer</div>
+                    <div class="hub-desc float-depth-text">PDF ka offline summary banao</div>
                     <span class="hub-badge hub-badge-orange">New</span>
                 </a>
                 <!-- AI Notes Generator -->
-                <a href="/ai-notes" class="tools-hub-card" style="text-decoration:none;">
-                    <div class="hub-icon" style="background:linear-gradient(135deg,#3B82F6,#06B6D4);">
+                <a href="/ai-notes" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#3B82F6,#06B6D4);">
                         <i class="fa-solid fa-list-check"></i>
                     </div>
-                    <div class="hub-label">AI Notes Generator</div>
-                    <div class="hub-desc">PDF se revision notes banao</div>
+                    <div class="hub-label float-depth-text">AI Notes Generator</div>
+                    <div class="hub-desc float-depth-text">PDF se revision notes banao</div>
+                    <span class="hub-badge hub-badge-orange">New</span>
+                </a>
+                <!-- JPG to PNG -->
+                <a href="/jpg-to-png" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#3B82F6,#8B5CF6);">
+                        <i class="fa-solid fa-image"></i>
+                    </div>
+                    <div class="hub-label float-depth-text">JPG to PNG</div>
+                    <div class="hub-desc float-depth-text">JPG ko PNG transparent format mein convert karein</div>
+                    <span class="hub-badge hub-badge-orange">New</span>
+                </a>
+                <!-- PNG to JPG -->
+                <a href="/png-to-jpg" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#10B981,#3B82F6);">
+                        <i class="fa-solid fa-image"></i>
+                    </div>
+                    <div class="hub-label float-depth-text">PNG to JPG</div>
+                    <div class="hub-desc float-depth-text">PNG images ko background color fill ke sath JPG banayein</div>
+                    <span class="hub-badge hub-badge-orange">New</span>
+                </a>
+                <!-- PDF to Excel -->
+                <a href="/pdf-to-excel" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#107C41,#10B981);">
+                        <i class="fa-solid fa-file-excel"></i>
+                    </div>
+                    <div class="hub-label float-depth-text">PDF to Excel</div>
+                    <div class="hub-desc float-depth-text">PDF data sheets coordinates align Excel (.xls) convert karein</div>
+                    <span class="hub-badge hub-badge-orange">New</span>
+                </a>
+                <!-- PDF to PPT -->
+                <a href="/pdf-to-ppt" class="tools-hub-card card-3d glass-glow" style="text-decoration:none;">
+                    <div class="hub-icon float-depth-icon" style="background:linear-gradient(135deg,#D04423,#EF4444);">
+                        <i class="fa-solid fa-file-powerpoint"></i>
+                    </div>
+                    <div class="hub-label float-depth-text">PDF to PowerPoint</div>
+                    <div class="hub-desc float-depth-text">PDF doc frames ko PPT presentation slides deck banayein</div>
                     <span class="hub-badge hub-badge-orange">New</span>
                 </a>
             </div>
@@ -1536,6 +1635,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js" crossorigin="anonymous"></script>
     <script src="app.js" defer></script>
+    <script src="interactive-core.js" defer></script>
 
     <!-- Scroll to Top Button -->
     <button id="scroll-top-btn" aria-label="Scroll to top" title="Upar jao" onclick="window.scrollTo({top:0,behavior:'smooth'})">

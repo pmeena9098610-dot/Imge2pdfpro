@@ -1,4 +1,4 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     // Service Worker - Smart Update Engine (No Double Refresh)
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -1606,9 +1606,4 @@
     // Wire up the 3rd tab (resize) through the existing tab system - already handled by the existing tab btn code
     console.log("%cPhotoSePDF.in v5.0 | India #1 Free Image to PDF + Resize Tool", "color:#6366F1; font-size:14px; font-weight:bold;");
 });
-
-
-
-
-
 

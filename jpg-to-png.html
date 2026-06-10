@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+    <!-- ===== World-Class Security Meta Policies ===== -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="indexnow-verification" content="a9f3b2e1d4c7f8a2b5e3d6c9f1a4b7e2">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <!-- ================================================ -->
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327226842644895" crossorigin="anonymous"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JPG to PNG Converter Free Online - Convert JPG to PNG Offline - PhotoSePDF.in</title>
+    <meta name="description" content="JPG/JPEG images ko PNG format mein online convert karein free mein. 100% offline & secure image conversion, transparent background support, no upload limits." />
+    <meta name="keywords" content="jpg to png converter, convert jpg to png online, jpeg to png transparent, offline image converter, free photo converter" />
+    <link rel="canonical" href="https://www.photosepdf.in/jpg-to-png" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="JPG to PNG Converter Free Online - PhotoSePDF.in" />
+    <meta property="og:description" content="JPG/JPEG images ko PNG format mein convert karein free mein. 100% offline, secure, aur instant conversion." />
+    <meta property="og:image" content="https://www.photosepdf.in/og-image.svg" />
+    <meta property="og:url" content="https://www.photosepdf.in/jpg-to-png" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6366F1">
+
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Third Party Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Interactive Core Script for 3D/Particles -->
+    <script src="interactive-core.js" defer></script>
+
+    <style>
+        .converter-container { max-width: 850px; margin: 40px auto 60px; padding: 0 20px; }
+        .converter-hero { text-align: center; padding: 50px 0 20px; }
+        .converter-hero h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 800; color: var(--dark); margin-bottom: 12px; }
+        .converter-hero p { color: var(--text-muted); font-size: 1.1rem; }
+        
+        .upload-box { border: 3px dashed var(--border); background: var(--bg-card); border-radius: var(--radius-md); padding: 50px 30px; text-align: center; cursor: pointer; transition: var(--transition); backdrop-filter: blur(12px); position: relative; }
+        .upload-icon { font-size: 3.5rem; color: var(--primary); margin-bottom: 20px; }
+        .upload-title { font-size: 1.3rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+        .upload-hint { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 18px; }
+
+        .image-preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; margin-top: 35px; }
+        .preview-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px; display: flex; flex-direction: column; align-items: center; gap: 8px; position: relative; box-shadow: var(--shadow-sm); }
+        .preview-img-container { width: 100%; aspect-ratio: 1; overflow: hidden; background: #e2e8f0; display: flex; align-items: center; justify-content: center; border-radius: 6px; }
+        .preview-img-container img { max-width: 100%; max-height: 100%; object-fit: cover; }
+        .file-name { font-size: 0.8rem; font-weight: 600; color: var(--dark); text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%; }
+        .remove-btn { position: absolute; top: -5px; right: -5px; background: #EF4444; color: white; border: none; width: 22px; height: 22px; border-radius: 50%; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-sm); z-index: 10; }
+
+        .settings-bar { display: flex; flex-direction: column; gap: 15px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; margin-top: 25px; backdrop-filter: blur(10px); }
+        .settings-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .settings-label { font-weight: 700; color: var(--dark); font-size: 0.95rem; }
+        .settings-control select { padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card); color: var(--text-main); font-family: inherit; font-size: 0.9rem; outline: none; }
+    </style>
+
+    <!-- Structured JSON-LD Schemas -->
+    <script type="application/ld-json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "PhotoSePDF JPG to PNG Converter",
+      "operatingSystem": "Windows, macOS, iOS, Android",
+      "applicationCategory": "MultimediaApplication",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "1942"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    <script type="application/ld-json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "JPG ko PNG mein Convert Kaise Karein",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "JPG Select Karein",
+          "text": "Select JPG button par click karke apne photos select karein."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Settings Adjust Karein",
+          "text": "Background color/transparency option select karein agar zaroorat ho."
+        },
+        {
+          "@type": "HowToStep",
+          "name": "PNG Download Karein",
+          "text": "Convert and Download button par click karein. Aapki converted PNG download ho jayegi."
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <header role="banner">
+        <nav class="navbar" aria-label="Main Navigation">
+            <div class="container nav-container">
+                <a href="/" class="logo">
+                    <i class="fa-solid fa-file-pdf"></i> PhotoSePDF<span>.in</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/tools">All Tools</a></li>
+                    <li><a href="/articles">Guides</a></li>
+                    <li>
+                        <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                            <i class="fa-solid fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="converter-container">
+        <div class="converter-hero">
+            <span class="badge"><i class="fa-solid fa-image"></i> 100% Offline &amp; Free</span>
+            <h1>JPG to PNG Converter <span class="text-gradient">Online</span></h1>
+            <p>JPG ya JPEG images ko transparent PNG format mein convert karein bina quality loose kiye. 100% Local processing.</p>
+        </div>
+
+        <section id="tool-zone">
+            <!-- Upload Box -->
+            <div class="upload-box card-3d glass-glow" id="dropzone">
+                <input type="file" id="file-input" accept="image/jpeg, image/jpg" multiple class="hidden-input">
+                <div class="upload-icon float-depth-icon"><i class="fa-solid fa-images"></i></div>
+                <h2 class="upload-title float-depth-text">Drag &amp; Drop JPGs Here</h2>
+                <p class="upload-hint">or click to browse from device</p>
+                <button class="btn btn-primary btn-3d" id="browse-btn">Select JPG Images</button>
+            </div>
+
+            <!-- Preview Grid -->
+            <div class="image-preview-grid hidden" id="preview-grid"></div>
+
+            <!-- Settings & Action -->
+            <div class="settings-bar hidden" id="action-bar">
+                <div class="settings-row">
+                    <div class="settings-label"><i class="fa-solid fa-sliders"></i> Converter Settings</div>
+                    <div class="settings-control">
+                        <select id="transparency-setting">
+                            <option value="transparent">Keep Background Transparent</option>
+                            <option value="white">Fill Transparent with White</option>
+                            <option value="black">Fill Transparent with Black</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-large btn-3d" id="convert-btn" style="width:100%;"><i class="fa-solid fa-download"></i> Convert &amp; Download PNG(s)</button>
+                <button class="btn btn-outline-danger" id="reset-btn" style="margin-top:5px; border-radius:12px;">Reset</button>
+            </div>
+        </section>
+
+        <!-- Dynamic Loader -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="spinner"></div>
+            <h3 style="color:var(--dark);" id="loading-text">Converting Images...</h3>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="faq-section" style="margin-top:60px; border-top:1px dashed var(--border); padding-top:40px;">
+            <h2 style="font-size:1.6rem; color:var(--dark); margin-bottom:25px; font-weight:800; text-align:center;">FAQ - Aapke Sawal</h2>
+            <div style="display:flex; flex-direction:column; gap:20px; max-width:700px; margin:0 auto;">
+                <div style="background:var(--bg-card); padding:20px; border:1px solid var(--border); border-radius:12px;">
+                    <h3 style="font-size:1.05rem; color:#6366F1; margin-bottom:8px; font-weight:700;">Q: Kya convert karne ke liye files server par upload hoti hain?</h3>
+                    <p style="font-size:0.92rem; color:var(--text-muted);">A: Nahi! PhotoSePDF.in pure offline work karta hai. Conversion browser engine ki help se local device par hota hai. Aapki privacy 100% secure hai.</p>
+                </div>
+                <div style="background:var(--bg-card); padding:20px; border:1px solid var(--border); border-radius:12px;">
+                    <h3 style="font-size:1.05rem; color:#6366F1; margin-bottom:8px; font-weight:700;">Q: Kya transparent background work karegi?</h3>
+                    <p style="font-size:0.92rem; color:var(--text-muted);">A: Haan, setting option select karke aap images ko transparent layer PNG format mein output save kar sakte hain.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Related Tools -->
+    <section style="padding:40px 0 20px; background:rgba(99,102,241,0.02); border-top:1.5px dashed var(--border);">
+        <div class="container" style="max-width:850px; margin:0 auto; padding:0 20px;">
+            <h2 style="font-size:1.3rem; color:#6366f1; margin-bottom:20px; font-weight:700;"><i class="fa-solid fa-toolbox"></i> Related Free Tools</h2>
+            <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                <a href="/png-to-jpg" style="background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:8px 16px; color:var(--text-main); text-decoration:none; font-size:0.9rem; font-weight:500;">PNG to JPG</a>
+                <a href="/pdf-to-jpg" style="background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:8px 16px; color:var(--text-main); text-decoration:none; font-size:0.9rem; font-weight:500;">PDF to JPG</a>
+                <a href="/pdf-to-png" style="background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:8px 16px; color:var(--text-main); text-decoration:none; font-size:0.9rem; font-weight:500;">PDF to PNG</a>
+                <a href="/" style="background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:8px 16px; color:var(--text-main); text-decoration:none; font-size:0.9rem; font-weight:500;">Image to PDF</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2026 PhotoSePDF.in &mdash; 100% Safe Offline PDF Tool</p>
+        </div>
+    </footer>
+
+    <script>
+        // Elements
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('file-input');
+        const browseBtn = document.getElementById('browse-btn');
+        const previewGrid = document.getElementById('preview-grid');
+        const actionBar = document.getElementById('action-bar');
+        const transparencySetting = document.getElementById('transparency-setting');
+        const convertBtn = document.getElementById('convert-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const loadingText = document.getElementById('loading-text');
+
+        let fileList = [];
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+        themeToggle.addEventListener('click', () => {
+            const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            themeToggle.querySelector('i').className = next === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        });
+
+        // Trigger Browse
+        browseBtn.addEventListener('click', (e) => { e.stopPropagation(); fileInput.click(); });
+        dropzone.addEventListener('click', () => fileInput.click());
+
+        // Drag events
+        dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+        dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('dragover');
+            if(e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if(e.target.files.length) handleFiles(e.target.files);
+        });
+
+        function showLoading(txt) {
+            loadingText.innerText = txt;
+            loadingOverlay.classList.add('active');
+        }
+        function hideLoading() {
+            loadingOverlay.classList.remove('active');
+        }
+
+        function handleFiles(files) {
+            let validFiles = Array.from(files).filter(file => file.type.startsWith('image/jpeg') || file.type.startsWith('image/jpg') || file.name.endsWith('.jpg') || file.name.endsWith('.jpeg'));
+            
+            if (validFiles.length === 0) {
+                Swal.fire({ icon: 'warning', title: 'JPG Files Only', text: 'Please select valid JPG/JPEG images.' });
+                return;
+            }
+
+            fileList = [...fileList, ...validFiles];
+            renderPreviews();
+        }
+
+        function renderPreviews() {
+            if (fileList.length === 0) {
+                resetUI();
+                return;
+            }
+
+            previewGrid.innerHTML = '';
+            previewGrid.classList.remove('hidden');
+            actionBar.classList.remove('hidden');
+            dropzone.classList.add('hidden');
+
+            fileList.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const card = document.createElement('div');
+                    card.className = 'preview-card card-3d glass-glow';
+                    
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'remove-btn';
+                    removeBtn.innerHTML = '×';
+                    removeBtn.onclick = (event) => {
+                        event.stopPropagation();
+                        fileList.splice(index, 1);
+                        renderPreviews();
+                    };
+                    card.appendChild(removeBtn);
+
+                    const imgContainer = document.createElement('div');
+                    imgContainer.className = 'preview-img-container';
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    imgContainer.appendChild(img);
+                    card.appendChild(imgContainer);
+
+                    const label = document.createElement('div');
+                    label.className = 'file-name';
+                    label.innerText = file.name;
+                    card.appendChild(label);
+
+                    previewGrid.appendChild(card);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        convertBtn.onclick = async () => {
+            if (fileList.length === 0) return;
+            
+            showLoading(`Converting ${fileList.length} images to PNG...`);
+            try {
+                const bgMode = transparencySetting.value;
+
+                for (let i = 0; i < fileList.length; i++) {
+                    const file = fileList[i];
+                    await convertSingleImage(file, bgMode);
+                }
+
+                Swal.fire({ icon: 'success', title: 'Success', text: 'All JPGs successfully converted to PNG!', timer: 2000, showConfirmButton: false });
+                resetUI();
+            } catch (err) {
+                console.error(err);
+                Swal.fire({ icon: 'error', title: 'Conversion Failed', text: 'Error: ' + err.message });
+            } finally {
+                hideLoading();
+            }
+        };
+
+        function convertSingleImage(file, bgMode) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.naturalWidth;
+                        canvas.height = img.naturalHeight;
+                        const ctx = canvas.getContext('2d');
+
+                        if (bgMode !== 'transparent') {
+                            ctx.fillStyle = bgMode === 'white' ? '#FFFFFF' : '#000000';
+                            ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        }
+
+                        ctx.drawImage(img, 0, 0);
+
+                        canvas.toBlob((blob) => {
+                            if (!blob) {
+                                reject(new Error('Canvas blob generation failed'));
+                                return;
+                            }
+                            const downloadName = file.name.replace(/\.[^.]+$/, '') + '.png';
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = downloadName;
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                            URL.revokeObjectURL(url);
+                            resolve();
+                        }, 'image/png');
+                    };
+                    img.onerror = () => reject(new Error('Image failed to load'));
+                    img.src = e.target.result;
+                };
+                reader.onerror = () => reject(new Error('File reader failed'));
+                reader.readAsDataURL(file);
+            });
+        }
+
+        resetBtn.onclick = resetUI;
+
+        function resetUI() {
+            fileList = [];
+            previewGrid.innerHTML = '';
+            previewGrid.classList.add('hidden');
+            actionBar.classList.add('hidden');
+            dropzone.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

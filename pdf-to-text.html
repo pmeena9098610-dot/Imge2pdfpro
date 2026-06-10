@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+    <!-- ===== World-Class Security Meta Policies ===== -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="indexnow-verification" content="a9f3b2e1d4c7f8a2b5e3d6c9f1a4b7e2">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <!-- ================================================ -->
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327226842644895" crossorigin="anonymous"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF to Text Converter Free - Extract Text from PDF Offline - PhotoSePDF.in</title>
+    <meta name="description" content="PDF ko plain text (.txt) file mein online convert karein free mein. Extract text from PDF documents instantly offline. Secure local processing." />
+    <meta name="keywords" content="pdf to text converter free, extract text from pdf, convert pdf to txt online, pdf to text offline" />
+    <link rel="canonical" href="https://www.photosepdf.in/pdf-to-text" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="PDF to Text Converter Free - PhotoSePDF.in" />
+    <meta property="og:description" content="PDF files se plain text extract karein free mein. 100% offline & secure processing." />
+    <meta property="og:image" content="https://www.photosepdf.in/og-image.svg" />
+    <meta property="og:url" content="https://www.photosepdf.in/pdf-to-text" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6366F1">
+
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Third Party Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        .text-container { max-width: 800px; margin: 40px auto 60px; padding: 0 20px; }
+        .text-hero { text-align: center; padding: 50px 0 20px; }
+        .text-hero h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 800; color: var(--dark); margin-bottom: 12px; }
+        .text-hero p { color: var(--text-muted); font-size: 1.1rem; }
+        
+        .upload-box { border: 3px dashed var(--border); background: var(--bg-card); border-radius: var(--radius-md); padding: 50px 30px; text-align: center; cursor: pointer; transition: var(--transition); backdrop-filter: blur(12px); position: relative; }
+        .upload-icon { font-size: 3.5rem; color: var(--primary); margin-bottom: 20px; }
+        .upload-title { font-size: 1.3rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+        .upload-hint { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 18px; }
+
+        .result-box { margin-top: 30px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 25px; box-shadow: var(--shadow-sm); backdrop-filter: blur(10px); display: flex; flex-direction: column; gap: 15px; }
+        .result-textarea { width: 100%; height: 350px; padding: 15px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-family: inherit; font-size: 0.95rem; resize: vertical; line-height: 1.5; color: var(--text-main); background: var(--bg-main); outline: none; }
+        .result-textarea:focus { border-color: var(--primary); }
+        .result-actions { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
+    </style>
+</head>
+<body>
+    <header role="banner">
+        <nav class="navbar" aria-label="Main Navigation">
+            <div class="container nav-container">
+                <a href="/" class="logo">
+                    <i class="fa-solid fa-file-pdf"></i> PhotoSePDF<span>.in</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/tools">All Tools</a></li>
+                    <li><a href="/articles">Guides</a></li>
+                    <li>
+                        <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                            <i class="fa-solid fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="text-container">
+        <div class="text-hero">
+            <span class="badge"><i class="fa-solid fa-file-lines"></i> 100% Offline Extraction</span>
+            <h1>PDF to Text <span class="text-gradient">Converter Free</span></h1>
+            <p>PDF documents se plain text extract karein. Copy karein ya text file download karein.</p>
+        </div>
+
+        <section id="tool-zone">
+            <!-- Upload Box -->
+            <div class="upload-box card-3d glass-glow" id="dropzone">
+                <input type="file" id="file-input" accept="application/pdf" class="hidden-input">
+                <div class="upload-icon float-depth-icon"><i class="fa-solid fa-file-lines"></i></div>
+                <h2 class="upload-title float-depth-text">Drag &amp; Drop PDF File Here</h2>
+                <p class="upload-hint">or click to browse from device</p>
+                <button class="btn btn-primary btn-3d" id="browse-btn">Select PDF</button>
+            </div>
+
+            <!-- Result Box -->
+            <div class="result-box hidden" id="result-box">
+                <h3 style="font-weight:700; color:var(--dark);" id="stats-label">Extracted Text Content</h3>
+                <textarea class="result-textarea" id="result-text" readonly placeholder="Extracted text will appear here..."></textarea>
+                <div class="result-actions">
+                    <button class="btn btn-primary btn-3d" id="copy-btn" style="background:#8B5CF6;"><i class="fa-solid fa-copy"></i> Copy Text</button>
+                    <button class="btn btn-primary btn-3d" id="dl-btn" style="background:#10B981;"><i class="fa-solid fa-download"></i> Download .TXT</button>
+                    <button class="btn btn-outline-danger" id="reset-btn" style="border-radius:12px;">Reset</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Loader -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="spinner"></div>
+            <h3 style="color:var(--dark);" id="loading-text">Extracting Text Content...</h3>
+        </div>
+    </main>
+
+    <!-- Related Tools -->
+    <section style="padding:40px 0 20px; background:rgba(99,102,241,0.02); border-top:1.5px dashed var(--border);">
+        <div class="container" style="max-width:800px; margin:0 auto; padding:0 20px;">
+            <h2 style="font-size:1.3rem; color:#6366f1; margin-bottom:20px; font-weight:700;"><i class="fa-solid fa-toolbox"></i> Related Free Tools</h2>
+            <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                <a href="/pdf-to-word" style="background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:8px 16px; color:var(--text-main); text-decoration:none; font-size:0.9rem; font-weight:500;">PDF to Word</a>
+                <a href="/ocr-pdf" style="background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:8px 16px; color:var(--text-main); text-decoration:none; font-size:0.9rem; font-weight:500;">OCR Text Extract</a>
+                <a href="/merge-pdf" style="background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:8px 16px; color:var(--text-main); text-decoration:none; font-size:0.9rem; font-weight:500;">Merge PDF</a>
+                <a href="/split-pdf" style="background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:8px 16px; color:var(--text-main); text-decoration:none; font-size:0.9rem; font-weight:500;">Split PDF</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2026 PhotoSePDF.in &mdash; 100% Safe Offline PDF Tool</p>
+        </div>
+    </footer>
+
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        // Elements
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('file-input');
+        const browseBtn = document.getElementById('browse-btn');
+        const resultBox = document.getElementById('result-box');
+        const resultText = document.getElementById('result-text');
+        const copyBtn = document.getElementById('copy-btn');
+        const dlBtn = document.getElementById('dl-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const statsLabel = document.getElementById('stats-label');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const loadingText = document.getElementById('loading-text');
+
+        let fileName = 'extracted_text.txt';
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+        themeToggle.addEventListener('click', () => {
+            const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            themeToggle.querySelector('i').className = next === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        });
+
+        // Trigger Browse
+        browseBtn.addEventListener('click', (e) => { e.stopPropagation(); fileInput.click(); });
+        dropzone.addEventListener('click', () => fileInput.click());
+
+        // Drag events
+        dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+        dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('dragover');
+            if(e.dataTransfer.files.length) handlePdfFile(e.dataTransfer.files[0]);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if(e.target.files.length) handlePdfFile(e.target.files[0]);
+        });
+
+        function showLoading(txt) {
+            loadingText.innerText = txt;
+            loadingOverlay.classList.add('active');
+        }
+        function hideLoading() {
+            loadingOverlay.classList.remove('active');
+        }
+
+        async function handlePdfFile(file) {
+            if (file.type !== 'application/pdf' && !file.name.endsWith('.pdf')) {
+                Swal.fire({ icon: 'error', title: 'Invalid File', text: 'Please upload a valid PDF document.' });
+                return;
+            }
+
+            fileName = file.name.replace(/\.[^.]+$/, '') + '.txt';
+            showLoading('Parsing text nodes...');
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                const loadingTask = pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) });
+                const pdf = await loadingTask.promise;
+                const totalPages = pdf.numPages;
+
+                let textStr = '';
+
+                for (let i = 1; i <= totalPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const textContent = await page.getTextContent();
+                    const textItems = textContent.items.map(item => item.str);
+                    textStr += `--- Page ${i} ---\n` + textItems.join(' ') + '\n\n';
+                }
+
+                hideLoading();
+                dropzone.classList.add('hidden');
+                resultBox.classList.remove('hidden');
+                
+                resultText.value = textStr;
+                statsLabel.innerText = `Extracted Text (${totalPages} Pages)`;
+
+            } catch (err) {
+                console.error(err);
+                Swal.fire({ icon: 'error', title: 'Error', text: 'Could not extract text: ' + err.message });
+                hideLoading();
+                resetUI();
+            }
+        }
+
+        copyBtn.onclick = () => {
+            if (!resultText.value) return;
+            resultText.select();
+            navigator.clipboard.writeText(resultText.value);
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Text copied to clipboard!',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        };
+
+        dlBtn.onclick = () => {
+            if (!resultText.value) return;
+            const blob = new Blob([resultText.value], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        };
+
+        resetBtn.onclick = resetUI;
+
+        function resetUI() {
+            resultText.value = '';
+            resultBox.classList.add('hidden');
+            dropzone.classList.remove('hidden');
+        }
+    </script>
+    <!-- Interactive 3D Particles Core -->
+    <script src="interactive-core.js" defer></script>
+</body>
+</html>
