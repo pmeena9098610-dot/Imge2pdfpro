@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <!-- Google AdSense (Loaded directly, auto-CMP managed via Google AdSense dashboard) -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327226842644895" crossorigin="anonymous"></script>
@@ -91,7 +91,7 @@
             <ul class="nav-links">
                 <li><a href="/">Home Tool</a></li>
                 <li><a href="/articles">Guides</a></li>
-            </ul>
+            <li><button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button></li></ul>
         </div>
     </nav>
 
@@ -233,5 +233,23 @@
     </section>
     <!-- Interactive 3D Particles Core -->
     <script src="interactive-core.js" defer></script>
+    <script>
+    // Dark mode toggle
+    const _tt = document.getElementById('theme-toggle');
+    if (_tt) {
+        _tt.addEventListener('click', () => {
+            const root = document.documentElement;
+            const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            _tt.querySelector('i').className = next === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+            localStorage.setItem('theme', next);
+        });
+        const saved = localStorage.getItem('theme');
+        if (saved) {
+            document.documentElement.setAttribute('data-theme', saved);
+            _tt.querySelector('i').className = saved === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        }
+    }
+    </script>
 </body>
 </html>
