@@ -1,4 +1,4 @@
-const CACHE_NAME = 'photosepdf-v36-fixed';
+const CACHE_NAME = 'photosepdf-v37-bugfixed';
 const ASSETS = [
     './',
     './style.css',
