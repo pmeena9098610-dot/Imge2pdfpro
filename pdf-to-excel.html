@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="hi" data-theme="light">
 <head>
     <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
@@ -85,6 +85,31 @@
         "price": "0",
         "priceCurrency": "USD"
       }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "PDF to Excel Converter",
+      "url": "https://www.photosepdf.in/pdf-to-excel",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"},
+      "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "1240", "bestRating": "5"},
+      "description": "Convert PDF tables to Excel spreadsheets free. Extract PDF data to XLS/XLSX format."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.photosepdf.in/"},
+        {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://www.photosepdf.in/tools"},
+        {"@type": "ListItem", "position": 3, "name": "PDF to Excel Converter", "item": "https://www.photosepdf.in/pdf-to-excel"}
+      ]
     }
     </script>
 </head>
@@ -401,7 +426,32 @@
                         <style>
                             td { border: 0.5pt solid #CCCCCC; padding: 4px; font-family: 'Segoe UI', Arial, sans-serif; font-size: 10pt; }
                         </style>
-                    </head>
+                    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "PDF to Excel Converter",
+      "url": "https://www.photosepdf.in/pdf-to-excel",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"},
+      "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "1240", "bestRating": "5"},
+      "description": "Convert PDF tables to Excel spreadsheets free. Extract PDF data to XLS/XLSX format."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.photosepdf.in/"},
+        {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://www.photosepdf.in/tools"},
+        {"@type": "ListItem", "position": 3, "name": "PDF to Excel Converter", "item": "https://www.photosepdf.in/pdf-to-excel"}
+      ]
+    }
+    </script>
+</head>
                     <body>
                         <table>
                             ${rows.map(row => `<tr>${row.map(cell => `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}

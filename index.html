@@ -1,7 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+    <!-- Preload critical resources for LCP/FCP -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="app.js" as="script">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+
     <!-- build-test-1 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -262,6 +269,70 @@
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327226842644895" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Organization + SiteLinks Schema for Google Knowledge Panel -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "PhotoSePDF.in",
+      "url": "https://www.photosepdf.in/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.photosepdf.in/og-image.svg",
+        "width": 512,
+        "height": 512
+      },
+      "description": "India #1 free offline image to PDF converter. Convert JPG, PNG, WEBP, HEIC to PDF. Resize photos to 20KB, 50KB for government forms. 100% free, no watermark, no upload.",
+      "sameAs": [],
+      "foundingDate": "2024",
+      "areaServed": "IN",
+      "serviceType": ["Image to PDF Converter", "PDF Compressor", "Photo Resizer", "Passport Photo Maker"],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "url": "https://www.photosepdf.in/contact",
+        "availableLanguage": ["Hindi", "English"]
+      }
+    }
+    </script>
+    <!-- ItemList Schema for Google Sitelinks -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "PhotoSePDF.in - Free PDF & Image Tools",
+      "description": "Top free PDF and image tools",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Image to PDF Converter", "url": "https://www.photosepdf.in/"},
+        {"@type": "ListItem", "position": 2, "name": "JPG to PDF", "url": "https://www.photosepdf.in/jpg-to-pdf"},
+        {"@type": "ListItem", "position": 3, "name": "Compress PDF", "url": "https://www.photosepdf.in/compress-pdf"},
+        {"@type": "ListItem", "position": 4, "name": "Photo to PDF", "url": "https://www.photosepdf.in/photo-to-pdf"},
+        {"@type": "ListItem", "position": 5, "name": "Merge PDF", "url": "https://www.photosepdf.in/merge-pdf"},
+        {"@type": "ListItem", "position": 6, "name": "Resize Photo to 20KB", "url": "https://www.photosepdf.in/"},
+        {"@type": "ListItem", "position": 7, "name": "Passport Size Photo", "url": "https://www.photosepdf.in/"},
+        {"@type": "ListItem", "position": 8, "name": "All PDF Tools", "url": "https://www.photosepdf.in/tools"}
+      ]
+    }
+    </script>
+    <!-- WebSite SearchAction for Google Sitelinks Search Box -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "PhotoSePDF.in",
+      "url": "https://www.photosepdf.in/",
+      "description": "India #1 Free Image to PDF Converter - Offline, No Watermark",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.photosepdf.in/tools?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
 </head>
 <body>
         <header role="banner">
