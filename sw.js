@@ -1,4 +1,4 @@
-const CACHE_NAME = 'photosepdf-v39-seo-rank';
+const CACHE_NAME = 'photosepdf-v40-faq-schema';
 const ASSETS = [
     './',
     './style.css',
