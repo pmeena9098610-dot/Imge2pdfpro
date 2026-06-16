@@ -1,4 +1,4 @@
-# ===================================================
+﻿# ===================================================
 # PhotoSePDF.in - robots.txt
 # Last updated: 2026-06-13
 # ===================================================
@@ -59,4 +59,5 @@ Crawl-delay: 1
 # Sitemap
 Sitemap: https://www.photosepdf.in/sitemap.xml
 # IndexNow - Instant search engine notification
-IndexNow: https://www.photosepdf.in/a9f3b2e1d4c7f8a2b5e3d6c9f1a4b7e2.txt
+IndexNow: https://www.photosepdf.in/e1a052738a604f9181beaa376a60a5c1.txt
+
