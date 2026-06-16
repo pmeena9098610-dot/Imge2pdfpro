@@ -1,4 +1,4 @@
-const CACHE_NAME = 'photosepdf-v41-complete';
+const CACHE_NAME = 'photosepdf-v42-adsense-fix';
 const ASSETS = [
     './',
     './style.css',
