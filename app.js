@@ -686,7 +686,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (overlay) overlay.classList.add('hidden');
     }
 
-    async function generatePDF() {
+    async function generatePDF(isPreview = false) {
         if (files.length === 0) {
             Swal.fire({ icon: 'warning', title: 'No Images Selected', text: 'Please select photos first!', background: 'rgba(255,255,255,0.9)' });
             return;
@@ -994,39 +994,50 @@ document.addEventListener('DOMContentLoaded', () => {
                 creator: 'Img2PDF Pro (https://photosepdf.in)'
             });
 
-            // Save and download with custom name
-            pdf.save(`${customFileName}.pdf`);
-            
-            // Success Feedback
             updateProgress(100, 'Finalizing PDF...');
-            pdf.save(`${customFileName}.pdf`);
             hideProgress();
-            triggerConfetti();
             
-            // Ultra-premium tactile haptic feedback for Mobile
-            if (navigator.vibrate) navigator.vibrate([10, 30, 10]);
-            
-            const shareMsg = encodeURIComponent("Bhai maine is website se apni photo ko PDF me banaya bina net use kiye! Sabse fast aur secure hai, ek baar try karo: https://photosepdf.in");
-            const waUrl = `https://wa.me/?text=${shareMsg}`;
+            if (isPreview === true) {
+                const pdfBlobUrl = pdf.output('bloburl');
+                window.open(pdfBlobUrl, '_blank');
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Preview Loaded in New Tab',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            } else {
+                // Save and download with custom name
+                pdf.save(`${customFileName}.pdf`);
+                triggerConfetti();
+                
+                // Ultra-premium tactile haptic feedback for Mobile
+                if (navigator.vibrate) navigator.vibrate([10, 30, 10]);
+                
+                const shareMsg = encodeURIComponent("Bhai maine is website se apni photo ko PDF me banaya bina net use kiye! Sabse fast aur secure hai, ek baar try karo: https://photosepdf.in");
+                const waUrl = `https://wa.me/?text=${shareMsg}`;
 
-            Swal.fire({
-                title: 'PDF Generated! &#x2705;',
-                html: `
-                    <p style="margin-bottom:20px; font-size:1.1rem;">Your newly created PDF has been saved securely to your device.</p>
-                    <div style="background:rgba(37,211,102,0.1); padding:20px; border-radius:15px; border:2px dashed #25D366; margin-top:10px;">
-                        <h4 style="margin-bottom:10px; color:#128C7E;">Love this free tool?</h4>
-                        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px;">Help us keep it 100% free by sharing it with 1 friend!</p>
-                        <a href="${waUrl}" target="_blank" style="display:inline-flex; align-items:center; justify-content:center; gap:10px; background-color:#25D366; color:white; padding:14px 28px; border-radius:30px; text-decoration:none; font-weight:bold; box-shadow:0 10px 20px -5px rgba(37,211,102,0.4); font-size:1.1rem; width:100%; transition:all 0.3s ease;">
-                            <i class="fa-brands fa-whatsapp" style="font-size:1.4rem;"></i> Share on WhatsApp
-                        </a>
-                    </div>
-                `,
-                showConfirmButton: false,
-                showCloseButton: true,
-                background: document.documentElement.getAttribute('data-theme') === 'dark' ? '#1E293B' : 'rgba(255, 255, 255, 0.95)',
-                color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#F1F5F9' : '#334155',
-                backdrop: 'rgba(15, 23, 42, 0.4)'
-            });
+                Swal.fire({
+                    title: 'PDF Generated! &#x2705;',
+                    html: `
+                        <p style="margin-bottom:20px; font-size:1.1rem;">Your newly created PDF has been saved securely to your device.</p>
+                        <div style="background:rgba(37,211,102,0.1); padding:20px; border-radius:15px; border:2px dashed #25D366; margin-top:10px;">
+                            <h4 style="margin-bottom:10px; color:#128C7E;">Love this free tool?</h4>
+                            <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px;">Help us keep it 100% free by sharing it with 1 friend!</p>
+                            <a href="${waUrl}" target="_blank" style="display:inline-flex; align-items:center; justify-content:center; gap:10px; background-color:#25D366; color:white; padding:14px 28px; border-radius:30px; text-decoration:none; font-weight:bold; box-shadow:0 10px 20px -5px rgba(37,211,102,0.4); font-size:1.1rem; width:100%; transition:all 0.3s ease;">
+                                <i class="fa-brands fa-whatsapp" style="font-size:1.4rem;"></i> Share on WhatsApp
+                            </a>
+                        </div>
+                    `,
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                    background: document.documentElement.getAttribute('data-theme') === 'dark' ? '#1E293B' : 'rgba(255, 255, 255, 0.95)',
+                    color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#F1F5F9' : '#334155',
+                    backdrop: 'rgba(15, 23, 42, 0.4)'
+                });
+            }
             
         } catch (error) {
             console.error("Error generating PDF:", error);
@@ -1271,10 +1282,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Final Action Bindings (Fixed IDs) ---
     const pdfActionBtn = document.getElementById('pdf-action-btn');
+    const pdfPreviewBtn = document.getElementById('pdf-preview-btn');
     const printActionBtn = document.getElementById('print-action-btn');
     const clearAllActionBtn = document.getElementById('clear-all-btn');
 
-    if (pdfActionBtn) pdfActionBtn.addEventListener('click', generatePDF);
+    if (pdfActionBtn) pdfActionBtn.addEventListener('click', () => generatePDF(false));
+    if (pdfPreviewBtn) pdfPreviewBtn.addEventListener('click', () => generatePDF(true));
     if (printActionBtn) printActionBtn.addEventListener('click', printPhotos);
     if (clearAllActionBtn) clearAllActionBtn.addEventListener('click', () => {
         files = [];
