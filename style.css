@@ -115,49 +115,9 @@ body {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* ──────────────────────────────────────────────
-   VIBRANT BACKGROUND BLOBS 🌈
-────────────────────────────────────────────── */
-body::before {
-  content: '';
-  position: fixed;
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(108,99,255,0.15) 0%, transparent 70%);
-  top: -200px; left: -200px;
-  z-index: -1;
-  animation: blob1 15s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-body::after {
-  content: '';
-  position: fixed;
-  width: 500px; height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,200,150,0.12) 0%, transparent 70%);
-  bottom: -150px; right: -150px;
-  z-index: -1;
-  animation: blob2 18s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-@keyframes blob1 {
-  0%   { transform: translate(0,0) scale(1); }
-  50%  { transform: translate(60px,40px) scale(1.1); }
-  100% { transform: translate(20px,80px) scale(0.95); }
-}
-@keyframes blob2 {
-  0%   { transform: translate(0,0) scale(1); }
-  50%  { transform: translate(-40px,-60px) scale(1.15); }
-  100% { transform: translate(-80px,-20px) scale(0.9); }
-}
+/* Background blobs removed for performance */
 
-#bg-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.5;
-}
+/* Canvas background removed for performance */
 
 /* ──────────────────────────────────────────────
    LAYOUT
@@ -171,15 +131,9 @@ body::after {
 ────────────────────────────────────────────── */
 .text-gradient {
   background: linear-gradient(135deg, #6C63FF 0%, #EC4899 50%, #00C896 100%);
-  background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: grad-move 4s ease infinite;
-}
-@keyframes grad-move {
-  0%,100% { background-position: 0% 50%; }
-  50%      { background-position: 100% 50%; }
 }
 
 .hero-title {
@@ -474,19 +428,13 @@ p  { color: var(--text-muted); margin-bottom: 12px; }
   overflow: hidden;
   transition: transform 0.3s var(--bounce), box-shadow 0.3s ease;
 }
-/* Rainbow top border */
+/* Clean top border (static, no animation) */
 .app-container::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 4px;
   background: linear-gradient(90deg, #6C63FF 0%, #EC4899 33%, #00C896 66%, #FFD93D 100%);
-  background-size: 200% 100%;
-  animation: rainbow-slide 3s linear infinite;
-}
-@keyframes rainbow-slide {
-  0%   { background-position: 0% 0; }
-  100% { background-position: 200% 0; }
 }
 .app-container:hover {
   transform: translateY(-4px);
@@ -542,7 +490,6 @@ p  { color: var(--text-muted); margin-bottom: 12px; }
   color: var(--primary);
   font-size: 2.2rem;
   box-shadow: 0 8px 24px rgba(108,99,255,0.15);
-  animation: icon-bounce 2.5s ease-in-out infinite;
   transition: all 0.3s ease;
 }
 .dropzone:hover .icon-blob {
@@ -1279,20 +1226,3 @@ footer p, .premium-footer p { color: rgba(255,255,255,0.5); font-size: 0.88rem; 
 /* Section header */
 .section-header { text-align:center; margin-bottom:44px; }
 .section-header p { font-size:1rem; max-width:520px; margin:0 auto; line-height:1.7; }
-
-/* ──────────────────────────────────────────────
-   📱 MOBILE PERFORMANCE RESTORATION (GOOGLE CORE WEB VITALS FIX)
-────────────────────────────────────────────── */
-@media (max-width: 767px) {
-  body::before, body::after {
-    animation: none !important;
-  }
-  .text-gradient {
-    animation: none !important;
-    background-size: 100% 100%;
-  }
-  .card-3d {
-    transform: none !important;
-    transition: none !important;
-  }
-}
