@@ -1656,7 +1656,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').catch(err => console.log('SW fail: ', err));
+                navigator.serviceWorker.register('sw.js').catch(err => );
             });
             let refreshing = false;
             navigator.serviceWorker.addEventListener('controllerchange', () => {

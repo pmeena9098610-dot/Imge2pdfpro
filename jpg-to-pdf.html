@@ -1436,7 +1436,7 @@
         <div class="spinner" aria-hidden="true"></div>
         <h3 id="loading-text" aria-live="assertive">Creating your perfect PDF...</h3>
         <div class="progress-bar-wrap" aria-hidden="true">
-            <div class="progress-bar-fill" id="progress-bar-fill"></div>
+            <div class="progress-bar-fill" id="progress-bar-fill-resize"></div>
         </div>
     </div>
 
@@ -1468,7 +1468,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').catch(err => console.log('SW fail: ', err));
+                navigator.serviceWorker.register('sw.js').catch(err => );
             });
             let refreshing = false;
             navigator.serviceWorker.addEventListener('controllerchange', () => {

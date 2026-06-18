@@ -1,17 +1,35 @@
 # ===================================================
 # PhotoSePDF.in - robots.txt
-# Last updated: 2026-06-13
+# Last updated: 2026-06-19
 # ===================================================
 
 # Allow all major search engines
 User-agent: *
 Allow: /
 
-# Block low-value crawler traffic to protect server
+# Block low-value paths
 Disallow: /api/
-Disallow: /sw.js
 
-# Block specific bad AI/scraper bots
+# Google: allow everything
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
+
+# Google AdSense bot - MUST allow
+User-agent: Mediapartners-Google
+Allow: /
+
+# Google AdsBot - MUST allow for AdSense
+User-agent: AdsBot-Google
+Allow: /
+
+# Block scraper bots
 User-agent: GPTBot
 Disallow: /
 
@@ -27,33 +45,18 @@ Disallow: /
 User-agent: Claude-Web
 Disallow: /
 
-User-agent: Omgili
-Disallow: /
-
-User-agent: Semrush
-Crawl-delay: 10
-
-User-agent: AhrefsBot
-Crawl-delay: 10
-
 User-agent: MJ12bot
 Disallow: /
 
 User-agent: DotBot
 Disallow: /
 
-# Google: allow all pages and key images
-User-agent: Googlebot
-Allow: /
+# Rate limit SEO bots
+User-agent: Semrush
+Crawl-delay: 10
 
-User-agent: Googlebot-Image
-Allow: /
-
-# Bing
-User-agent: Bingbot
-Allow: /
+User-agent: AhrefsBot
+Crawl-delay: 10
 
 # Sitemap
 Sitemap: https://www.photosepdf.in/sitemap.xml
-# IndexNow - Instant search engine notification
-IndexNow: https://www.photosepdf.in/e1a052738a604f9181beaa376a60a5c1.txt
