@@ -431,13 +431,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Default filters
         if (!fileObj.filters) {
-            fileObj.filters = { brightness: 100, contrast: 100 };
+            fileObj.filters = { brightness: 100, contrast: 100, rotation: 0 };
+        }
+        if (typeof fileObj.filters.rotation === 'undefined') {
+            fileObj.filters.rotation = 0;
         }
 
         li.innerHTML = `
             <div class="image-item-main">
                 <div class="drag-handle"><i class="fa-solid fa-grip-vertical"></i></div>
-                <img src="${fileObj.dataUrl}" class="image-thumb" alt="${fileObj.file.name}">
+                <div style="width: 42px; height: 42px; overflow: hidden; border-radius: 8px; border: 1px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--bg-soft);">
+                    <img src="${fileObj.dataUrl}" id="thumb-${fileObj.id}" style="max-width: 100%; max-height: 100%; object-fit: contain; transform: rotate(${fileObj.filters.rotation}deg); transition: transform 0.2s ease;" alt="${fileObj.file.name}">
+                </div>
                 <div class="file-info">
                     <span class="file-name">${fileObj.file.name}</span>
                     <span class="file-size">${formatBytes(fileObj.file.size)}</span>
@@ -457,11 +462,37 @@ document.addEventListener('DOMContentLoaded', () => {
                     <input type="range" class="editor-slider" value="${fileObj.filters.contrast}" min="50" max="200" 
                         oninput="updateFilter('${fileObj.id}', 'contrast', this.value)">
                 </div>
+                <div class="editor-control-group" style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+                    <label>Rotation: <span id="val-rt-${fileObj.id}">${fileObj.filters.rotation}°</span></label>
+                    <button class="btn btn-outline btn-xs" style="padding: 4px 10px; font-size: 0.75rem; background: var(--primary-light); border: 1px solid rgba(108,99,255,0.2); border-radius: 6px; color: var(--primary); cursor: pointer; display: flex; align-items: center; gap: 4px;" onclick="rotateImage('${fileObj.id}')">
+                        <i class="fa-solid fa-rotate-right"></i> Rotate 90°
+                    </button>
+                </div>
             </div>
         `;
 
         imageList.appendChild(li);
     }
+
+    window.rotateImage = (id) => {
+        const file = files.find(f => f.id === id);
+        if (file) {
+            if (typeof file.filters.rotation === 'undefined') {
+                file.filters.rotation = 0;
+            }
+            file.filters.rotation = (file.filters.rotation + 90) % 360;
+            
+            // Update the display text
+            const textEl = document.getElementById(`val-rt-${id}`);
+            if (textEl) textEl.innerText = file.filters.rotation + '°';
+            
+            // Update the thumbnail transform style
+            const thumbEl = document.getElementById(`thumb-${id}`);
+            if (thumbEl) {
+                thumbEl.style.transform = `rotate(${file.filters.rotation}deg)`;
+            }
+        }
+    };
 
     window.updateFilter = (id, type, val) => {
         const file = files.find(f => f.id === id);
@@ -518,11 +549,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Image compression utility
-    function compressImage(img, targetQuality, colorMode = 'original', passName = '', passDate = '', filters = {brightness: 100, contrast: 100}) {
+    function compressImage(img, targetQuality, colorMode = 'original', passName = '', passDate = '', filters = {brightness: 100, contrast: 100, rotation: 0}) {
         return new Promise((resolve) => {
             const canvas = document.createElement('canvas');
             let width = img.width;
             let height = img.height;
+            const rotation = filters.rotation || 0;
             
             // Scaling logic for compression
             if (targetQuality === 'super' || targetQuality === 'extreme') {
@@ -541,18 +573,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            canvas.width = width;
-            canvas.height = height;
+            // Swap dimensions if rotated 90 or 270 degrees
+            const is90or270 = (rotation / 90) % 2 !== 0;
+            const canvasWidth = is90or270 ? height : width;
+            const canvasHeight = is90or270 ? width : height;
+
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
             
             const ctx = canvas.getContext('2d');
             
             // Fill white background for transparent PNGs
             ctx.fillStyle = '#FFFFFF';
-            ctx.fillRect(0, 0, width, height);
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
             
             // Apply Studio Filters (Brightness/Contrast)
             ctx.filter = `brightness(${filters.brightness}%) contrast(${filters.contrast}%)`;
-            ctx.drawImage(img, 0, 0, width, height);
+            
+            // Draw image with rotation
+            ctx.save();
+            ctx.translate(canvasWidth / 2, canvasHeight / 2);
+            ctx.rotate((rotation * Math.PI) / 180);
+            ctx.drawImage(img, -width / 2, -height / 2, width, height);
+            ctx.restore();
+            
             ctx.filter = 'none'; // Reset
 
             // Phase 11: Apply B&W Photocopy Filter
