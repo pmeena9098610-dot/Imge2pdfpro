@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="hi" data-theme="light">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J4CL85TN5X"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-J4CL85TN5X');
+    </script>
     <!-- ===== World-Class Security Meta Policies ===== -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
@@ -25,7 +34,7 @@
   <meta property="og:url" content="https://www.photosepdf.in/ai-notes" />
   <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="AI Notes Generator Free — PDF to Study Notes | PhotoSePDF">
+    <meta name="twitter:title" content="AI Notes Generator Free â€” PDF to Study Notes | PhotoSePDF">
     <meta name="twitter:description" content="PDF se automatically AI notes banao free mein. Key points extract karo. Students ke liye best tool, offline.">
     <meta name="twitter:image" content="https://www.photosepdf.in/og-image.svg">
     <meta name="twitter:site" content="@photosepdf">
@@ -1029,14 +1038,14 @@
     const truncatedText = text.substring(0, 30000);
     
     let prompt = `You are a high-level academic assistant. Generate comprehensive, beautifully structured student revision study notes from the following text. Organize the notes under the following headings:
-- **📚 Brief Topic Overview & Core Subject Summary**
-- **🔑 Key Terms, Vocabulary & Definitions**
-- **📝 Conceptual Takeaways & Detailed Study Notes (In Bullet points)**
+- **ðŸ“š Brief Topic Overview & Core Subject Summary**
+- **ðŸ”‘ Key Terms, Vocabulary & Definitions**
+- **ðŸ“ Conceptual Takeaways & Detailed Study Notes (In Bullet points)**
 
 Keep the language natural and helpful, write in Hinglish (Hindi text in English script) or English depending on context. Return the output with standard markdown headings.\n\nText:\n${truncatedText}`;
 
     if (type === 'vocabulary') {
-      prompt = `Extract ONLY the Key Vocabulary, technical terms, and critical definitions from this text. Return them under a header **🔑 Key Terms & Academic Definitions**. Write in Hinglish or English.\n\nText:\n${truncatedText}`;
+      prompt = `Extract ONLY the Key Vocabulary, technical terms, and critical definitions from this text. Return them under a header **ðŸ”‘ Key Terms & Academic Definitions**. Write in Hinglish or English.\n\nText:\n${truncatedText}`;
     }
     
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`;
@@ -1176,10 +1185,10 @@ Keep the language natural and helpful, write in Hinglish (Hindi text in English 
   }
 </script>
 
-    <!-- Related Tools â€” Internal Linking for SEO -->
+    <!-- Related Tools Ã¢â‚¬â€ Internal Linking for SEO -->
     <section style="padding:40px 0 20px;background:#f0f4ff;">
       <div class="container" style="max-width:900px;margin:0 auto;padding:0 20px;">
-        <h2 style="font-size:1.3rem;color:#6366f1;margin-bottom:20px;font-weight:700;">ðŸ”§ Related Free Tools</h2>
+        <h2 style="font-size:1.3rem;color:#6366f1;margin-bottom:20px;font-weight:700;">Ã°Å¸â€Â§ Related Free Tools</h2>
         <div style="display:flex;flex-wrap:wrap;gap:10px;">
           <a href="/jpg-to-pdf" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">JPG to PDF</a>
           <a href="/photo-to-pdf" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">Photo to PDF</a>
@@ -1195,7 +1204,7 @@ Keep the language natural and helpful, write in Hinglish (Hindi text in English 
           <a href="/word-to-pdf" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">Word to PDF</a>
           <a href="/excel-to-pdf" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">Excel to PDF</a>
           <a href="/ocr-pdf" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">OCR PDF</a>
-          <a href="/tools" style="background:#6366f1;border:1px solid #6366f1;border-radius:8px;padding:8px 16px;color:white;text-decoration:none;font-size:0.9rem;font-weight:600;">View All Tools â†’</a>
+          <a href="/tools" style="background:#6366f1;border:1px solid #6366f1;border-radius:8px;padding:8px 16px;color:white;text-decoration:none;font-size:0.9rem;font-weight:600;">View All Tools Ã¢â€ â€™</a>
         </div>
       </div>
     </section>
