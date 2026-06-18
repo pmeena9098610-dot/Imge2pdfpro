@@ -1,11 +1,17 @@
-const CACHE_NAME = 'photosepdf-v42-adsense-fix';
-const ASSETS = [
+const CACHE_NAME = 'photosepdf-v43-audit-fix';
+
+// Critical assets only — other pages cached lazily on first visit
+const CRITICAL_ASSETS = [
     './',
     './style.css',
     './app.js',
     './interactive-core.js',
     './manifest.json',
-    './favicon.svg',
+    './favicon.svg'
+];
+
+// Pages to lazy-cache (not pre-cached to avoid install failure)
+const PAGE_ASSETS = [
     './tools',
     './compress-pdf',
     './merge-pdf',
@@ -62,18 +68,13 @@ const ASSETS = [
     './image-to-pdf-deutsch',
     './image-to-pdf-espanol',
     './image-to-pdf-francais',
-    './image-to-pdf-portugues',
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-    'https://cdn.jsdelivr.net/npm/sweetalert2@11',
-    'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js',
-    'https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js',
-    'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js'
+    './image-to-pdf-portugues'
 ];
 
 self.addEventListener('install', (event) => {
     self.skipWaiting();
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
+        caches.open(CACHE_NAME).then((cache) => cache.addAll(CRITICAL_ASSETS))
     );
 });
 
@@ -93,23 +94,48 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-    // Always fetch navigation requests from network (fresh HTML)
+    const url = new URL(event.request.url);
+
+    // Never cache Google Ads, Analytics, or third-party tracking
+    if (url.hostname.includes('google') ||
+        url.hostname.includes('doubleclick') ||
+        url.hostname.includes('adservice') ||
+        url.hostname.includes('analytics')) {
+        return; // Let browser handle natively
+    }
+
+    // Network-first for navigation requests (fresh HTML)
     if (event.request.mode === 'navigate') {
         event.respondWith(
-            fetch(event.request).catch(() => caches.match('./'))
+            fetch(event.request)
+                .then((response) => {
+                    // Cache the page for offline use
+                    if (response && response.status === 200) {
+                        const cacheCopy = response.clone();
+                        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, cacheCopy));
+                    }
+                    return response;
+                })
+                .catch(() => {
+                    // Offline: try cached version of this page first, then fallback to homepage
+                    return caches.match(event.request).then((cached) => cached || caches.match('./'));
+                })
         );
         return;
     }
-    // Cache-first for static assets, network fallback
-    event.respondWith(
-        caches.match(event.request).then((response) => {
-            return response || fetch(event.request).then((networkResponse) => {
-                if (networkResponse && networkResponse.status === 200 && event.request.method === 'GET') {
-                    const cacheCopy = networkResponse.clone();
-                    caches.open(CACHE_NAME).then((cache) => cache.put(event.request, cacheCopy));
-                }
-                return networkResponse;
-            }).catch(() => null);
-        })
-    );
+
+    // Cache-first for same-origin static assets only
+    if (url.origin === self.location.origin) {
+        event.respondWith(
+            caches.match(event.request).then((response) => {
+                return response || fetch(event.request).then((networkResponse) => {
+                    if (networkResponse && networkResponse.status === 200 && event.request.method === 'GET') {
+                        const cacheCopy = networkResponse.clone();
+                        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, cacheCopy));
+                    }
+                    return networkResponse;
+                }).catch(() => new Response('Offline', { status: 503, statusText: 'Service Unavailable' }));
+            })
+        );
+    }
 });

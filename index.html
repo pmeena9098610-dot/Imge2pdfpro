@@ -76,31 +76,6 @@
     <meta name="twitter:title" content="India #1 Free Image to PDF Converter - No Upload, No Watermark">
     <meta name="twitter:description" content="Securely turn your images into PDF instantly without internet uploads. Compress to 100KB!">
     <meta name="twitter:image" content="https://www.photosepdf.in/og-image.svg">
-
-    <!-- Open Graph for Social Media Sharing -->
-
-    <meta property="og:title" content="Photo Ko PDF Kaise Banaye | Free Image to PDF Converter">
-    <meta property="og:description" content="Convert any JPG, PNG, WEBP or HEIC image to a high-quality PDF in seconds. The #1 free alternative to ILovePDF. Merge & Compress securely!">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.photosepdf.in/">
-    <meta property="og:image" content="https://www.photosepdf.in/og-image.svg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:type" content="image/svg+xml">
-    <meta name="rating" content="general">
-    <meta name="revisit-after" content="3 days">
-    <meta name="language" content="hi-IN, en-IN">
-    <meta name="geo.region" content="IN">
-    <meta name="geo.country" content="India">
-    <meta name="category" content="image converter, pdf tools, image resize">
-    <meta property="og:locale" content="hi_IN">
-    <meta property="og:site_name" content="PhotoSePDF.in">
-    
-    <!-- Twitter Cards -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="India #1 Free Image to PDF Converter - No Upload, No Watermark">
-    <meta name="twitter:description" content="Securely turn your images into PDF instantly without internet uploads. Compress to 100KB!">
-    <meta name="twitter:image" content="https://www.photosepdf.in/og-image.svg">
     <meta name="twitter:site" content="@photosepdf">
     
     <!-- Preload Critical Resources -->
@@ -241,40 +216,8 @@
     }
     </script>
 
-    <!-- Organization Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "PhotoSePDF.in",
-      "url": "https://www.photosepdf.in/",
-      "logo": "https://www.photosepdf.in/favicon.svg",
-      "sameAs": [],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "customer support",
-        "availableLanguage": ["Hindi", "English"]
-      }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "PhotoSePDF.in - Image to PDF Converter",
-      "url": "https://www.photosepdf.in/",
-      "description": "India's #1 free offline image to PDF converter. Convert JPG PNG WEBP HEIC to PDF. Compress to 100KB.",
-      "inLanguage": ["hi", "en"],
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://www.photosepdf.in/?q={search_term_string}"
-        },
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
+    <!-- Organization Schema merged into extended version below -->
+    <!-- WebSite SearchAction merged into extended version below -->
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327226842644895" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
@@ -347,7 +290,7 @@
         <header role="banner">
         <nav class="navbar" aria-label="Main Navigation" role="navigation">
             <div class="container nav-container">
-                <a href="#" class="logo" aria-label="PhotoSePDF.in Home">
+                <a href="/" class="logo" aria-label="PhotoSePDF.in Home">
                     <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> PhotoSePDF<span>.in</span>
                 </a>
                 
@@ -1606,7 +1549,7 @@
         <div class="spinner" aria-hidden="true"></div>
         <h3 id="loading-text" aria-live="assertive">Creating your perfect PDF...</h3>
         <div class="progress-bar-wrap" aria-hidden="true">
-            <div class="progress-bar-fill" id="progress-bar-fill"></div>
+            <div class="progress-bar-fill" id="progress-bar-fill-overlay"></div>
         </div>
     </div>
 

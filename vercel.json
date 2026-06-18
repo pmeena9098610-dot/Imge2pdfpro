@@ -4,18 +4,6 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/:path*.html",
-      "has": [{"type": "host", "value": "photosepdf.in"}],
-      "destination": "https://www.photosepdf.in/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/:path*.html",
-      "has": [{"type": "host", "value": "www.photosepdf.in"}],
-      "destination": "https://www.photosepdf.in/:path*",
-      "permanent": true
-    },
-    {
       "source": "/(.*)",
       "has": [{"type": "host", "value": "photosepdf.in"}],
       "destination": "https://www.photosepdf.in/$1",
@@ -39,7 +27,7 @@
         { "key": "Cross-Origin-Resource-Policy", "value": "cross-origin" },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://pagead2.googlesyndication.com https://adservice.google.com https://securepubads.g.doubleclick.net https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://www.google.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://www.googletagservices.com https://partner.googleadservices.com https://fundingchoicesmessages.google.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: blob: https:; media-src 'none'; connect-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://pagead2.googlesyndication.com https://adservice.google.com https://securepubads.g.doubleclick.net https://googleads.g.doubleclick.net https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://tessdata.projectnaptha.com https://fundingchoicesmessages.google.com https://www.googletagservices.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com; upgrade-insecure-requests;"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://pagead2.googlesyndication.com https://adservice.google.com https://securepubads.g.doubleclick.net https://tpc.googlesyndication.com https://googleads.g.doubleclick.net https://www.google.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://www.googletagservices.com https://partner.googleadservices.com https://fundingchoicesmessages.google.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: blob: https:; media-src 'none'; connect-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://pagead2.googlesyndication.com https://adservice.google.com https://securepubads.g.doubleclick.net https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://tessdata.projectnaptha.com https://fundingchoicesmessages.google.com https://www.googletagservices.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com https://pagead2.googlesyndication.com https://fundingchoicesmessages.google.com https://adservice.google.com; upgrade-insecure-requests;"
         }
       ]
     },

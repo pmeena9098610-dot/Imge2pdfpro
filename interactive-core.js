@@ -9,8 +9,9 @@
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
-    // ─── Dark Mode: Sync theme toggle with localStorage ───
-    function syncAllThemeToggles() {
+    // ─── Dark Mode: Sync theme icon with localStorage ───
+    // NOTE: Theme toggle click handler is in app.js — do NOT add another here
+    function syncThemeIcons() {
         const saved = localStorage.getItem('theme');
         if (saved) {
             document.documentElement.setAttribute('data-theme', saved);
@@ -18,19 +19,8 @@
                 i.className = saved === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
             });
         }
-        document.querySelectorAll('#theme-toggle').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const root = document.documentElement;
-                const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-                root.setAttribute('data-theme', next);
-                localStorage.setItem('theme', next);
-                document.querySelectorAll('#theme-toggle i').forEach(i => {
-                    i.className = next === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
-                });
-            });
-        });
     }
-    syncAllThemeToggles();
+    syncThemeIcons();
 
     // Wait for DOM
     window.addEventListener('DOMContentLoaded', () => {
@@ -129,7 +119,10 @@
         // ═══════════════════════════════════════════════
         // 3. NEXUS PARTICLE GALAXY — Aurora Background
         // ═══════════════════════════════════════════════
-        if (prefersReduced) return;
+        // Only skip particle system for reduced-motion users (not all features)
+        if (prefersReduced) {
+            // Skip to section 4 (scroll animations etc.) which are fine for reduced-motion
+        } else {
 
         const canvas = document.createElement('canvas');
         canvas.id = 'bg-canvas';
@@ -214,6 +207,8 @@
         let frameCount = 0;
         function animate() {
             requestAnimationFrame(animate);
+            // Skip rendering when tab is hidden (save battery)
+            if (document.hidden) return;
             frameCount++;
 
             ctx.clearRect(0, 0, W, H);
@@ -302,6 +297,8 @@
         }
 
         animate();
+
+        } // End of particle system block (if !prefersReduced)
 
         // ═══════════════════════════════════════════════
         // 4. SCROLL-TRIGGERED ENTRANCE ANIMATIONS

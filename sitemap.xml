@@ -192,18 +192,12 @@
     <loc>https://www.photosepdf.in/compress-pdf</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <!-- PDF Merge Tool -->
+    <priority>0.95</priority>
   <url>
     <loc>https://www.photosepdf.in/merge-pdf</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <!-- PDF Split Tool -->
+    <priority>0.95</priority>
   <url>
     <loc>https://www.photosepdf.in/split-pdf</loc>
     <lastmod>2026-06-17</lastmod>
@@ -223,26 +217,17 @@
     <loc>https://www.photosepdf.in/photo-to-pdf</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <!-- JPG to PDF Tool -->
+    <priority>0.95</priority>
   <url>
     <loc>https://www.photosepdf.in/jpg-to-pdf</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <!-- PNG to PDF Tool -->
+    <priority>0.95</priority>
   <url>
     <loc>https://www.photosepdf.in/png-to-pdf</loc>
     <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <!-- PDF to PNG Tool -->
+    <priority>0.95</priority>
   <url>
     <loc>https://www.photosepdf.in/pdf-to-png</loc>
     <lastmod>2026-06-17</lastmod>

@@ -1,4 +1,4 @@
-﻿# ===================================================
+# ===================================================
 # PhotoSePDF.in - robots.txt
 # Last updated: 2026-06-13
 # ===================================================
@@ -45,19 +45,15 @@ Disallow: /
 # Google: allow all pages and key images
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 1
 
 User-agent: Googlebot-Image
-Allow: /og-image.svg
-Allow: /favicon.svg
+Allow: /
 
 # Bing
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 1
 
 # Sitemap
 Sitemap: https://www.photosepdf.in/sitemap.xml
 # IndexNow - Instant search engine notification
 IndexNow: https://www.photosepdf.in/e1a052738a604f9181beaa376a60a5c1.txt
-

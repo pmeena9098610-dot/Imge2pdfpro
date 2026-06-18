@@ -3,10 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js')
-                .then(registration => {
-                    console.log('SW registered:', registration.scope);
+                    // SW registered successfully
                 })
-                .catch(err => console.log('SW registration failed:', err));
+                .catch(err => console.error('SW registration failed:', err));
         });
 
         // Single reload only when new SW takes over control
@@ -63,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
             caches.keys().then(names => {
                 for (let name of names) caches.delete(name);
             });
-            console.log("Professional Update Applied. Refreshing...");
+            // Professional Update Applied
         }
     }
 
@@ -91,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
                 if (outcome === 'accepted') {
-                    console.log('User accepted the A2HS prompt');
+                    // User accepted the A2HS prompt
                 }
                 deferredPrompt = null;
             }
@@ -289,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             generatePDF();
         }
-        if (e.ctrlKey && e.key === 'p') {
+        if (e.ctrlKey && e.shiftKey && e.key === 'P') {
             e.preventDefault();
             printPhotos();
         }
@@ -374,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.error("HEIC Decode Failed", err);
                     Swal.fire('Apple Engine Error', 'Failed to decode HEIC format locally.', 'error');
                 }
-                hideProgress();
+                hideLoading();
             }
 
             // Standard Processing Pipeline
@@ -601,7 +600,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Phase 11: Apply B&W Photocopy Filter
             if (colorMode === 'bw') {
-                const imgData = ctx.getImageData(0, 0, width, height);
+                const imgData = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
                 const data = imgData.data;
                 for (let i = 0; i < data.length; i += 4) {
                     // Grayscale standard luminosity method
@@ -615,16 +614,16 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Phase 13: Passport Name and Date Stamp
             if (passName || passDate) {
-                // Determine strip height (approx 15% of image height, max 80px)
-                const stripHeight = Math.min(height * 0.15, 80);
+                // Determine strip height (approx 15% of canvas height, max 80px)
+                const stripHeight = Math.min(canvasHeight * 0.15, 80);
                 
                 // Draw white background block at the bottom
                 ctx.fillStyle = '#FFFFFF';
-                ctx.fillRect(0, height - stripHeight, width, stripHeight);
+                ctx.fillRect(0, canvasHeight - stripHeight, canvasWidth, stripHeight);
                 
                 // Draw black border line at the top of the white block
                 ctx.fillStyle = '#000000';
-                ctx.fillRect(0, height - stripHeight, width, Math.max(1, height*0.005));
+                ctx.fillRect(0, canvasHeight - stripHeight, canvasWidth, Math.max(1, canvasHeight*0.005));
                 
                 // Configure Text
                 ctx.fillStyle = '#000000';
@@ -632,17 +631,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.textBaseline = 'middle';
                 
                 // Calculate font size (dynamically scale to fit)
-                const fontSize = Math.min(stripHeight * 0.35, width * 0.08);
+                const fontSize = Math.min(stripHeight * 0.35, canvasWidth * 0.08);
                 ctx.font = `bold ${fontSize}px sans-serif`;
                 
                 // If both exist, stack them. If one exists, center it.
                 if (passName && passDate) {
-                    ctx.fillText(passName, width / 2, height - stripHeight + (stripHeight * 0.35));
-                    ctx.fillText(passDate, width / 2, height - stripHeight + (stripHeight * 0.75));
+                    ctx.fillText(passName, canvasWidth / 2, canvasHeight - stripHeight + (stripHeight * 0.35));
+                    ctx.fillText(passDate, canvasWidth / 2, canvasHeight - stripHeight + (stripHeight * 0.75));
                 } else if (passName) {
-                    ctx.fillText(passName, width / 2, height - stripHeight / 2);
+                    ctx.fillText(passName, canvasWidth / 2, canvasHeight - stripHeight / 2);
                 } else if (passDate) {
-                    ctx.fillText(passDate, width / 2, height - stripHeight / 2);
+                    ctx.fillText(passDate, canvasWidth / 2, canvasHeight - stripHeight / 2);
                 }
             }
             
@@ -1289,19 +1288,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pdfActionBtn) pdfActionBtn.addEventListener('click', () => generatePDF(false));
     if (pdfPreviewBtn) pdfPreviewBtn.addEventListener('click', () => generatePDF(true));
     if (printActionBtn) printActionBtn.addEventListener('click', printPhotos);
-    if (clearAllActionBtn) clearAllActionBtn.addEventListener('click', () => {
-        files = [];
-        imageList.innerHTML = '';
-        updateUI();
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'info',
-            title: 'Workspace Cleared',
-            showConfirmButton: false,
-            timer: 1500
-        });
-    });
+    // clearAllActionBtn handler removed — already handled by SweetAlert confirmation at line 214
 
     // Handle Drag/Drop behavior to prevent slider interference
     if (imageList) {
@@ -1630,20 +1617,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Swal.fire({ icon: 'success', title: 'PDF Saved!', text: `${results.length} resized image(s) saved as PDF.`, timer: 2000, showConfirmButton: false });
     }
 
-    // ===== SVG / TIFF / AVIF SUPPORT =====
-    async function loadSvgAsImage(file) {
-        return new Promise((resolve, reject) => {
-            const url = URL.createObjectURL(file);
-            const img = new Image();
-            img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
-            img.onerror = reject;
-            img.src = url;
-        });
-    }
-
-    // ===== RESIZE TAB: Update file input accepted types and handling =====
-    // Patch the file validation to accept SVG, TIFF, AVIF
-    const origHandleFiles = window.__handleFilesOrig;
+    // SVG/TIFF/AVIF support — reserved for future implementation
 
     // ===== TAB 3 WIRING =====
     // Auto-activate tab based on hash on load or hashchange

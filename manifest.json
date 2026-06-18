@@ -17,21 +17,21 @@
       "name": "Photo se PDF Banaye",
       "short_name": "Convert",
       "description": "Apni photos upload karein aur turant PDF banayein",
-      "url": "/index.html#tool",
+      "url": "/#tool",
       "icons": [{ "src": "favicon.svg", "sizes": "any" }]
     },
     {
       "name": "PDF 100KB Compress",
       "short_name": "Compress",
       "description": "PDF ka size 100KB ya 200KB tak compress karein",
-      "url": "/compress-pdf-100kb.html",
+      "url": "/compress-pdf-100kb",
       "icons": [{ "src": "favicon.svg", "sizes": "any" }]
     },
     {
       "name": "Aadhar Card PDF",
       "short_name": "Aadhar",
       "description": "Aadhar card ki photo se PDF banayein",
-      "url": "/aadhar-card-photo-to-pdf.html",
+      "url": "/aadhar-card-photo-to-pdf",
       "icons": [{ "src": "favicon.svg", "sizes": "any" }]
     }
   ],
