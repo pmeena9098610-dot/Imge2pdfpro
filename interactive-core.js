@@ -119,9 +119,9 @@
         // ═══════════════════════════════════════════════
         // 3. NEXUS PARTICLE GALAXY — Aurora Background
         // ═══════════════════════════════════════════════
-        // Only skip particle system for reduced-motion users (not all features)
-        if (prefersReduced) {
-            // Skip to section 4 (scroll animations etc.) which are fine for reduced-motion
+        // Only run particle system on desktop and if prefers-reduced-motion is false to save CPU/Battery
+        if (prefersReduced || isMobile) {
+            // Skip to section 4 (scroll animations etc.) which are fine for reduced-motion/mobile
         } else {
 
         const canvas = document.createElement('canvas');

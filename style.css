@@ -1279,3 +1279,20 @@ footer p, .premium-footer p { color: rgba(255,255,255,0.5); font-size: 0.88rem; 
 /* Section header */
 .section-header { text-align:center; margin-bottom:44px; }
 .section-header p { font-size:1rem; max-width:520px; margin:0 auto; line-height:1.7; }
+
+/* ──────────────────────────────────────────────
+   📱 MOBILE PERFORMANCE RESTORATION (GOOGLE CORE WEB VITALS FIX)
+────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  body::before, body::after {
+    animation: none !important;
+  }
+  .text-gradient {
+    animation: none !important;
+    background-size: 100% 100%;
+  }
+  .card-3d {
+    transform: none !important;
+    transition: none !important;
+  }
+}
