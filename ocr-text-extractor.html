@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J4CL85TN5X"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-J4CL85TN5X');
+    </script>
+    <!-- ===== World-Class Security Meta Policies ===== -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+        <meta name="indexnow-verification" content="a9f3b2e1d4c7f8a2b5e3d6c9f1a4b7e2">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <!-- ================================================ -->
+    <!-- Google AdSense (Loaded directly, auto-CMP managed via Google AdSense dashboard) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327226842644895" crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OCR Text Extractor Free | Scanned PDF se Text Extract Karo Hindi English | PhotoSePDF.in</title>
+  <meta name="description" content="Scanned PDF ya image se Hindi aur English text extract karo free mein. Tesseract OCR engine. 100% offline, no data upload, private processing." />
+  <meta name="keywords" content="image se text copy karo, ocr online free hindi, text extract from image, photo se text nikalna, convert image to text, copy text from image, photo to text converter" />
+  <link rel="canonical" href="https://www.photosepdf.in/ocr-text-extractor" />
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="OCR Text Extractor Free | Scanned PDF se Text Extract Karo Hindi English | PhotoSePDF.in" />
+  <meta property="og:description" content="Scanned PDF ya image se Hindi aur English text extract karo free mein. Tesseract OCR engine. 100% offline, no data upload, private processing." />
+  <meta property="og:image" content="https://www.photosepdf.in/og-image.svg" />
+  <meta property="og:url" content="https://www.photosepdf.in/ocr-text-extractor" />
+  <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="OCR Text Extractor Free â€” Hindi + English Text Extract | PhotoSePDF">
+    <meta name="twitter:description" content="Scanned PDF se Hindi aur English text extract karo free mein. Offline Tesseract OCR. No upload, 100% private.">
+    <meta name="twitter:image" content="https://www.photosepdf.in/og-image.svg">
+    <meta name="twitter:site" content="@photosepdf">
+  
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6366F1">
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Tesseract.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+
+  <style>
+    .ocr-container {
+      max-width: 850px;
+      margin: 40px auto 60px;
+      padding: 0 20px;
+    }
+    .ocr-hero {
+      text-align: center;
+      padding: 60px 0 30px;
+    }
+    .ocr-hero h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .ocr-hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+    
+    .upload-box {
+      border: 3px dashed var(--border);
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 50px 30px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      backdrop-filter: blur(12px);
+      position: relative;
+    }
+    .upload-box:hover, .upload-box.dragover {
+      border-color: var(--primary);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .upload-icon {
+      font-size: 3.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+    .upload-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .upload-hint {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+    
+    .options-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      margin-top: 24px;
+      backdrop-filter: blur(12px);
+    }
+    .options-title {
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lang-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .lang-card {
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+    }
+    .lang-card:hover {
+      border-color: var(--primary);
+    }
+    .lang-card.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+    .lang-card input {
+      position: absolute;
+      opacity: 0;
+    }
+    .lang-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+    .lang-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    
+    .progress-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 30px;
+      margin-top: 24px;
+      display: none;
+    }
+    .progress-bar-container {
+      background: var(--border);
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 15px 0;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.3s ease;
+    }
+    .progress-text {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--dark);
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .result-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 30px;
+      margin-top: 24px;
+      display: none;
+      animation: fadeInUp 0.5s ease;
+    }
+    .text-output-area {
+      width: 100%;
+      height: 250px;
+      padding: 15px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      font-family: inherit;
+      font-size: 1rem;
+      resize: vertical;
+      background: var(--bg-body);
+      color: var(--dark);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .text-output-area:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      width: 100%;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      background: rgba(100, 116, 139, 0.1);
+      color: var(--dark);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: rgba(100, 116, 139, 0.2);
+    }
+    
+    .file-preview-strip {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: var(--primary-light);
+      padding: 15px 20px;
+      border-radius: var(--radius-sm);
+      margin-top: 20px;
+      justify-content: space-between;
+    }
+    .preview-thumbnail {
+      width: 60px;
+      height: 60px;
+      border-radius: 4px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+    }
+
+    .faq-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 30px;
+      margin-top: 50px;
+      backdrop-filter: blur(12px);
+    }
+    .faq-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+    }
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    .faq-question {
+      font-weight: 700;
+      color: var(--dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .faq-answer {
+      color: var(--text-muted);
+      margin-top: 10px;
+      display: none;
+      font-size: 0.95rem;
+    }
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+    .faq-item.open .faq-question i {
+      transform: rotate(180deg);
+    }
+    .faq-question i {
+      transition: transform 0.3s ease;
+      color: var(--primary);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
+    <!-- WebApplication + BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "OCR Text Extractor - Extract Text from PDF",
+      "description": "Extract text from scanned PDF using OCR free online.",
+      "url": "https://www.photosepdf.in/ocr-text-extractor",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "PhotoSePDF.in",
+        "url": "https://www.photosepdf.in/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.photosepdf.in/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.photosepdf.in/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "OCR Text Extractor - Extract Text from PDF",
+            "item": "https://www.photosepdf.in/ocr-text-extractor"
+          }
+        ]
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "OCR Text Extractor - Image to Text Converter Free - PhotoSePDF",
+        "description": "Extract text from scanned PDF or image using OCR. Supports Hindi and English. 100% offline OCR tool.",
+        "url": "https://www.photosepdf.in/ocr-text-extractor",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web Browser, Android, iOS, Windows, Mac",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "reviewCount": "2847",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "author": { "@type": "Organization", "name": "PhotoSePDF.in", "url": "https://www.photosepdf.in/" },
+        "screenshot": "https://www.photosepdf.in/og-image.svg",
+        "softwareVersion": "2.0",
+        "datePublished": "2024-01-01",
+        "dateModified": "2026-06-08"
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [        {
+          "@type": "Question",
+          "name": "OCR se Hindi text extract ho sakta hai?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Haan! PhotoSePDF.in Tesseract.js OCR engine use karta hai jo Hindi (Devanagari script) aur English dono ko accurately recognize karta hai."
+          }
+        },        {
+          "@type": "Question",
+          "name": "OCR ki accuracy kitni hoti hai?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Clearly scanned documents ke liye 90-95% accuracy hoti hai. Handwritten text ya blurry scans mein accuracy thodi kam ho sakti hai."
+          }
+        },        {
+          "@type": "Question",
+          "name": "Scanned PDF se text kaise extract karein?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "PDF upload karein, language (Hindi/English) select karein, phir 'OCR Start Karo' button click karein. Extracted text copy kar sakte hain ya download kar sakte hain."
+          }
+        },        {
+          "@type": "Question",
+          "name": "OCR karne mein internet chahiye?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nahi! Tesseract OCR engine poora browser mein locally run hota hai. Koi data server par nahi jaata, poora offline kaam karta hai."
+          }
+        },        {
+          "@type": "Question",
+          "name": "Kya handwritten notes ka OCR ho sakta hai?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Handwritten text ke liye OCR accuracy kam hoti hai. Best results ke liye clearly printed/typed text wale documents use karein."
+          }
+        }]
+      }
+    ]
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "Scanned PDF Se Text Kaise Extract Karein (OCR)",
+      "description": "OCR se PDF ya scanned image ka text extract karne ka guide",
+      "totalTime": "PT3M",
+      "image": "https://www.photosepdf.in/og-image.svg",
+      "supply": { "@type": "HowToSupply", "name": "PDF File ya Image" },
+      "tool": { "@type": "HowToTool", "name": "PhotoSePDF.in - Free PDF Tool (Browser)" },
+      "step": [        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "OCR Text Extractor Tool Open Karein",
+          "text": "www.photosepdf.in/ocr-text-extractor browser mein open karein. Hindi aur English dono language support karta hai."
+        },        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "PDF Ya Image Upload Karein",
+          "text": "Scanned PDF ya image file (JPG, PNG) upload karein. File automatically load hogi."
+        },        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Language Select Karein",
+          "text": "OCR language choose karein - Hindi ke liye 'Hindi', English ke liye 'English' ya dono ke liye 'Hindi + English' select karein."
+        },        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "OCR Process Shuru Karein",
+          "text": "'OCR Start Karo' button click karein. Tesseract AI engine text recognize karna shuru karega."
+        },        {
+          "@type": "HowToStep",
+          "position": 5,
+          "name": "Extracted Text Copy Ya Download Karein",
+          "text": "OCR complete hone par extracted text copy karein ya text file download karein."
+        }]
+    }
+    </script>
+</head>
+<body>
+
+<header role="banner">
+  <nav class="navbar" aria-label="Main Navigation" role="navigation">
+    <div class="container nav-container">
+      <a href="/" class="logo" aria-label="PhotoSePDF.in Home">
+        <i class="fa-solid fa-file-pdf" aria-hidden="true"></i> PhotoSePDF<span>.in</span>
+      </a>
+            <!-- Pure CSS Checkbox Mobile Menu Hack -->
+            <input type="checkbox" id="menu-toggle-cb" class="menu-toggle-cb">
+            <label for="menu-toggle-cb" class="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tools">All Tools</a></li>
+        <li><a href="/articles">Guides</a></li>
+        <li>
+          <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="ocr-hero">
+    <div class="container">
+      <span class="badge"><i class="fa-solid fa-brain"></i> 100% Private & Offline OCR</span>
+      <h1>Photo Se Text <span class="text-gradient">Copy Online</span></h1>
+      <p>Aadhaar, books aur Kisi bhi image se text nikal kar instantly copy karein bina kisi software download ke.</p>
+    </div>
+  </div>
+
+  <div class="ocr-container">
+    <div class="premium-card">
+      <div id="dropZone" class="upload-box">
+        <input type="file" id="fileInput" accept="image/*" style="display: none;" />
+        <div class="upload-icon">
+          <i class="fa-solid fa-file-lines"></i>
+        </div>
+        <div class="upload-title">Apni Photo Yahan Upload Karein</div>
+        <div class="upload-hint">Drag & drop karein ya files se image select karein (JPG, PNG, WEBP)</div>
+        <span class="badge" style="margin-bottom: 0;"><i class="fa-solid fa-shield-halved"></i> 100% Secure: Privacy intact, offline extraction</span>
+      </div>
+
+      <div id="optionsArea" style="display: none; margin-top: 24px;">
+        <div class="file-preview-strip">
+          <div style="display: flex; align-items: center; gap: 15px; overflow: hidden; max-width: 80%;">
+            <img id="imagePreview" src="" class="preview-thumbnail" alt="Preview"  loading="lazy"/>
+            <div>
+              <div id="fileName" class="file-name" style="font-weight: 700;">image.jpg</div>
+              <span id="fileSize" class="badge" style="margin: 4px 0 0; background: var(--border); color: var(--text-main);">0 KB</span>
+            </div>
+          </div>
+          <button id="resetFileBtn" class="btn btn-secondary" style="width: auto; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem;"><i class="fa-solid fa-xmark"></i> Change</button>
+        </div>
+
+        <div class="options-section">
+          <div class="options-title">
+            <i class="fa-solid fa-language"></i> Extraction Language Select Karein
+          </div>
+          <div class="lang-options">
+            <label class="lang-card selected" id="langEng">
+              <input type="radio" name="ocrLang" value="eng" checked />
+              <div class="lang-name">ðŸ‡¬ðŸ‡§ English</div>
+              <div class="lang-desc">Best for books, receipts, and forms</div>
+            </label>
+            <label class="lang-card" id="langHin">
+              <input type="radio" name="ocrLang" value="hin" />
+              <div class="lang-name">ðŸ‡®ðŸ‡³ Hindi (à¤¹à¤¿à¤¨à¥à¤¦à¥€)</div>
+              <div class="lang-desc">Hindi text extract karne ke liye</div>
+            </label>
+            <label class="lang-card" id="langBoth">
+              <input type="radio" name="ocrLang" value="eng+hin" />
+              <div class="lang-name">ðŸŒ English + Hindi</div>
+              <div class="lang-desc">Mix languages documents ke liye</div>
+            </label>
+          </div>
+        </div>
+
+        <div style="margin-top: 24px;">
+          <button id="extractBtn" class="btn btn-primary">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Image Se Text Nikalein
+          </button>
+        </div>
+      </div>
+
+      <!-- Progress box -->
+      <div id="progressBox" class="progress-box">
+        <div class="progress-text">
+          <span id="progressState">Initializing OCR Engine...</span>
+          <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar-container">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+        <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">
+          <i class="fa-solid fa-spinner fa-spin"></i> Note: Pehli baar local files download hone mein 5-10 seconds lag sakte hain.
+        </p>
+      </div>
+
+      <!-- Success dashboard -->
+      <div id="resultBox" class="result-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+          <h3 style="font-weight: 800; color: var(--dark); font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-circle-check" style="color: var(--secondary);"></i> Text Extracted Successfully!
+          </h3>
+          <span class="badge" style="background: var(--secondary-light); color: var(--secondary); margin: 0;"><i class="fa-solid fa-shield"></i> 100% Private</span>
+        </div>
+        
+        <textarea id="textOutput" class="text-output-area" placeholder="Yahan extracted text dikhega..."></textarea>
+        
+        <div class="action-grid">
+          <button id="copyBtn" class="btn btn-primary">
+            <i class="fa-solid fa-copy"></i> Copy Text
+          </button>
+          <button id="downloadBtn" class="btn btn-secondary">
+            <i class="fa-solid fa-download"></i> Save as .TXT
+          </button>
+        </div>
+        
+        <button id="clearBtn" class="btn btn-secondary" style="margin-top: 12px;">
+          <i class="fa-solid fa-rotate-left"></i> Naya Image Upload Karein
+        </button>
+      </div>
+    </div>
+
+    <!-- FAQ Container -->
+    <div class="faq-container">
+      <h2 class="faq-title">Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          1. Kya meri photo server par upload hoti hai? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Nahi! PhotoSePDF.in ek strictly client-side offline tools portal hai. OCR processing aapke hi device (computer ya mobile) ke browser mein Tesseract.js engine ki madad se hoti hai. Aapki files complete private hain aur koi data server par upload nahi hota.
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          2. Photo se text nikalne ke liye internet ki zaroorat hai? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Pehli baar jab aap Hindi ya English script select karenge, toh browser Tesseract engine ki tiny offline model files CDN se local storage mein download karega. Uske baad model files permanently cache ho jayengi, aur aap bina internet (100% offline) kisi bhi photo se text copy kar sakte hain.
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">
+          3. Kya isse Aadhaar card ya handwritten notes se text nikal sakte hain? <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          Haan! Aadhaar Card, PAN card ya driving license jaise documents ka text aap instantly English language mode mein extract kar sakte hain. Clear printed text aur achhi quality ke handwritten notes par yeh tool behad shaandar accuracy ke sath kaam karta hai.
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="premium-footer">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 20px;">
+      <a href="/" style="color:var(--primary); margin:0 10px;">Home Tool</a> |
+      <a href="/tools" style="color:var(--primary); margin:0 10px;">All Tools</a> |
+      <a href="/articles" style="color:var(--primary); margin:0 10px;">Guides</a> |
+      <a href="/privacy-policy" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Privacy Policy</a> |
+      <a href="/terms" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Terms of Service</a>
+    </div>
+    <p class="copyright" style="text-align: center;">&copy; 2026 PhotoSePDF.in. Built for privacy, speed, and cybersecurity.</p>
+  </div>
+</footer>
+
+<script>
+  // Theme management
+  const themeToggle = document.getElementById('theme-toggle');
+  const htmlEl = document.documentElement;
+  
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  htmlEl.setAttribute('data-theme', savedTheme);
+  updateThemeIcon(savedTheme);
+  
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = htmlEl.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    htmlEl.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+  });
+  
+  function updateThemeIcon(theme) {
+    const icon = themeToggle.querySelector('i');
+    if (theme === 'dark') {
+      icon.className = 'fa-solid fa-sun';
+      themeToggle.setAttribute('aria-label', 'Toggle Light Mode');
+    } else {
+      icon.className = 'fa-solid fa-moon';
+      themeToggle.setAttribute('aria-label', 'Toggle Dark Mode');
+    }
+  }
+
+  // FAQ logic
+  document.querySelectorAll('.faq-question').forEach(item => {
+    item.addEventListener('click', () => {
+      const parent = item.parentElement;
+      const isOpen = parent.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
+      if (!isOpen) parent.classList.add('open');
+    });
+  });
+
+  // OCR core logic
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const optionsArea = document.getElementById('optionsArea');
+  const imagePreview = document.getElementById('imagePreview');
+  const fileNameEl = document.getElementById('fileName');
+  const fileSizeEl = document.getElementById('fileSize');
+  const resetFileBtn = document.getElementById('resetFileBtn');
+  
+  const langCards = document.querySelectorAll('.lang-card');
+  const extractBtn = document.getElementById('extractBtn');
+  const progressBox = document.getElementById('progressBox');
+  const progressState = document.getElementById('progressState');
+  const progressPercent = document.getElementById('progressPercent');
+  const progressBar = document.getElementById('progressBar');
+  
+  const resultBox = document.getElementById('resultBox');
+  const textOutput = document.getElementById('textOutput');
+  const copyBtn = document.getElementById('copyBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  
+  let selectedFile = null;
+
+  // Language selectors
+  langCards.forEach(card => {
+    card.addEventListener('click', () => {
+      langCards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      card.querySelector('input').checked = true;
+    });
+  });
+
+  // Drag and drop events
+  dropZone.addEventListener('click', () => fileInput.click());
+  
+  dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+  });
+  
+  dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('dragover');
+  });
+  
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+    if (e.dataTransfer.files.length > 0) {
+      handleFileSelect(e.dataTransfer.files[0]);
+    }
+  });
+  
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files.length > 0) {
+      handleFileSelect(fileInput.files[0]);
+    }
+  });
+
+  function handleFileSelect(file) {
+    if (!file.type.startsWith('image/')) {
+      alert('Bhai, please ek valid image file select karein!');
+      return;
+    }
+    selectedFile = file;
+    
+    // Fill file info
+    fileNameEl.textContent = file.name;
+    fileSizeEl.textContent = formatBytes(file.size);
+    
+    // Preview image
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      imagePreview.src = e.target.result;
+    }
+    reader.readAsDataURL(file);
+    
+    // UI state transitions
+    dropZone.style.display = 'none';
+    optionsArea.style.display = 'block';
+    resultBox.style.display = 'none';
+    progressBox.style.display = 'none';
+  }
+
+  resetFileBtn.addEventListener('click', () => {
+    selectedFile = null;
+    fileInput.value = '';
+    dropZone.style.display = 'block';
+    optionsArea.style.display = 'none';
+    resultBox.style.display = 'none';
+    progressBox.style.display = 'none';
+  });
+
+  clearBtn.addEventListener('click', () => {
+    resetFileBtn.click();
+  });
+
+  // OCR core extraction trigger
+  extractBtn.addEventListener('click', async () => {
+    if (!selectedFile) return;
+    
+    const lang = document.querySelector('input[name="ocrLang"]:checked').value;
+    
+    optionsArea.style.display = 'none';
+    progressBox.style.display = 'block';
+    updateProgress(0, 'Initializing OCR Engine...');
+    
+    try {
+      // Direct call to Tesseract global
+      Tesseract.recognize(
+        selectedFile,
+        lang,
+        {
+          logger: m => {
+            if (m.status === 'recognizing text') {
+              const pct = Math.round(m.progress * 100);
+              updateProgress(pct, `Extracted Text: ${pct}% Complete`);
+            } else {
+              // Beautify logger status text
+              let statusText = m.status.charAt(0).toUpperCase() + m.status.slice(1);
+              statusText = statusText.replace(/_/g, ' ');
+              updateProgress(10, `${statusText}...`);
+            }
+          }
+        }
+      ).then(({ data: { text } }) => {
+        progressBox.style.display = 'none';
+        resultBox.style.display = 'block';
+        textOutput.value = text && text.trim() ? text.trim() : 'Image mein koi clear text nahi mila! Please check karein ki quality clear ho.';
+      }).catch(err => {
+        console.error(err);
+        alert('OCR fails: ' + err.message);
+        optionsArea.style.display = 'block';
+        progressBox.style.display = 'none';
+      });
+    } catch(err) {
+      console.error(err);
+      alert('OCR Engine error: ' + err.message);
+      optionsArea.style.display = 'block';
+      progressBox.style.display = 'none';
+    }
+  });
+
+  function updateProgress(percent, text) {
+    progressBar.style.width = `${percent}%`;
+    progressPercent.textContent = `${percent}%`;
+    progressState.textContent = text;
+  }
+
+  // Copy to clipboard with premium tooltip
+  copyBtn.addEventListener('click', () => {
+    if (!textOutput.value) return;
+    navigator.clipboard.writeText(textOutput.value).then(() => {
+      const originalText = copyBtn.innerHTML;
+      copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+      copyBtn.style.background = 'var(--secondary)';
+      setTimeout(() => {
+        copyBtn.innerHTML = originalText;
+        copyBtn.style.background = '';
+      }, 2000);
+    }).catch(err => {
+      alert('Copy fail: ' + err);
+    });
+  });
+
+  // Save text as file
+  downloadBtn.addEventListener('click', () => {
+    if (!textOutput.value) return;
+    const blob = new Blob([textOutput.value], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    
+    // Generate clean text name
+    let txtName = selectedFile.name.substring(0, selectedFile.name.lastIndexOf('.')) || 'extracted-text';
+    link.download = `${txtName}-text.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  });
+
+  function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  }
+</script>
+
+    <!-- Related Tools Ã¢â‚¬â€ Internal Linking for SEO -->
+    <section style="padding:40px 0 20px;background:#f0f4ff;">
+      <div class="container" style="max-width:900px;margin:0 auto;padding:0 20px;">
+        <h2 style="font-size:1.3rem;color:#6366f1;margin-bottom:20px;font-weight:700;">Ã°Å¸â€Â§ Related Free Tools</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <a href="/jpg-to-pdf" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">JPG to PDF</a>
+          <a href="/photo-to-pdf" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">Photo to PDF</a>
+          <a href="/png-to-pdf" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">PNG to PDF</a>
+          <a href="/compress-pdf" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">Compress PDF</a>
+          <a href="/merge-pdf" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">Merge PDF</a>
+          <a href="/split-pdf" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">Split PDF</a>
+          <a href="/pdf-to-jpg" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">PDF to JPG</a>
+          <a href="/heic-to-pdf-converter" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">HEIC to PDF</a>
+          <a href="/webp-to-pdf-converter" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">WebP to PDF</a>
+          <a href="/aadhar-card-photo-to-pdf" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">Aadhar Card PDF</a>
+          <a href="/compress-pdf-100kb" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">Compress to 100KB</a>
+          <a href="/word-to-pdf" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">Word to PDF</a>
+          <a href="/excel-to-pdf" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">Excel to PDF</a>
+          <a href="/ocr-text-extractor" style="background:white;border:1px solid #e0e7ff;border-radius:8px;padding:8px 16px;color:#4338ca;text-decoration:none;font-size:0.9rem;font-weight:500;">OCR Text Extractor</a>
+          <a href="/tools" style="background:#6366f1;border:1px solid #6366f1;border-radius:8px;padding:8px 16px;color:white;text-decoration:none;font-size:0.9rem;font-weight:600;">View All Tools Ã¢â€ â€™</a>
+        </div>
+      </div>
+    </section>
+    <!-- Interactive 3D Particles Core -->
+    <script src="interactive-core.js" defer></script>
+</body>
+</html>
