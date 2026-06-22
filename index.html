@@ -12,7 +12,7 @@
     </script>
     <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
     <!-- Preload critical resources for LCP/FCP -->
-    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="style.css" as="style" fetchpriority="high">
     <link rel="preload" href="app.js" as="script">
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
@@ -85,7 +85,7 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'"></noscript>
     <!-- Critical CSS for fast FCP -->
     <style>
     .app-container::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#6C63FF,#EC4899,#00C896,#FFD93D);background-size:200%;animation:rs 3s linear infinite;}
@@ -228,6 +228,18 @@
     <!-- WebSite SearchAction merged into extended version below -->
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327226842644895" crossorigin="anonymous"></script>
+    <style>
+/* Critical CSS - Above the fold */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',system-ui,sans-serif;background:#F7F7FF;color:#2D3748;line-height:1.65;overflow-x:hidden;min-height:100vh}
+[data-theme="dark"] body{background:#0F0F1A;color:#E2E8F0}
+.navbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid #E8E8F5;padding:12px 20px}
+[data-theme="dark"] .navbar{background:rgba(15,15,26,0.95);border-color:rgba(139,131,255,0.1)}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+.hero-title{font-size:clamp(2rem,5.5vw,3.8rem);font-weight:900;line-height:1.1;letter-spacing:-0.03em;margin-bottom:18px}
+.hidden{display:none!important}
+</style>
     <link rel="stylesheet" href="style.css">
 
     <!-- Organization + SiteLinks Schema for Google Knowledge Panel -->
