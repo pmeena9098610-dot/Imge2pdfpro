@@ -391,5 +391,69 @@
     <changefreq>daily</changefreq>
     <priority>0.90</priority>
   </url>
+
+  <!-- New SEO Pages - Hindi -->
+  <url>
+    <loc>https://www.photosepdf.in/photo-se-pdf-kaise-banaye</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.photosepdf.in/image-to-pdf-kaise-kare</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.photosepdf.in/pdf-kaise-banaye-mobile-se</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.photosepdf.in/photo-ka-size-kaise-kam-kare</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.photosepdf.in/passport-size-photo-pdf</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- New SEO Pages - English -->
+  <url>
+    <loc>https://www.photosepdf.in/how-to-convert-photo-to-pdf</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.photosepdf.in/how-to-merge-pdf-files</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.photosepdf.in/how-to-compress-pdf</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.photosepdf.in/best-free-pdf-tools-online</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.photosepdf.in/how-to-convert-jpg-to-pdf-without-app</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
 </urlset>
 
