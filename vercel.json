@@ -4,9 +4,15 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/(.*)",
+      "source": "/:path*",
       "has": [{"type": "host", "value": "photosepdf.in"}],
-      "destination": "https://www.photosepdf.in/$1",
+      "destination": "https://www.photosepdf.in/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{"type": "host", "value": "www.photosepdf.in"}, {"type": "header", "key": "x-forwarded-proto", "value": "http"}],
+      "destination": "https://www.photosepdf.in/:path*",
       "permanent": true
     }
   ],
