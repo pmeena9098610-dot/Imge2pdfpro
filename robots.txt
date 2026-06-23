@@ -1,35 +1,57 @@
 # ===================================================
-# PhotoSePDF.in - robots.txt
-# Last updated: 2026-06-19
+# PhotoSePDF.in - robots.txt (Optimized)
+# Domain: https://www.photosepdf.in
+# Last updated: 2026-06-24
 # ===================================================
 
-# Allow all major search engines
+# ── Allow all major crawlers ──
 User-agent: *
 Allow: /
 
-# Block low-value paths
+# Block internal/private paths
+Disallow: /.vercel/
+Disallow: /_docs/
 Disallow: /api/
 
-# Google: allow everything
+# ── Google (full access) ──
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Googlebot-Image
 Allow: /
 
-# Bing
-User-agent: Bingbot
+User-agent: Googlebot-News
 Allow: /
 
-# Google AdSense bot - MUST allow
+# ── Google AdSense (MUST allow) ──
 User-agent: Mediapartners-Google
 Allow: /
 
-# Google AdsBot - MUST allow for AdSense
 User-agent: AdsBot-Google
 Allow: /
 
-# Block scraper bots
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+# ── Bing ──
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+# ── Other good bots ──
+User-agent: Slurp
+Allow: /
+Crawl-delay: 5
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 2
+
+User-agent: Applebot
+Allow: /
+
+# ── AI Scrapers (Block) ──
 User-agent: GPTBot
 Disallow: /
 
@@ -45,18 +67,39 @@ Disallow: /
 User-agent: Claude-Web
 Disallow: /
 
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: YouBot
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+# ── Bad Bots / Scrapers (Block) ──
 User-agent: MJ12bot
 Disallow: /
 
 User-agent: DotBot
 Disallow: /
 
-# Rate limit SEO bots
-User-agent: Semrush
-Crawl-delay: 10
+User-agent: SemrushBot
+Crawl-delay: 20
 
 User-agent: AhrefsBot
-Crawl-delay: 10
+Crawl-delay: 20
 
-# Sitemap
+User-agent: MajesticSEO
+Crawl-delay: 20
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: DataForSeoBot
+Disallow: /
+
+# ── Sitemap ──
 Sitemap: https://www.photosepdf.in/sitemap.xml

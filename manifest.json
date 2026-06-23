@@ -1,7 +1,7 @@
 {
-  "name": "PhotoSePDF - Free Image to PDF Converter India",
+  "name": "PhotoSePDF - Free PDF & Image Tools India",
   "short_name": "PhotoSePDF",
-  "description": "India's #1 free offline JPG PNG WEBP HEIC to PDF converter. No watermark, no internet, 100% secure. Compress PDF to 100KB. Convert multiple photos to one PDF.",
+  "description": "India's #1 free offline JPG PNG WEBP HEIC to PDF converter. Resize photos for SSC, UPSC, NEET, Aadhaar, PAN. No watermark, no upload, 100% secure.",
   "start_url": "/?source=pwa",
   "scope": "/",
   "display": "standalone",
@@ -10,28 +10,44 @@
   "orientation": "portrait-primary",
   "lang": "hi-IN",
   "dir": "ltr",
+  "id": "photosepdf-pwa-v2",
   "categories": ["utilities", "productivity", "photo"],
-  "keywords": "image to pdf, photo to pdf, jpg to pdf, pdf converter, compress pdf, pdf banana, photo pdf kaise banaye",
+  "screenshots": [
+    {
+      "src": "og-image.svg",
+      "sizes": "1200x630",
+      "type": "image/svg+xml",
+      "form_factor": "wide",
+      "label": "PhotoSePDF.in - Free Image to PDF Converter"
+    }
+  ],
   "shortcuts": [
     {
-      "name": "Photo se PDF Banaye",
-      "short_name": "Convert",
-      "description": "Apni photos upload karein aur turant PDF banayein",
-      "url": "/#tool",
+      "name": "JPG to PDF Convert",
+      "short_name": "JPG→PDF",
+      "description": "Convert JPG photos to PDF instantly offline",
+      "url": "/jpg-to-pdf",
       "icons": [{ "src": "favicon.svg", "sizes": "any" }]
     },
     {
-      "name": "PDF 100KB Compress",
+      "name": "SSC Photo Resize",
+      "short_name": "SSC Photo",
+      "description": "Resize photo to 20KB-50KB for SSC forms",
+      "url": "/ssc-photo-resizer",
+      "icons": [{ "src": "favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Compress PDF",
       "short_name": "Compress",
-      "description": "PDF ka size 100KB ya 200KB tak compress karein",
-      "url": "/compress-pdf-100kb",
+      "description": "Compress PDF size to 100KB or 200KB",
+      "url": "/compress-pdf",
       "icons": [{ "src": "favicon.svg", "sizes": "any" }]
     },
     {
-      "name": "Aadhar Card PDF",
-      "short_name": "Aadhar",
-      "description": "Aadhar card ki photo se PDF banayein",
-      "url": "/aadhar-card-photo-to-pdf",
+      "name": "Merge PDF",
+      "short_name": "Merge",
+      "description": "Combine multiple PDF files into one",
+      "url": "/merge-pdf",
       "icons": [{ "src": "favicon.svg", "sizes": "any" }]
     }
   ],
@@ -47,8 +63,27 @@
       "type": "image/svg+xml",
       "sizes": "512x512",
       "purpose": "maskable"
+    },
+    {
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192",
+      "purpose": "any"
     }
   ],
   "related_applications": [],
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "share_target": {
+    "action": "/jpg-to-pdf",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "files": [
+        {
+          "name": "image",
+          "accept": ["image/jpeg", "image/png", "image/webp", "image/heic", "application/pdf"]
+        }
+      ]
+    }
+  }
 }

@@ -1,141 +1,166 @@
-const CACHE_NAME = 'photosepdf-v43-audit-fix';
+// PhotoSePDF.in — Service Worker v50 (Full Optimized)
+// Cache-first for assets, Network-first for HTML pages
 
-// Critical assets only — other pages cached lazily on first visit
+const CACHE_NAME    = 'photosepdf-v50';
+const CACHE_VERSION = 50;
+
+// Critical assets pre-cached on install
 const CRITICAL_ASSETS = [
-    './',
-    './style.css',
-    './app.js',
-    './interactive-core.js',
-    './manifest.json',
-    './favicon.svg'
+    '/',
+    '/style.css',
+    '/app.js',
+    '/interactive-core.js',
+    '/manifest.json',
+    '/favicon.svg',
+    '/og-image.svg'
 ];
 
-// Pages to lazy-cache (not pre-cached to avoid install failure)
-const PAGE_ASSETS = [
-    './tools',
-    './compress-pdf',
-    './merge-pdf',
-    './split-pdf',
-    './pdf-to-jpg',
-    './pdf-to-png',
-    './photo-to-pdf',
-    './jpg-to-pdf',
-    './png-to-pdf',
-    './word-to-pdf',
-    './excel-to-pdf',
-    './ppt-to-pdf',
-    './rotate-pdf',
-    './unlock-pdf',
-    './pdf-to-word',
-    './pdf-to-text',
-    './watermark-pdf',
-    './add-page-numbers-pdf',
-    './delete-pdf-pages',
-    './jpg-to-png',
-    './png-to-jpg',
-    './pdf-to-excel',
-    './pdf-to-ppt',
-    './about',
-    './contact',
-    './privacy-policy',
-    './terms',
-    './articles',
-    './photo-ko-pdf-kaise-banaye',
-    './mobile-se-pdf-kaise-banaye',
-    './pdf-size-kam-kaise-kare',
-    './ocr-pdf',
-    './pdf-password',
-    './esignature',
-    './aadhar-ko-pdf-mein-convert',
-    './pdf-tools-comparison',
-    './camera-to-pdf',
-    './ai-summarizer',
-    './ai-notes',
-    './aadhar-card-photo-to-pdf',
-    './compress-pdf-100kb',
-    './heic-to-pdf-converter',
-    './webp-to-pdf-converter',
-    './jpg-to-pdf-converter-hindi',
-    './jpg-to-pdf-mac-iphone-guide',
-    './best-ilovepdf-free-alternative-offline',
-    './resume-cv-to-pdf-compressor',
-    './how-to-resize-passport-photo-for-us-visa-pdf',
-    './how-to-resize-photo-signature-for-ssc-upsc',
-    './image-to-pdf-converter-bengali',
-    './image-to-pdf-converter-marathi',
-    './image-to-pdf-converter-tamil',
-    './image-to-pdf-converter-telugu',
-    './image-to-pdf-deutsch',
-    './image-to-pdf-espanol',
-    './image-to-pdf-francais',
-    './image-to-pdf-portugues'
+// Top landing pages pre-cached for offline access
+const TOP_PAGES = [
+    '/jpg-to-pdf',
+    '/photo-to-pdf',
+    '/png-to-pdf',
+    '/compress-pdf',
+    '/merge-pdf',
+    '/split-pdf',
+    '/ssc-photo-resizer',
+    '/passport-photo-maker',
+    '/upsc-photo-resizer',
+    '/tools'
 ];
 
+// Third-party domains to NEVER cache
+const NO_CACHE_HOSTS = [
+    'google-analytics.com',
+    'googletagmanager.com',
+    'googlesyndication.com',
+    'doubleclick.net',
+    'adservice.google.com',
+    'adtrafficquality.google',
+    'fonts.googleapis.com',
+    'fonts.gstatic.com',
+    'cdnjs.cloudflare.com',
+    'fundingchoicesmessages.google.com'
+];
+
+// ── Install: pre-cache critical assets ──────────────────────────
 self.addEventListener('install', (event) => {
     self.skipWaiting();
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => cache.addAll(CRITICAL_ASSETS))
+        caches.open(CACHE_NAME).then((cache) =>
+            Promise.allSettled(
+                [...CRITICAL_ASSETS, ...TOP_PAGES].map(url =>
+                    cache.add(url).catch(() => {/* ignore individual failures */})
+                )
+            )
+        )
     );
 });
 
+// ── Activate: delete old caches ──────────────────────────────────
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         Promise.all([
             self.clients.claim(),
-            caches.keys().then((cacheNames) => {
-                return Promise.all(
-                    cacheNames.map((cache) => {
-                        if (cache !== CACHE_NAME) return caches.delete(cache);
-                    })
-                );
-            })
+            caches.keys().then((cacheNames) =>
+                Promise.all(
+                    cacheNames
+                        .filter((name) => name !== CACHE_NAME)
+                        .map((name) => caches.delete(name))
+                )
+            )
         ])
     );
 });
 
+// ── Fetch: smart caching strategy ───────────────────────────────
 self.addEventListener('fetch', (event) => {
-    const url = new URL(event.request.url);
+    const { request } = event;
+    const url = new URL(request.url);
 
-    // Never cache Google Ads, Analytics, or third-party tracking
-    if (url.hostname.includes('google') ||
-        url.hostname.includes('doubleclick') ||
-        url.hostname.includes('adservice') ||
-        url.hostname.includes('analytics')) {
-        return; // Let browser handle natively
-    }
+    // Skip non-GET requests
+    if (request.method !== 'GET') return;
 
-    // Network-first for navigation requests (fresh HTML)
-    if (event.request.mode === 'navigate') {
+    // Skip third-party/ad/analytics requests
+    if (NO_CACHE_HOSTS.some(host => url.hostname.includes(host))) return;
+
+    // Skip non-http(s) requests (chrome-extension, etc.)
+    if (!url.protocol.startsWith('http')) return;
+
+    // ── Strategy 1: HTML pages → Network-first (fresh content) ──
+    if (request.mode === 'navigate' ||
+        request.headers.get('accept')?.includes('text/html')) {
         event.respondWith(
-            fetch(event.request)
+            fetch(request)
                 .then((response) => {
-                    // Cache the page for offline use
-                    if (response && response.status === 200) {
-                        const cacheCopy = response.clone();
-                        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, cacheCopy));
+                    if (response?.ok) {
+                        const clone = response.clone();
+                        caches.open(CACHE_NAME)
+                            .then(cache => cache.put(request, clone))
+                            .catch(() => {});
                     }
                     return response;
                 })
-                .catch(() => {
-                    // Offline: try cached version of this page first, then fallback to homepage
-                    return caches.match(event.request).then((cached) => cached || caches.match('./'));
-                })
+                .catch(() =>
+                    caches.match(request)
+                        .then(cached => cached || caches.match('/'))
+                )
         );
         return;
     }
 
-    // Cache-first for same-origin static assets only
-    if (url.origin === self.location.origin) {
+    // ── Strategy 2: CSS/JS → Stale-while-revalidate ─────────────
+    if (url.pathname.match(/\.(css|js)$/)) {
         event.respondWith(
-            caches.match(event.request).then((response) => {
-                return response || fetch(event.request).then((networkResponse) => {
-                    if (networkResponse && networkResponse.status === 200 && event.request.method === 'GET') {
-                        const cacheCopy = networkResponse.clone();
-                        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, cacheCopy));
-                    }
-                    return networkResponse;
-                }).catch(() => new Response('Offline', { status: 503, statusText: 'Service Unavailable' }));
-            })
+            caches.open(CACHE_NAME).then((cache) =>
+                cache.match(request).then((cached) => {
+                    const networkFetch = fetch(request).then((response) => {
+                        if (response?.ok) cache.put(request, response.clone()).catch(() => {});
+                        return response;
+                    }).catch(() => cached);
+                    return cached || networkFetch;
+                })
+            )
         );
+        return;
+    }
+
+    // ── Strategy 3: Images/Fonts → Cache-first (long-lived) ─────
+    if (url.pathname.match(/\.(png|jpg|jpeg|webp|avif|svg|gif|ico|woff|woff2|ttf)$/)) {
+        event.respondWith(
+            caches.match(request).then(cached =>
+                cached || fetch(request).then(response => {
+                    if (response?.ok) {
+                        caches.open(CACHE_NAME)
+                            .then(cache => cache.put(request, response.clone()))
+                            .catch(() => {});
+                    }
+                    return response;
+                }).catch(() => new Response('', { status: 404 }))
+            )
+        );
+        return;
+    }
+
+    // ── Default: Network with cache fallback ─────────────────────
+    event.respondWith(
+        fetch(request)
+            .then(response => {
+                if (response?.ok && url.origin === self.location.origin) {
+                    caches.open(CACHE_NAME)
+                        .then(cache => cache.put(request, response.clone()))
+                        .catch(() => {});
+                }
+                return response;
+            })
+            .catch(() => caches.match(request))
+    );
+});
+
+// ── Message handler: force cache clear ──────────────────────────
+self.addEventListener('message', (event) => {
+    if (event.data?.action === 'skipWaiting') self.skipWaiting();
+    if (event.data?.action === 'clearCache') {
+        caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k))));
     }
 });
