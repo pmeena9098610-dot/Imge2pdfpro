@@ -1226,3 +1226,197 @@ footer p, .premium-footer p { color: rgba(255,255,255,0.5); font-size: 0.88rem; 
 /* Section header */
 .section-header { text-align:center; margin-bottom:44px; }
 .section-header p { font-size:1rem; max-width:520px; margin:0 auto; line-height:1.7; }
+
+
+/* ================================================================
+   PREMIUM SUBPAGE TOOL WIDGET STYLES 🛠️
+   ================================================================ */
+
+.preset-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.preset-pill {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 6px 12px;
+  border-radius: var(--r-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.preset-pill:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.preset-pill.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.step-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  border-bottom: 1.5px solid var(--border);
+  padding-bottom: 8px;
+}
+
+.step-badge {
+  background: var(--primary);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: var(--r-sm);
+  text-transform: uppercase;
+}
+
+.step-title-text {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--dark);
+  margin: 0;
+}
+
+.tool-btn-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.tool-control-btn {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 8px 14px;
+  border-radius: var(--r-sm);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tool-control-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.stats-badge-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.stats-badge-item {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px;
+  text-align: center;
+}
+
+.stats-badge-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.stats-badge-val {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--dark);
+}
+
+.stats-saving-green {
+  color: var(--secondary) !important;
+}
+
+/* Custom Styled Range Slider */
+input[type="range"].custom-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"].custom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(108,99,255,0.4);
+  transition: transform 0.1s;
+}
+
+input[type="range"].custom-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Tool dropzone visual state updates */
+.tool-dropzone-active {
+  border-color: var(--secondary) !important;
+  background: rgba(0, 200, 150, 0.04) !important;
+}
+
+.file-loaded-badge {
+  background: rgba(0, 200, 150, 0.08);
+  border: 1px solid rgba(0, 200, 150, 0.25);
+  color: var(--secondary-dark);
+  padding: 12px;
+  border-radius: var(--r-md);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.file-loaded-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.file-loaded-info i {
+  font-size: 1.3rem;
+  color: var(--secondary);
+}
+
+.file-loaded-name {
+  font-weight: 700;
+  font-size: 0.88rem;
+  word-break: break-all;
+}
+
+.file-loaded-size {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}

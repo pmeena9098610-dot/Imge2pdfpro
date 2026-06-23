@@ -108,34 +108,74 @@
         <div class="glass-panel" style="padding: 25px; border-radius: 20px; background: var(--bg-card); border: 1px solid var(--border); box-shadow: var(--shadow-md); margin-bottom: 40px;">
             <h2 style="font-size:1.3rem; font-weight:800; color:var(--primary); margin-bottom: 20px; text-align:center;"><i class="fa-solid fa-wand-magic-sparkles"></i> Client-Side Online Tool (100% Offline & Private)</h2>
             
-    <div style="max-width:550px; margin:0 auto; text-align:center;">
+    <div style="max-width:550px; margin:0 auto; text-align:center; font-family:'Outfit', sans-serif;">
+        <!-- Step 1: Uploads -->
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:20px;">
-            <div style="border:2px dashed var(--border); border-radius:12px; padding:15px; cursor:pointer; background:rgba(99,102,241,0.02);" onclick="document.getElementById('photo-input').click()">
+            <div style="border:2px dashed var(--primary); border-radius:16px; padding:20px 10px; cursor:pointer; background:rgba(99,102,241,0.02); transition:all 0.3s ease; position:relative;" onclick="document.getElementById('photo-input').click()">
                 <input type="file" id="photo-input" accept="image/*" style="display:none;" />
-                <i class="fa-solid fa-user-tie" style="font-size:2rem; color:var(--primary); margin-bottom:8px;"></i>
-                <p style="font-weight:600; font-size:0.9rem; color:var(--text-main);">1. Upload Photo</p>
-                <span id="photo-status" style="font-size:0.75rem; color:var(--text-muted);">No file chosen</span>
+                <div style="width:48px; height:48px; border-radius:50%; background:rgba(99,102,241,0.08); display:flex; align-items:center; justify-content:center; margin:0 auto 10px; color:var(--primary); font-size:1.3rem;">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+                <p style="font-weight:700; font-size:0.9rem; color:var(--text-main); margin-bottom:2px;">1. Passport Photo</p>
+                <span id="photo-status" style="font-size:0.75rem; color:var(--text-muted); display:block; word-break:break-all;">No photo chosen</span>
+                <div id="photo-rotate-group" style="display:none; margin-top:10px;" onclick="event.stopPropagation();">
+                    <button type="button" class="tool-control-btn" style="padding:3px 6px; font-size:0.7rem;" onclick="rotatePhoto(90)"><i class="fa-solid fa-rotate-right"></i> Rotate</button>
+                </div>
             </div>
-            <div style="border:2px dashed var(--border); border-radius:12px; padding:15px; cursor:pointer; background:rgba(99,102,241,0.02);" onclick="document.getElementById('sig-input').click()">
+            <div style="border:2px dashed var(--primary); border-radius:16px; padding:20px 10px; cursor:pointer; background:rgba(99,102,241,0.02); transition:all 0.3s ease; position:relative;" onclick="document.getElementById('sig-input').click()">
                 <input type="file" id="sig-input" accept="image/*" style="display:none;" />
-                <i class="fa-solid fa-signature" style="font-size:2rem; color:var(--primary); margin-bottom:8px;"></i>
-                <p style="font-weight:600; font-size:0.9rem; color:var(--text-main);">2. Upload Signature</p>
-                <span id="sig-status" style="font-size:0.75rem; color:var(--text-muted);">No file chosen</span>
+                <div style="width:48px; height:48px; border-radius:50%; background:rgba(99,102,241,0.08); display:flex; align-items:center; justify-content:center; margin:0 auto 10px; color:var(--primary); font-size:1.3rem;">
+                    <i class="fa-solid fa-signature"></i>
+                </div>
+                <p style="font-weight:700; font-size:0.9rem; color:var(--text-main); margin-bottom:2px;">2. Signature</p>
+                <span id="sig-status" style="font-size:0.75rem; color:var(--text-muted); display:block; word-break:break-all;">No signature chosen</span>
+                <div id="sig-rotate-group" style="display:none; margin-top:10px;" onclick="event.stopPropagation();">
+                    <button type="button" class="tool-control-btn" style="padding:3px 6px; font-size:0.7rem;" onclick="rotateSig(90)"><i class="fa-solid fa-rotate-right"></i> Rotate</button>
+                </div>
             </div>
         </div>
-        <div style="background:rgba(0,0,0,0.02); padding:15px; border-radius:10px; text-align:left; margin-bottom:20px;">
-            <label style="font-size:0.85rem; font-weight:600;">Joint Layout Style</label>
-            <select id="layout-style" style="width:100%; padding:8px; border:1px solid var(--border); border-radius:6px; margin-top:5px; margin-bottom:12px;">
-                <option value="vertical" selected>Vertical Stack (Photo on Top, Signature on Bottom)</option>
-                <option value="horizontal">Horizontal (Photo Left, Signature Right)</option>
-            </select>
-            <button id="join-btn" style="width:100%; background:var(--primary); color:white; border:none; padding:12px; border-radius:8px; font-weight:700; cursor:pointer;">Join & Merge Files</button>
+
+        <!-- Step 2: Settings -->
+        <div id="join-settings-panel" style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:25px; text-align:left; margin-bottom:20px;">
+            <div class="step-card-header">
+                <span class="step-badge">Step 2</span>
+                <h3 class="step-title-text">Stitching Controls</h3>
+            </div>
+            
+            <div style="margin-bottom:15px;">
+                <label style="font-size:0.85rem; font-weight:700; color:var(--text-main); display:block; margin-bottom:6px;">Joint Layout Style</label>
+                <select id="layout-style" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; background:var(--bg-main); color:var(--text-main); outline:none; font-weight:600; cursor:pointer;">
+                    <option value="vertical" selected>Vertical Stack (Photo on Top, Signature on Bottom)</option>
+                    <option value="horizontal">Horizontal (Photo Left, Signature Right)</option>
+                </select>
+            </div>
+            
+            <div style="margin-bottom:20px; display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+                <div>
+                    <label style="font-size:0.8rem; font-weight:700; color:var(--text-main); display:block; margin-bottom:6px;">Divider Gap (px)</label>
+                    <input type="number" id="join-gap" value="15" min="0" max="100" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; background:var(--bg-main); color:var(--text-main); outline:none; font-weight:600;" />
+                </div>
+                <div>
+                    <label style="font-size:0.8rem; font-weight:700; color:var(--text-main); display:block; margin-bottom:6px;">Border Width (px)</label>
+                    <input type="number" id="join-border" value="10" min="0" max="100" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; background:var(--bg-main); color:var(--text-main); outline:none; font-weight:600;" />
+                </div>
+            </div>
+
+            <button id="join-btn" class="btn btn-primary btn-block" style="font-weight:800; padding:14px; border-radius:10px; display:flex; align-items:center; justify-content:center; gap:8px;"><i class="fa-solid fa-crop-simple"></i> Join & Merge Files</button>
         </div>
-        <div id="join-preview-panel" style="display:none; text-align:center;">
-            <p style="font-weight:600; margin-bottom:10px; color:var(--secondary);">Joint Output Preview</p>
-            <img id="join-preview-img" style="max-width:240px; border:1px solid var(--border); border-radius:8px; margin-bottom:15px; box-shadow:var(--shadow-sm);" />
-            <br>
-            <a id="join-download-link" class="btn btn-primary" style="display:inline-block; font-weight:700; text-decoration:none;"><i class="fa-solid fa-download"></i> Download Joint Image</a>
+
+        <!-- Step 3: Result -->
+        <div id="join-preview-panel" style="display:none; background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:25px; box-shadow:var(--shadow-sm); text-align:center;">
+            <div class="step-card-header" style="justify-content:center;">
+                <span class="step-badge" style="background:var(--secondary);">Step 3</span>
+                <h3 class="step-title-text" style="color:var(--secondary-dark);">Joint Output Ready!</h3>
+            </div>
+            
+            <div style="background:var(--bg-main); padding:15px; border-radius:12px; display:inline-block; margin-bottom:15px; border:1px solid var(--border);">
+                <img id="join-preview-img" style="max-height:250px; border-radius:8px; box-shadow:var(--shadow-sm); display:block; margin:0 auto;" />
+            </div>
+            
+            <a id="join-download-link" class="btn btn-primary btn-block" style="font-weight:800; padding:14px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none;"><i class="fa-solid fa-download"></i> Save Joint Image</a>
         </div>
     </div>
     
@@ -223,7 +263,11 @@
     const sigInput = document.getElementById('sig-input');
     const photoStatus = document.getElementById('photo-status');
     const sigStatus = document.getElementById('sig-status');
+    const photoRotateGroup = document.getElementById('photo-rotate-group');
+    const sigRotateGroup = document.getElementById('sig-rotate-group');
     const layoutStyle = document.getElementById('layout-style');
+    const joinGap = document.getElementById('join-gap');
+    const joinBorder = document.getElementById('join-border');
     const joinBtn = document.getElementById('join-btn');
     const joinPreviewPanel = document.getElementById('join-preview-panel');
     const joinPreviewImg = document.getElementById('join-preview-img');
@@ -231,15 +275,21 @@
 
     let photoImgObj = null;
     let sigImgObj = null;
+    let photoRotation = 0;
+    let sigRotation = 0;
 
     photoInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if(!file) return;
-        photoStatus.innerText = file.name;
+        photoStatus.innerText = file.name + ' (' + Math.round(file.size / 1024) + ' KB)';
         const reader = new FileReader();
         reader.onload = (ev) => {
             const img = new Image();
-            img.onload = () => { photoImgObj = img; };
+            img.onload = () => { 
+                photoImgObj = img; 
+                photoRotation = 0;
+                photoRotateGroup.style.display = 'block';
+            };
             img.src = ev.target.result;
         };
         reader.readAsDataURL(file);
@@ -248,15 +298,43 @@
     sigInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if(!file) return;
-        sigStatus.innerText = file.name;
+        sigStatus.innerText = file.name + ' (' + Math.round(file.size / 1024) + ' KB)';
         const reader = new FileReader();
         reader.onload = (ev) => {
             const img = new Image();
-            img.onload = () => { sigImgObj = img; };
+            img.onload = () => { 
+                sigImgObj = img; 
+                sigRotation = 0;
+                sigRotateGroup.style.display = 'block';
+            };
             img.src = ev.target.result;
         };
         reader.readAsDataURL(file);
     });
+
+    window.rotatePhoto = function(angle) {
+        photoRotation = (photoRotation + angle + 360) % 360;
+        event.currentTarget.querySelector('i').style.transform = `rotate(${photoRotation}deg)`;
+    };
+
+    window.rotateSig = function(angle) {
+        sigRotation = (sigRotation + angle + 360) % 360;
+        event.currentTarget.querySelector('i').style.transform = `rotate(${sigRotation}deg)`;
+    };
+
+    function getRotatedCanvas(img, rotation) {
+        const tempCanvas = document.createElement('canvas');
+        const tempCtx = tempCanvas.getContext('2d');
+        const isRotated = (rotation === 90 || rotation === 270);
+        
+        tempCanvas.width = isRotated ? img.height : img.width;
+        tempCanvas.height = isRotated ? img.width : img.height;
+        
+        tempCtx.translate(tempCanvas.width / 2, tempCanvas.height / 2);
+        tempCtx.rotate((rotation * Math.PI) / 180);
+        tempCtx.drawImage(img, -img.width / 2, -img.height / 2);
+        return tempCanvas;
+    }
 
     joinBtn.addEventListener('click', () => {
         if(!photoImgObj || !sigImgObj) {
@@ -267,46 +345,40 @@
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         const style = layoutStyle.value;
+        const gap = parseInt(joinGap.value) || 0;
+        const borderWidth = parseInt(joinBorder.value) || 0;
+
+        const photoCanvas = getRotatedCanvas(photoImgObj, photoRotation);
+        const sigCanvas = getRotatedCanvas(sigImgObj, sigRotation);
 
         if(style === 'vertical') {
             const targetW = 400;
-            const photoH = 500;
-            const sigH = 150;
-            const totalH = photoH + sigH + 20; // 20px gap/border
+            const photoH = Math.round((photoCanvas.height / photoCanvas.width) * (targetW - 2 * borderWidth));
+            const sigH = Math.round((sigCanvas.height / sigCanvas.width) * (targetW - 2 * borderWidth));
+            
+            const totalH = photoH + sigH + gap + 2 * borderWidth;
             
             canvas.width = targetW;
             canvas.height = totalH;
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, targetW, totalH);
 
-            // Draw Photo
-            ctx.drawImage(photoImgObj, 10, 10, targetW - 20, photoH);
-            
-            // Draw Separator line
-            ctx.strokeStyle = '#e2e8f0';
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(10, photoH + 10);
-            ctx.lineTo(targetW - 10, photoH + 10);
-            ctx.stroke();
-
-            // Draw Signature
-            ctx.drawImage(sigImgObj, 10, photoH + 15, targetW - 20, sigH);
+            ctx.drawImage(photoCanvas, borderWidth, borderWidth, targetW - 2 * borderWidth, photoH);
+            ctx.drawImage(sigCanvas, borderWidth, borderWidth + photoH + gap, targetW - 2 * borderWidth, sigH);
         } else {
-            const photoW = 400;
-            const sigW = 300;
             const targetH = 400;
-            const totalW = photoW + sigW + 20;
+            const photoW = Math.round((photoCanvas.width / photoCanvas.height) * (targetH - 2 * borderWidth));
+            const sigW = Math.round((sigCanvas.width / sigCanvas.height) * (targetH - 2 * borderWidth));
+            
+            const totalW = photoW + sigW + gap + 2 * borderWidth;
             
             canvas.width = totalW;
             canvas.height = targetH;
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, totalW, targetH);
 
-            // Draw Photo
-            ctx.drawImage(photoImgObj, 10, 10, photoW, targetH - 20);
-            // Draw Signature
-            ctx.drawImage(sigImgObj, photoW + 15, 10, sigW, targetH - 20);
+            ctx.drawImage(photoCanvas, borderWidth, borderWidth, photoW, targetH - 2 * borderWidth);
+            ctx.drawImage(sigCanvas, borderWidth + photoW + gap, borderWidth, sigW, targetH - 2 * borderWidth);
         }
 
         const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
@@ -314,7 +386,7 @@
         joinDownloadLink.href = dataUrl;
         joinDownloadLink.download = "joint_photo_signature.jpg";
         joinPreviewPanel.style.display = 'block';
-        joinPreviewPanel.scrollIntoView({behavior:'smooth'});
+        joinPreviewPanel.scrollIntoView({{behavior:'smooth'}});
     });
     
     </script>
