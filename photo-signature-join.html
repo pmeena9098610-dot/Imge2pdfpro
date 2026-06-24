@@ -514,5 +514,42 @@
 })();
 </script>
 
+
+    <!-- Mobile Popular Tools Bar (appears on scroll) -->
+    <div id="mobileToolsBar" style="position:fixed;bottom:0;left:0;right:0;background:var(--bg-card);border-top:1px solid var(--border);padding:10px 12px;z-index:998;transform:translateY(100%);transition:transform 0.3s ease;display:none;box-shadow:0 -4px 20px rgba(0,0,0,0.1);">
+        <div style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;">
+            <a href="/jpg-to-pdf" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:linear-gradient(135deg,var(--primary),#8B5CF6);color:white;border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
+                <i class="fa-solid fa-file-pdf"></i> JPG to PDF
+            </a>
+            <a href="/compress-pdf" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(99,102,241,0.1);color:var(--primary);border:1px solid rgba(99,102,241,0.3);border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
+                <i class="fa-solid fa-compress"></i> Compress PDF
+            </a>
+            <a href="/ssc-photo-resizer" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(99,102,241,0.1);color:var(--primary);border:1px solid rgba(99,102,241,0.3);border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
+                <i class="fa-solid fa-id-card"></i> SSC Resizer
+            </a>
+            <a href="/merge-pdf" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(99,102,241,0.1);color:var(--primary);border:1px solid rgba(99,102,241,0.3);border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
+                <i class="fa-solid fa-object-group"></i> Merge PDF
+            </a>
+            <a href="/passport-photo-maker" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(99,102,241,0.1);color:var(--primary);border:1px solid rgba(99,102,241,0.3);border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
+                <i class="fa-solid fa-camera"></i> Passport Photo
+            </a>
+            <a href="/tools" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(245,158,11,0.1);color:#D97706;border:1px solid rgba(245,158,11,0.3);border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
+                <i class="fa-solid fa-grid-2"></i> All Tools
+            </a>
+        </div>
+    </div>
+    <script>
+    (function(){
+        var bar=document.getElementById('mobileToolsBar');
+        if(!bar||window.innerWidth>768) return;
+        bar.style.display='block';
+        var shown=false;
+        window.addEventListener('scroll',function(){
+            if(window.scrollY>500&&!shown){bar.style.transform='translateY(0)';shown=true;}
+            if(window.scrollY<200&&shown){bar.style.transform='translateY(100%)';shown=false;}
+        },{passive:true});
+    })();
+    </script>
+
 </body>
 </html>
