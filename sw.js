@@ -1,8 +1,8 @@
-// PhotoSePDF.in — Service Worker v50 (Full Optimized)
+// PhotoSePDF.in — Service Worker v51 (Traffic Boost Update)
 // Cache-first for assets, Network-first for HTML pages
 
-const CACHE_NAME    = 'photosepdf-v50';
-const CACHE_VERSION = 50;
+const CACHE_NAME    = 'photosepdf-v51';
+const CACHE_VERSION = 51;
 
 // Critical assets pre-cached on install
 const CRITICAL_ASSETS = [
@@ -12,7 +12,7 @@ const CRITICAL_ASSETS = [
     '/interactive-core.js',
     '/manifest.json',
     '/favicon.svg',
-    '/og-image.svg'
+    '/og-image.png'
 ];
 
 // Top landing pages pre-cached for offline access
@@ -26,7 +26,10 @@ const TOP_PAGES = [
     '/ssc-photo-resizer',
     '/passport-photo-maker',
     '/upsc-photo-resizer',
-    '/tools'
+    '/tools',
+    '/compress-image-to-20kb',
+    '/resize-image-kb',
+    '/ssc-mts-photo-resizer'
 ];
 
 // Third-party domains to NEVER cache

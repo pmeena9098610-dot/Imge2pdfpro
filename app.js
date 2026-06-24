@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Version Management (Zero Refresh Issue) ---
-    const APP_VERSION = '5.0.0'; // Professional Version
+    const APP_VERSION = '5.1.0'; // Traffic Boost + Share Buttons
     if (localStorage.getItem('app_version') !== APP_VERSION) {
         localStorage.setItem('app_version', APP_VERSION);
         if ('serviceWorker' in navigator) {
