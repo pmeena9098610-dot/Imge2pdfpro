@@ -332,5 +332,61 @@
         }
     }
     </script>
+
+    <!-- Social Share Floating Bar -->
+    <div class="share-bar" aria-label="Share this tool">
+        <a href="https://wa.me/?text=%E0%AE%AA%E0%AF%81%E0%AE%95%E0%AF%88%E0%AE%AA%E0%AF%8D%E0%AE%AA%E0%AE%9F%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%B3%E0%AF%88%20PDF%20%E0%AE%86%E0%AE%95%20%E0%AE%AE%E0%AE%BE%E0%AE%B1%E0%AF%8D%E0%AE%B1%E0%AF%81%E0%AE%95%20%7C%20Image%20to%20PDF%20in%20Tamil%0A%0AFree%20tool%20-%20no%20app%20needed%21%0Ahttps%3A//www.photosepdf.in/image-to-pdf-converter-tamil" target="_blank" rel="noopener" class="share-btn wa" title="Share on WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="share-label">WhatsApp</span>
+        </a>
+        <a href="https://t.me/share/url?url=https%3A//www.photosepdf.in/image-to-pdf-converter-tamil&text=%E0%AE%AA%E0%AF%81%E0%AE%95%E0%AF%88%E0%AE%AA%E0%AF%8D%E0%AE%AA%E0%AE%9F%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%B3%E0%AF%88%20PDF%20%E0%AE%86%E0%AE%95%20%E0%AE%AE%E0%AE%BE%E0%AE%B1%E0%AF%8D%E0%AE%B1%E0%AF%81%E0%AE%95%20%7C%20Image%20to%20PDF%20in%20Tamil%0Ahttps%3A//www.photosepdf.in/image-to-pdf-converter-tamil" target="_blank" rel="noopener" class="share-btn tg" title="Share on Telegram">
+            <i class="fa-brands fa-telegram"></i>
+            <span class="share-label">Telegram</span>
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//www.photosepdf.in/image-to-pdf-converter-tamil" target="_blank" rel="noopener" class="share-btn fb" title="Share on Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+            <span class="share-label">Facebook</span>
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=%E0%AE%AA%E0%AF%81%E0%AE%95%E0%AF%88%E0%AE%AA%E0%AF%8D%E0%AE%AA%E0%AE%9F%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%B3%E0%AF%88%20PDF%20%E0%AE%86%E0%AE%95%20%E0%AE%AE%E0%AE%BE%E0%AE%B1%E0%AF%8D%E0%AE%B1%E0%AF%81%E0%AE%95%20%7C%20Image%20to%20PDF%20in%20Tamil%20-%20Free%20%26%20Offline%21&url=https%3A//www.photosepdf.in/image-to-pdf-converter-tamil" target="_blank" rel="noopener" class="share-btn tw" title="Share on Twitter">
+            <i class="fa-brands fa-x-twitter"></i>
+            <span class="share-label">Twitter</span>
+        </a>
+        <button class="share-btn cp" title="Copy Link">
+            <i class="fa-solid fa-link"></i>
+            <span class="share-label">Copy Link</span>
+        </button>
+    </div>
+
+<script>
+// Social Share Bar
+(function(){
+  const bar = document.querySelector('.share-bar');
+  if(!bar) return;
+  // Show after 2 seconds scroll
+  let shown = false;
+  function checkShow() {
+    if(window.scrollY > 300 && !shown) { bar.classList.add('visible'); shown = true; }
+  }
+  window.addEventListener('scroll', checkShow, {passive:true});
+  setTimeout(()=>{bar.classList.add('visible'); shown=true;}, 3000);
+
+  // Copy link
+  const copyBtn = bar.querySelector('.cp');
+  if(copyBtn) {
+    copyBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      navigator.clipboard.writeText(window.location.href).then(()=>{
+        this.classList.add('copied');
+        this.querySelector('i').className = 'fa-solid fa-check';
+        setTimeout(()=>{
+          this.classList.remove('copied');
+          this.querySelector('i').className = 'fa-solid fa-link';
+        }, 2000);
+      });
+    });
+  }
+})();
+</script>
+
 </body>
 </html>

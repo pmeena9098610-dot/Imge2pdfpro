@@ -1420,3 +1420,19 @@ input[type="range"].custom-slider::-webkit-slider-thumb:hover {
   font-size: 0.75rem;
   color: var(--text-muted);
 }
+
+
+/* ── Social Share Floating Bar ─────────────────────── */
+.share-bar{position:fixed;right:16px;bottom:90px;display:flex;flex-direction:column;gap:10px;z-index:999;opacity:0;transform:translateX(80px);transition:all 0.4s ease;}
+.share-bar.visible{opacity:1;transform:translateX(0);}
+.share-btn{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;text-decoration:none;box-shadow:0 4px 15px rgba(0,0,0,0.2);transition:all 0.3s ease;border:none;cursor:pointer;}
+.share-btn:hover{transform:scale(1.15);box-shadow:0 6px 20px rgba(0,0,0,0.3);}
+.share-btn.wa{background:linear-gradient(135deg,#25D366,#128C7E);}
+.share-btn.tg{background:linear-gradient(135deg,#2AABEE,#229ED9);}
+.share-btn.fb{background:linear-gradient(135deg,#1877F2,#0C5DC7);}
+.share-btn.tw{background:linear-gradient(135deg,#1DA1F2,#0C85D0);}
+.share-btn.cp{background:linear-gradient(135deg,var(--primary,#6366F1),#8B5CF6);}
+.share-btn.cp.copied{background:linear-gradient(135deg,#10B981,#059669);}
+.share-label{position:absolute;right:56px;background:var(--bg-card,#1E293B);color:var(--text-main,#E2E8F0);padding:5px 12px;border-radius:8px;font-size:0.75rem;font-weight:600;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
+.share-btn:hover .share-label{opacity:1;}
+@media(max-width:768px){.share-bar{right:10px;bottom:75px;gap:8px;}.share-btn{width:42px;height:42px;font-size:1.1rem;}}
