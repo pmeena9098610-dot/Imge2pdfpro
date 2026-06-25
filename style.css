@@ -1438,6 +1438,75 @@ input[type="range"].custom-slider::-webkit-slider-thumb:hover {
 @media(max-width:768px){.share-bar{right:10px;bottom:75px;gap:8px;}.share-btn{width:42px;height:42px;font-size:1.1rem;}}
 
 /* ================================================================
+    GOOGLE ADSENSE PLACEHOLDER & CLS PREVENTION STYLES
+   ================================================================ */
+.ad-container-top {
+    min-height: 90px;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    border: 1px dashed rgba(0, 0, 0, 0.05);
+    margin: 15px auto;
+    max-width: 1200px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ad-container-top::before {
+    content: "Advertisement";
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-family: 'Outfit', sans-serif;
+    opacity: 0.6;
+}
+.ad-container-mid {
+    min-height: 280px;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 12px;
+    border: 1px dashed rgba(0, 0, 0, 0.05);
+    margin: 20px auto;
+    max-width: 900px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ad-container-mid::before {
+    content: "Advertisement";
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-family: 'Outfit', sans-serif;
+    opacity: 0.6;
+}
+.ad-container-sidebar {
+    min-height: 600px;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 12px;
+    border: 1px dashed rgba(0, 0, 0, 0.05);
+    margin: 15px auto;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ad-container-sidebar::before {
+    content: "Advertisement";
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-family: 'Outfit', sans-serif;
+    opacity: 0.6;
+}
+[data-theme="dark"] .ad-container-top,
+[data-theme="dark"] .ad-container-mid,
+[data-theme="dark"] .ad-container-sidebar {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* ================================================================
    🖨️ PRINT STYLES - CYBER CAFE PRINT STUDIO
    ================================================================ */
 @media print {

@@ -1,15 +1,53 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Service Worker - Smart Update Engine (No Double Refresh)
     if ('serviceWorker' in navigator) {
+        function showUpdateToast(worker) {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: 'New Update Available!',
+                    text: 'A newer version of PhotoSePDF is ready. Click update to load the latest improvements.',
+                    icon: 'info',
+                    showCancelButton: true,
+                    confirmButtonColor: '#6366F1',
+                    cancelButtonColor: '#64748B',
+                    confirmButtonText: 'Update Now',
+                    cancelButtonText: 'Later',
+                    background: document.documentElement.getAttribute('data-theme') === 'dark' ? '#1E293B' : 'rgba(255, 255, 255, 0.95)',
+                    color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#F1F5F9' : '#334155'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        worker.postMessage({ action: 'skipWaiting' });
+                    }
+                });
+            } else {
+                // Fallback
+                if (confirm('A new version of PhotoSePDF is available. Update now?')) {
+                    worker.postMessage({ action: 'skipWaiting' });
+                }
+            }
+        }
+
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js')
-                    // SW registered successfully
+                .then(reg => {
+                    // Check for updates
+                    reg.addEventListener('updatefound', () => {
+                        const newWorker = reg.installing;
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                showUpdateToast(newWorker);
+                            }
+                        });
+                    });
+                    
+                    if (reg.waiting) {
+                        showUpdateToast(reg.waiting);
+                    }
                 })
                 .catch(err => console.error('SW registration failed:', err));
         });
 
         // Single reload only when new SW takes over control
-        // This fires ONCE after skipWaiting() in sw.js activates the new worker
         let refreshing = false;
         navigator.serviceWorker.addEventListener('controllerchange', () => {
             if (!refreshing) {
@@ -489,17 +527,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 const loadTxt = document.getElementById('loading-text');
                 if(loadTxt) loadTxt.innerText = "Decoding Apple HEIC Engine...";
                 
+                let success = false;
                 try {
                     await loadHeicDecoder();
                     const conversionResult = await heic2any({ blob: file, toType: "image/jpeg", quality: 0.9 });
                     processBlob = Array.isArray(conversionResult) ? conversionResult[0] : conversionResult;
                     // Preserve original name but change extension
                     processBlob.name = file.name.replace(/\.heic$/i, ".jpg");
+                    success = true;
                 } catch (err) {
                     console.error("HEIC Decode Failed", err);
                     Swal.fire('Apple Engine Error', 'Failed to decode HEIC format locally.', 'error');
                 }
                 hideLoading();
+                if (!success) {
+                    continue; // Skip appending corrupt/un-decoded HEIC file
+                }
             }
 
             // Standard Processing Pipeline
