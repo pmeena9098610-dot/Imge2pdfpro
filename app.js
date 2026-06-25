@@ -524,7 +524,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (imageListCard) imageListCard.classList.remove('hidden');
 
             // Initialize or update Sortable
-            if (!sortableInstance) {
+            if (!sortableInstance && typeof Sortable !== 'undefined') {
                 sortableInstance = new Sortable(imageList, {
                     animation: 150,
                     ghostClass: 'sortable-ghost',
@@ -712,7 +712,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const passportName = passportNameEl ? passportNameEl.value.trim() : '';
             const passportDateEl = document.getElementById('passport-date');
             const passportDate = passportDateEl ? passportDateEl.value.trim() : '';
-            const passportCopiesEl = document.getElementById('passport-copies');
+            const passportCopiesEl = document.getElementById('print-copies-count');
             const customCopies = passportCopiesEl && passportCopiesEl.value ? parseInt(passportCopiesEl.value) : 0;
 
             // Sanitize filename to prevent XSS or OS path traversal leaps
@@ -1092,10 +1092,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         showProgress('Preparing Smart Print Studio...');
         try {
-            // Pre-process all images for the studio
-            const passName = document.getElementById('s-name') ? document.getElementById('s-name').value : '';
-            const passDate = document.getElementById('s-date') ? document.getElementById('s-date').value : '';
-            const colorMode = document.getElementById('s-color-mode') ? document.getElementById('s-color-mode').value : 'original';
+            // Sync values from main screen to studio modal if they exist
+            const mainName = document.getElementById('passport-name');
+            const mainDate = document.getElementById('passport-date');
+            const mainColor = document.getElementById('print-color-mode');
+            const mainSize = document.getElementById('print-size');
+            const mainLayout = document.getElementById('print-layout-mode');
+            const mainCopies = document.getElementById('print-copies-count');
+            
+            const sName = document.getElementById('s-name');
+            const sDate = document.getElementById('s-date');
+            const sColor = document.getElementById('s-color-mode');
+            const sSize = document.getElementById('s-print-size');
+            const sLayout = document.getElementById('s-layout');
+            const sCopies = document.getElementById('s-copies');
+            
+            if (mainName && sName) sName.value = mainName.value;
+            if (mainDate && sDate) sDate.value = mainDate.value;
+            if (mainColor && sColor) sColor.value = mainColor.value;
+            if (mainSize && sSize) sSize.value = mainSize.value;
+            if (mainLayout && sLayout) {
+                sLayout.value = mainLayout.value === 'custom-copies' ? 'copies' : 'fill';
+            }
+            if (mainCopies && sCopies) sCopies.value = mainCopies.value;
+            
+            const passName = sName ? sName.value : '';
+            const passDate = sDate ? sDate.value : '';
+            const colorMode = sColor ? sColor.value : 'original';
             
             window.studioProcessedImages = [];
             for (let i = 0; i < files.length; i++) {
