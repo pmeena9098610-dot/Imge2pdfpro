@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Safe storage helper for restricted environments (cookie blocking/crashes prevention)
     const safeStorage = {
-        getItem(key) { try { return safeStorage.getItem(key); } catch (e) { return null; } },
-        setItem(key, val) { try { safeStorage.setItem(key, val); } catch (e) {} }
+        getItem(key) { try { return localStorage.getItem(key); } catch (e) { return null; } },
+        setItem(key, val) { try { localStorage.setItem(key, val); } catch (e) {} }
     };
     // Service Worker - Smart Update Engine (No Double Refresh)
     if ('serviceWorker' in navigator) {
@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Stash the event so it can be triggered later.
         deferredPrompt = e;
         // Check if user already dismissed it recently
-        if(safeStorage.getItem('pwa_dismissed') !== 'true') {
+        if(safeStorage.getItem('pwa_dismissed') !== 'true' && installBanner) {
             installBanner.style.display = 'flex';
         }
     });
@@ -337,65 +337,75 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----- Event Listeners -----
 
     // Browse button click triggers file input
-    browseBtn.addEventListener('click', () => {
-        fileInput.click();
-    });
+    if (browseBtn && fileInput) {
+        browseBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+    }
 
     // Make the entire dropzone box clickable
-    dropzone.addEventListener('click', (e) => {
-        // Prevent clicking twice if they specifically hit the browse button
-        if (e.target !== browseBtn && e.target !== fileInput) {
-            fileInput.click();
-        }
-    });
+    if (dropzone && fileInput) {
+        dropzone.addEventListener('click', (e) => {
+            // Prevent clicking twice if they specifically hit the browse button
+            if (e.target !== browseBtn && e.target !== fileInput) {
+                fileInput.click();
+            }
+        });
+    }
 
     // File input change
-    fileInput.addEventListener('change', (e) => {
-        handleFiles(e.target.files);
-        fileInput.value = ''; // Reset for same file selection
-    });
+    if (fileInput) {
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+            fileInput.value = ''; // Reset for same file selection
+        });
+    }
 
     // Dropzone drag events
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        dropzone.addEventListener(eventName, preventDefaults, false);
-    });
+    if (dropzone) {
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropzone.addEventListener(eventName, () => dropzone.classList.add('dragover'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, () => dropzone.classList.remove('dragover'), false);
+        });
+
+        // Drop event
+        dropzone.addEventListener('drop', (e) => {
+            handleFiles(e.dataTransfer.files);
+        });
+    }
 
     function preventDefaults(e) {
         e.preventDefault();
         e.stopPropagation();
     }
 
-    ['dragenter', 'dragover'].forEach(eventName => {
-        dropzone.addEventListener(eventName, () => dropzone.classList.add('dragover'), false);
-    });
-
-    ['dragleave', 'drop'].forEach(eventName => {
-        dropzone.addEventListener(eventName, () => dropzone.classList.remove('dragover'), false);
-    });
-
-    // Drop event
-    dropzone.addEventListener('drop', (e) => {
-        handleFiles(e.dataTransfer.files);
-    });
-
     // Clear All
-    clearAllBtn.addEventListener('click', () => {
-        Swal.fire({
-            title: 'Clear all images?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#EF4444',
-            cancelButtonColor: '#64748B',
-            confirmButtonText: 'Yes, clear it!',
-            background: 'rgba(255, 255, 255, 0.95)',
-            backdrop: 'rgba(15, 23, 42, 0.4)'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                clearAll();
-            }
+    if (clearAllBtn) {
+        clearAllBtn.addEventListener('click', () => {
+            Swal.fire({
+                title: 'Clear all images?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#EF4444',
+                cancelButtonColor: '#64748B',
+                confirmButtonText: 'Yes, clear it!',
+                background: 'rgba(255, 255, 255, 0.95)',
+                backdrop: 'rgba(15, 23, 42, 0.4)'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    clearAll();
+                }
+            });
         });
-    });
+    }
 
         const printLayoutSelect = document.getElementById('print-layout-mode');
     const copiesCountGroup = document.getElementById('copies-count-group');
@@ -883,11 +893,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Get settings
-            const margin = parseInt(marginSelect.value);
-            const qualitySetting = sizeSelect.value;
-            const layoutMode = parseInt(layoutSelect.value); 
-            const pageSizePref = pageSizeSelect.value;
-            const orientationPref = orientationSelect.value;
+            const margin = marginSelect ? parseInt(marginSelect.value) : 0;
+            const qualitySetting = sizeSelect ? sizeSelect.value : 'high';
+            const layoutMode = layoutSelect ? parseInt(layoutSelect.value) : 1; 
+            const pageSizePref = pageSizeSelect ? pageSizeSelect.value : 'a4';
+            const orientationPref = orientationSelect ? orientationSelect.value : 'portrait';
             
             // Phase 11: Get Pro Settings if available
             const colorModeEl = document.getElementById('color-mode');
@@ -904,7 +914,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const customCopies = passportCopiesEl && passportCopiesEl.value ? parseInt(passportCopiesEl.value) : 0;
 
             // Sanitize filename to prevent XSS or OS path traversal leaps
-            let customFileName = fileNameInput.value.trim() || 'Img2PDFPro_Document';
+            let customFileName = (fileNameInput && fileNameInput.value.trim()) || 'Img2PDFPro_Document';
             customFileName = customFileName.replace(/[^a-zA-Z0-9_\-\s]/g, '');
             
             // Initialize jsPDF

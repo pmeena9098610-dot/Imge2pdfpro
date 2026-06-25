@@ -9,8 +9,8 @@
 
     // Safe storage helper for restricted environments (cookie blocking/crashes prevention)
     const safeStorage = {
-        getItem(key) { try { return safeStorage.getItem(key); } catch (e) { return null; } },
-        setItem(key, val) { try { safeStorage.setItem(key, val); } catch (e) {} }
+        getItem(key) { try { return localStorage.getItem(key); } catch (e) { return null; } },
+        setItem(key, val) { try { localStorage.setItem(key, val); } catch (e) {} }
     };
 
     // ─── Dark Mode: Sync theme icon with localStorage ───
