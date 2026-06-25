@@ -1303,9 +1303,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- Final Action Bindings (Fixed IDs) ---
-    const pdfActionBtn = document.getElementById('pdf-action-btn');
+    const pdfActionBtn = document.getElementById('pdf-action-btn') || document.getElementById('generate-btn');
     const pdfPreviewBtn = document.getElementById('pdf-preview-btn');
-    const printActionBtn = document.getElementById('print-action-btn');
+    const printActionBtn = document.getElementById('print-action-btn') || document.getElementById('print-btn');
     const clearAllActionBtn = document.getElementById('clear-all-btn');
 
     if (pdfActionBtn) pdfActionBtn.addEventListener('click', () => generatePDF(false));
