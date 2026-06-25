@@ -19,6 +19,132 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Dynamic Script Loader ---
+    const LIB_URLS = {
+        jspdf: 'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js',
+        sortable: 'https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js'
+    };
+    const loadedLibs = {};
+    function loadLib(name) {
+        if (loadedLibs[name]) return loadedLibs[name];
+        if (name === 'jspdf' && window.jspdf) {
+            loadedLibs[name] = Promise.resolve();
+            return loadedLibs[name];
+        }
+        if (name === 'sortable' && window.Sortable) {
+            loadedLibs[name] = Promise.resolve();
+            return loadedLibs[name];
+        }
+        loadedLibs[name] = new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.src = LIB_URLS[name];
+            s.crossOrigin = 'anonymous';
+            s.onload = () => resolve();
+            s.onerror = (e) => {
+                delete loadedLibs[name];
+                reject(new Error(`Failed to load library: ${name}`));
+            };
+            document.head.appendChild(s);
+        });
+        return loadedLibs[name];
+    }
+
+    // --- Dynamic Hinglish / Hindi Translations ---
+    const TRANSLATIONS = {
+        en: {
+            "tab-pdf-text": "1. Images to PDF",
+            "tab-print-text": "2. Cyber Cafe Studio",
+            "tab-resize-text": "3. Image Resizer",
+            "upload-title": "Drag & drop photos here or click to browse",
+            "upload-subtitle": "Supports JPG, JPEG, PNG, WEBP, and Apple HEIC",
+            "btn-clear": "Clear All",
+            "btn-preview": "Preview PDF",
+            "btn-download": "Create PDF",
+            "btn-print": "Print Studio",
+            "btn-resize": "Resize Images",
+            "btn-resize-pdf": "Resize & Save as PDF",
+            "lbl-quality": "Select PDF Quality",
+            "lbl-margin": "Page Margin",
+            "lbl-layout": "Page Layout",
+            "lbl-page-size": "Page Size",
+            "lbl-orientation": "Page Orientation",
+            "lbl-color-mode": "Color Mode",
+            "lbl-image-fit": "Image Fit Mode",
+            "lbl-name": "Add Name on Photo",
+            "lbl-date": "Add Date on Photo",
+            "lbl-file-name": "Final File Name",
+            "desc-no-data": "Files are processed 100% locally. No uploads to server."
+        },
+        hi: {
+            "tab-pdf-text": "1. फोटो से PDF बनाएं",
+            "tab-print-text": "2. साइबर कैफे स्टूडियो",
+            "tab-resize-text": "3. इमेज रिसाइज़र",
+            "upload-title": "फोटो को यहाँ ड्रैग करें या कंप्यूटर से चुनें",
+            "upload-subtitle": "JPG, JPEG, PNG, WEBP, और Apple HEIC सपोर्ट करता है",
+            "btn-clear": "सब साफ़ करें",
+            "btn-preview": "PDF का प्रीव्यू देखें",
+            "btn-download": "PDF तैयार करें",
+            "btn-print": "प्रिंट स्टूडियो",
+            "btn-resize": "इमेज रिसाइज़ करें",
+            "btn-resize-pdf": "रिसाइज़ और PDF बनाएं",
+            "lbl-quality": "PDF क्वालिटी चुनें",
+            "lbl-margin": "पेज मार्जिन",
+            "lbl-layout": "पेज लेआउट मोड",
+            "lbl-page-size": "पेज का साइज",
+            "lbl-orientation": "पेज ओरिएंटेशन",
+            "lbl-color-mode": "कलर मोड (रंग)",
+            "lbl-image-fit": "इमेज फिट मोड",
+            "lbl-name": "फोटो पर नाम लिखें",
+            "lbl-date": "फोटो पर तारीख लिखें",
+            "lbl-file-name": "फाइल का नया नाम",
+            "desc-no-data": "आपकी फाइल्स 100% आपके डिवाइस पर सुरक्षित प्रोसेस होती हैं।"
+        }
+    };
+
+    let currentLang = localStorage.getItem('app_lang') || 'en';
+
+    function applyLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('app_lang', lang);
+        
+        const langToggle = document.getElementById('lang-toggle');
+        if (langToggle) {
+            langToggle.textContent = lang === 'en' ? 'हिन्दी' : 'English';
+        }
+
+        const trans = TRANSLATIONS[lang];
+        if (!trans) return;
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (trans[key]) {
+                if (el.tagName === 'INPUT' && el.type === 'text') {
+                    el.placeholder = trans[key];
+                } else {
+                    const icon = el.querySelector('i');
+                    if (icon) {
+                        el.innerHTML = '';
+                        el.appendChild(icon);
+                        el.appendChild(document.createTextNode(' ' + trans[key]));
+                    } else {
+                        el.textContent = trans[key];
+                    }
+                }
+            }
+        });
+    }
+
+    // Bind lang-toggle handler dynamically
+    document.addEventListener('click', (e) => {
+        const toggle = e.target.closest('#lang-toggle');
+        if (toggle) {
+            const next = currentLang === 'en' ? 'hi' : 'en';
+            applyLanguage(next);
+        }
+    });
+
+    applyLanguage(currentLang);
+
     // --- Professional Tab System ---
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
@@ -380,17 +506,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const fileObj = {
                 id: 'img_' + Math.random().toString(36).substr(2, 9),
                 file: processBlob,
-                dataUrl: null
+                dataUrl: URL.createObjectURL(processBlob)
             };
-            
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                fileObj.dataUrl = e.target.result;
-                renderImageItem(fileObj);
-                updateUI();
-            };
-            reader.readAsDataURL(processBlob);
-            
+            renderImageItem(fileObj);
+            updateUI();
             files.push(fileObj);
             addedCount++;
 
@@ -503,6 +622,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Make removeImage global for inline onclick
     window.removeImage = (id) => {
+        const fileObj = files.find(f => f.id === id);
+        if (fileObj && fileObj.dataUrl && fileObj.dataUrl.startsWith('blob:')) {
+            URL.revokeObjectURL(fileObj.dataUrl);
+        }
         files = files.filter(f => f.id !== id);
         const item = document.querySelector(`.image-item[data-id="${id}"]`);
         if (item) item.remove();
@@ -510,6 +633,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function clearAll() {
+        files.forEach(f => {
+            if (f.dataUrl && f.dataUrl.startsWith('blob:')) {
+                URL.revokeObjectURL(f.dataUrl);
+            }
+        });
         files = [];
         imageList.innerHTML = '';
         updateUI();
@@ -523,23 +651,27 @@ document.addEventListener('DOMContentLoaded', () => {
             // Show image list card when images are present
             if (imageListCard) imageListCard.classList.remove('hidden');
 
-            // Initialize or update Sortable
-            if (!sortableInstance && typeof Sortable !== 'undefined') {
-                sortableInstance = new Sortable(imageList, {
-                    animation: 150,
-                    ghostClass: 'sortable-ghost',
-                    dragClass: 'sortable-drag',
-                    onEnd: (evt) => {
-                        // Update internal array based on new DOM order
-                        const items = Array.from(imageList.querySelectorAll('.image-item'));
-                        const newOrderIds = items.map(item => item.dataset.id);
-                        
-                        // Sort files array based on newOrderIds
-                        files.sort((a, b) => {
-                            return newOrderIds.indexOf(a.id) - newOrderIds.indexOf(b.id);
+            // Initialize or update Sortable on-demand
+            if (!sortableInstance) {
+                loadLib('sortable').then(() => {
+                    if (typeof Sortable !== 'undefined' && !sortableInstance) {
+                        sortableInstance = new Sortable(imageList, {
+                            animation: 150,
+                            ghostClass: 'sortable-ghost',
+                            dragClass: 'sortable-drag',
+                            onEnd: (evt) => {
+                                // Update internal array based on new DOM order
+                                const items = Array.from(imageList.querySelectorAll('.image-item'));
+                                const newOrderIds = items.map(item => item.dataset.id);
+                                
+                                // Sort files array based on newOrderIds
+                                files.sort((a, b) => {
+                                    return newOrderIds.indexOf(a.id) - newOrderIds.indexOf(b.id);
+                                });
+                            }
                         });
                     }
-                });
+                }).catch(err => console.error("Failed to load SortableJS", err));
             }
         } else {
             // Hide image list card when no images
@@ -687,6 +819,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function generatePDF(isPreview = false) {
         if (files.length === 0) {
+            Swal.fire({ icon: 'warning', title: 'No Images Selected', text: 'Please select photos first!', background: 'rgba(255,255,255,0.9)' });
+            return;
+        }
+        showProgress('Initializing Studio Engine...');
+        await loadLib('jspdf');
+        if (!window.jspdf || !window.jspdf.jsPDF) {
             Swal.fire({ icon: 'warning', title: 'No Images Selected', text: 'Please select photos first!', background: 'rgba(255,255,255,0.9)' });
             return;
         }
@@ -1278,6 +1416,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.saveStudioAsPDF = async function() {
+        await loadLib('jspdf');
         if (!window.jspdf || !window.jspdf.jsPDF) {
             Swal.fire({ icon: 'error', title: 'PDF Engine Error', text: 'Please wait for jsPDF to load.' });
             return;
@@ -1375,17 +1514,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     file: blob,
                     name: 'Pasted_Image_' + (files.length + 1) + '.png',
                     size: blob.size,
-                    dataUrl: null,
+                    dataUrl: URL.createObjectURL(blob),
                     filters: { brightness: 100, contrast: 100 }
                 };
-                
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    fileObj.dataUrl = event.target.result;
-                    renderImageItem(fileObj);
-                    updateUI();
-                };
-                reader.readAsDataURL(blob);
+                renderImageItem(fileObj);
+                updateUI();
                 files.push(fileObj);
                 pastedCount++;
             }
@@ -1655,6 +1788,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function generateResizedPDF(results) {
+        await loadLib('jspdf');
         if (!window.jspdf?.jsPDF) { Swal.fire({ icon: 'error', title: 'PDF Engine Error', text: 'jsPDF not loaded.' }); return; }
         showProgress('Generating PDF from resized images...');
         const { jsPDF } = window.jspdf;
