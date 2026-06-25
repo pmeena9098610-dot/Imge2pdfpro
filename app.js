@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Safe storage helper for restricted environments (cookie blocking/crashes prevention)
+    const safeStorage = {
+        getItem(key) { try { return safeStorage.getItem(key); } catch (e) { return null; } },
+        setItem(key, val) { try { safeStorage.setItem(key, val); } catch (e) {} }
+    };
     // Service Worker - Smart Update Engine (No Double Refresh)
     if ('serviceWorker' in navigator) {
         function showUpdateToast(worker) {
@@ -139,11 +144,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    let currentLang = localStorage.getItem('app_lang') || 'en';
+    let currentLang = safeStorage.getItem('app_lang') || 'en';
 
     function applyLanguage(lang) {
         currentLang = lang;
-        localStorage.setItem('app_lang', lang);
+        safeStorage.setItem('app_lang', lang);
         
         const langToggle = document.getElementById('lang-toggle');
         if (langToggle) {
@@ -220,8 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Version Management (Zero Refresh Issue) ---
     const APP_VERSION = '5.1.0'; // Traffic Boost + Share Buttons
-    if (localStorage.getItem('app_version') !== APP_VERSION) {
-        localStorage.setItem('app_version', APP_VERSION);
+    if (safeStorage.getItem('app_version') !== APP_VERSION) {
+        safeStorage.setItem('app_version', APP_VERSION);
         if ('serviceWorker' in navigator) {
             caches.keys().then(names => {
                 for (let name of names) caches.delete(name);
@@ -242,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Stash the event so it can be triggered later.
         deferredPrompt = e;
         // Check if user already dismissed it recently
-        if(localStorage.getItem('pwa_dismissed') !== 'true') {
+        if(safeStorage.getItem('pwa_dismissed') !== 'true') {
             installBanner.style.display = 'flex';
         }
     });
@@ -264,14 +269,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if(dismissBtn) {
         dismissBtn.addEventListener('click', () => {
             installBanner.style.display = 'none';
-            localStorage.setItem('pwa_dismissed', 'true');
+            safeStorage.setItem('pwa_dismissed', 'true');
         });
     }
 
     // Theme Management
     const themeToggle = document.getElementById('theme-toggle');
     const toggleIcon = themeToggle ? themeToggle.querySelector('i') : null;
-    const currentTheme = localStorage.getItem('theme') || 'light';
+    const currentTheme = safeStorage.getItem('theme') || 'light';
 
     if (currentTheme === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -283,11 +288,11 @@ document.addEventListener('DOMContentLoaded', () => {
             let theme = document.documentElement.getAttribute('data-theme');
             if (theme === 'dark') {
                 document.documentElement.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'light');
+                safeStorage.setItem('theme', 'light');
                 toggleIcon.className = 'fa-solid fa-moon';
             } else {
                 document.documentElement.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
+                safeStorage.setItem('theme', 'dark');
                 toggleIcon.className = 'fa-solid fa-sun';
             }
         });
@@ -558,7 +563,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Auto-set filename if it's the first file (No. 1 Convenience)
             if (files.length === 1) {
-                const fileNameInput = document.getElementById('file-name');
                 if (fileNameInput) {
                     const cleanName = file.name.split('.')[0].replace(/[^a-z0-9]/gi, '_');
                     fileNameInput.value = `Img2PDF_${cleanName}`;
@@ -826,7 +830,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetQuality === 'extreme') quality = 0.15; // Very high compression for 50-100kb
             
             // Always return JPEG for PDF to keep it smaller
-            resolve(canvas.toDataURL('image/jpeg', quality));
+            const dataUrl = canvas.toDataURL('image/jpeg', quality);
+            canvas.width = 0;
+            canvas.height = 0;
+            resolve(dataUrl);
         });
     }
 
@@ -1580,7 +1587,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Smart Theme Engine: Automatic System Detection ---
     const applySystemTheme = () => {
-        if (localStorage.getItem('theme')) return; 
+        if (safeStorage.getItem('theme')) return; 
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
     };
@@ -1748,6 +1755,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         scale -= 0.15;
                         attempts++;
                     }
+                    testCanvas.width = 0;
+                    testCanvas.height = 0;
                 }
 
                 const canvas = document.createElement('canvas');
@@ -1780,6 +1789,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const sizeKb = Math.round((dataUrl.length * 3) / 4 / 1024);
                 const baseName = (files[i].file?.name || files[i].name || 'image').replace(/\.[^.]+$/, '');
                 results.push({ dataUrl, name: `${baseName}_resized_${newW}x${newH}.${activeExt}`, w: newW, h: newH, sizeKb, original: files[i] });
+                
+                // Clear canvas backing store immediately (prevent leaks)
+                canvas.width = 0;
+                canvas.height = 0;
             }
 
             hideProgress();

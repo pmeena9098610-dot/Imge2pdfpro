@@ -7,10 +7,16 @@
 (function () {
     'use strict';
 
+    // Safe storage helper for restricted environments (cookie blocking/crashes prevention)
+    const safeStorage = {
+        getItem(key) { try { return safeStorage.getItem(key); } catch (e) { return null; } },
+        setItem(key, val) { try { safeStorage.setItem(key, val); } catch (e) {} }
+    };
+
     // ─── Dark Mode: Sync theme icon with localStorage ───
     // NOTE: Theme toggle click handler is in app.js — do NOT add another here
     function syncThemeIcons() {
-        const saved = localStorage.getItem('theme');
+        const saved = safeStorage.getItem('theme');
         if (saved) {
             document.documentElement.setAttribute('data-theme', saved);
             document.querySelectorAll('#theme-toggle i').forEach(i => {
