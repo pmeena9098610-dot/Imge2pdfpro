@@ -1436,3 +1436,70 @@ input[type="range"].custom-slider::-webkit-slider-thumb:hover {
 .share-label{position:absolute;right:56px;background:var(--bg-card,#1E293B);color:var(--text-main,#E2E8F0);padding:5px 12px;border-radius:8px;font-size:0.75rem;font-weight:600;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
 .share-btn:hover .share-label{opacity:1;}
 @media(max-width:768px){.share-bar{right:10px;bottom:75px;gap:8px;}.share-btn{width:42px;height:42px;font-size:1.1rem;}}
+
+/* ================================================================
+   🖨️ PRINT STYLES - CYBER CAFE PRINT STUDIO
+   ================================================================ */
+@media print {
+  /* Hide every single element on the page */
+  body * {
+    visibility: hidden !important;
+  }
+  
+  /* Show only the modal backdrop grid and the A4 sheet container */
+  #print-studio-modal,
+  #print-studio-modal *,
+  #studio-a4-sheet,
+  #studio-a4-sheet * {
+    visibility: visible !important;
+  }
+  
+  /* Reset the modal layout to print full size */
+  #print-studio-modal {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    background: white !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+  
+  /* Completely hide the configuration sidebar during printing */
+  #studio-sidebar {
+    display: none !important;
+  }
+  
+  /* Position the A4 print sheet precisely at 0,0 in full layout scale */
+  #studio-a4-sheet {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 !important;
+    padding: 8mm !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: white !important;
+    page-break-after: avoid;
+    page-break-before: avoid;
+  }
+  
+  /* Hide user interface items like action buttons and layout descriptions */
+  button, 
+  .studio-control-group, 
+  h3, 
+  #studio-title {
+    display: none !important;
+  }
+  
+  /* Force print background graphics (cut marks, borders, name strips) */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

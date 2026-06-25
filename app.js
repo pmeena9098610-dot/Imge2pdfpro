@@ -1084,6 +1084,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ===== SMART PRINT STUDIO V3 - INLINE MODAL ENGINE =====
     window.studioProcessedImages = [];
+    let lastProcessedSettings = { name: null, date: null, colorMode: null };
+    let studioRegenTimeout = null;
     
     async function printPhotos() {
         if (files.length === 0) {
@@ -1128,6 +1130,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const compressed = await compressImage(img, 'high', colorMode, passName, passDate, files[i].filters || {brightness:100,contrast:100});
                 window.studioProcessedImages.push(compressed);
             }
+            lastProcessedSettings = {
+                name: passName,
+                date: passDate,
+                colorMode: colorMode
+            };
             hideProgress();
             // Show the inline modal
             const modal = document.getElementById('print-studio-modal');
@@ -1148,6 +1155,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modal) { modal.style.display = 'none'; document.body.style.overflow = ''; }
     };
 
+    async function regenerateStudioImages() {
+        const sName = document.getElementById('s-name');
+        const sDate = document.getElementById('s-date');
+        const sColor = document.getElementById('s-color-mode');
+        
+        const passName = sName ? sName.value : '';
+        const passDate = sDate ? sDate.value : '';
+        const colorMode = sColor ? sColor.value : 'original';
+        
+        window.studioProcessedImages = [];
+        for (let i = 0; i < files.length; i++) {
+            const img = await loadImageFromDataUrl(files[i].dataUrl);
+            const compressed = await compressImage(img, 'high', colorMode, passName, passDate, files[i].filters || {brightness:100,contrast:100});
+            window.studioProcessedImages.push(compressed);
+        }
+    }
+
     window.studioUpdate = function() {
         const sizeMap = {
             passport: { w: 35, h: 45, label: 'Passport (3.5x4.5cm)' },
@@ -1167,6 +1191,28 @@ document.addEventListener('DOMContentLoaded', () => {
         const nameVal = document.getElementById('s-name').value;
         const dateVal = document.getElementById('s-date').value;
         const copiesVal = parseInt(document.getElementById('s-copies').value) || 8;
+
+        // Check if image-modifying settings changed since last generation
+        const colorModeVal = document.getElementById('s-color-mode').value;
+        if (nameVal !== lastProcessedSettings.name || 
+            dateVal !== lastProcessedSettings.date || 
+            colorModeVal !== lastProcessedSettings.colorMode) {
+            
+            lastProcessedSettings.name = nameVal;
+            lastProcessedSettings.date = dateVal;
+            lastProcessedSettings.colorMode = colorModeVal;
+            
+            if (studioRegenTimeout) clearTimeout(studioRegenTimeout);
+            studioRegenTimeout = setTimeout(async () => {
+                try {
+                    await regenerateStudioImages();
+                    studioUpdate();
+                } catch (e) {
+                    console.error("Regeneration failed", e);
+                }
+            }, 150);
+            return;
+        }
 
         // Show/hide custom dims
         document.getElementById('s-custom-dims').style.display = sizeVal === 'custom' ? 'block' : 'none';
@@ -1223,19 +1269,6 @@ document.addEventListener('DOMContentLoaded', () => {
             img.src = src;
             img.alt = 'Photo';
             cell.appendChild(img);
-
-            if (nameVal || dateVal) {
-                const strip = document.createElement('div');
-                strip.className = 'studio-name-strip';
-                const fontSize = Math.max(1.5, size.h * 0.06);
-                strip.style.fontSize = fontSize + 'mm';
-                const strips = [];
-                if (nameVal) strips.push(nameVal);
-                if (dateVal) strips.push(dateVal);
-                strip.style.height = (fontSize * 1.4 * strips.length + 1) + 'mm';
-                strip.innerHTML = strips.map(t => `<div>${t}</div>`).join('');
-                cell.appendChild(strip);
-            }
             grid.appendChild(cell);
         });
     };

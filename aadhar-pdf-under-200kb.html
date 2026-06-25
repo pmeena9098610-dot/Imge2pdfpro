@@ -448,7 +448,7 @@
         if(generatedPdfBlobUrl) URL.revokeObjectURL(generatedPdfBlobUrl);
         generatedPdfBlobUrl = URL.createObjectURL(blob);
         pdfPreviewArea.style.display = 'block';
-        pdfPreviewArea.scrollIntoView({{behavior:'smooth'}});
+        pdfPreviewArea.scrollIntoView({behavior:'smooth'});
     });
 
     pdfDownloadBtn.addEventListener('click', () => {
