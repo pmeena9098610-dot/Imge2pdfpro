@@ -24,13 +24,42 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
+      - name: List all files (debug)
+        run: |
+          echo "=== All HTML files ==="
+          find . -name "*.html" -not -path "./.git/*" | sort
+          echo ""
+          echo "=== File count ==="
+          find . -not -path "./.git/*" -type f | wc -l
+          echo ""
+          echo "=== Total size ==="
+          du -sh --exclude=.git .
+          echo ""
+          echo "=== Checking new pages ==="
+          ls -la compress-image-to-20kb.html ssc-mts-photo-resizer.html og-image.png deploy-check.txt 2>&1 || echo "MISSING FILES!"
+
+      - name: Prepare deploy directory
+        run: |
+          mkdir -p _site
+          # Copy everything except .git and .github directories
+          rsync -av --exclude='.git' --exclude='.github' --exclude='.vercel' --exclude='node_modules' --exclude='.gitignore' --exclude='.vercel-build-trigger' . _site/
+          echo ""
+          echo "=== Files in _site ==="
+          find _site -type f | wc -l
+          echo ""
+          echo "=== Check new pages in _site ==="
+          ls -la _site/compress-image-to-20kb.html _site/ssc-mts-photo-resizer.html _site/og-image.png _site/deploy-check.txt 2>&1
+          echo ""
+          echo "=== _site size ==="
+          du -sh _site/
+      
       - name: Setup Pages
         uses: actions/configure-pages@v5
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: '_site'
       
       - name: Deploy to GitHub Pages
         id: deployment
