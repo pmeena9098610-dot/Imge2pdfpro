@@ -1509,7 +1509,7 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F7F7FF;color:#2D3748;
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js').catch(err => );
+                navigator.serviceWorker.register('sw.js').catch(err => console.error('SW registration failed:', err));
             });
             let refreshing = false;
             navigator.serviceWorker.addEventListener('controllerchange', () => {
