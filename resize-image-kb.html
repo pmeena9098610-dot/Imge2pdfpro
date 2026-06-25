@@ -25,8 +25,8 @@
     <meta name="twitter:title" content="Resize Image in KB Online Free 2026" />
     <meta name="twitter:description" content="Resize any image to exact KB size online. Reduce photo to 10KB, 20KB, 50KB, 100KB, 200KB for government forms. Free, no app." />
     <meta name="twitter:image" content="https://www.photosepdf.in/og-image.png" />
-    <meta name="date" content="2026-06-24" />
-    <meta name="revised" content="2026-06-24" />
+    <meta name="date" content="2026-06-25" />
+    <meta name="revised" content="2026-06-25" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
@@ -95,7 +95,7 @@
       "url": "https://www.photosepdf.in/resize-image-kb",
       "isAccessibleForFree": true,
       "datePublished": "2024-06-01",
-      "dateModified": "2026-06-24",
+      "dateModified": "2026-06-25",
       "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"},
       "aggregateRating": {
         "@type": "AggregateRating",
@@ -151,7 +151,7 @@
 
             <div style="display:flex;align-items:center;gap:8px;font-size:0.78rem;color:var(--text-muted);margin:8px 0 20px;padding:6px 12px;background:rgba(99,102,241,0.04);border-radius:8px;border-left:3px solid var(--primary);width:fit-content;">
                 <i class="fa-regular fa-calendar-check" style="color:var(--primary);"></i>
-                <span>Last Updated: <time datetime="2026-06-24" style="font-weight:600;color:var(--text-main);">June 24, 2026</time></span>
+                <span>Last Updated: <time datetime="2026-06-25" style="font-weight:600;color:var(--text-main);">June 25, 2026</time></span>
                 <span style="margin-left:8px;padding:2px 8px;background:rgba(16,185,129,0.1);color:#059669;border-radius:10px;font-weight:700;font-size:0.72rem;">Verified</span>
             </div>
 
@@ -168,13 +168,112 @@
                 </span>
             </div>
 
-            <!-- CTA — Redirect to actual tool -->
-            <div style="text-align:center;margin:30px 0;">
-                <a href="/ssc-photo-resizer" style="display:inline-flex;align-items:center;gap:12px;padding:18px 40px;background:linear-gradient(135deg,var(--primary),#8B5CF6);color:white;font-size:1.15rem;font-weight:800;border-radius:14px;text-decoration:none;box-shadow:0 8px 30px rgba(99,102,241,0.3);transition:all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
-                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                    Use Resize Image to Exact KB Size Online Tool — Free
-                </a>
-                <p style="font-size:0.8rem;color:var(--text-muted);margin-top:10px;">No signup needed. Works on mobile & PC.</p>
+            <!-- ACTIVE EMBEDDED TOOL COMPONENT -->
+            <div class="glass-panel" style="padding: 25px; border-radius: 20px; background: var(--bg-card); border: 1px solid var(--border); box-shadow: var(--shadow-md); margin-bottom: 40px; margin-top:20px;">
+                <h2 style="font-size:1.3rem; font-weight:800; color:var(--primary); margin-bottom: 20px; text-align:center;"><i class="fa-solid fa-wand-magic-sparkles"></i> Client-Side Online Tool (100% Offline & Private)</h2>
+                
+    <div style="max-width:550px; margin:0 auto; text-align:center; font-family:'Outfit', sans-serif;">
+        <!-- STEP 1: UPLOAD -->
+        <div id="dropzone-box" class="dropzone" style="transition:all 0.3s ease; position:relative;" onclick="document.getElementById('tool-file-input').click()">
+            <input type="file" id="tool-file-input" accept="image/*" style="display:none;" />
+            <div class="icon-blob">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+            </div>
+            <p style="font-size:1.1rem; font-weight:700; color:var(--text-main); margin-bottom:5px;">Select Photo / Certificate</p>
+            <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0;">Drag and drop or browse files offline</p>
+        </div>
+
+        <!-- FILE LOADED BADGE -->
+        <div id="file-loaded-container" style="display:none;" class="file-loaded-badge">
+            <div class="file-loaded-info">
+                <i class="fa-solid fa-circle-check"></i>
+                <div>
+                    <div id="loaded-filename" class="file-loaded-name">photo.jpg</div>
+                    <div id="loaded-filesize" class="file-loaded-size">1.2 MB</div>
+                </div>
+            </div>
+            <button type="button" class="tool-control-btn" style="padding:4px 8px; font-size:0.75rem;" onclick="document.getElementById('tool-file-input').click(); event.stopPropagation();"><i class="fa-solid fa-rotate"></i> Change</button>
+        </div>
+
+        <!-- STEP 2: SETTINGS PANEL -->
+        <div id="tool-settings-panel" style="display:none; margin-top:20px; background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:25px; box-shadow:var(--shadow-sm); text-align:left;">
+            <div class="step-card-header">
+                <span class="step-badge">Step 2</span>
+                <h3 class="step-title-text">Adjust Settings & Crop Options</h3>
+            </div>
+
+            <!-- Presets Section -->
+            <label style="font-size:0.8rem; font-weight:700; color:var(--text-muted); display:block; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.05em;">Quick Presets</label>
+            <div class="preset-container">
+                <button type="button" class="preset-pill" onclick="applyPreset(350, 450, 50)">SSC Photo (350x450, 50K)</button>
+                <button type="button" class="preset-pill" onclick="applyPreset(400, 200, 20)">SSC Sign (400x200, 20K)</button>
+                <button type="button" class="preset-pill" onclick="applyPreset(350, 350, 300)">UPSC / NEET (350x350, 300K)</button>
+                <button type="button" class="preset-pill" onclick="applyPreset(600, 600, 240)">US Visa (600x600, 240K)</button>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom:15px;">
+                <div>
+                    <label style="font-size:0.8rem; font-weight:700; color:var(--text-main); display:block; margin-bottom:6px;">Width (Pixels)</label>
+                    <input type="number" id="tool-width" value="350" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; background:var(--bg-main); color:var(--text-main); outline:none; font-weight:600;" />
+                </div>
+                <div>
+                    <label style="font-size:0.8rem; font-weight:700; color:var(--text-main); display:block; margin-bottom:6px;">Height (Pixels)</label>
+                    <input type="number" id="tool-height" value="450" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; background:var(--bg-main); color:var(--text-main); outline:none; font-weight:600;" />
+                </div>
+            </div>
+
+            <div style="margin-bottom:15px;">
+                <label style="font-size:0.8rem; font-weight:700; color:var(--text-main); display:block; margin-bottom:6px;">Fitting Mode (Aspect Ratio)</label>
+                <select id="tool-fit-mode" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; background:var(--bg-main); color:var(--text-main); outline:none; font-weight:600; cursor:pointer;">
+                    <option value="crop" selected>Crop/Center Fit (Auto-crop to fill without stretching)</option>
+                    <option value="contain">Contain Fit (Pad margins, keep full photo)</option>
+                    <option value="stretch">Stretch Fit (Force to exact size - standard)</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom:15px; background:rgba(99,102,241,0.03); padding:15px; border-radius:10px; border:1px solid rgba(99,102,241,0.05);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <span style="font-size:0.8rem; font-weight:700; color:var(--text-main);">Target File Size Limit</span>
+                    <span id="tool-kb-val" style="font-weight:800; color:var(--secondary); font-size:0.9rem;">500 KB</span>
+                </div>
+                <input type="range" id="tool-kb-range" class="custom-slider" min="5" max="510" value="500" style="width:100%;" oninput="document.getElementById('tool-kb-val').innerText = this.value + ' KB'" />
+            </div>
+
+            <div class="tool-btn-group">
+                <button type="button" class="tool-control-btn" onclick="rotateImage(-90)"><i class="fa-solid fa-arrow-rotate-left"></i> Rotate Left</button>
+                <button type="button" class="tool-control-btn" onclick="rotateImage(90)"><i class="fa-solid fa-arrow-rotate-right"></i> Rotate Right</button>
+            </div>
+
+            <button id="tool-action-btn" class="btn btn-primary btn-block" style="font-weight:800; padding:14px; border-radius:10px; display:flex; align-items:center; justify-content:center; gap:8px;"><i class="fa-solid fa-arrows-rotate"></i> Resize & Compress Image</button>
+        </div>
+
+        <!-- STEP 3: PREVIEW PANEL -->
+        <div id="tool-preview-panel" style="display:none; margin-top:20px; background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:25px; box-shadow:var(--shadow-sm); text-align:center;">
+            <div class="step-card-header" style="justify-content:center;">
+                <span class="step-badge" style="background:var(--secondary);">Step 3</span>
+                <h3 class="step-title-text" style="color:var(--secondary-dark);">Output Ready!</h3>
+            </div>
+
+            <div style="background:var(--bg-main); padding:15px; border-radius:12px; display:inline-block; margin-bottom:15px; border:1px solid var(--border);">
+                <img id="tool-preview-img" style="max-height:240px; border-radius:8px; box-shadow:var(--shadow-sm); display:block; margin:0 auto;" />
+            </div>
+
+            <div class="stats-badge-container">
+                <div class="stats-badge-item">
+                    <div class="stats-badge-label">Output Specs</div>
+                    <div id="stat-output-dim" class="stats-badge-val">350x450 px</div>
+                </div>
+                <div class="stats-badge-item">
+                    <div class="stats-badge-label">Size Saved</div>
+                    <div id="stat-output-saving" class="stats-badge-val stats-saving-green">0%</div>
+                </div>
+            </div>
+
+            <p id="tool-result-info" style="font-size:0.9rem; font-weight:700; color:var(--text-main); margin-bottom:15px;"></p>
+            <a id="tool-download-link" class="btn btn-primary btn-block" style="font-weight:800; padding:14px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none;"><i class="fa-solid fa-download"></i> Save to Device</a>
+        </div>
+    </div>
+    
             </div>
 
             <!-- How it Works -->
@@ -185,15 +284,15 @@
                 <div style="display:grid;gap:16px;">
                     <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;">
                         <div style="min-width:36px;height:36px;background:linear-gradient(135deg,var(--primary),#8B5CF6);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.9rem;">1</div>
-                        <div><strong style="color:var(--text-main);">Tool Open Karein</strong><p style="color:var(--text-muted);margin-top:4px;font-size:0.9rem;">Upar "Use Tool" button click karein ya seedha <a href="/ssc-photo-resizer" style="color:var(--primary);">yahan click karein</a>.</p></div>
+                        <div><strong style="color:var(--text-main);">Upload Photo</strong><p style="color:var(--text-muted);margin-top:4px;font-size:0.9rem;">"Select Photo / Certificate" area par click karein aur select karein.</p></div>
                     </div>
                     <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;">
                         <div style="min-width:36px;height:36px;background:linear-gradient(135deg,#EC4899,#F43F5E);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.9rem;">2</div>
-                        <div><strong style="color:var(--text-main);">Photo Upload Karein</strong><p style="color:var(--text-muted);margin-top:4px;font-size:0.9rem;">"Browse Files" par click karein ya drag-drop karein. Mobile par gallery se photo select karein.</p></div>
+                        <div><strong style="color:var(--text-main);">Set Target KB & Fitting Mode</strong><p style="color:var(--text-muted);margin-top:4px;font-size:0.9rem;">Target size control karein aur standard aspect ratio chunein (Crop/Center, Contain or Stretch).</p></div>
                     </div>
                     <div style="display:flex;gap:16px;align-items:flex-start;padding:18px;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;">
                         <div style="min-width:36px;height:36px;background:linear-gradient(135deg,#10B981,#059669);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.9rem;">3</div>
-                        <div><strong style="color:var(--text-main);">Download Karein</strong><p style="color:var(--text-muted);margin-top:4px;font-size:0.9rem;">Processed photo turant download ho jayegi — exact size mein, perfect quality mein!</p></div>
+                        <div><strong style="color:var(--text-main);">Resize & Save</strong><p style="color:var(--text-muted);margin-top:4px;font-size:0.9rem;">"Resize & Compress Image" click karke "Save to Device" par click karein.</p></div>
                     </div>
                 </div>
             </section>
@@ -255,14 +354,6 @@
 
                 </div>
             </section>
-
-            <!-- Second CTA -->
-            <div style="text-align:center;margin:30px 0 50px;padding:30px;background:linear-gradient(135deg,rgba(99,102,241,0.05),rgba(139,92,246,0.05));border-radius:20px;border:1px solid rgba(99,102,241,0.15);">
-                <h3 style="font-size:1.2rem;font-weight:800;color:var(--text-main);margin-bottom:12px;">Ready to Resize?</h3>
-                <a href="/ssc-photo-resizer" style="display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:linear-gradient(135deg,var(--primary),#8B5CF6);color:white;font-size:1rem;font-weight:700;border-radius:12px;text-decoration:none;">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> Open Free Tool Now
-                </a>
-            </div>
         </main>
 
         <!-- Footer -->
@@ -288,42 +379,187 @@
         <button class="share-btn cp" onclick="navigator.clipboard.writeText(window.location.href);this.querySelector('i').className='fa-solid fa-check';setTimeout(()=>this.querySelector('i').className='fa-solid fa-link',2000)"><i class="fa-solid fa-link"></i></button>
     </div>
     <script>setTimeout(()=>document.querySelector('.share-bar')?.classList.add('visible'),2000);</script>
-
-    <!-- Mobile Popular Tools Bar (appears on scroll) -->
-    <div id="mobileToolsBar" style="position:fixed;bottom:0;left:0;right:0;background:var(--bg-card);border-top:1px solid var(--border);padding:10px 12px;z-index:998;transform:translateY(100%);transition:transform 0.3s ease;display:none;box-shadow:0 -4px 20px rgba(0,0,0,0.1);">
-        <div style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;">
-            <a href="/jpg-to-pdf" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:linear-gradient(135deg,var(--primary),#8B5CF6);color:white;border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
-                <i class="fa-solid fa-file-pdf"></i> JPG to PDF
-            </a>
-            <a href="/compress-pdf" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(99,102,241,0.1);color:var(--primary);border:1px solid rgba(99,102,241,0.3);border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
-                <i class="fa-solid fa-compress"></i> Compress PDF
-            </a>
-            <a href="/ssc-photo-resizer" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(99,102,241,0.1);color:var(--primary);border:1px solid rgba(99,102,241,0.3);border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
-                <i class="fa-solid fa-id-card"></i> SSC Resizer
-            </a>
-            <a href="/merge-pdf" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(99,102,241,0.1);color:var(--primary);border:1px solid rgba(99,102,241,0.3);border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
-                <i class="fa-solid fa-object-group"></i> Merge PDF
-            </a>
-            <a href="/passport-photo-maker" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(99,102,241,0.1);color:var(--primary);border:1px solid rgba(99,102,241,0.3);border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
-                <i class="fa-solid fa-camera"></i> Passport Photo
-            </a>
-            <a href="/tools" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(245,158,11,0.1);color:#D97706;border:1px solid rgba(245,158,11,0.3);border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
-                <i class="fa-solid fa-grid-2"></i> All Tools
-            </a>
-        </div>
-    </div>
+    
+    <!-- EMBEDDED TOOL LOGIC -->
     <script>
-    (function(){
-        var bar=document.getElementById('mobileToolsBar');
-        if(!bar||window.innerWidth>768) return;
-        bar.style.display='block';
-        var shown=false;
-        window.addEventListener('scroll',function(){
-            if(window.scrollY>500&&!shown){bar.style.transform='translateY(0)';shown=true;}
-            if(window.scrollY<200&&shown){bar.style.transform='translateY(100%)';shown=false;}
-        },{passive:true});
-    })();
-    </script>
 
+    const tFileInput = document.getElementById('tool-file-input');
+    const tDropzone = document.getElementById('dropzone-box');
+    const tLoadedContainer = document.getElementById('file-loaded-container');
+    const tFilename = document.getElementById('loaded-filename');
+    const tFilesize = document.getElementById('loaded-filesize');
+    
+    const tSettingsPanel = document.getElementById('tool-settings-panel');
+    const tPreviewPanel = document.getElementById('tool-preview-panel');
+    const tWidth = document.getElementById('tool-width');
+    const tHeight = document.getElementById('tool-height');
+    const tKbRange = document.getElementById('tool-kb-range');
+    const tKbVal = document.getElementById('tool-kb-val');
+    const tFitMode = document.getElementById('tool-fit-mode');
+    const tActionBtn = document.getElementById('tool-action-btn');
+    const tPreviewImg = document.getElementById('tool-preview-img');
+    const tResultInfo = document.getElementById('tool-result-info');
+    const tDownloadLink = document.getElementById('tool-download-link');
+    
+    const statOutputDim = document.getElementById('stat-output-dim');
+    const statOutputSaving = document.getElementById('stat-output-saving');
+    
+    let originalImage = null;
+    let originalName = 'resized-image.jpg';
+    let originalSizeKB = 0;
+    let rotationAngle = 0;
+
+    if (tDropzone) {
+        ['dragenter', 'dragover'].forEach(eventName => {
+            tDropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                tDropzone.classList.add('tool-dropzone-active');
+            }, false);
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            tDropzone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                tDropzone.classList.remove('tool-dropzone-active');
+            }, false);
+        });
+        tDropzone.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            if (files.length) {
+                tFileInput.files = files;
+                handleFileSelect(files[0]);
+            }
+        }, false);
+    }
+
+    tFileInput.addEventListener('change', (e) => {
+        if(e.target.files[0]) handleFileSelect(e.target.files[0]);
+    });
+
+    function handleFileSelect(file) {
+        originalName = file.name.split('.')[0] + '_resized.jpg';
+        originalSizeKB = Math.round(file.size / 1024);
+        
+        tFilename.innerText = file.name;
+        tFilesize.innerText = file.size > 1048576 
+            ? (file.size / 1048576).toFixed(2) + ' MB' 
+            : (file.size / 1024).toFixed(0) + ' KB';
+            
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                originalImage = img;
+                rotationAngle = 0;
+                tDropzone.style.display = 'none';
+                tLoadedContainer.style.display = 'flex';
+                tSettingsPanel.style.display = 'block';
+                tPreviewPanel.style.display = 'none';
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    window.applyPreset = function(w, h, kb) {
+        tWidth.value = w;
+        tHeight.value = h;
+        tKbRange.value = kb;
+        tKbVal.innerText = kb + ' KB';
+        
+        document.querySelectorAll('.preset-pill').forEach(pill => {
+            pill.classList.remove('active');
+        });
+        if(event && event.currentTarget) {
+            event.currentTarget.classList.add('active');
+        }
+    };
+
+    window.rotateImage = function(angle) {
+        rotationAngle = (rotationAngle + angle + 360) % 360;
+        const btn = event.currentTarget;
+        const icon = btn.querySelector('i');
+        if(icon) {
+            icon.style.transform = `rotate(${rotationAngle}deg)`;
+            icon.style.transition = 'transform 0.3s ease';
+        }
+    };
+
+    tActionBtn.addEventListener('click', () => {
+        if(!originalImage) return;
+        const targetW = parseInt(tWidth.value) || 350;
+        const targetH = parseInt(tHeight.value) || 450;
+        const targetKB = parseInt(tKbRange.value) || 500;
+        const fitMode = tFitMode.value;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = targetW;
+        canvas.height = targetH;
+        const ctx = canvas.getContext('2d');
+        
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, targetW, targetH);
+
+        ctx.save();
+        ctx.translate(targetW / 2, targetH / 2);
+        ctx.rotate((rotationAngle * Math.PI) / 180);
+        
+        const isRotated = (rotationAngle === 90 || rotationAngle === 270);
+        const imgW = originalImage.width;
+        const imgH = originalImage.height;
+        
+        let drawW = targetW;
+        let drawH = targetH;
+        if (isRotated) {
+            drawW = targetH;
+            drawH = targetW;
+        }
+
+        if (fitMode === 'crop') {
+            const scale = Math.max(drawW / imgW, drawH / imgH);
+            const w = imgW * scale;
+            const h = imgH * scale;
+            ctx.drawImage(originalImage, -w / 2, -h / 2, w, h);
+        } else if (fitMode === 'contain') {
+            const scale = Math.min(drawW / imgW, drawH / imgH);
+            const w = imgW * scale;
+            const h = imgH * scale;
+            ctx.drawImage(originalImage, -w / 2, -h / 2, w, h);
+        } else {
+            ctx.drawImage(originalImage, -drawW / 2, -drawH / 2, drawW, drawH);
+        }
+        ctx.restore();
+
+        let low = 0.05, high = 1.0, quality = 0.85, dataUrl = '';
+        let iterations = 0;
+        while(iterations < 12) {
+            quality = (low + high) / 2;
+            dataUrl = canvas.toDataURL('image/jpeg', quality);
+            const size = Math.round((dataUrl.length * 3) / 4) / 1024;
+            if(size > targetKB) {
+                high = quality;
+            } else {
+                low = quality;
+            }
+            iterations++;
+        }
+        
+        const finalSize = Math.round((dataUrl.length * 3) / 4) / 1024;
+        tPreviewImg.src = dataUrl;
+        
+        const savingsPercent = Math.max(0, Math.round(((originalSizeKB - finalSize) / originalSizeKB) * 100));
+        
+        statOutputDim.innerText = `${targetW}x${targetH} px`;
+        statOutputSaving.innerText = savingsPercent + '%';
+        
+        tResultInfo.innerText = `Final Size: ${finalSize.toFixed(1)} KB | Ratio: ${savingsPercent}% compressed`;
+        tDownloadLink.href = dataUrl;
+        tDownloadLink.download = originalName;
+        
+        tPreviewPanel.style.display = 'block';
+        tPreviewPanel.scrollIntoView({behavior:'smooth'});
+    });
+    
+    </script>
 </body>
 </html>
