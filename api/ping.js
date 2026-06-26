@@ -33,7 +33,7 @@ module.exports = async function handler(req, res) {
         }
 
         const host = "www.photosepdf.in";
-        const key = "a9f3b2e1d4c7f8a2b5e3d6c9f1a4b7e2";
+        const key = "e1a052738a604f9181beaa376a60a5c1";
 
         const payload = {
             host: host,
@@ -76,15 +76,6 @@ module.exports = async function handler(req, res) {
                 request.end();
             }));
         }
-
-        // Ping Google Sitemap
-        pingPromises.push(new Promise((resolve) => {
-            https.get(`https://www.google.com/ping?sitemap=https://${host}/sitemap.xml`, (response) => {
-                resolve({ endpoint: 'google.com', status: response.statusCode });
-            }).on('error', (e) => {
-                resolve({ endpoint: 'google.com', error: e.message });
-            });
-        }));
 
         const results = await Promise.all(pingPromises);
 
