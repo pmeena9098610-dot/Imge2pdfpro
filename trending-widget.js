@@ -72,6 +72,8 @@
             padding: 6px 2px;
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
         }
         .trending-list::-webkit-scrollbar {
             display: none;
@@ -91,6 +93,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.05));
+            scroll-snap-align: start;
         }
         [data-theme="dark"] .trending-card {
             background: #1E1E2F;
@@ -175,9 +178,11 @@
                 grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
                 overflow-x: visible;
                 gap: 16px;
+                scroll-snap-type: none;
             }
             .trending-card {
                 flex: none;
+                scroll-snap-align: none;
             }
         }
 
@@ -235,6 +240,15 @@
             });
     }
 
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/&/g, '&amp;')
+                  .replace(/</g, '&lt;')
+                  .replace(/>/g, '&gt;')
+                  .replace(/"/g, '&quot;')
+                  .replace(/'/g, '&#39;');
+    }
+
     function renderTrends(container, trends) {
         if (!trends || trends.length === 0) return;
 
@@ -249,19 +263,27 @@
             
             if (!queryClean) queryClean = item.query;
 
+            const safeUrl = escapeHtml(item.url);
+            const safeQuery = escapeHtml(item.query);
+            const safeIcon = escapeHtml(item.icon);
+            const safeToolName = escapeHtml(item.toolName);
+            const safeQueryClean = escapeHtml(queryClean);
+            const safeTraffic = escapeHtml(item.traffic);
+            const safeStatus = escapeHtml(item.status);
+
             cardsHtml += `
-                <a href="${item.url}" class="trending-card" aria-label="${item.query}">
+                <a href="${safeUrl}" class="trending-card" aria-label="${safeQuery}">
                     <div class="trending-icon-box">
-                        <i class="fa-solid ${item.icon}"></i>
+                        <i class="fa-solid ${safeIcon}"></i>
                     </div>
                     <div class="trending-info">
-                        <div class="trending-card-title">${item.toolName}</div>
-                        <div class="trending-subtitle" style="font-size:0.7rem; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${queryClean}">
-                            ${queryClean}
+                        <div class="trending-card-title">${safeToolName}</div>
+                        <div class="trending-subtitle" style="font-size:0.7rem; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${safeQueryClean}">
+                            ${safeQueryClean}
                         </div>
                         <div class="trending-card-meta">
-                            <span class="trending-card-traffic">${item.traffic}</span>
-                            <span class="trending-card-status">${item.status}</span>
+                            <span class="trending-card-traffic">${safeTraffic}</span>
+                            <span class="trending-card-status">${safeStatus}</span>
                         </div>
                     </div>
                 </a>

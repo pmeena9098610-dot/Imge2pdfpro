@@ -1,5 +1,16 @@
 const https = require('https');
 
+function decodeHtml(str) {
+    if (!str) return '';
+    return str.replace(/&amp;/g, '&')
+              .replace(/&lt;/g, '<')
+              .replace(/&gt;/g, '>')
+              .replace(/&quot;/g, '"')
+              .replace(/&#39;/g, "'")
+              .replace(/&#039;/g, "'")
+              .replace(/&apos;/g, "'");
+}
+
 module.exports = async function handler(req, res) {
     // Enable CORS
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -79,11 +90,11 @@ module.exports = async function handler(req, res) {
         while ((match = itemRegex.exec(xml)) !== null) {
             const itemContent = match[1];
             const titleMatch = itemContent.match(/<title>([^<]+)<\/title>/);
-            const trafficMatch = itemContent.match(/<ht:approx_traffic>([^<]+)<\/ht:approx_traffic>/);
+            const trafficMatch = itemContent.match(/<(?:[a-zA-Z0-9_-]+:)?approx_traffic>([^<]+)<\/(?:[a-zA-Z0-9_-]+:)?approx_traffic>/);
             
             if (titleMatch) {
-                const query = titleMatch[1].trim();
-                const traffic = trafficMatch ? trafficMatch[1].trim() : '10K+';
+                const query = decodeHtml(titleMatch[1].trim());
+                const traffic = trafficMatch ? decodeHtml(trafficMatch[1].trim()) : '10K+';
                 trendMatches.push({ query, traffic });
             }
         }
