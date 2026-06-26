@@ -2,6 +2,12 @@
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
+  "crons": [
+    {
+      "path": "/api/ping",
+      "schedule": "0 */12 * * *"
+    }
+  ],
 
   "redirects": [
     {
