@@ -64,7 +64,7 @@
       "name": "Kya photo me background red ho sakta hai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "MPSC clear face representation recommend karta hai. Light grey ya white background best hai rejection se bachne ke liye."
+        "text": "MPSC face presentation clear recommend karta hai. Light grey ya white background best hai rejection se bachne ke liye."
       }
     }
       ]
@@ -334,7 +334,7 @@
                 Kya photo me background red ho sakta hai?
                 <i class="fa-solid fa-chevron-down" style="font-size:0.8rem;color:var(--primary);transition:transform 0.3s;"></i>
             </summary>
-            <div style="padding:0 20px 16px;color:var(--text-muted);line-height:1.7;font-size:0.9rem;">MPSC clear face representation recommend karta hai. Light grey ya white background best hai rejection se bachne ke liye.</div>
+            <div style="padding:0 20px 16px;color:var(--text-muted);line-height:1.7;font-size:0.9rem;">MPSC face presentation clear recommend karta hai. Light grey ya white background best hai rejection se bachne ke liye.</div>
         </details>
         </section>
 
@@ -363,7 +363,6 @@
                 localStorage.setItem('theme', next);
                 _tt.innerHTML = next === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
             });
-            // Sync icon on load
             const t = localStorage.getItem('theme');
             if(t === 'dark') {
                 _tt.innerHTML = '<i class="fa-solid fa-sun"></i>';
@@ -519,11 +518,6 @@
             ctx.drawImage(originalImage, -drawW / 2, -drawH / 2, drawW, drawH);
         }
         ctx.restore();
-
-        function escapeHtml(str) {
-            if(!str) return '';
-            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        }
 
         let low = 0.05, high = 1.0, quality = 0.85, dataUrl = '';
         let iterations = 0;

@@ -363,7 +363,6 @@
                 localStorage.setItem('theme', next);
                 _tt.innerHTML = next === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
             });
-            // Sync icon on load
             const t = localStorage.getItem('theme');
             if(t === 'dark') {
                 _tt.innerHTML = '<i class="fa-solid fa-sun"></i>';
@@ -519,11 +518,6 @@
             ctx.drawImage(originalImage, -drawW / 2, -drawH / 2, drawW, drawH);
         }
         ctx.restore();
-
-        function escapeHtml(str) {
-            if(!str) return '';
-            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        }
 
         let low = 0.05, high = 1.0, quality = 0.85, dataUrl = '';
         let iterations = 0;
