@@ -1,8 +1,8 @@
 // PhotoSePDF.in — Service Worker v51 (Traffic Boost Update)
 // Cache-first for assets, Network-first for HTML pages
 
-const CACHE_NAME    = 'photosepdf-v52';
-const CACHE_VERSION = 52;
+const CACHE_NAME    = 'photosepdf-v53';
+const CACHE_VERSION = 53;
 
 // Critical assets pre-cached on install
 const CRITICAL_ASSETS = [
