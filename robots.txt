@@ -1,10 +1,10 @@
 # ===================================================
-# PhotoSePDF.in - robots.txt (Optimized)
+# PhotoSePDF.in - robots.txt (Optimized ASCII)
 # Domain: https://www.photosepdf.in
-# Last updated: 2026-06-24
+# Last updated: 2026-06-30
 # ===================================================
 
-# ── Allow all major crawlers ──
+# --- Allow all major crawlers ---
 User-agent: *
 Allow: /
 
@@ -13,7 +13,7 @@ Disallow: /.vercel/
 Disallow: /_docs/
 Disallow: /api/
 
-# ── Google (full access) ──
+# --- Google (full access) ---
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 1
@@ -24,7 +24,7 @@ Allow: /
 User-agent: Googlebot-News
 Allow: /
 
-# ── Google AdSense (MUST allow) ──
+# --- Google AdSense ---
 User-agent: Mediapartners-Google
 Allow: /
 
@@ -34,12 +34,12 @@ Allow: /
 User-agent: AdsBot-Google-Mobile
 Allow: /
 
-# ── Bing ──
+# --- Bing ---
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 2
 
-# ── Other good bots ──
+# --- Other good bots ---
 User-agent: Slurp
 Allow: /
 Crawl-delay: 5
@@ -51,7 +51,7 @@ Crawl-delay: 2
 User-agent: Applebot
 Allow: /
 
-# ── AI Scrapers (Block) ──
+# --- AI Scrapers (Block) ---
 User-agent: GPTBot
 Disallow: /
 
@@ -79,7 +79,7 @@ Disallow: /
 User-agent: FacebookBot
 Disallow: /
 
-# ── Bad Bots / Scrapers (Block) ──
+# --- Bad Bots / Scrapers (Block) ---
 User-agent: MJ12bot
 Disallow: /
 
@@ -101,5 +101,5 @@ Disallow: /
 User-agent: DataForSeoBot
 Disallow: /
 
-# ── Sitemap ──
+# --- Sitemap ---
 Sitemap: https://www.photosepdf.in/sitemap.xml
