@@ -1188,7 +1188,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 subject: 'Generated completely offline without cloud servers.',
                 author: 'Img2PDF Pro',
                 keywords: 'photosepdf.in, offline converter, privacy',
-                creator: 'Img2PDF Pro (https://photosepdf.in)'
+                creator: 'Img2PDF Pro (https://www.photosepdf.in)'
             });
 
             updateProgress(100, 'Finalizing PDF...');
@@ -1213,7 +1213,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Ultra-premium tactile haptic feedback for Mobile
                 if (navigator.vibrate) navigator.vibrate([10, 30, 10]);
                 
-                const shareMsg = encodeURIComponent("Bhai maine is website se apni photo ko PDF me banaya bina net use kiye! Sabse fast aur secure hai, ek baar try karo: https://photosepdf.in");
+                const shareMsg = encodeURIComponent("Bhai maine is website se apni photo ko PDF me banaya bina net use kiye! Sabse fast aur secure hai, ek baar try karo: https://www.photosepdf.in");
                 const waUrl = `https://wa.me/?text=${shareMsg}`;
 
                 Swal.fire({
