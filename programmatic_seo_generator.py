@@ -318,6 +318,61 @@ STATE_EXAMS = [
             {"q": "REET application form ke liye photo requirements?", "a": "REET form ke liye passport photo 20KB se 50KB ke beech honi chahiye JPG format me."},
             {"q": "REET signature size limit?", "a": "Signature size 10KB se 20KB ke beech hona chahiye clear white paper par black pen se."}
         ]
+    },
+    {
+        "slug": "sbi-clerk-photo-resizer",
+        "title": "SBI Clerk Photo & Signature Resizer Online Free",
+        "desc": "Resize your photo and signature for SBI Clerk recruitment application forms online to exact 20-50KB and 10-20KB JPG formats.",
+        "h1": "SBI Clerk Photo & Signature Resizer",
+        "keywords": "sbi clerk photo resizer, sbi clerk photo size, sbi clerk signature resizer, sbi online photo crop, sbi recruitment photo size",
+        "category": "Bank Exams",
+        "exam_name": "SBI Clerk",
+        "min_kb": 20,
+        "max_kb": 50,
+        "default_w": 200,
+        "default_h": 230,
+        "faqs": [
+            {"q": "What is the photo size for SBI Clerk application?", "a": "For SBI Clerk, the photograph must be between 20KB and 50KB in JPG format with dimensions of 200 x 230 pixels."},
+            {"q": "What is the signature size for SBI Clerk?", "a": "The signature must be between 10KB and 20KB in JPG format with dimensions of 140 x 60 pixels, signed with black ink."},
+            {"q": "Can I sign in capital letters for SBI Clerk?", "a": "No, signatures in CAPITAL LETTERS are not accepted and will cause application rejection."},
+            {"q": "Is a white background required for SBI Clerk photo?", "a": "Yes, the photo should be a recent passport-style color picture, preferably with a white or light-colored background."}
+        ]
+    },
+    {
+        "slug": "rrb-ntpc-photo-resizer",
+        "title": "RRB NTPC Photo & Signature Resizer Online Free",
+        "desc": "Crop and resize your photo and signature to meet the official RRB NTPC railway application guidelines (20KB - 50KB).",
+        "h1": "RRB NTPC Photo & Signature Resizer",
+        "keywords": "rrb ntpc photo resizer, rrb ntpc photo size, rrb ntpc signature resizer, railway recruitment photo resizer",
+        "category": "Railway Exams",
+        "exam_name": "RRB NTPC",
+        "min_kb": 20,
+        "max_kb": 50,
+        "default_w": 320,
+        "default_h": 240,
+        "faqs": [
+            {"q": "What is the photo size limit for RRB NTPC?", "a": "The photograph size for RRB NTPC must be between 20KB and 50KB in JPG format."},
+            {"q": "What is the signature file size limit for RRB NTPC?", "a": "The signature file size for RRB NTPC must be between 10KB and 40KB in JPG/JPEG format."},
+            {"q": "Is white background mandatory for railway forms?", "a": "Yes, the passport-size photo must be taken against a light-colored, preferably white background."}
+        ]
+    },
+    {
+        "slug": "cisf-constable-photo-resizer",
+        "title": "CISF Constable Photo Size Resizer Online",
+        "desc": "Resize and compress photos for CISF Constable and Head Constable recruitment forms. 100% offline and secure.",
+        "h1": "CISF Constable Photo & Signature Resizer",
+        "keywords": "cisf constable photo resizer, cisf photo size, cisf signature resizer, cisf recruitment photo size",
+        "category": "Defense Exams",
+        "exam_name": "CISF Constable",
+        "min_kb": 20,
+        "max_kb": 50,
+        "default_w": 350,
+        "default_h": 450,
+        "faqs": [
+            {"q": "What is the photo size limit for CISF Constable?", "a": "For CISF Constable forms, the photo size should be between 20KB and 50KB in JPG/JPEG format."},
+            {"q": "Is the date on photo mandatory for CISF Constable?", "a": "Please check the latest recruitment notification. CISF usually requires the date of the photograph printed clearly on the lower part of the photo."},
+            {"q": "What is the signature size for CISF?", "a": "The signature file size for CISF must be between 10KB and 20KB in JPG format."}
+        ]
     }
 ]
 
@@ -454,6 +509,18 @@ PDF_COMPRESSORS = [
         "title": "Compress PDF to Under 50KB Online Free - PhotoSePDF",
         "desc": "Reduce and compress your PDF file size to under 50KB online for free. Maximum browser compression for application forms.",
         "h1": "Compress PDF to Under 50KB"
+    },
+    {
+        "slug": "compress-pdf-under-500kb",
+        "title": "Compress PDF to Under 500KB Online Free - PhotoSePDF",
+        "desc": "Reduce and compress your PDF file size to under 500KB online for free. Offline client-side compression preserves quality without uploading.",
+        "h1": "Compress PDF to Under 500KB"
+    },
+    {
+        "slug": "compress-pdf-under-1mb",
+        "title": "Compress PDF to Under 1MB Online Free - PhotoSePDF",
+        "desc": "Reduce and compress your PDF file size to under 1MB online for free. Offline client-side compression preserves quality without uploading.",
+        "h1": "Compress PDF to Under 1MB"
     }
 ]
 
@@ -558,6 +625,12 @@ def get_resizer_html(min_kb, max_kb, default_w, default_h):
             </div>
 
             <p id="tool-result-info" style="font-size:0.9rem; font-weight:700; color:var(--text-main); margin-bottom:15px;"></p>
+            
+            <!-- VALIDATOR BADGE -->
+            <div id="validator-badge-container" style="margin: 15px auto; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; display: none; max-width: 400px; text-align: center;">
+                <span id="validator-status-text"></span>
+            </div>
+            
             <a id="tool-download-link" class="btn btn-primary btn-block" style="font-weight:800; padding:14px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none;"><i class="fa-solid fa-download"></i> Save to Device</a>
         </div>
     </div>
@@ -737,6 +810,29 @@ def get_resizer_js(max_kb):
         tResultInfo.innerText = `Final Size: ${finalSize.toFixed(1)} KB | Ratio: ${savingsPercent}% compressed`;
         tDownloadLink.href = dataUrl;
         tDownloadLink.download = originalName;
+        
+        // Run AI validator check
+        const vContainer = document.getElementById('validator-badge-container');
+        const vText = document.getElementById('validator-status-text');
+        if (vContainer && vText) {
+            const expectedW = parseInt(tWidth.value);
+            const expectedH = parseInt(tHeight.value);
+            const expectedKB = parseInt(tKbRange.value);
+            
+            if (targetW === expectedW && targetH === expectedH && finalSize <= expectedKB) {
+                vContainer.style.background = 'rgba(16,185,129,0.1)';
+                vContainer.style.border = '1px solid #10B981';
+                vContainer.style.color = '#059669';
+                vContainer.style.display = 'block';
+                vText.innerHTML = '<i class="fa-solid fa-circle-check"></i> PASSED: Photo meets the exact required specifications.';
+            } else {
+                vContainer.style.background = 'rgba(245,158,11,0.1)';
+                vContainer.style.border = '1px solid #F59E0B';
+                vContainer.style.color = '#D97706';
+                vContainer.style.display = 'block';
+                vText.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> WARNING: Dimensions or file size do not match selected specifications.';
+            }
+        }
         
         tPreviewPanel.style.display = 'block';
         tPreviewPanel.scrollIntoView({behavior:'smooth'});
@@ -1010,6 +1106,13 @@ def generate_state_exam_page(page):
             <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
                 {related_links}
             </div>
+        </section>
+
+        <!-- Embed this Tool Widget -->
+        <section class="glass-panel" style="margin:40px 0; padding:20px; background:var(--bg-card); border:1px solid var(--border); border-radius:16px;">
+            <h3 style="font-size:1.1rem; color:var(--primary); margin-top:0; margin-bottom:10px;"><i class="fa-solid fa-code"></i> Embed this Tool on your website</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">Own an educational blog, job portal, or cyber cafe website? Copy this code to embed this offline photo resizer for free:</p>
+            <textarea readonly style="width:100%; height:60px; padding:10px; font-family:monospace; font-size:0.75rem; border:1px solid var(--border); border-radius:8px; background:var(--bg-main); color:var(--text-muted); resize:none; outline:none;" onclick="this.select(); document.execCommand('copy'); alert('Embed code copied!');">&lt;iframe src="https://www.photosepdf.in/{slug}" width="100%" height="600" style="border:0; border-radius:12px; overflow:hidden;"&gt;&lt;/iframe&gt;</textarea>
         </section>
     <footer role="contentinfo">
         <div class="container text-center">

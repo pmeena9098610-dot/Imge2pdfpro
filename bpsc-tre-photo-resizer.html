@@ -22,8 +22,8 @@
     <meta name="twitter:title" content="BPSC TRE Teacher Photo & Signature Resizer Online 2026" />
     <meta name="twitter:description" content="Resize your photo and signature for BPSC TRE Teacher Recruitment online registration to exact 15-25KB and 10-20KB sizes." />
     <meta name="twitter:image" content="https://www.photosepdf.in/og-image.png" />
-    <meta name="date" content="2026-06-29" />
-    <meta name="revised" content="2026-06-29" />
+    <meta name="date" content="2026-07-01" />
+    <meta name="revised" content="2026-07-01" />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
@@ -114,7 +114,7 @@
         
         <div style="display:flex; align-items:center; gap:8px; font-size:0.78rem; color:var(--text-muted); margin:8px 0 20px; padding:6px 12px; background:rgba(99,102,241,0.04); border-radius:8px; border-left:3px solid var(--primary); width:fit-content;">
             <i class="fa-regular fa-calendar-check" style="color:var(--primary);"></i>
-            <span>Last Updated: <time datetime="2026-06-29" style="font-weight:600; color:var(--text-main);">June 29, 2026</time></span>
+            <span>Last Updated: <time datetime="2026-07-01" style="font-weight:600; color:var(--text-main);">July 01, 2026</time></span>
             <span style="margin-left:8px; padding:2px 8px; background:rgba(16,185,129,0.1); color:#059669; border-radius:10px; font-weight:700; font-size:0.72rem;">✓ Verified</span>
         </div>
 
@@ -228,7 +228,7 @@
             </div>
 
             <div style="background:var(--bg-main); padding:15px; border-radius:12px; display:inline-block; margin-bottom:15px; border:1px solid var(--border);">
-                <img id="tool-preview-img" style="max-height:240px; border-radius:8px; box-shadow:var(--shadow-sm); display:block; margin:0 auto;"  loading="lazy"/>
+                <img id="tool-preview-img" style="max-height:240px; border-radius:8px; box-shadow:var(--shadow-sm); display:block; margin:0 auto;" />
             </div>
 
             <div class="stats-badge-container">
@@ -243,6 +243,12 @@
             </div>
 
             <p id="tool-result-info" style="font-size:0.9rem; font-weight:700; color:var(--text-main); margin-bottom:15px;"></p>
+            
+            <!-- VALIDATOR BADGE -->
+            <div id="validator-badge-container" style="margin: 15px auto; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; display: none; max-width: 400px; text-align: center;">
+                <span id="validator-status-text"></span>
+            </div>
+            
             <a id="tool-download-link" class="btn btn-primary btn-block" style="font-weight:800; padding:14px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none;"><i class="fa-solid fa-download"></i> Save to Device</a>
         </div>
     </div>
@@ -318,6 +324,13 @@
                 <a href="/passport-photo-maker" style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text-main);font-size:0.9rem;font-weight:600;transition:all 0.2s ease;" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='var(--border)'"><i class="fa-solid fa-link" style="color:var(--primary);font-size:0.75rem;"></i>Passport Photo</a>
 
             </div>
+        </section>
+
+        <!-- Embed this Tool Widget -->
+        <section class="glass-panel" style="margin:40px 0; padding:20px; background:var(--bg-card); border:1px solid var(--border); border-radius:16px;">
+            <h3 style="font-size:1.1rem; color:var(--primary); margin-top:0; margin-bottom:10px;"><i class="fa-solid fa-code"></i> Embed this Tool on your website</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">Own an educational blog, job portal, or cyber cafe website? Copy this code to embed this offline photo resizer for free:</p>
+            <textarea readonly style="width:100%; height:60px; padding:10px; font-family:monospace; font-size:0.75rem; border:1px solid var(--border); border-radius:8px; background:var(--bg-main); color:var(--text-muted); resize:none; outline:none;" onclick="this.select(); document.execCommand('copy'); alert('Embed code copied!');">&lt;iframe src="https://www.photosepdf.in/bpsc-tre-photo-resizer" width="100%" height="600" style="border:0; border-radius:12px; overflow:hidden;"&gt;&lt;/iframe&gt;</textarea>
         </section>
     <footer role="contentinfo">
         <div class="container text-center">
@@ -552,6 +565,29 @@
         tResultInfo.innerText = `Final Size: ${finalSize.toFixed(1)} KB | Ratio: ${savingsPercent}% compressed`;
         tDownloadLink.href = dataUrl;
         tDownloadLink.download = originalName;
+        
+        // Run AI validator check
+        const vContainer = document.getElementById('validator-badge-container');
+        const vText = document.getElementById('validator-status-text');
+        if (vContainer && vText) {
+            const expectedW = parseInt(tWidth.value);
+            const expectedH = parseInt(tHeight.value);
+            const expectedKB = parseInt(tKbRange.value);
+            
+            if (targetW === expectedW && targetH === expectedH && finalSize <= expectedKB) {
+                vContainer.style.background = 'rgba(16,185,129,0.1)';
+                vContainer.style.border = '1px solid #10B981';
+                vContainer.style.color = '#059669';
+                vContainer.style.display = 'block';
+                vText.innerHTML = '<i class="fa-solid fa-circle-check"></i> PASSED: Photo meets the exact required specifications.';
+            } else {
+                vContainer.style.background = 'rgba(245,158,11,0.1)';
+                vContainer.style.border = '1px solid #F59E0B';
+                vContainer.style.color = '#D97706';
+                vContainer.style.display = 'block';
+                vText.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> WARNING: Dimensions or file size do not match selected specifications.';
+            }
+        }
         
         tPreviewPanel.style.display = 'block';
         tPreviewPanel.scrollIntoView({behavior:'smooth'});

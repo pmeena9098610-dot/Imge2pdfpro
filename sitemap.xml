@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.photosepdf.in/</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
     <loc>https://www.photosepdf.in/aadhaar-photo-to-pdf</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -145,6 +151,12 @@
     <priority>0.90</priority>
   </url>
   <url>
+    <loc>https://www.photosepdf.in/cisf-constable-photo-resizer</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
     <loc>https://www.photosepdf.in/compress-image-to-100kb</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -163,6 +175,12 @@
     <priority>0.90</priority>
   </url>
   <url>
+    <loc>https://www.photosepdf.in/compress-pdf</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://www.photosepdf.in/compress-pdf-100kb</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -175,7 +193,19 @@
     <priority>0.90</priority>
   </url>
   <url>
+    <loc>https://www.photosepdf.in/compress-pdf-under-1mb</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
     <loc>https://www.photosepdf.in/compress-pdf-under-200kb</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.photosepdf.in/compress-pdf-under-500kb</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -185,12 +215,6 @@
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
-  </url>
-  <url>
-    <loc>https://www.photosepdf.in/compress-pdf</loc>
-    <lastmod>2026-07-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
   </url>
   <url>
     <loc>https://www.photosepdf.in/contact</loc>
@@ -271,13 +295,13 @@
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.photosepdf.in/heic-to-pdf-converter</loc>
+    <loc>https://www.photosepdf.in/heic-to-pdf</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.photosepdf.in/heic-to-pdf</loc>
+    <loc>https://www.photosepdf.in/heic-to-pdf-converter</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -385,16 +409,16 @@
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.photosepdf.in/</loc>
-    <lastmod>2026-07-01</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
     <loc>https://www.photosepdf.in/jee-photo-resizer</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.photosepdf.in/jpg-to-pdf</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
   </url>
   <url>
     <loc>https://www.photosepdf.in/jpg-to-pdf-converter-hindi</loc>
@@ -407,12 +431,6 @@
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://www.photosepdf.in/jpg-to-pdf</loc>
-    <lastmod>2026-07-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
   </url>
   <url>
     <loc>https://www.photosepdf.in/jpg-to-png</loc>
@@ -751,6 +769,12 @@
     <priority>0.90</priority>
   </url>
   <url>
+    <loc>https://www.photosepdf.in/rrb-ntpc-photo-resizer</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
     <loc>https://www.photosepdf.in/rrb-railway-photo-signature-resizer</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -758,6 +782,12 @@
   </url>
   <url>
     <loc>https://www.photosepdf.in/sarkari-result-photo-resizer</loc>
+    <lastmod>2026-07-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.photosepdf.in/sbi-clerk-photo-resizer</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -907,13 +937,13 @@
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.photosepdf.in/webp-to-pdf-converter</loc>
+    <loc>https://www.photosepdf.in/webp-to-pdf</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://www.photosepdf.in/webp-to-pdf</loc>
+    <loc>https://www.photosepdf.in/webp-to-pdf-converter</loc>
     <lastmod>2026-07-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
