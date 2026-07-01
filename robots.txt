@@ -77,7 +77,7 @@ User-agent: cohere-ai
 Disallow: /
 
 User-agent: FacebookBot
-Disallow: /
+Allow: /
 
 # --- Bad Bots / Scrapers (Block) ---
 User-agent: MJ12bot

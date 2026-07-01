@@ -45,7 +45,7 @@
     {
       "source": "/aadhaar-pdf-maker",
       "destination": "/aadhar-card-pdf-maker",
-      "permanent": false
+      "permanent": true
     }
   ],
 
