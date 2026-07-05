@@ -12,7 +12,7 @@ import json
 import urllib.parse
 from datetime import datetime
 
-BASE_DIR = r"C:\Users\Bappa official\.gemini\antigravity\scratch\Imge2pdfpro"
+BASE_DIR = r"C:\Users\Bappa official\Desktop\Imge2pdfpro"
 DOMAIN   = "https://www.photosepdf.in"
 TODAY    = datetime.now().strftime("%Y-%m-%d")
 TODAY_H  = datetime.now().strftime("%B %d, %Y")
@@ -30,7 +30,7 @@ TRUST_PAGES = {
                         PM
                     </div>
                     <div style="flex: 1; min-width: 250px;">
-                        <h2 style="color: var(--primary); margin-top: 0;">Priyanshu Meena</h2>
+                        <h2 style="color: var(--primary); margin-top: 0;">Pradeep Meena</h2>
                         <p style="font-weight: 600; color: var(--text-main); margin-bottom: 5px;">Chief Technology Officer & Lead Developer</p>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0;">Expert in client-side web technologies, image compression algorithms, and digital document optimization.</p>
                         <p style="margin-top: 12px; display: flex; gap: 15px; font-size: 0.88rem;">
@@ -41,7 +41,7 @@ TRUST_PAGES = {
                 </div>
                 
                 <h3 style="color: var(--primary); margin-top: 30px;"><i class="fa-solid fa-graduation-cap"></i> Experience & Expertise</h3>
-                <p>Priyanshu has over 5 years of experience building secure web utilities. His work focuses on client-side optimization, ensuring that complex tasks like image resizing, format conversion, and PDF compilation are executed entirely within the user's browser without uploading sensitive documents to a server.</p>
+                <p>Pradeep has over 5 years of experience building secure web utilities. His work focuses on client-side optimization, ensuring that complex tasks like image resizing, format conversion, and PDF compilation are executed entirely within the user's browser without uploading sensitive documents to a server.</p>
                 
                 <h3 style="color: var(--primary); margin-top: 30px;"><i class="fa-solid fa-shield-halved"></i> Mission of PhotoSePDF.in</h3>
                 <p>The mission of PhotoSePDF.in is to provide candidates in India preparing for SSC, UPSC, NEET, JEE, and state-level recruitment forms with completely free, private, and fast tools to resize and convert their application photos and signatures without worrying about security or privacy leaks at public cyber cafes.</p>
@@ -1121,12 +1121,11 @@ def generate_state_exam_page(page):
     <footer role="contentinfo">
         <div class="container text-center">
             <!-- PREMIUM SEO INTERNAL LINKING SITE DIRECTORY -->
-            <details class="seo-directory-accordion" style="margin: 25px auto; border: 1px solid var(--border); border-radius: 12px; background: rgba(255, 255, 255, 0.02); text-align: left; max-width: 900px; overflow: hidden; box-shadow: var(--shadow-sm); transition: all 0.3s ease;">
-                <summary style="padding: 15px 20px; font-weight: 600; cursor: pointer; color: var(--primary); display: flex; justify-content: space-between; align-items: center; user-select: none; outline: none; background: rgba(255, 255, 255, 0.01);">
+            <div class="seo-directory-container" style="margin: 25px auto; border: 1px solid var(--border); border-radius: 12px; background: rgba(255, 255, 255, 0.02); text-align: left; max-width: 900px; overflow: hidden; box-shadow: var(--shadow-sm);">
+                <div style="padding: 15px 20px; font-weight: 600; color: var(--primary); background: rgba(255, 255, 255, 0.01); border-bottom: 1px solid var(--border);">
                     <span style="display: flex; align-items: center; gap: 10px;"><i class="fa-solid fa-sitemap"></i> All Free PDF & Image Tools (Quick Sitemap Directory)</span>
-                    <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; transition: transform 0.3s;"></i>
-                </summary>
-                <div style="padding: 20px; border-top: 1px solid var(--border); font-size: 0.88rem; background: rgba(0, 0, 0, 0.15);">
+                </div>
+                <div style="padding: 20px; font-size: 0.88rem; background: rgba(0, 0, 0, 0.15);">
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px;">
                         <div>
                             <h4 style="color: var(--primary); margin-top: 0; margin-bottom: 12px; font-size: 0.95rem; border-bottom: 1px solid var(--border); padding-bottom: 5px;"><i class="fa-solid fa-user-graduate"></i> State Recruitment Resizers</h4>
@@ -1176,7 +1175,7 @@ def generate_state_exam_page(page):
                         </div>
                     </div>
                 </div>
-            </details>
+            </div>
 
             <p style="margin-bottom:15px; font-weight:500;">
                 <a href="/aadhar-card-photo-to-pdf" style="color:var(--primary); margin:0 10px;">Aadhar PDF</a> | 
@@ -1202,9 +1201,7 @@ def generate_state_exam_page(page):
                 <a href="/about" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">About Us</a> |
                 <a href="/contact" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Contact Us</a> |
                 <a href="/privacy-policy" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Privacy Policy</a> |
-                <a href="/author" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Author</a> |
-                <a href="/cookies" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Cookies Policy</a> |
-                <a href="/editorial-policy" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Editorial Policy</a> |
+                <a href="/disclaimer" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Disclaimer</a> |
                 <a href="/author" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Author</a> |
                 <a href="/cookies" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Cookies Policy</a> |
                 <a href="/editorial-policy" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Editorial Policy</a> |
@@ -1240,6 +1237,7 @@ def generate_state_exam_page(page):
     </script>
     <script src="interactive-core.js" defer></script>
     <script src="trending-widget.js" defer></script>
+    <script src="cookie-consent.js" defer></script>
 </body>
 </html>
 '''
@@ -1467,12 +1465,11 @@ def generate_document_converter_page(page):
     <footer role="contentinfo">
         <div class="container text-center">
             <!-- PREMIUM SEO INTERNAL LINKING SITE DIRECTORY -->
-            <details class="seo-directory-accordion" style="margin: 25px auto; border: 1px solid var(--border); border-radius: 12px; background: rgba(255, 255, 255, 0.02); text-align: left; max-width: 900px; overflow: hidden; box-shadow: var(--shadow-sm); transition: all 0.3s ease;">
-                <summary style="padding: 15px 20px; font-weight: 600; cursor: pointer; color: var(--primary); display: flex; justify-content: space-between; align-items: center; user-select: none; outline: none; background: rgba(255, 255, 255, 0.01);">
+            <div class="seo-directory-container" style="margin: 25px auto; border: 1px solid var(--border); border-radius: 12px; background: rgba(255, 255, 255, 0.02); text-align: left; max-width: 900px; overflow: hidden; box-shadow: var(--shadow-sm);">
+                <div style="padding: 15px 20px; font-weight: 600; color: var(--primary); background: rgba(255, 255, 255, 0.01); border-bottom: 1px solid var(--border);">
                     <span style="display: flex; align-items: center; gap: 10px;"><i class="fa-solid fa-sitemap"></i> All Free PDF & Image Tools (Quick Sitemap Directory)</span>
-                    <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; transition: transform 0.3s;"></i>
-                </summary>
-                <div style="padding: 20px; border-top: 1px solid var(--border); font-size: 0.88rem; background: rgba(0, 0, 0, 0.15);">
+                </div>
+                <div style="padding: 20px; font-size: 0.88rem; background: rgba(0, 0, 0, 0.15);">
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px;">
                         <div>
                             <h4 style="color: var(--primary); margin-top: 0; margin-bottom: 12px; font-size: 0.95rem; border-bottom: 1px solid var(--border); padding-bottom: 5px;"><i class="fa-solid fa-user-graduate"></i> State Recruitment Resizers</h4>
@@ -1522,7 +1519,7 @@ def generate_document_converter_page(page):
                         </div>
                     </div>
                 </div>
-            </details>
+            </div>
 
             <p style="margin-bottom:15px; font-weight:500;">
                 <a href="/aadhar-card-photo-to-pdf" style="color:var(--primary); margin:0 10px;">Aadhar PDF</a> | 
@@ -1548,9 +1545,7 @@ def generate_document_converter_page(page):
                 <a href="/about" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">About Us</a> |
                 <a href="/contact" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Contact Us</a> |
                 <a href="/privacy-policy" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Privacy Policy</a> |
-                <a href="/author" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Author</a> |
-                <a href="/cookies" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Cookies Policy</a> |
-                <a href="/editorial-policy" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Editorial Policy</a> |
+                <a href="/disclaimer" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Disclaimer</a> |
                 <a href="/author" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Author</a> |
                 <a href="/cookies" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Cookies Policy</a> |
                 <a href="/editorial-policy" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Editorial Policy</a> |
@@ -1587,6 +1582,7 @@ def generate_document_converter_page(page):
     <script src="app.js" defer></script>
     <script src="interactive-core.js" defer></script>
     <script src="trending-widget.js" defer></script>
+    <script src="cookie-consent.js" defer></script>
 </body>
 </html>
 '''
@@ -1639,12 +1635,11 @@ def generate_trust_page(filename, data):
     <footer role="contentinfo">
         <div class="container text-center">
             <!-- PREMIUM SEO INTERNAL LINKING SITE DIRECTORY -->
-            <details class="seo-directory-accordion" style="margin: 25px auto; border: 1px solid var(--border); border-radius: 12px; background: rgba(255, 255, 255, 0.02); text-align: left; max-width: 900px; overflow: hidden; box-shadow: var(--shadow-sm); transition: all 0.3s ease;">
-                <summary style="padding: 15px 20px; font-weight: 600; cursor: pointer; color: var(--primary); display: flex; justify-content: space-between; align-items: center; user-select: none; outline: none; background: rgba(255, 255, 255, 0.01);">
+            <div class="seo-directory-container" style="margin: 25px auto; border: 1px solid var(--border); border-radius: 12px; background: rgba(255, 255, 255, 0.02); text-align: left; max-width: 900px; overflow: hidden; box-shadow: var(--shadow-sm);">
+                <div style="padding: 15px 20px; font-weight: 600; color: var(--primary); background: rgba(255, 255, 255, 0.01); border-bottom: 1px solid var(--border);">
                     <span style="display: flex; align-items: center; gap: 10px;"><i class="fa-solid fa-sitemap"></i> All Free PDF & Image Tools (Quick Sitemap Directory)</span>
-                    <i class="fa-solid fa-chevron-down" style="font-size: 0.8rem; transition: transform 0.3s;"></i>
-                </summary>
-                <div style="padding: 20px; border-top: 1px solid var(--border); font-size: 0.88rem; background: rgba(0, 0, 0, 0.15);">
+                </div>
+                <div style="padding: 20px; font-size: 0.88rem; background: rgba(0, 0, 0, 0.15);">
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px;">
                         <div>
                             <h4 style="color: var(--primary); margin-top: 0; margin-bottom: 12px; font-size: 0.95rem; border-bottom: 1px solid var(--border); padding-bottom: 5px;"><i class="fa-solid fa-user-graduate"></i> State Recruitment Resizers</h4>
@@ -1694,7 +1689,7 @@ def generate_trust_page(filename, data):
                         </div>
                     </div>
                 </div>
-            </details>
+            </div>
 
             <p style="margin-bottom:15px; font-weight:500;">
                 <a href="/aadhar-card-photo-to-pdf" style="color:var(--primary); margin:0 10px;">Aadhar PDF</a> | 
@@ -1720,9 +1715,7 @@ def generate_trust_page(filename, data):
                 <a href="/about" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">About Us</a> |
                 <a href="/contact" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Contact Us</a> |
                 <a href="/privacy-policy" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Privacy Policy</a> |
-                <a href="/author" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Author</a> |
-                <a href="/cookies" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Cookies Policy</a> |
-                <a href="/editorial-policy" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Editorial Policy</a> |
+                <a href="/disclaimer" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Disclaimer</a> |
                 <a href="/author" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Author</a> |
                 <a href="/cookies" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Cookies Policy</a> |
                 <a href="/editorial-policy" style="color:var(--primary); margin:0 8px; font-size:0.88rem;">Editorial Policy</a> |
