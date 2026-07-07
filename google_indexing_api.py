@@ -1,108 +1,175 @@
-# -*- coding: utf-8 -*-
 """
-google_indexing_api.py - Submit all sitemap URLs directly to Google Indexing API
-=============================================================================
-Requires:
-1. pip install google-auth requests
-2. service_account.json key file in the same directory
-3. Service Account email added as Owner in Google Search Console
-"""
-import os
-import xml.etree.ElementTree as ET
-import json
-import time
+Google Indexing API - Force Index ALL Pages in 24 Hours
+=======================================================
+This script uses Google's Indexing API to request immediate
+crawling and indexing of every page on photosepdf.in.
 
-# Install dependencies if missing
+SETUP (one-time, takes 5 minutes):
+1. Go to https://console.cloud.google.com/
+2. Create a new project (or select existing)
+3. Search "Indexing API" in the top search bar → Enable it
+4. Go to "Credentials" (left sidebar) → "Create Credentials" → "Service Account"
+5. Give it any name → Click "Create and Continue" → Skip roles → Done
+6. Click on the service account email → "Keys" tab → "Add Key" → "Create new key" → JSON → Download
+7. Rename the downloaded file to "service_account.json"
+8. Put it in: C:\\Users\\Bappa official\\Desktop\\Imge2pdfpro\\service_account.json
+9. Copy the service account email (looks like: name@project-id.iam.gserviceaccount.com)
+10. Go to Google Search Console → Settings → Users and Permissions → Add User
+11. Paste the service account email → Set permission to "Owner" → Add
+12. Run this script: python google_indexing_api.py
+
+The script will submit up to 200 URLs per day for immediate indexing.
+Google will typically index them within 24-48 hours.
+"""
+
+import json
+import os
+import sys
+import time
+import xml.etree.ElementTree as ET
+
+BASE = r"C:\Users\Bappa official\Desktop\Imge2pdfpro"
+SERVICE_ACCOUNT_FILE = os.path.join(BASE, "service_account.json")
+SITEMAP_FILE = os.path.join(BASE, "sitemap.xml")
+
+# Check if google-auth library is available
 try:
     from google.oauth2 import service_account
-    import google.auth.transport.requests
+    from google.auth.transport.requests import Request
+except ImportError:
+    print("Installing required library: google-auth...")
+    os.system("pip install google-auth google-auth-httplib2 requests")
+    from google.oauth2 import service_account
+    from google.auth.transport.requests import Request
+
+try:
     import requests
 except ImportError:
-    print("Installing required library packages: google-auth, requests...")
-    import subprocess
-    subprocess.run(["pip", "install", "google-auth", "requests"], check=True)
-    from google.oauth2 import service_account
-    import google.auth.transport.requests
+    os.system("pip install requests")
     import requests
 
-KEY_FILE = "service_account.json"
-SITEMAP_PATH = "sitemap.xml"
+def get_credentials():
+    """Get authenticated credentials from service account."""
+    if not os.path.exists(SERVICE_ACCOUNT_FILE):
+        print("=" * 60)
+        print("ERROR: service_account.json NOT FOUND!")
+        print("=" * 60)
+        print()
+        print("File expected at:")
+        print(f"  {SERVICE_ACCOUNT_FILE}")
+        print()
+        print("Follow these steps to create it:")
+        print()
+        print("Step 1: Go to https://console.cloud.google.com/")
+        print("Step 2: Create a project (or use existing)")
+        print("Step 3: Search 'Indexing API' → Enable it")
+        print("Step 4: Credentials → Create Credentials → Service Account")
+        print("Step 5: Keys tab → Add Key → Create new key → JSON")
+        print("Step 6: Save as 'service_account.json' in this folder")
+        print("Step 7: Copy the service account email")
+        print("Step 8: GSC → Settings → Users → Add as Owner")
+        print("Step 9: Run this script again!")
+        print()
+        sys.exit(1)
+    
+    SCOPES = ["https://www.googleapis.com/auth/indexing"]
+    credentials = service_account.Credentials.from_service_account_file(
+        SERVICE_ACCOUNT_FILE, scopes=SCOPES
+    )
+    credentials.refresh(Request())
+    return credentials
 
-if not os.path.exists(KEY_FILE):
-    print(f"\n[!] Error: '{KEY_FILE}' not found in the directory!")
-    print("Please download the service account JSON key file and save it here.")
-    exit(1)
-
-if not os.path.exists(SITEMAP_PATH):
-    print(f"[!] Error: '{SITEMAP_PATH}' not found!")
-    exit(1)
-
-# 1. Load URLs from sitemap.xml
-urls = []
-try:
-    tree = ET.parse(SITEMAP_PATH)
+def get_urls_from_sitemap():
+    """Extract all URLs from sitemap.xml."""
+    tree = ET.parse(SITEMAP_FILE)
     root = tree.getroot()
-    ns = {'ns': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
-    for url_node in root.findall('ns:url', ns):
-        loc_node = url_node.find('ns:loc', ns)
-        if loc_node is not None:
-            urls.append(loc_node.text.strip())
-except Exception as e:
-    print(f"Error parsing sitemap.xml: {e}")
-    exit(1)
+    ns = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+    urls = []
+    for url_elem in root.findall("s:url", ns):
+        loc = url_elem.find("s:loc", ns)
+        if loc is not None:
+            urls.append(loc.text.strip())
+    return urls
 
-print(f"Loaded {len(urls)} URLs from sitemap.xml for indexing submission.")
-
-# 2. Authenticate using Service Account Credentials
-SCOPES = ["https://www.googleapis.com/auth/indexing"]
-try:
-    credentials = service_account.Credentials.from_service_account_file(KEY_FILE, scopes=SCOPES)
-    session = requests.Session()
-    # Create request object to refresh token
-    req = google.auth.transport.requests.Request()
-    credentials.refresh(req)
-    token = credentials.token
-except Exception as e:
-    print(f"[!] Authentication failed: {e}")
-    print("Please verify that your service_account.json is valid.")
-    exit(1)
-
-print("[+] Google API Authentication Successful!")
-
-# 3. Submit URLs to Google Indexing API
-headers = {
-    "Content-Type": "application/json",
-    "Authorization": f"Bearer {token}"
-}
-endpoint = "https://indexing.googleapis.com/v3/urlNotifications:publish"
-
-success_count = 0
-fail_count = 0
-
-for i, url in enumerate(urls, 1):
-    payload = {
+def submit_url(credentials, url, action="URL_UPDATED"):
+    """Submit a single URL to Google Indexing API."""
+    endpoint = "https://indexing.googleapis.com/v3/urlNotifications:publish"
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {credentials.token}"
+    }
+    body = {
         "url": url,
-        "type": "URL_UPDATED"
+        "type": action
     }
     
-    print(f"[{i}/{len(urls)}] Submitting: {url} ...", end="", flush=True)
-    try:
-        response = session.post(endpoint, data=json.dumps(payload), headers=headers, timeout=10)
-        if response.status_code == 200:
-            print(" [OK]")
-            success_count += 1
-        else:
-            print(f" [FAIL] (Status {response.status_code}: {response.text.strip()[:100]})")
-            fail_count += 1
-    except Exception as e:
-        print(f" [ERROR] ({e})")
-        fail_count += 1
-        
-    # Rate limit compliance: Google Indexing API allows up to 200 requests/day
-    time.sleep(0.5)
+    response = requests.post(endpoint, headers=headers, json=body, timeout=30)
+    return response.status_code, response.json()
 
-print(f"\nGoogle Indexing Submission Results:")
-print(f"  - Successfully submitted: {success_count} URLs")
-print(f"  - Failed: {fail_count} URLs")
-if fail_count > 0:
-    print("[Note] If submissions failed with 403 Permission Denied, ensure the Service Account email is added as an OWNER in your Google Search Console settings.")
+def main():
+    print("=" * 60)
+    print("Google Indexing API - Force Index All Pages")
+    print("=" * 60)
+    print()
+    
+    # Get credentials
+    print("Authenticating with Google...")
+    credentials = get_credentials()
+    print(f"Authenticated as: {credentials.service_account_email}")
+    print()
+    
+    # Get URLs
+    urls = get_urls_from_sitemap()
+    print(f"Found {len(urls)} URLs in sitemap.xml")
+    print()
+    
+    # Google allows 200 requests per day
+    max_requests = min(len(urls), 200)
+    print(f"Submitting {max_requests} URLs (Google daily limit: 200)")
+    print("-" * 60)
+    
+    success = 0
+    errors = 0
+    
+    for i, url in enumerate(urls[:max_requests], 1):
+        try:
+            # Refresh token if needed
+            if credentials.expired:
+                credentials.refresh(Request())
+            
+            status, response = submit_url(credentials, url)
+            
+            if status == 200:
+                success += 1
+                print(f"  [{i}/{max_requests}] OK - {url.split('photosepdf.in')[1]}")
+            else:
+                errors += 1
+                error_msg = response.get("error", {}).get("message", "Unknown error")
+                print(f"  [{i}/{max_requests}] ERR {status} - {url.split('photosepdf.in')[1]} - {error_msg}")
+            
+            # Small delay to avoid rate limiting
+            if i % 10 == 0:
+                time.sleep(1)
+                
+        except Exception as e:
+            errors += 1
+            print(f"  [{i}/{max_requests}] EXCEPTION - {url}: {str(e)[:80]}")
+    
+    print()
+    print("=" * 60)
+    print(f"DONE! Submitted: {success} OK, {errors} errors")
+    print("=" * 60)
+    
+    if success > 0:
+        print()
+        print("Google will now crawl and index these pages within 24-48 hours!")
+        print("Check progress in Google Search Console → URL Inspection")
+    
+    if len(urls) > 200:
+        remaining = len(urls) - 200
+        print()
+        print(f"NOTE: {remaining} URLs remaining. Run this script again tomorrow")
+        print(f"(Google allows max 200 submissions per day)")
+
+if __name__ == "__main__":
+    main()
