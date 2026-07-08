@@ -486,7 +486,8 @@
                         <table>
                             ${rows.map(row => `<tr>${row.map(cell => `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}
                         </table>
-                    </body>
+                        <script src="cookie-consent.js" defer></script>
+</body>
                     </html>
                 `;
                 blobContent = '\ufeff' + htmlContent;
@@ -614,5 +615,6 @@
 
     <!-- Interactive 3D Particles Core -->
     <script src="interactive-core.js" defer></script>
+    <script src="cookie-consent.js" defer></script>
 </body>
 </html>
