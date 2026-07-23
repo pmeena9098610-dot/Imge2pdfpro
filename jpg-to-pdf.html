@@ -1516,6 +1516,17 @@ body{font-family:'Outfit',system-ui,sans-serif;background:#F7F7FF;color:#2D3748;
     </div>
 </section>
 
+
+    <section class="jpg-format-technical-guide" style="max-width:900px;margin:35px auto;padding:30px;background:var(--bg-card);border:1px solid var(--border);border-radius:18px;">
+        <h2 style="color:var(--primary);font-size:1.45rem;font-weight:800;">⚙️ Technical Specification: JPEG/JPG Vector & Raster Conversion Engine</h2>
+        <p>The Joint Photographic Experts Group (JPEG) standard uses Discrete Cosine Transform (DCT) lossy compression to represent 24-bit true color images. When rendering JPG streams into PDF document containers:</p>
+        <ul style="line-height:1.8;padding-left:20px;color:var(--text-main);">
+            <li><strong>Direct Stream Passthrough (Zero Quality Loss):</strong> Original DCT encoded byte streams are wrapped inside PDF XObject dictionary structures without re-encoding, preserving 100% original JPEG sharpness.</li>
+            <li><strong>EXIF Orientation Meta Parsing:</strong> Camera EXIF tags (Orientation 1 through 8) are parsed on client side to correct rotated DSLR and mirrorless camera photos.</li>
+            <li><strong>DPI Resolution Mapping:</strong> Automatically maps 72 DPI, 150 DPI, and 300 DPI image metadata to standard PostScript point measurements (72 points = 1 inch).</li>
+        </ul>
+    </section>
+    
 <footer class="premium-footer">
         <div class="container">
             <div class="footer-grid">
