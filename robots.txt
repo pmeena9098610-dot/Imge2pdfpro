@@ -3,6 +3,16 @@
 # Domain: https://www.photosepdf.in
 # ===================================================
 
+# --- Explicit Google AdSense & Search Crawlers Access ---
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: Google-Publisher-Plugin
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
 # --- Allow all major search engine crawlers ---
 User-agent: *
 Allow: /
