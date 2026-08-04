@@ -230,7 +230,21 @@
     <main class="container" role="main">
         <section id="tool" class="converter-section fade-up delay-200">
             <div class="app-container">
-                <div class="dropzone" id="dropzone">
+                
+<section class="deep-unique-content" style="max-width:900px;margin:24px auto;padding:28px;background:linear-gradient(135deg,rgba(249,115,22,0.04),rgba(234,88,12,0.04));border-radius:16px;border:1px solid rgba(249,115,22,0.1);">
+<h2 style="font-size:1.3rem;font-weight:800;color:#F97316;margin-bottom:16px;">HEIC Batch Processing — iPhone Photo Library to PDF Albums</h2>
+<p>Agar aapne iPhone par 6 months se zyada photos li hain, toh aapke paas <strong>hazaron HEIC files</strong> hongi. Unhe individually convert karna impractical hai. HEIC Batch Converter se aap <strong>ek baar mein 200+ HEIC photos</strong> ko organized PDF albums mein convert kar sakte hain.</p>
+<h3 style="font-size:1.1rem;font-weight:700;color:#EA580C;margin-top:18px;">Batch HEIC Conversion — Step by Step</h3>
+<ol style="line-height:1.8;color:#475569;">
+<li><strong>Select Multiple:</strong> File picker mein Ctrl+A ya touch-select se sabhi HEIC files choose karein.</li>
+<li><strong>Auto-Decode:</strong> Tool browser mein locally sabhi HEIC files decode karta hai — koi server upload nahi hota, privacy safe.</li>
+<li><strong>Preview & Reorder:</strong> Thumbnails dikhte hain — drag-drop se album order customize karein.</li>
+<li><strong>PDF Generate:</strong> Ek click mein sabhi photos ek multi-page PDF album ban jaata hai.</li>
+</ol>
+<h3 style="font-size:1.1rem;font-weight:700;color:#EA580C;margin-top:18px;">HEIC Metadata Preservation</h3>
+<p>HEIC files rich metadata store karti hain — <strong>Depth Map (Portrait mode), HDR data, Burst sequence info, aur Live Photo keyframes</strong>. Jab PDF mein convert hota hai, best quality still frame automatically select hota hai. Portrait mode photos mein depth blur preserved rehta hai PDF output mein.</p>
+</section>
+<div class="dropzone" id="dropzone">
                     <input type="file" id="file-input" multiple accept="image/heic, image/jpeg, image/png, image/webp" class="hidden-input">
                     <div class="dropzone-content">
                         <div class="icon-blob"><i class="fa-solid fa-folder-plus"></i></div>
@@ -368,21 +382,6 @@
         <a href="/jpg-to-pdf" style="display:inline-block;padding:8px 14px;background:var(--bg-card,#fff);border:1px solid rgba(99,102,241,0.15);border-radius:8px;text-decoration:none;color:var(--text-main,#334155);font-size:0.88rem;transition:all 0.2s;">🖼️ JPG to PDF</a>
         <a href="/photo-to-pdf" style="display:inline-block;padding:8px 14px;background:var(--bg-card,#fff);border:1px solid rgba(99,102,241,0.15);border-radius:8px;text-decoration:none;color:var(--text-main,#334155);font-size:0.88rem;transition:all 0.2s;">📸 Photo to PDF</a>
     </div>
-</section>
-
-
-<section class="deep-unique-content" style="max-width:900px;margin:24px auto;padding:28px;background:linear-gradient(135deg,rgba(249,115,22,0.04),rgba(234,88,12,0.04));border-radius:16px;border:1px solid rgba(249,115,22,0.1);">
-<h2 style="font-size:1.3rem;font-weight:800;color:#F97316;margin-bottom:16px;">HEIC Batch Processing — iPhone Photo Library to PDF Albums</h2>
-<p>Agar aapne iPhone par 6 months se zyada photos li hain, toh aapke paas <strong>hazaron HEIC files</strong> hongi. Unhe individually convert karna impractical hai. HEIC Batch Converter se aap <strong>ek baar mein 200+ HEIC photos</strong> ko organized PDF albums mein convert kar sakte hain.</p>
-<h3 style="font-size:1.1rem;font-weight:700;color:#EA580C;margin-top:18px;">Batch HEIC Conversion — Step by Step</h3>
-<ol style="line-height:1.8;color:#475569;">
-<li><strong>Select Multiple:</strong> File picker mein Ctrl+A ya touch-select se sabhi HEIC files choose karein.</li>
-<li><strong>Auto-Decode:</strong> Tool browser mein locally sabhi HEIC files decode karta hai — koi server upload nahi hota, privacy safe.</li>
-<li><strong>Preview & Reorder:</strong> Thumbnails dikhte hain — drag-drop se album order customize karein.</li>
-<li><strong>PDF Generate:</strong> Ek click mein sabhi photos ek multi-page PDF album ban jaata hai.</li>
-</ol>
-<h3 style="font-size:1.1rem;font-weight:700;color:#EA580C;margin-top:18px;">HEIC Metadata Preservation</h3>
-<p>HEIC files rich metadata store karti hain — <strong>Depth Map (Portrait mode), HDR data, Burst sequence info, aur Live Photo keyframes</strong>. Jab PDF mein convert hota hai, best quality still frame automatically select hota hai. Portrait mode photos mein depth blur preserved rehta hai PDF output mein.</p>
 </section>
 
 <footer class="premium-footer">
@@ -524,7 +523,6 @@
   }
 })();
 </script>
-
 
     <!-- Mobile Popular Tools Bar (appears on scroll) -->
     <div id="mobileToolsBar" style="position:fixed;bottom:0;left:0;right:0;background:var(--bg-card);border-top:1px solid var(--border);padding:10px 12px;z-index:998;transform:translateY(100%);transition:transform 0.3s ease;display:none;box-shadow:0 -4px 20px rgba(0,0,0,0.1);">
