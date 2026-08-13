@@ -2,7 +2,7 @@
   "name": "PhotoSePDF - Free PDF & Image Tools India",
   "short_name": "PhotoSePDF",
   "description": "India's #1 free offline JPG PNG WEBP HEIC to PDF converter. Resize photos for SSC, UPSC, NEET, Aadhaar, PAN. No watermark, no upload, 100% secure.",
-  "start_url": "/?source=pwa",
+  "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#0F172A",
