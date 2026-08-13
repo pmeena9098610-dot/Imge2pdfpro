@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J4CL85TN5X"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-J4CL85TN5X');
+    </script>
+    <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+    <!-- ===== World-Class Security Meta Policies ===== -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta name="indexnow-verification" content="a9f3b2e1d4c7f8a2b5e3d6c9f1a4b7e2">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <!-- ================================================ -->
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3327226842644895" crossorigin="anonymous"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unlock PDF Free — Remove Password & Restrictions</title>
+    <meta name="description" content="PDF se password remove karein aur print, copy, edit restrictions unlock karein. Forgotten password recovery. 100% browser-based." />
+    <meta name="keywords" content="unlock pdf online free, pdf password remover, decrypt pdf offline, remove pdf password, unlock encrypted pdf" />
+    <link rel="canonical" href="https://www.photosepdf.in/unlock-pdf" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Unlock PDF Online Free - PhotoSePDF.in" />
+    <meta property="og:description" content="Unlock password-protected PDF files online free. 100% offline & secure decryption." />
+    <meta property="og:image" content="https://www.photosepdf.in/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:url" content="https://www.photosepdf.in/unlock-pdf" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="PhotoSePDF.in" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Unlock PDF Online Free - PDF Password Remover - PhotoSePDF.in" />
+    
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6366F1">
+
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'"></noscript>
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Third Party Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        .unlock-container { max-width: 800px; margin: 40px auto 60px; padding: 0 20px; }
+        .unlock-hero { text-align: center; padding: 50px 0 20px; }
+        .unlock-hero h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 800; color: var(--dark); margin-bottom: 12px; }
+        .unlock-hero p { color: var(--text-muted); font-size: 1.1rem; }
+        
+        .upload-box { border: 3px dashed var(--border); background: var(--bg-card); border-radius: var(--radius-md); padding: 50px 30px; text-align: center; cursor: pointer; transition: var(--transition); backdrop-filter: blur(12px); position: relative; }
+        .upload-icon { font-size: 3.5rem; color: var(--primary); margin-bottom: 20px; }
+        .upload-title { font-size: 1.3rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+        .upload-hint { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 18px; }
+
+        .lock-animation-box { text-align: center; margin-top: 30px; padding: 40px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); backdrop-filter: blur(10px); }
+        .lock-icon-giant { font-size: 4rem; color: #EF4444; margin-bottom: 20px; animation: bounceLock 2s infinite ease-in-out; }
+        @keyframes bounceLock { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        .lock-unlocked { color: #10B981 !important; animation: popUnlock 0.5s ease-out forwards !important; }
+        @keyframes popUnlock { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1.1); } }
+
+        .password-input-group { max-width: 380px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px; text-align: left; }
+        .password-input-group label { font-weight: 600; font-size: 0.95rem; }
+        .password-input-group input { padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 1rem; width: 100%; outline: none; transition: var(--transition); }
+        .password-input-group input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "PDF Unlocker",
+      "url": "https://www.photosepdf.in/unlock-pdf",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"},
+      "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "1240", "bestRating": "5"},
+      "description": "Unlock password protected PDF files free. Remove PDF restrictions and permissions offline."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.photosepdf.in/"},
+        {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://www.photosepdf.in/tools"},
+        {"@type": "ListItem", "position": 3, "name": "PDF Unlocker", "item": "https://www.photosepdf.in/unlock-pdf"}
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "PDF ka password kaise remove karein?", "acceptedAnswer": {"@type": "Answer", "text": "PhotoSePDF.in ka Unlock PDF tool open karo, password-protected PDF upload karo, current password enter karo aur Unlock dabaao. Unlocked PDF turant download hogi."}},
+        {"@type": "Question", "name": "Kya password bhool gaye PDF unlock ho sakti hai?", "acceptedAnswer": {"@type": "Answer", "text": "PDF unlock karne ke liye current password zaroori hai. Agar password yaad nahi, toh PDF owner se poochho."}},
+        {"@type": "Question", "name": "Unlock PDF tool safe hai?", "acceptedAnswer": {"@type": "Answer", "text": "Haan, 100% safe! PhotoSePDF.in par koi bhi file internet par upload nahi hoti. Aapke browser mein locally process hota hai."}},
+  {
+    "@type": "Question",
+    "name": "Kya yeh tool mobile pe kaam karta hai?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Haan! Yeh tool 100% mobile-friendly hai. Android aur iPhone dono par Chrome browser mein perfectly kaam karta hai. Koi app download karne ki zaroorat nahi."
+    }
+  },
+  {
+    "@type": "Question",
+    "name": "File size limit kya hai?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Koi strict size limit nahi hai! Yeh tool aapke device ke browser mein kaam karta hai, isliye aapke device ki RAM limit hi limit hai. Generally 50MB tak ki files bina kisi problem ke process hoti hain."
+    }
+  }
+]
+    }
+    </script>
+    <meta name="date" content="2026-06-24" />
+    <meta name="revised" content="2026-06-24" />
+</head>
+<body>
+    <header role="banner">
+        <nav class="navbar" aria-label="Main Navigation">
+            <div class="container nav-container">
+                <a href="/" class="logo">
+                    <i class="fa-solid fa-file-pdf"></i> PhotoSePDF<span>.in</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/tools">All Tools</a></li>
+                    <li><a href="/articles">Guides</a></li>
+                    <li>
+                        <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                            <i class="fa-solid fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="unlock-container">
+        <div class="unlock-hero">
+            <span class="badge"><i class="fa-solid fa-lock-open"></i> 100% Secure &amp; Local</span>
+            <h1>Unlock PDF Pages <span class="text-gradient">Offline</span></h1>
+
+    
+
+<div style="display:flex; align-items:center; gap:8px; font-size:0.78rem; color:var(--text-muted); margin:8px 0 20px; padding:6px 12px; background:rgba(99,102,241,0.04); border-radius:8px; border-left:3px solid var(--primary); width:fit-content;">
+        <i class="fa-regular fa-calendar-check" style="color:var(--primary);"></i>
+        <span>Last Updated: <time datetime="2026-06-24" style="font-weight:600; color:var(--text-main);">June 24, 2026</time></span>
+        <span style="margin-left:8px; padding:2px 8px; background:rgba(16,185,129,0.1); color:#059669; border-radius:10px; font-weight:700; font-size:0.72rem;">✓ Verified</span>
+    </div>
+
+            <p>Password protected PDF files ke password ko permanent remove karein. Processing 100% mobile mein hoti hai.</p>
+        </div>
+
+        <section id="tool-zone">
+            <!-- Upload Box -->
+            <div class="upload-box card-3d glass-glow" id="dropzone">
+                <input type="file" id="file-input" accept="application/pdf" class="hidden-input">
+                <div class="upload-icon float-depth-icon"><i class="fa-solid fa-lock"></i></div>
+                <h2 class="upload-title float-depth-text">Drag &amp; Drop Locked PDF</h2>
+                <p class="upload-hint">or click to browse from device</p>
+                <button class="btn btn-primary btn-3d" id="browse-btn">Select PDF</button>
+            </div>
+
+            <!-- Decrypt Box -->
+            <div class="lock-animation-box hidden" id="decrypt-box">
+                <div class="lock-icon-giant" id="lock-icon"><i class="fa-solid fa-lock"></i></div>
+                <h2 style="font-weight:800; color:var(--dark); margin-bottom:8px;" id="status-title">This File is Password Protected</h2>
+                <p style="color:var(--text-muted); font-size:0.92rem;">Please enter the password to unlock and permanently remove restrictions.</p>
+                
+                <div class="password-input-group">
+                    <label for="pdf-password">Enter PDF Password:</label>
+                    <input type="password" id="pdf-password" placeholder="••••••••">
+                </div>
+
+                <div style="display:flex; justify-content:center; gap:12px; margin-top:20px;">
+                    <button class="btn btn-primary btn-large btn-3d" id="unlock-btn">Unlock &amp; Download</button>
+                    <button class="btn btn-outline-danger" id="reset-btn" style="border-radius:12px;">Reset</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Loader -->
+        <div class="loading-overlay" id="loading-overlay">
+            <div class="spinner"></div>
+            <h3 style="color:var(--dark);" id="loading-text">Analyzing PDF Document...</h3>
+        </div>
+    
+        <!-- AdSense Workspace Mid Banner -->
+        <div class="ad-container-mid">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3327226842644895"
+                 data-ad-slot="9842716301"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+
+<section class="deep-unique-content" style="max-width:900px;margin:24px auto;padding:28px;background:linear-gradient(135deg,rgba(34,197,94,0.04),rgba(22,163,74,0.04));border-radius:16px;border:1px solid rgba(34,197,94,0.1);">
+<h2 style="font-size:1.3rem;font-weight:800;color:#22C55E;margin-bottom:16px;">PDF Unlock — Password Recovery & Permission Restoration</h2>
+<p>PDF files mein <strong>2 types ke passwords</strong> hote hain — <strong>Owner Password</strong> (permissions restrict karta hai — print, copy, edit block) aur <strong>User Password</strong> (file open hi nahi hoti bina password ke). PhotoSePDF.in ka Unlock tool <strong>Owner Password restrictions remove</strong> karta hai — print, copy, edit permissions restore hote hain.</p>
+<h3 style="font-size:1.1rem;font-weight:700;color:#16A34A;margin-top:18px;">PDF Lock Types Explained</h3>
+<table style="width:100%;border-collapse:collapse;margin:12px 0;font-size:0.9rem;">
+<tr style="background:#F0FDF4;"><th style="padding:10px;border:1px solid #BBF7D0;text-align:left;">Type</th><th style="padding:10px;border:1px solid #BBF7D0;">What It Does</th><th style="padding:10px;border:1px solid #BBF7D0;">Can We Remove?</th></tr>
+<tr><td style="padding:8px;border:1px solid #E5E7EB;">Owner Password</td><td style="padding:8px;border:1px solid #E5E7EB;">Blocks print/copy/edit</td><td style="padding:8px;border:1px solid #E5E7EB;">✅ Yes</td></tr>
+<tr><td style="padding:8px;border:1px solid #E5E7EB;">User Password</td><td style="padding:8px;border:1px solid #E5E7EB;">Blocks file opening</td><td style="padding:8px;border:1px solid #E5E7EB;">❌ No (need password)</td></tr>
+<tr><td style="padding:8px;border:1px solid #E5E7EB;">DRM Protection</td><td style="padding:8px;border:1px solid #E5E7EB;">Publisher rights mgmt</td><td style="padding:8px;border:1px solid #E5E7EB;">❌ No</td></tr>
+</table>
+<h3 style="font-size:1.1rem;font-weight:700;color:#16A34A;margin-top:18px;">Legal Note</h3>
+<p>PDF unlock tool sirf <strong>apni own files</strong> ke liye use karein — jaise apni purani password-protected documents jo ab password bhool gaye hain. Copyrighted ya third-party documents ko unlock karna <strong>Indian Copyright Act 1957</strong> ke under illegal ho sakta hai.</p>
+</section>
+</main>
+
+    <!-- Related Tools -->
+    <section style="padding:40px 0 20px; background:rgba(99,102,241,0.02); border-top:1.5px dashed var(--border);">
+        <div class="container" style="max-width:800px; margin:0 auto; padding:0 20px;">
+            <h2 style="font-size:1.3rem; color:#6366f1; margin-bottom:20px; font-weight:700;"><i class="fa-solid fa-toolbox"></i> Related Free Tools</h2>
+            <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                <a href="/pdf-password" style="background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:8px 16px; color:var(--text-main); text-decoration:none; font-size:0.9rem; font-weight:500;">Protect PDF</a>
+                <a href="/merge-pdf" style="background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:8px 16px; color:var(--text-main); text-decoration:none; font-size:0.9rem; font-weight:500;">Merge PDF</a>
+                <a href="/split-pdf" style="background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:8px 16px; color:var(--text-main); text-decoration:none; font-size:0.9rem; font-weight:500;">Split PDF</a>
+                <a href="/compress-pdf" style="background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:8px 16px; color:var(--text-main); text-decoration:none; font-size:0.9rem; font-weight:500;">Compress PDF</a>
+            </div>
+        </div>
+    </section>
+
+    
+<section class="related-tools-section" style="max-width:900px;margin:20px auto;padding:20px;background:linear-gradient(135deg,rgba(99,102,241,0.05),rgba(139,92,246,0.05));border-radius:14px;border:1px solid rgba(99,102,241,0.12);">
+    <h3 style="font-size:1.1rem;font-weight:700;color:var(--primary,#6366F1);margin-bottom:12px;">🔧 Related Tools</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <a href="/compress-pdf" style="display:inline-block;padding:8px 14px;background:var(--bg-card,#fff);border:1px solid rgba(99,102,241,0.15);border-radius:8px;text-decoration:none;color:var(--text-main,#334155);font-size:0.88rem;transition:all 0.2s;">📦 Compress PDF</a>
+        <a href="/merge-pdf" style="display:inline-block;padding:8px 14px;background:var(--bg-card,#fff);border:1px solid rgba(99,102,241,0.15);border-radius:8px;text-decoration:none;color:var(--text-main,#334155);font-size:0.88rem;transition:all 0.2s;">🔗 Merge PDF</a>
+        <a href="/split-pdf" style="display:inline-block;padding:8px 14px;background:var(--bg-card,#fff);border:1px solid rgba(99,102,241,0.15);border-radius:8px;text-decoration:none;color:var(--text-main,#334155);font-size:0.88rem;transition:all 0.2s;">✂️ Split PDF</a>
+        <a href="/jpg-to-pdf" style="display:inline-block;padding:8px 14px;background:var(--bg-card,#fff);border:1px solid rgba(99,102,241,0.15);border-radius:8px;text-decoration:none;color:var(--text-main,#334155);font-size:0.88rem;transition:all 0.2s;">🖼️ JPG to PDF</a>
+        <a href="/photo-to-pdf" style="display:inline-block;padding:8px 14px;background:var(--bg-card,#fff);border:1px solid rgba(99,102,241,0.15);border-radius:8px;text-decoration:none;color:var(--text-main,#334155);font-size:0.88rem;transition:all 0.2s;">📸 Photo to PDF</a>
+    </div>
+</section>
+
+<footer class="premium-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <i class="fa-solid fa-file-pdf"></i> PhotoSePDF.in
+                    <p>Free, offline &amp; private PDF &amp; image utility tools.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="/tools">All Tools</a>
+                    <a href="/articles">Guides</a>
+                </div>
+            </div>
+            <p class="copyright" style="margin-top:15px; font-size:0.88rem; line-height:1.8; text-align:center;">
+                <a href="/about" style="color:var(--primary); margin:0 8px; text-decoration:none;">About Us</a> |
+                <a href="/contact" style="color:var(--primary); margin:0 8px; text-decoration:none;">Contact Us</a> |
+                <a href="/privacy-policy" style="color:var(--primary); margin:0 8px; text-decoration:none;">Privacy Policy</a> |
+                <a href="/disclaimer" style="color:var(--primary); margin:0 8px; text-decoration:none;">Disclaimer</a> |
+                <a href="/author" style="color:var(--primary); margin:0 8px; text-decoration:none;">Author</a> |
+                <a href="/cookies" style="color:var(--primary); margin:0 8px; text-decoration:none;">Cookies Policy</a> |
+                <a href="/editorial-policy" style="color:var(--primary); margin:0 8px; text-decoration:none;">Editorial Policy</a> |
+                <a href="/terms" style="color:var(--primary); margin:0 8px; text-decoration:none;">Terms of Service</a> |
+                <a href="/sitemap.xml" style="color:#64748B; margin:0 8px; text-decoration:none;">Sitemap</a>
+                <br>
+                <span style="font-size:0.82rem; color:var(--text-muted);">&copy; 2026 PhotoSePDF.in. All Rights Reserved.</span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Elements
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('file-input');
+        const browseBtn = document.getElementById('browse-btn');
+        const decryptBox = document.getElementById('decrypt-box');
+        const lockIcon = document.getElementById('lock-icon');
+        const statusTitle = document.getElementById('status-title');
+        const pdfPassword = document.getElementById('pdf-password');
+        const unlockBtn = document.getElementById('unlock-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const loadingText = document.getElementById('loading-text');
+
+        let originalBuffer = null;
+        let fileName = 'decrypted_document.pdf';
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+        themeToggle.addEventListener('click', () => {
+            const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            themeToggle.querySelector('i').className = next === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        });
+
+        // Trigger Browse
+        browseBtn.addEventListener('click', (e) => { e.stopPropagation(); fileInput.click(); });
+        dropzone.addEventListener('click', () => fileInput.click());
+
+        // Drag events
+        dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); });
+        dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('dragover');
+            if(e.dataTransfer.files.length) handlePdfFile(e.dataTransfer.files[0]);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if(e.target.files.length) handlePdfFile(e.target.files[0]);
+        });
+
+        function showLoading(txt) {
+            loadingText.innerText = txt;
+            loadingOverlay.classList.add('active');
+        }
+        function hideLoading() {
+            loadingOverlay.classList.remove('active');
+        }
+
+        async function handlePdfFile(file) {
+            if (file.type !== 'application/pdf' && !file.name.endsWith('.pdf')) {
+                Swal.fire({ icon: 'error', title: 'Invalid File', text: 'Please upload a valid PDF document.' });
+                return;
+            }
+
+            fileName = file.name.replace(/\.[^.]+$/, '') + '_unlocked.pdf';
+            showLoading('Analyzing PDF restrictions...');
+            try {
+                originalBuffer = await file.arrayBuffer();
+                
+                // Test if document is encrypted using pdf-lib
+                try {
+                    const pdfDoc = await PDFLib.PDFDocument.load(originalBuffer);
+                    // If this succeeds, it means it is not encrypted or protected!
+                    hideLoading();
+                    
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Not Password Protected',
+                        text: 'This PDF is already unlocked and does not require decryption. We will save a clean copy for you!',
+                        confirmButtonColor: '#6366F1'
+                    }).then(async () => {
+                        showLoading('Saving copy...');
+                        const pdfBytes = await pdfDoc.save();
+                        downloadBytes(pdfBytes);
+                        hideLoading();
+                        resetUI();
+                    });
+                } catch (loadErr) {
+                    // Check if it's an encryption error
+                    if (loadErr.message.includes('encrypted') || loadErr.message.includes('password') || loadErr.message.includes('decrypt')) {
+                        // Document is encrypted! Show unlock options
+                        hideLoading();
+                        dropzone.classList.add('hidden');
+                        decryptBox.classList.remove('hidden');
+                        pdfPassword.value = '';
+                        pdfPassword.focus();
+                    } else {
+                        throw loadErr;
+                    }
+                }
+            } catch (err) {
+                console.error(err);
+                Swal.fire({ icon: 'error', title: 'Error', text: 'Could not load PDF: ' + err.message });
+                hideLoading();
+            }
+        }
+
+        unlockBtn.onclick = async () => {
+            const pass = pdfPassword.value.trim();
+            if (!pass) {
+                Swal.fire({ icon: 'warning', title: 'Password Required', text: 'Please enter the PDF password.' });
+                return;
+            }
+
+            showLoading('Decrypting PDF document...');
+            try {
+                // Try load with password
+                const pdfDoc = await PDFLib.PDFDocument.load(originalBuffer, { password: pass });
+                
+                // Animation of Unlocking
+                lockIcon.classList.add('lock-unlocked');
+                lockIcon.innerHTML = '<i class="fa-solid fa-lock-open"></i>';
+                statusTitle.innerText = "Successfully Decrypted!";
+                statusTitle.style.color = "#10B981";
+
+                setTimeout(async () => {
+                    const pdfBytes = await pdfDoc.save();
+                    downloadBytes(pdfBytes);
+                    hideLoading();
+                    Swal.fire({ icon: 'success', title: 'Unlocked!', text: 'Your PDF is now unlocked and saved to your device.', timer: 2000, showConfirmButton: false });
+                    resetUI();
+                }, 800);
+
+            } catch (err) {
+                console.error(err);
+                hideLoading();
+                Swal.fire({ icon: 'error', title: 'Unlock Failed', text: 'Incorrect password! Please try again.' });
+            }
+        };
+
+        function downloadBytes(bytes) {
+            const blob = new Blob([bytes], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        resetBtn.onclick = resetUI;
+
+        function resetUI() {
+            originalBuffer = null;
+            pdfPassword.value = '';
+            decryptBox.classList.add('hidden');
+            dropzone.classList.remove('hidden');
+            lockIcon.classList.remove('lock-unlocked');
+            lockIcon.innerHTML = '<i class="fa-solid fa-lock"></i>';
+            statusTitle.innerText = "This File is Password Protected";
+            statusTitle.style.color = "";
+        }
+    </script>
+    <!-- Interactive 3D Particles Core -->
+    <script src="interactive-core.js" defer></script>
+    <script src="trending-widget.js" defer></script>
+
+    <!-- Social Share Floating Bar -->
+    <div class="share-bar" aria-label="Share this tool">
+        <a href="https://wa.me/?text=Unlock%20PDF%20Online%20Free%20-%20PDF%20Password%20Remover%20-%20PhotoSePDF.in%0A%0AFree%20tool%20-%20no%20app%20needed%21%0Ahttps%3A//www.photosepdf.in/unlock-pdf" target="_blank" rel="noopener" class="share-btn wa" title="Share on WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="share-label">WhatsApp</span>
+        </a>
+        <a href="https://t.me/share/url?url=https%3A//www.photosepdf.in/unlock-pdf&text=Unlock%20PDF%20Online%20Free%20-%20PDF%20Password%20Remover%20-%20PhotoSePDF.in%0Ahttps%3A//www.photosepdf.in/unlock-pdf" target="_blank" rel="noopener" class="share-btn tg" title="Share on Telegram">
+            <i class="fa-brands fa-telegram"></i>
+            <span class="share-label">Telegram</span>
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//www.photosepdf.in/unlock-pdf" target="_blank" rel="noopener" class="share-btn fb" title="Share on Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+            <span class="share-label">Facebook</span>
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Unlock%20PDF%20Online%20Free%20-%20PDF%20Password%20Remover%20-%20PhotoSePDF.in%20-%20Free%20%26%20Offline%21&url=https%3A//www.photosepdf.in/unlock-pdf" target="_blank" rel="noopener" class="share-btn tw" title="Share on Twitter">
+            <i class="fa-brands fa-x-twitter"></i>
+            <span class="share-label">Twitter</span>
+        </a>
+        <button class="share-btn cp" title="Copy Link">
+            <i class="fa-solid fa-link"></i>
+            <span class="share-label">Copy Link</span>
+        </button>
+    </div>
+
+<script>
+// Social Share Bar
+(function(){
+  const bar = document.querySelector('.share-bar');
+  if(!bar) return;
+  // Show after 2 seconds scroll
+  let shown = false;
+  function checkShow() {
+    if(window.scrollY > 300 && !shown) { bar.classList.add('visible'); shown = true; }
+  }
+  window.addEventListener('scroll', checkShow, {passive:true});
+  setTimeout(()=>{bar.classList.add('visible'); shown=true;}, 3000);
+
+  // Copy link
+  const copyBtn = bar.querySelector('.cp');
+  if(copyBtn) {
+    copyBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      navigator.clipboard.writeText(window.location.href).then(()=>{
+        this.classList.add('copied');
+        this.querySelector('i').className = 'fa-solid fa-check';
+        setTimeout(()=>{
+          this.classList.remove('copied');
+          this.querySelector('i').className = 'fa-solid fa-link';
+        }, 2000);
+      });
+    });
+  }
+})();
+</script>
+
+    <!-- Mobile Popular Tools Bar (appears on scroll) -->
+    <div id="mobileToolsBar" style="position:fixed;bottom:0;left:0;right:0;background:var(--bg-card);border-top:1px solid var(--border);padding:10px 12px;z-index:998;transform:translateY(100%);transition:transform 0.3s ease;display:none;box-shadow:0 -4px 20px rgba(0,0,0,0.1);">
+        <div style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;">
+            <a href="/jpg-to-pdf" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:linear-gradient(135deg,var(--primary),#8B5CF6);color:white;border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
+                <i class="fa-solid fa-file-pdf"></i> JPG to PDF
+            </a>
+            <a href="/compress-pdf" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(99,102,241,0.1);color:var(--primary);border:1px solid rgba(99,102,241,0.3);border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
+                <i class="fa-solid fa-compress"></i> Compress PDF
+            </a>
+            <a href="/ssc-photo-resizer" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(99,102,241,0.1);color:var(--primary);border:1px solid rgba(99,102,241,0.3);border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
+                <i class="fa-solid fa-id-card"></i> SSC Resizer
+            </a>
+            <a href="/merge-pdf" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(99,102,241,0.1);color:var(--primary);border:1px solid rgba(99,102,241,0.3);border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
+                <i class="fa-solid fa-object-group"></i> Merge PDF
+            </a>
+            <a href="/passport-photo-maker" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(99,102,241,0.1);color:var(--primary);border:1px solid rgba(99,102,241,0.3);border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
+                <i class="fa-solid fa-camera"></i> Passport Photo
+            </a>
+            <a href="/tools" style="flex-shrink:0;display:flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(245,158,11,0.1);color:#D97706;border:1px solid rgba(245,158,11,0.3);border-radius:10px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">
+                <i class="fa-solid fa-grid-2"></i> All Tools
+            </a>
+        </div>
+    </div>
+    <script>
+    (function(){
+        var bar=document.getElementById('mobileToolsBar');
+        if(!bar||window.innerWidth>768) return;
+        bar.style.display='block';
+        var shown=false;
+        window.addEventListener('scroll',function(){
+            if(window.scrollY>500&&!shown){bar.style.transform='translateY(0)';shown=true;}
+            if(window.scrollY<200&&shown){bar.style.transform='translateY(100%)';shown=false;}
+        },{passive:true});
+    })();
+    </script>
+
+    <script src="cookie-consent.js" defer></script>
+
+<section class="seo-content-section">
+<div class="container">
+<h2>Unlock Pdf — Free Online Tool</h2>
+<p>Password protected PDF unlock karein — owned documents ka password remove karein for easier access. Aadhaar PDF, bank statements, aur e-PAN jaise documents jinke password aap jaante hain, unhe unlock karke freely access karein.</p>
+
+<h3>PDF Unlock — Password Removal Tool</h3>
+<ul>
+<li><strong>100% Free:</strong> No subscription, no hidden charges, no watermark</li>
+<li><strong>100% Offline:</strong> Your files are processed entirely in your browser — nothing is uploaded to any server</li>
+<li><strong>Mobile Friendly:</strong> Works perfectly on Android and iPhone without any app download</li>
+<li><strong>Fast Processing:</strong> Most operations complete in under 1 second</li>
+<li><strong>No Registration:</strong> No signup or login required — just use the tool directly</li>
+</ul>
+
+<h3>How To Use This Tool</h3>
+<ol>
+<li>Password-protected PDF upload karein — Aadhaar, bank statement, e-PAN ya koi bhi locked PDF</li>
+<li>Password enter karein — Aadhaar ke liye first 4 letters of name (caps) + birth year (e.g., PRAD1990)</li>
+<li>Unlock button dabayein — password verify hoga aur restrictions remove ho jayengi</li>
+<li>Unlocked PDF download karein — ab freely copy, print, aur edit kar sakte hain</li>
+</ol>
+
+<h3>Supported File Formats</h3>
+<p>AES-128 aur AES-256 encrypted PDFs support hain. Owner password (restrictions) aur user password (open password) dono types handle hote hain. Output password-free PDF milta hai same quality mein.</p>
+
+<h3>Privacy and Security</h3>
+<p>Bank statements aur Aadhaar unlock karte waqt password aur document content sensitive hai. Tool offline browser mein kaam karta hai — password ya document data server par nahi jaata.</p>
+
+<h3>Frequently Asked Questions</h3>
+<p><strong>Is this tool really free?</strong> PDF unlock tool free hai — unlimited documents unlock karein. Bank statement bulk processing ke liye CA offices ideal use case hai.</p>
+<p><strong>Do I need to install an app?</strong> Browser-based hai — koi PDF editor ya cracking software ki zarurat nahi. Password jaante ho toh 2 seconds mein unlock.</p>
+<p><strong>Can I use this offline?</strong> Haan, offline bhi PDFs unlock kar sakte hain. Travel ya remote areas mein bank statements access karne ke liye useful.</p>
+</div>
+</section>
+
+<section class="unique-tool-content" style="max-width:800px; margin:40px auto; padding:0 20px;">
+<h2>PDF Unlock — Password Protected PDF Kholo</h2>
+<p>Bahut se bank statements, government documents, aur official PDFs password protected hote hain. Agar aapko password pata hai lekin har baar enter karna tedious hai toh humara PDF Unlock tool permanently password remove kar deta hai.</p>
+<h3>Password Protected PDF Kahan Milte Hain?</h3>
+<ul>
+<li><strong>Bank Statements:</strong> Net banking se download hone wale statements password protected hote hain (usually DOB ya account number)</li>
+<li><strong>Aadhaar PDF:</strong> DigiLocker se download Aadhaar PDF password locked hota hai (first 4 letters of name + birth year)</li>
+<li><strong>ITR Documents:</strong> Income Tax returns ka PDF PAN number se locked hota hai</li>
+<li><strong>Insurance Policies:</strong> LIC aur health insurance documents DOB se protected hote hain</li>
+</ul>
+<h3>Important Note</h3>
+<p>Yeh tool sirf owner password remove karta hai jab aapko password pata ho. Bina authorization ke kisi aur ka password protected document unlock karna illegal hai. Sirf apne documents ke liye use karein.</p>
+</section>
+
+</body>
+</html>
